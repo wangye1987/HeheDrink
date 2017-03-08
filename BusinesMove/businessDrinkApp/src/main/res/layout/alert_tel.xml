@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.92"
+    android:background="@color/color_545151"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/title_linear"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_49"
+            android:layout_marginLeft="7dp"
+            android:background="@color/white"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:id="@+id/tv_shopName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="超市"
+                android:textColor="@color/color_f98c43"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/tv_LinkName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_36"
+                android:text="张三"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_alignParentTop="true"
+                android:visibility="gone"
+                android:text="" />
+
+        </RelativeLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />
+
+        <LinearLayout
+            android:id="@+id/linear_tel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/white"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="确认支付" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ad_close" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_22"
+            android:layout_marginTop="@dimen/margin_15">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证码已经发送到手机:" />
+
+            <TextView
+                android:id="@+id/tv_notice_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="138*******" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginLeft="@dimen/margin_21"
+            android:layout_marginRight="@dimen/margin_21"
+            android:layout_marginTop="@dimen/margin_15"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="140dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@drawable/sharp_login">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="@string/postcode_text"
+                    android:textColor="@color/color_999999" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text"
+                    android:visibility="invisible" />
+
+                <com.heheys.ec.view.DeleteEditText
+                    android:id="@+id/code_et"
+                    style="@style/login_text_hint_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/tel_authcode"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/color_454545" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <com.heheys.ec.lib.view.RevealLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/outh_code"
+                        style="@style/white_text_style"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/button_height_40"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/margin_10"
+                        android:paddingRight="@dimen/margin_10"
+                        android:text="@string/send_postcode" />
+                </com.heheys.ec.lib.view.RevealLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_notice_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_14"
+            android:layout_marginLeft="@dimen/margin_22"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="" />
+
+        <Button
+            android:id="@+id/commit_verify"
+            android:layout_width="@dimen/button_width_100"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:background="@drawable/bt_bg_yellow"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16" />
+
+    </LinearLayout>
+
+</LinearLayout>

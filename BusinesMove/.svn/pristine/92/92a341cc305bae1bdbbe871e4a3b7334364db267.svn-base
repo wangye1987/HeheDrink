@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/linear_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/color_ffd946"
+        android:orientation="horizontal"
+        android:paddingBottom="2dp"
+        android:layout_alignParentTop="true">
+
+        <LinearLayout
+            android:id="@+id/linear_back_produce"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/base_activity_title_backicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/good_back" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_share"
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:layout_width="60dp"
+            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/iv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="@dimen/margin_10"
+            android:src="@drawable/good_share" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/linear_share"
+            android:layout_toRightOf="@id/linear_back_produce"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:id="@+id/linear_sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_marginRight="@dimen/margin_15"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="商品"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:id="@+id/line_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/black" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="详情"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/linear_xq"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_15"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_xq"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center|left"
+                    android:text="详情"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:id="@+id/line_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="1.5dp"
+                    android:background="@color/black"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linear_sj"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:layout_marginLeft="@dimen/margin_30"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_sj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="商家"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18" />
+
+                <TextView
+                    android:id="@+id/line_three"
+                    android:layout_width="36dp"
+                    android:layout_height="1.5dp"
+                    android:layout_gravity="bottom|left"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/black"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <include
+        android:id="@+id/lnclude_buttom"
+        layout="@layout/produce_buttom_buy"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"></include>
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_below="@id/linear_title"
+        android:layout_above="@id/lnclude_buttom"
+        android:layout_marginTop="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"></android.support.v4.view.ViewPager>
+
+    <com.heheys.ec.view.UserDefineScrollView
+        android:id="@+id/product_detail_top_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/lnclude_buttom"
+        android:layout_below="@id/viewpager">
+
+        <include
+            layout="@layout/content_h5"
+            android:visibility="visible" />
+    </com.heheys.ec.view.UserDefineScrollView>
+
+</RelativeLayout>

@@ -1,0 +1,520 @@
+package com.heheys.ec.controller.activity; 
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.LoginNamePwd;
+import com.heheys.ec.model.dataBean.ResultBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.SharedPreferencesUtil;
+import com.heheys.ec.utils.ToastNoNetWork;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.view.AlertDialogCustom;
+import com.heheys.ec.view.AlertDialogCustom.IsRegsiterOrMain;
+import com.heheys.ec.view.DeleteEditText;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
+
+//import com.alibaba.mobileim.IYWLoginService;
+//import com.alibaba.mobileim.YWAPI;
+//import com.alibaba.mobileim.YWIMKit;
+//import com.alibaba.mobileim.YWLoginParam;
+
+/** 
+ * @author 作者 E-mail: wk
+ * @version 创建时间：2015-9-24 下午5:16:43 
+ * 类说明 
+ * @param注册界面
+ */
+public class RegisterActivity extends BaseActivity {
+	private Timer countDownTimer;
+	private int mCountDown;
+	private TextView outh_code;
+	private Button commit_verify;
+	private  Context context;
+	private DeleteEditText register_tel,code_et,yaoqingma;
+	private  String tellength;
+	private String codelength;
+	private DeleteEditText password_one;
+//	private DeleteEditText password_two;
+	private Button commit_register;
+	private  String pwd_one;
+//	private static String pwd_two;
+	private String invitecode;//邀请码
+	private static int isCode;
+	private MyHandler handler = new MyHandler(this);
+//	private LinearLayout linear_code;	
+	private BaseBean loginBean;
+//	private YWIMKit mIMKit;
+	private ResultBean loginObj;
+	private MyApplication myApplication;
+	private ArrayList<LoginNamePwd> listpwd;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.register_beat2);
+		initView();
+		initDate();
+	}
+
+	private void initView() {
+		context = RegisterActivity.this;
+		register_tel = (DeleteEditText) findViewById(R.id.register_tel);
+		code_et = (DeleteEditText) findViewById(R.id.code_et);
+		yaoqingma = (DeleteEditText) findViewById(R.id.yaoqingma);
+	    outh_code = (TextView) findViewById(R.id.outh_code);
+		commit_verify = (Button) findViewById(R.id.commit_verify);
+		password_one = (DeleteEditText) findViewById(R.id.password_one);
+//		base_activity_title_right_parent = (LinearLayout) findViewById(R.id.base_activity_title_right_parent);
+//		base_activity_title_right_righttv = (TextView) findViewById(R.id.base_activity_title_right_righttv);
+		outh_code.setOnClickListener(this);
+		commit_verify.setOnClickListener(this);
+//		base_activity_title_right_righttv.setOnClickListener(this);
+//		base_activity_title_right_parent.setOnClickListener(this);
+//		tvRight.setTextSize(ViewUtil.px2dip(baseActivity, 24));
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.outh_code:
+			HashMap<String,String> map = new HashMap<String,String>();
+			map.put("buzType","注册");
+			MobclickAgent.onEvent(baseActivity, "C_REG_1",map); 
+			if(ToastNoNetWork.ToastError(context)){
+				return;
+			}
+			AuthTel();
+			break;
+		case R.id.commit_verify:
+			HashMap<String,String> maps = new HashMap<String,String>();
+			maps.put("authcodeRegister","");
+			MobclickAgent.onEvent(baseActivity, "C_REG_2"); 
+			if (ToastNoNetWork.ToastError(context)) {
+				return;
+			}
+			tellength = register_tel.getText().toString().trim(); 
+			codelength = code_et.getText().toString().trim(); 
+			pwd_one = password_one.getText().toString().trim();
+//			pwd_two = password_two.getText().toString().trim();
+			invitecode = yaoqingma.getText().toString().trim();//获取邀请码
+			if(tellength==null || tellength.equals("")){
+				ToastUtil.showToast(context, getResources().getString(R.string.notice_tel));
+				return;
+			}
+			if(!StringUtil.isMobileNo(tellength)){
+				ToastUtil.showToast(context, getResources().getString(R.string.notice_correct_phone));
+				return;
+			}
+//			if(invitecode==null || invitecode.equals("")){
+//				ToastUtil.showToast(context, getResources().getString(R.string.notice_correct_yqm));
+//				return;
+//			}
+			if(codelength==null || codelength.equals("")){
+				ToastUtil.showToast(context, getResources().getString(R.string.notice_code));
+				return;
+			}
+			if(pwd_one==null || pwd_one.equals("")){
+				ToastUtil.showToast(context, getResources().getString(R.string.notice_password));
+				return;
+			}
+//			if(pwd_two==null || pwd_two.equals("")){
+//				ToastUtil.showToast(context, getResources().getString(R.string.notice_password_next));
+//				return;
+//			}
+			if(pwd_one.length() < 6 ){
+				ToastUtil.showToast(context, getResources().getString(R.string.pwd_one_length));
+				return;
+			}
+//			if(!pwd_one.equals(pwd_two)){
+//				ToastUtil.showToast(context, getResources().getString(R.string.password_same));
+//				return;
+//			}
+			isCode = 2;//注册设置为2
+			
+			/*
+			 * 注册
+			 * 
+			 * **/
+			ApiHttpCilent.getInstance(context).RegisterApp(context, tellength, pwd_one, codelength,invitecode, new MyCallBack());
+			break;
+		case R.id.base_activity_title_backicon:
+			HashMap<String,String> mapss = new HashMap<String,String>();
+			mapss.put("registerback","");
+			MobclickAgent.onEvent(baseActivity, "C_REG_3"); 
+			// 返回键处理
+			onBackPressed();
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void AuthTel() {
+		tellength = register_tel.getText().toString().trim();
+//		if(ValidatorUtil.isMobile(tellength)){
+//			startCountDown();
+//		}else{
+//			ToastUtil.showToast(context, getResources().getString(R.string.notice_correct_phone));
+//			return;
+//		}
+		if(StringUtil.isEmpty(tellength)){
+			ToastUtil.showToast(context, getResources().getString(R.string.notice_tel));
+			return;
+		}
+		isCode = 1;//1 提示获取验证码成功
+ 		ApiHttpCilent.getInstance(context).ObtinCode(context, tellength, new MyCallBack(),ConstantsUtil.CODE_FLAG_1);//获取验证码
+	}
+	private void initDate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "注册";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	//验证码倒计时
+	private void startCountDown() {
+		mCountDown = ConstantsUtil.BACK_SECOND;
+		countDownTimer = new Timer();
+		TimerTask timerTask = new TimerTask() {
+
+			@Override
+			public void run() {
+				mCountDown--;
+				if (mCountDown < 0) {
+					countDownHandler
+							.sendEmptyMessage(ConstantsUtil.COUNT_DOWN_END);
+					countDownTimer.cancel();
+					countDownTimer = null;
+				} else {
+					countDownHandler.sendEmptyMessage(ConstantsUtil.COUNT_DOWNING);
+				}
+			}
+		};
+		countDownTimer.schedule(timerTask, 0, ConstantsUtil.COUNT_DOWN_TIME);
+	}
+
+	/**
+	 * 倒计时消息处理
+	 */
+	private Handler countDownHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case ConstantsUtil.COUNT_DOWNING:
+				outh_code.setText(mCountDown + "S"+"重新获取");
+				outh_code.setClickable(false);
+				outh_code.setTextColor(getResources().getColor(R.color.color_999999));
+				commit_verify.setBackgroundResource(R.drawable.bt_bg_yellow);
+				break;
+			case ConstantsUtil.COUNT_DOWN_END:
+				outh_code.setText("获取验证码");
+				outh_code.setClickable(true);
+				outh_code.setTextColor(getResources().getColor(R.color.color_af2942));
+				break;
+			default:
+				break;
+			}
+		}
+	};
+//	private LinearLayout base_activity_title_right_parent;
+//	private TextView base_activity_title_right_righttv;
+	private void Dimess(){
+		RegisterActivity.this.runOnUiThread( new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	
+	class MyCallBack extends  BaseJsonHttpResponseHandler<BaseBean>{
+	
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			loginBean = gson.fromJson(response,BaseBean.class);
+			Message message = Message.obtain();
+			if("1".equals(loginBean.getStatus()) && isCode==1){//正常获取验证码
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+			}else if("1".equals(loginBean.getStatus()) && isCode==2){//正常注册完成登录
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;// 正确
+				message.obj = loginBean.getResult();
+			}else if("1".equals(loginBean.getStatus()) && isCode==3){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;// 正确登录获取数据
+				message.obj = loginBean.getResult();
+			}else if("0".equals(loginBean.getStatus()) && isCode==1){
+				message.what = ConstantsUtil.HTTP_FAILE;//验证码错误
+				message.obj = loginBean.getError().getInfo();
+			}else if("1".equals(loginBean.getStatus()) && isCode==4){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LATER;//登录个推成功
+				message.obj = loginBean.getError().getInfo();
+			}else{
+				message.what = ConstantsUtil.HTTP_FAILE_LOGIN;// 注册完成登录错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return loginBean;
+		}
+	}
+	 public  class MyHandler extends WeakHandler<RegisterActivity>{
+		public MyHandler(RegisterActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+					startCountDown();
+					ToastUtil.showToast(getReference(),getReference().getResources().getString(R.string.getcode_success));
+					commit_verify.setEnabled(true);
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				String back = (String) msg.obj;
+				ToastUtil.showToast(getReference(),back);
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LATER:
+				//个推登录成功
+				break;
+			case ConstantsUtil.HTTP_FAILE_LOGIN:
+				ToastUtil.showToast(getReference(),(String) msg.obj);
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				ToastUtil.showToast(getReference(),getReference().getResources().getString(R.string.register_success));
+//				CheckModle();
+				isCode = 3;//登录接口成功调取
+				GetLogin();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+				SharedPreferencesUtil.saveObject(context, msg.obj,"resultbean");
+				SharedPreferencesUtil.writeSharedPreferencesBoolean(context, "login","islogin", true);
+				loginCidAndIM();
+				finish();
+				Intent intent = new Intent();
+				intent.setClass(context,MainActivity.class);
+				StartActivityUtil.startActivity((Activity) context, intent);
+				break;
+			default:
+				break;
+			}
+		}
+
+	 }
+
+	 /**
+	  * 注册主动登录推送和IM聊天
+	  * 
+	  * */
+	 private void loginCidAndIM() {
+		 /*
+		  * 登录IM
+		  * */
+//			final String userid = loginObj.getImaccount();
+//			mIMKit = YWAPI.getIMKitInstance(userid, ConstantsUtil.APP_KEY);
+//			myApplication = MyApplication.getInstance();
+//			myApplication.setmIMKit(mIMKit);
+//			loginService(userid,loginObj.getImpassword());
+
+		 loginObj = loginBean.getResult();
+			/*
+			 * 登录个推
+			 * */
+			MoreUserInfo();
+			SharedPreferencesUtil.saveObject(context, loginObj,"resultbean");
+			//保存当前登录获取的数据
+			SharedPreferencesUtil.writeSharedPreferencesBoolean(context,"login", "islogin", true);
+			Intent intent = new Intent();
+			intent.setAction(ConstantsUtil.LOGIIN_ACTION);
+			context.sendBroadcast(intent);
+			
+			//登录成功调取绑定cid事件
+		    String cid = SharedPreferencesUtil.getSharedPreferencesString(baseContext, "loginCid", "cid", "");
+		    isCode = 4;
+			ApiHttpCilent.getInstance(baseContext).BindCid(RegisterActivity.this, loginObj.getId(), cid, new MyCallBack());
+			SharedPreferencesUtil.writeSharedPreferencesString(baseContext, "loginId", "loginId",  loginObj.getId());
+		 
+	 }
+	//存储当前用户名密码
+		private void MoreUserInfo() {
+			listpwd = new ArrayList<LoginNamePwd>();
+			listpwd.clear();
+			//安全存储用户名
+			LoginNamePwd loginbean = new LoginNamePwd();
+			loginbean.setUserName(loginObj.getMobile());
+			loginbean.setUserPwd(pwd_one);
+			listpwd.add(loginbean);
+			SharedPreferencesUtil.saveObject(baseContext, listpwd, "loginUserPwd");
+		}
+//	 private void loginService(String imaccount, String impassword) {
+//			// TODO Auto-generated method stub
+//			//开始登录
+//			String userid = imaccount;
+//			String password = impassword;
+//			IYWLoginService loginService = myApplication.getmIMKit().getLoginService();
+//			YWLoginParam loginParam = YWLoginParam.createLoginParam(userid, password);
+//			loginService.login(loginParam, new com.alibaba.mobileim.channel.event.IWxCallback() {
+//				@Override
+//				public void onSuccess(Object... arg0) {
+//
+//				}
+//
+//				@Override
+//				public void onProgress(int arg0) {
+//				}
+//
+//				@Override
+//				public void onError(int arg0, String arg1) {
+//				}
+//			});
+//		}
+		public void GetLogin(){
+		ApiHttpCilent.getInstance(context).login(context,
+				StringUtil.filterSpace(tellength),
+				StringUtil.filterSpace(pwd_one), new MyCallBack());
+			}
+	 /**
+	  * 选择是否直接登录
+	  * 
+	  * */
+	 private void CheckModle() {
+		 final AlertDialogCustom alert =  new AlertDialogCustom();
+		 alert.CheckRegisterMain((Activity) context, loginBean.getResult(),new IsRegsiterOrMain() {
+			@Override
+			public void setResult(int modle) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				switch (modle) {
+				//继续提交认证资料
+				case 1:
+					MobclickAgent.onEvent(baseActivity, "C_REG_4");
+					
+					intent.putExtra("isRegister", true);
+					intent.putExtra("pwd_two", pwd_one);
+					intent.setClass(context,AuthActivity.class);
+					StartActivityUtil.startActivity((Activity) context, intent);
+					alert.Demiss();
+					break;
+				//先逛逛
+				case 2:
+					MobclickAgent.onEvent(baseActivity, "C_REG_5"); 
+					isCode = 3;//登录接口成功调取
+         			//调取登录接口
+					GetLogin();
+					alert.Demiss();
+					break;
+				default:
+					break;
+				}
+			}
+		});
+	 }
+	 public void onResume() {
+		    super.onResume();
+		    MobclickAgent.onPageStart("PG_REG");
+		    MobclickAgent.onResume(this);       //统计时长
+		}
+		public void onPause() {
+		    super.onPause();
+		    MobclickAgent.onPageEnd("PG_REG");
+		    MobclickAgent.onPause(this);
+		}
+}
+ 

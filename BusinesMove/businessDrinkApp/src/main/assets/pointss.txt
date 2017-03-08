@@ -1,0 +1,74 @@
+﻿{
+    "result": {
+         "pointstotal": "1800",
+                "pointshelp": "www.heheys.com",
+		"isremark":true,
+                "isreceive": "2",
+        "list": [
+            {
+                 "pointnum":"10",
+		   "pointdetail":"签到积分11",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分22",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分33",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分44",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分55",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分66",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分1",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分66",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分3",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分1",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分2",
+		   "time":"2016.07.07"
+                
+            },{
+                 "pointnum":"10",
+		   "pointdetail":"签到积分3",
+		   "time":"2016.07.07"
+                
+            }
+        ]
+    },
+    "error": {},
+    "status": 1
+}
+

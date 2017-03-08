@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="SecurityGuardSDK-5.1.38">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/businessDrinkApp/libs/SecurityGuardSDK-5.1.38.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

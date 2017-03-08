@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:background="@color/color_ffd946"
+    android:padding="5dp" >
+
+
+
+    <ImageView
+        android:id="@+id/iv_scan"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/scan" />
+    <!--<RelativeLayout
+        android:id="@+id/fragment_home_title_search_parent"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_weight="7"
+        android:background="@drawable/home_search_bg"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id="@+id/fragment_home_title_search_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/home_search" />
+
+        <EditText
+            android:id="@+id/fragment_home_title_search_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/fragment_home_title_search_icon"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="请输入酒的名称或拼音"
+            android:imeOptions="actionSearch"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:textColorHint="@color/color_c8c8c8"
+            android:textSize="12sp" />
+    </RelativeLayout>-->
+    <LinearLayout
+        android:id="@+id/fragment_home_title_check_city"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/fragment_home_title_location_city"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:ellipsize="end"
+        android:layout_margin="@dimen/margin_5"
+        android:lineSpacingExtra="3dp"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10"
+        android:maxLines="1"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="我的位置:北京"
+        android:drawableRight="@drawable/arrow_down"
+        android:background="@drawable/location_shape"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+</LinearLayout>
+    <RelativeLayout
+        android:id="@+id/fragment_home_search_relative"
+        android:layout_width="50dp"
+        android:layout_height="fill_parent"
+        android:paddingRight="5dp"
+        android:clickable="true"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/fragment_home_title_search"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/search_icon_main" />
+
+
+    </RelativeLayout>
+
+</LinearLayout>

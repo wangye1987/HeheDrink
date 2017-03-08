@@ -1,0 +1,2248 @@
+package com.heheys.ec.controller.activity;
+
+import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import net.sourceforge.simcpux.Util;
+
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Message;
+import android.os.Parcelable;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.WebSettings;
+import android.webkit.WebSettings.LayoutAlgorithm;
+import android.webkit.WebView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.alibaba.mobileim.YWIMKit;
+import com.alibaba.mobileim.conversation.EServiceContact;
+import com.alibaba.wireless.security.jaq.JAQException;
+import com.alibaba.wireless.security.jaq.SecurityCipher;
+import com.alibaba.wireless.security.jaq.SecurityInit;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.heheys.ec.R;
+import com.heheys.ec.animationManage.ProductDetailAnimation;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.application.MyApplication.LoginCallBack;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.CustomTimerTask;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.TimeUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.lib.view.BadgeView;
+import com.heheys.ec.lib.view.CustomViewPager;
+import com.heheys.ec.lib.view.GridViewScrollview;
+import com.heheys.ec.lib.view.ViewUtil;
+import com.heheys.ec.model.adapter.PoductDetailBaseInforAdapter;
+import com.heheys.ec.model.dataBean.AddShoppingCartBean;
+import com.heheys.ec.model.dataBean.ImBaseBean;
+import com.heheys.ec.model.dataBean.NewProductDetailInfor.NewProductInfor.Suitinfo;
+import com.heheys.ec.model.dataBean.NewProductDetailInfor.NewProductInfor.listItemDate;
+import com.heheys.ec.model.dataBean.NewShoppingCartInforBean;
+import com.heheys.ec.model.dataBean.ImBaseBean.ImHeHe;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.OrderList;
+import com.heheys.ec.model.dataBean.NewProductDetailInfor;
+import com.heheys.ec.model.dataBean.NewProductDetailInfor.NewProductInfor;
+import com.heheys.ec.model.dataBean.NewProductDetailInfor.NewProductInfor.NewProductBaseInfor;
+import com.heheys.ec.model.dataBean.NewShoppingCartInforBean.NewProductInfo;
+import com.heheys.ec.model.dataBean.PoductDetailBaseInforBean;
+import com.heheys.ec.model.dataBean.ShareBaseBean;
+import com.heheys.ec.model.dataBean.ShoppingCartSelectBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ActivityManagerUtil;
+import com.heheys.ec.utils.AnimationUtil;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.IsLogin;
+import com.heheys.ec.utils.Rotate3dAnimation;
+import com.heheys.ec.utils.SharedPreferencesUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.utils.Utils;
+import com.heheys.ec.view.AlertDialogCustom;
+import com.heheys.ec.view.UserDefineScrollView;
+import com.heheys.ec.view.UserDefineScrollView.OnLoadMore;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
+//import com.alibaba.mobileim.conversation.EServiceContact;
+//import com.heheys.ec.thirdPartyModule.IM.IMHelper;
+//import com.heheys.ec.thirdPartyModule.IM.LoginSampleHelper;
+
+/**
+ * @author wangkui E-mail:wang6851317@sina.com
+ * @version 1.0
+ * @param 创建时间
+ *            ：2016-3-18 上午9:58:40 类说明 商品详情
+ */
+public class NewProductDetailActivity extends BaseActivity implements OnLoadMore
+		 {
+//	ScrollListener {
+	private static final String TAG = NewProductDetailActivity.class.getName();
+	private int indexButtomStatus = 0;
+	private int indexTopStatus = 0;
+	// 图片浏览控件
+	private CustomViewPager mViewPager;
+	// 显示图片数量控件
+	private TextView tvCurrentNum, tvTotalNum, tv_unit, TextView02,
+			supportarrive;
+	public static int SCREENWIDTH;
+	public static int SCREENHEIGHT;
+	// private RelativeLayout rlNumParentLayout;
+	private TextView tvNormalPrice, tvActivityPrice;
+	private NewProductDetailInfor productDetailInfor;
+	private NewProductInfor productInfor;
+	private ProductDetailMessageHandler productMessageHandler;
+	private AddShoppingCartMessageHandler addShoppingCartMessageHandler;
+	//活动ID
+	private String productIdString;
+	private TextView tvProductDes, tvProductName, tvPriceRange, tvCanbuyNum,
+			tvProductTotalNum;
+	private TextView btAddShoppingCart, bt_buy;
+	private AddShoppingCartBean addShoppingCartData;
+	// private EditText etNum;
+	private List<String> pic;
+	private PoductDetailBaseInforAdapter baseInforAdapter;
+	private List<PoductDetailBaseInforBean> baseInforBeans;
+	private GridViewScrollview gvBaseInfor;
+	private ImageView iv_pin;
+	// 最大购买量
+	private int maxBuyNum;
+	// 最小购买量
+	private int minBuyNum;
+	private TextView tvProductFreight, tvProductStandard;
+	private LinearLayout llBottomParent;
+	// private LinearLayout linear_reduce;
+	private LinearLayout linear_buttom_pb, linear_more, linear_moreinfo;
+	private boolean isPush;
+	// 倒计时控件
+	private TextView tvDay, tvHour, tvMinute, tvSecond;
+	private TextView goods_buyed, goods_price, goods_one_price;
+	private TextView tv_min, tv_total, tv_left_total, goods_name;
+	private TextView tv_lable1, tv_lable2, tv_lable3;
+	private TextView goods_num, goods_min_num, goods_gg;
+	private TextView tv_yunfei, goods_pp, goods_area, TextView01;
+	private TextView goods_tj, goods_yl, goods_ds;
+	private TextView goods_jhl, goods_cs;
+	private TextView tv_fl, goods_zl, goods_pz,view_line,view_line_two;
+	private LinearLayout linear_jdgg;
+	private CustomTimerTask task;
+	private LinearLayout llShareParent;
+	private LinearLayout linear_tj;
+	private LinearLayout linear_yl, linear_tz;
+	private LinearLayout linear_single;// 单品显示的视图
+	private TextView tvMinBuy;
+	private RelativeLayout llVpNumParent;
+	private Bitmap currentBitmap;
+	private ImageView ivAnimation;
+	private ImageView iv_activity;
+	private LinearLayout product_detail_time_parent, linear_pb, time,
+			linear_right;
+	private ProgressBar pb;
+	private OrderList paymentbean;
+	ArrayList<String> list = new ArrayList<String>();
+	private int groupId;// im聊天组id
+	private String groupName;// im聊天名字
+	private IWXAPI api;// 微信api
+	// 缓存非编辑状态下勾选商品的信息
+	public List<ShoppingCartSelectBean> selectProductNotInEdit;
+	int issold;// 已售
+	int knum;// 库存
+	private ImageView iv_jinxuan;
+	private NewProductBaseInfor baseInfo;
+	private NewOrderBaseBean bean;// 一键购买返回数据bean
+	private OrderList orderbean;// 预览订单返回数据
+	private String verifystatus;
+	private YWIMKit mWIMKit;
+	private MyApplication myApplication;
+	// private PagerTabStrip tabStrip;
+	private ViewPager pager;
+	private View view_detaile;
+	private View view_h5;
+	private ArrayList<View> viewContainter = new ArrayList<View>();
+	private ArrayList<String> titleContainer = new ArrayList<String>();
+	private MyPagerAdapter viewAdapter;
+	private WebView webview_h5;
+	private TextView line_one;
+	private TextView tv_sp;
+	private TextView tv_xq;
+	private LinearLayout linear_sp;
+	private LinearLayout linear_xq, linear_back;
+	private MyOnPageChangeLister pageChangeLister;
+	private UserDefineScrollView product_detail_top_parent;
+	private UserDefineScrollView product_detail_top_child;
+//	private ScrollViewPullLargen product_detail_top_parent;
+	private TextView linear_tel;
+	private TextView tv_ontel;
+	private TextView tv_online;
+	private LinearLayout linear_horizontal;
+	private RelativeLayout relative_more;
+	// 购物车数据bean
+	private NewShoppingCartInforBean shoppingCartData;
+	private BadgeView shopping_cart;// 购物车小角标
+	private TextView shoppingcare_num;
+	private FrameLayout relative_shopping;
+	private TextView imageView_shopping;
+	private TextView tv_kc;
+	private PopupWindow popupWindow;
+	private ImageView iv_thimal;
+	private TextView tv_more;
+	private TextView tv_title;
+	private TextView tv_tzj;
+	private TextView tv_save;
+	private TextView tv_num;
+	private ImageView tv_dd;
+	private ImageView iv_jia;
+	private WebView h5_webview_main;
+	private TextView tv_center;
+	private boolean  isFirstBack = true;//是否是第一次点击返回
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setBaseContentView(R.layout.produce_detail);
+	}
+
+	/*
+	 * 执行动画滑动 index 当前是哪个页面
+	 */
+	void startAnimation(int index) {
+		AnimationSet set = new AnimationSet(true);
+		TranslateAnimation tlanimetion;
+		if (1 == index) {
+			tlanimetion = new TranslateAnimation(Animation.RELATIVE_TO_SELF,
+					ViewUtil.dip2px(baseActivity, 64) + tv_sp.getWidth(), 0, 0);
+		} else {
+			tlanimetion = new TranslateAnimation(ViewUtil.dip2px(baseActivity,
+					64) + tv_sp.getWidth(), Animation.RELATIVE_TO_SELF, 0, 0);
+		}
+		tlanimetion.setDuration(300);
+		set.setFillAfter(true);
+		set.addAnimation(tlanimetion);
+		line_one.startAnimation(set);
+	}
+
+	private void initView() {
+		pager = (ViewPager) this.findViewById(R.id.viewpager);
+		h5_webview_main = (WebView) this.findViewById(R.id.webView_content);
+		tv_center = (TextView) this.findViewById(R.id.tv_center);
+		line_one = (TextView) this.findViewById(R.id.line_one);
+		tv_sp = (TextView) this.findViewById(R.id.tv_sp);
+		tv_xq = (TextView) this.findViewById(R.id.tv_xq);
+		product_detail_top_parent = (UserDefineScrollView) 
+				findViewById(R.id.product_detail_top_parent);
+		shoppingcare_num = (TextView) this.findViewById(R.id.shoppingcare_num);
+		imageView_shopping = (TextView) this
+				.findViewById(R.id.group_buy_list_shopping_cart);
+		relative_shopping = (FrameLayout) this
+				.findViewById(R.id.relative_shopping);
+		linear_sp = (LinearLayout) this.findViewById(R.id.linear_sp);
+		linear_xq = (LinearLayout) this.findViewById(R.id.linear_xq);
+		linear_back = (LinearLayout) this
+				.findViewById(R.id.linear_back_produce);
+		linear_sp.setOnClickListener(this);
+		linear_xq.setOnClickListener(this);
+		linear_back.setOnClickListener(this);
+		imageView_shopping.setOnClickListener(this);
+		relative_shopping.setOnClickListener(this);
+		product_detail_top_parent.setScrollListener(this);
+		view_detaile = LayoutInflater.from(this).inflate(
+				R.layout.new_product_datail, null);
+		view_h5 = LayoutInflater.from(this).inflate(R.layout.content_h5, null);
+		viewContainter.add(view_detaile);
+		viewContainter.add(view_h5);
+		titleContainer.add("商品");
+		titleContainer.add("详情");
+		viewAdapter = new MyPagerAdapter();
+		pageChangeLister = new MyOnPageChangeLister();
+		pager.setAdapter(viewAdapter);
+		pager.setOnPageChangeListener(pageChangeLister);
+		setH5(h5_webview_main);
+		pager.setOnTouchListener(new View.OnTouchListener() {  
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				 v.getParent().requestDisallowInterceptTouchEvent(true);  
+		            return false; 
+			}  
+	    });   
+	}
+
+	class MyOnPageChangeLister implements OnPageChangeListener { 
+		@Override
+		public void onPageScrollStateChanged(int index) {
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			pager.getParent().requestDisallowInterceptTouchEvent(true); 
+		}
+ 
+		@Override
+		public void onPageSelected(int arg0) {
+			// TODO Auto-generated method stub
+			startAnimation(arg0);
+		}
+	}
+
+	// 适配器
+	class MyPagerAdapter extends PagerAdapter {
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return viewContainter.size();
+		}
+
+		@Override
+		public boolean isViewFromObject(View arg0, Object arg1) {
+			// TODO Auto-generated method stub
+			return arg0 == arg1;
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			// TODO Auto-generated method stub
+			container.removeView(viewContainter.get(position));
+		}
+
+		@Override
+		public int getItemPosition(Object object) {
+			// TODO Auto-generated method stub
+			return super.getItemPosition(object);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			// TODO Auto-generated method stub
+			return titleContainer.get(position);
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup container, int position) {
+			// TODO Auto-generated method stub
+			container.addView(viewContainter.get(position));
+			return viewContainter.get(position);
+		}
+	}
+
+	// 设置H5数据属性
+	private void setH5(WebView webview) {
+		WebSettings ws = webview.getSettings();
+		webview.setClickable(true);
+		webview.setVerticalScrollBarEnabled(false);
+		webview.setHorizontalScrollBarEnabled(false);
+
+		ws.setJavaScriptEnabled(true);
+		ws.setJavaScriptCanOpenWindowsAutomatically(true);
+		ws.setBuiltInZoomControls(true);// support zoom
+		ws.setUseWideViewPort(true);// 这个很关键
+		ws.setLoadWithOverviewMode(true);
+		ws.setDefaultTextEncodingName("UTF-8");
+		ws.setDefaultFontSize((int) 15);
+		ws.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
+		WindowManager wm = (WindowManager) this
+				.getSystemService(Context.WINDOW_SERVICE);
+		int width = wm.getDefaultDisplay().getWidth();
+		if (width > 650) {
+			webview.setInitialScale(190);
+		} else if (width > 520) {
+			webview.setInitialScale(160);
+		} else if (width > 450) {
+			webview.setInitialScale(140);
+		} else if (width > 300) {
+			webview.setInitialScale(120);
+		} else {
+			webview.setInitialScale(100);
+		}
+		// sdk小于17版本号的 移除以下接口调用漏洞
+		if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			webview.removeJavascriptInterface("searchBoxJavaBridge_");
+			webview.removeJavascriptInterface("accessibility");
+			webview.removeJavascriptInterface("accessibilityTraversal");
+		}
+
+	}
+
+	@Override
+	protected void onCreate() {
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		return false;
+	}
+
+	@Override
+	protected void loadChildView() {
+		initView();
+		webview_h5 = (WebView) view_h5.findViewById(R.id.webView_content);
+		linear_tj = (LinearLayout) view_detaile.findViewById(R.id.linear_tj);
+		linear_tz = (LinearLayout) view_detaile.findViewById(R.id.linear_tz);
+		linear_yl = (LinearLayout) view_detaile.findViewById(R.id.linear_yl);
+		linear_single = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_single);
+		tv_kc = (TextView) view_detaile.findViewById(R.id.tv_kc);
+		tv_num = (TextView) view_detaile.findViewById(R.id.tv_num);
+		tv_dd = (ImageView) view_detaile.findViewById(R.id.tv_dd);
+		tv_more = (TextView) view_detaile.findViewById(R.id.tv_more);
+		tv_save = (TextView) view_detaile.findViewById(R.id.tv_save);
+		tv_tzj = (TextView) view_detaile.findViewById(R.id.tv_tzj);
+		tv_title = (TextView) view_detaile.findViewById(R.id.tv_title);
+		product_detail_top_child = (UserDefineScrollView) 
+				view_detaile.findViewById(R.id.product_detail_top_parent);
+		llShareParent = (LinearLayout) view_detaile
+				.findViewById(R.id.product_detail_share_parent);
+		llVpNumParent = (RelativeLayout) view_detaile
+				.findViewById(R.id.product_detail_num_parent);
+		relative_more = (RelativeLayout) view_detaile
+				.findViewById(R.id.relative_more);
+		// linear_reduce = (LinearLayout) findViewById(R.id.linear_reduce);
+		// linear_add = (LinearLayout)findViewById(R.id.linear_add);
+		linear_buttom_pb = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_buttom_pb);
+		linear_more = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_more);
+		linear_moreinfo = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_moreinfo);
+		// ivReduce = (ImageView) findViewById(R.id.product_detail_num_reduce);
+		// ivAdd = (ImageView) findViewById(R.id.product_detail_num_add);
+		iv_pin = (ImageView) view_detaile.findViewById(R.id.iv_pin);
+		bt_buy = (TextView) findViewById(R.id.bt_buy);
+		bt_buy.setOnClickListener(this);
+		btAddShoppingCart = (TextView) findViewById(R.id.product_detail_add_shoppingcart);
+		llBottomParent = (LinearLayout) findViewById(R.id.product_detail_bottom_parent);
+		iv_activity = (ImageView) view_detaile.findViewById(R.id.iv_activity);
+		ivAnimation = (ImageView) view_detaile
+				.findViewById(R.id.product_detail_animation);
+		linear_tel = (TextView) findViewById(R.id.linear_tel);
+		supportarrive = (TextView) view_detaile
+				.findViewById(R.id.supportarrive);
+		tv_unit = (TextView) view_detaile.findViewById(R.id.tv_unit);
+		TextView02 = (TextView) view_detaile.findViewById(R.id.TextView02);
+		tvTotalNum = (TextView) view_detaile
+				.findViewById(R.id.product_detail_totaltnum_tv);
+		tvCurrentNum = (TextView) view_detaile
+				.findViewById(R.id.product_detail_currentnum_tv);
+		tvDay = (TextView) view_detaile.findViewById(R.id.product_day);
+		tvHour = (TextView) view_detaile.findViewById(R.id.product_hour);
+		tvMinute = (TextView) view_detaile.findViewById(R.id.product_minute);
+		tvSecond = (TextView) view_detaile.findViewById(R.id.product_second);
+		goods_name = (TextView) view_detaile.findViewById(R.id.goods_name);
+		goods_price = (TextView) view_detaile.findViewById(R.id.goods_price);
+		goods_one_price = (TextView) view_detaile
+				.findViewById(R.id.goods_one_price);
+		linear_horizontal = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_horizontal);
+		goods_buyed = (TextView) view_detaile.findViewById(R.id.goods_buyed);
+		tv_min = (TextView) view_detaile.findViewById(R.id.tv_min);
+		tv_total = (TextView) view_detaile.findViewById(R.id.tv_total);
+		tv_left_total = (TextView) view_detaile
+				.findViewById(R.id.tv_left_total);
+		tv_lable1 = (TextView) view_detaile.findViewById(R.id.tv_lable1);
+		tv_lable2 = (TextView) view_detaile.findViewById(R.id.tv_lable2);
+		tv_lable3 = (TextView) view_detaile.findViewById(R.id.tv_lable3);
+		goods_num = (TextView) view_detaile.findViewById(R.id.goods_num);
+		goods_min_num = (TextView) view_detaile
+				.findViewById(R.id.goods_min_num);
+		goods_gg = (TextView) view_detaile.findViewById(R.id.goods_gg);
+		tv_yunfei = (TextView) view_detaile.findViewById(R.id.tv_yunfei);
+		goods_pp = (TextView) view_detaile.findViewById(R.id.goods_pp);
+		TextView01 = (TextView) view_detaile.findViewById(R.id.TextView01);
+		goods_area = (TextView) view_detaile.findViewById(R.id.goods_area);
+		goods_tj = (TextView) view_detaile.findViewById(R.id.goods_tj);
+		goods_yl = (TextView) view_detaile.findViewById(R.id.goods_yl);
+		goods_ds = (TextView) view_detaile.findViewById(R.id.goods_ds);
+		goods_jhl = (TextView) view_detaile.findViewById(R.id.goods_jhl);
+		goods_cs = (TextView) view_detaile.findViewById(R.id.goods_cs);
+		goods_zl = (TextView) view_detaile.findViewById(R.id.goods_zl);
+		goods_pz = (TextView) view_detaile.findViewById(R.id.goods_pz);
+		view_line = (TextView) view_detaile.findViewById(R.id.view_line);
+		view_line_two = (TextView) view_detaile.findViewById(R.id.view_line_two);
+		iv_jinxuan = (ImageView) view_detaile.findViewById(R.id.iv_jinxuan);
+		linear_pb = (LinearLayout) view_detaile.findViewById(R.id.linear_pb);
+		linear_right = (LinearLayout) findViewById(R.id.base_activity_title_right_parent);
+
+		pb = (ProgressBar) view_detaile
+				.findViewById(R.id.group_buy_grid_item_pb);
+		time = (LinearLayout) view_detaile.findViewById(R.id.time);
+		tv_fl = (TextView) view_detaile.findViewById(R.id.tv_fl);
+		linear_jdgg = (LinearLayout) view_detaile
+				.findViewById(R.id.linear_jdgg);
+
+		mViewPager = (CustomViewPager) view_detaile
+				.findViewById(R.id.product_detail_vp);
+		mViewPager.setOffscreenPageLimit(0);
+		mViewPager.setFocusable(true);
+		product_detail_top_child.setScrollListener(this);
+		linear_tel.setOnClickListener(this);
+		linear_moreinfo.setOnClickListener(this);
+		relative_more.setOnClickListener(this);
+		linear_horizontal.setOnClickListener(this);
+		setH5(webview_h5);
+		initData();
+	}
+
+	/**
+	 * 
+	 * Describe:初始化数据
+	 * 
+	 * Date:2015-9-23
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void initData() {
+		// TODO Auto-generated method stub
+		// AlphaAnimation alpha = new AlphaAnimation(0.7F, 0.7F);
+		// alpha.setDuration(0); // Make animation instant
+		// alpha.setFillAfter(true); // Tell it to persist after the animation
+		// ends
+		// llBottomParent.startAnimation(alpha);
+		llBottomParent.getBackground().setAlpha(204);
+		llVpNumParent.getBackground().setAlpha(125);
+		addShoppingCartMessageHandler = new AddShoppingCartMessageHandler(this);
+		productMessageHandler = new ProductDetailMessageHandler(this);
+		// orderMessageHandler = new MyOrderHandler(this);
+		selectProductNotInEdit = new ArrayList<ShoppingCartSelectBean>();
+		productIdString = getIntent().getStringExtra(
+				ConstantsUtil.PRODUCT_ID_KEY);
+		myApplication = MyApplication.getInstance();
+		mWIMKit = myApplication.getmIMKit();
+		isPush = getIntent().getBooleanExtra("isPush", false);
+//		if (isPush)
+//			SharedPreferencesUtil.writeSharedPreferencesBoolean(this,
+//					"message", "new", false);
+		// ToastUtil.showToast(baseContext, "活动ID" + productIdString);
+		try {
+			if (SecurityInit.Initialize(this) == 0) {
+				SecurityCipher securityCipher = new SecurityCipher(this);
+				String wx_later_wx = securityCipher.decryptString(
+						ConstantsUtil.APP_ID, ConstantsUtil.JAQ_KEY);
+				api = WXAPIFactory.createWXAPI(this, wx_later_wx);
+			} else {
+				api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			}
+		} catch (JAQException e) {
+			// TODO Auto-generated catch block
+			api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	protected void getNetData() {
+		ApiHttpCilent.getInstance(this).getNewProductDetailInfor(this,
+				productIdString, new GetProductDetailRequestCallBack());
+		// 获取客服列表
+		ApiHttpCilent.getInstance(this)
+				.RequsetIM(this, new ImRequestCallBack());
+
+		// 获取购物车数据
+		getShoppingCartDate();
+	}
+
+	void getShoppingCartDate() {
+		// 获取购物车数据
+		ApiHttpCilent.getInstance(this).getShoppingCartInfor(baseActivity,
+				new ShoppingCartInforRequestCallBack());
+	}
+
+	/*
+	 * 获取购物车数据 *
+	 */
+	public class ShoppingCartInforRequestCallBack extends
+			BaseJsonHttpResponseHandler<NewShoppingCartInforBean> {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, NewShoppingCartInforBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			addShoppingCartMessageHandler.sendMessage(message);
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				NewShoppingCartInforBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected NewShoppingCartInforBean parseResponse(String response,
+				boolean arg1) throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			shoppingCartData = gson.fromJson(response,
+					NewShoppingCartInforBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(shoppingCartData.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LATER;
+				message.obj = shoppingCartData.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = shoppingCartData.getError().getInfo();
+			}
+			addShoppingCartMessageHandler.sendMessage(message);
+			return shoppingCartData;
+		}
+
+	}
+
+	/**
+	 * 
+	 * Describe:数据请求回调
+	 * 
+	 * Date:2015-10-12
+	 * 
+	 * Author:liuzhouliang
+	 */
+	public class GetProductDetailRequestCallBack extends
+			BaseJsonHttpResponseHandler<NewProductDetailInfor> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, NewProductDetailInfor arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			productMessageHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				NewProductDetailInfor arg3) {
+		}
+
+		@Override
+		protected NewProductDetailInfor parseResponse(String response,
+				boolean arg1) throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			try {
+				productDetailInfor = gson.fromJson(response,
+						NewProductDetailInfor.class);
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			Message message = Message.obtain();
+			if ("1".equals(productDetailInfor.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = productDetailInfor.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = productDetailInfor.getError().getInfo();
+			}
+			productMessageHandler.sendMessage(message);
+			return productDetailInfor;
+		}
+	}
+
+	/*
+	 * Im聊天
+	 */
+	public class ImRequestCallBack extends
+			BaseJsonHttpResponseHandler<ImBaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, ImBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			productMessageHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				ImBaseBean arg3) {
+		}
+
+		@Override
+		protected ImBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			ImBaseBean sharebean = gson.fromJson(response, ImBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(sharebean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+				message.obj = sharebean.getResult().getList();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = sharebean.getError().getInfo();
+			}
+			productMessageHandler.sendMessage(message);
+			return sharebean;
+		}
+	}
+
+	/*
+	 * 一键分享
+	 */
+	public class ShareRequestCallBack extends
+			BaseJsonHttpResponseHandler<ShareBaseBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, ShareBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			productMessageHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				ShareBaseBean arg3) {
+		}
+
+		@Override
+		protected ShareBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			ShareBaseBean sharebean = gson.fromJson(response,
+					ShareBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(sharebean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+				message.obj = sharebean.getResult().getShareurl();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = sharebean.getError().getInfo();
+			}
+			productMessageHandler.sendMessage(message);
+			return sharebean;
+		}
+	}
+
+	/**
+	 * 
+	 * Describe:处理消息返回
+	 * 
+	 * Date:2015-10-12
+	 * 
+	 * Author:liuzhouliang
+	 */
+	public static class ProductDetailMessageHandler extends
+			WeakHandler<NewProductDetailActivity> {
+
+		public ProductDetailMessageHandler(NewProductDetailActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				/**
+				 * 处理成功的数据
+				 */
+				getReference().productInfor = getReference().productDetailInfor
+						.getResult();
+				getReference().bindViewData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				/**
+				 * 处理成功的获取的IM数据
+				 */
+				@SuppressWarnings("unchecked")
+				ArrayList<ImHeHe> imList = (ArrayList<ImHeHe>) msg.obj;
+				if (imList != null && imList.size() > 0) {
+					getReference().groupName = imList.get(0).getName();
+					getReference().groupId = imList.get(0).getGroupid();
+				}
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+				String shareurl = (String) msg.obj;
+				// 获取分享url
+				Intent intent = new Intent(getReference(),
+						PayTypeActivity.class);
+				intent.putExtra("share", "share");
+				intent.putExtra("url", "快来喝喝拼单吧  商品:"
+						+ getReference().productInfor.getName() + "\r\n"
+						+ shareurl);
+				StartActivityUtil.startActivity(getReference(), intent);
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LATER:
+				// 获取基本认证信息
+				break;
+			case ConstantsUtil.ALI_BACK_CODE:
+				// 生成预览订单成功
+				getReference().orderbean = (OrderList) msg.obj;
+				getReference().ToOrderPre(getReference().orderbean);
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				/**
+				 * 处理失败的数据
+				 */
+				String errorBean = (String) msg.obj;
+				if (!StringUtil.isEmpty(errorBean)) {
+					ToastUtil.showToast(getReference(), errorBean);
+//					if ("100".equals(ErrorBean.getCode())) {
+//						LoginSampleHelper.getInstance().loginOut_Sample(
+//								getReference().baseActivity);
+//					}
+				}
+				break;
+			case ConstantsUtil.HTTP_NEED_LOGIN:
+				//需要登录
+				MyApplication.getInstance().startLogin(new LoginCallBack() {
+					
+					@Override
+					public void loginSuccess() {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent(getReference().baseActivity, NewProductDetailActivity.class);
+						intent.putExtra(ConstantsUtil.PRODUCT_ID_KEY, getReference().productIdString);// 活动ID
+						StartActivityUtil.startActivity(getReference().baseActivity, intent);
+						getReference().baseActivity.finish();
+					}
+					
+					@Override
+					public void loginFail() {
+						// TODO Auto-generated method stub
+						
+					}
+				}, getReference().baseActivity);
+				break;
+			}
+		}
+
+	}
+
+	// 跳转到生成预览订单界面
+	private void ToOrderPre(OrderList bean) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		intent.setClass(baseContext, NewOrderDetailActivity.class);
+		intent.putExtra("bean", orderbean);
+		intent.putExtra("from", "0");
+		// intent.putExtra("islist", false);//代码是列表传递 记录当前页面返回还是当前页面
+		intent.putExtra("selectProductNotInEditToNext",
+				(Serializable) selectProductNotInEdit);
+		StartActivityUtil.startActivity((Activity) baseContext, intent);
+	}
+
+	private boolean isShowActivityIcon(String state, ImageView iv) {
+		/*
+		 * 5、已售罄 6、已下架 拼单： 1、正常 2、已抢光 3、已结束 4、已成单
+		 */
+		iv.setVisibility(View.VISIBLE);
+		if ("0".equals(state)) {
+			/**
+			 * 未开始
+			 */
+			iv.setVisibility(View.INVISIBLE);
+			return false;
+		} else if ("1".equals(state)) {
+			/**
+			 * 已经开始
+			 */
+			iv.setVisibility(View.INVISIBLE);
+			return false;
+		} else if ("2".equals(state)) {
+			/**
+			 * 已经抢光
+			 */
+			iv.setImageResource(R.drawable.yiqiangguang);
+			return true;
+		} else if ("3".equals(state)) {
+			/**
+			 * 已经结束
+			 */
+			iv.setImageResource(R.drawable.yichengdan);
+			return true;
+		} else if ("4".equals(state)) {
+			/**
+			 * 已经成单 不能生成订单
+			 */
+			iv.setImageResource(R.drawable.yichengdan);
+			return true;
+		} else if ("5".equals(state)) {
+			/**
+			 * 已经售罄
+			 */
+			iv.setImageResource(R.drawable.yishouqing);
+			return true;
+		} else if ("6".equals(state)) {
+			/**
+			 * 已经下架
+			 */
+			iv.setImageResource(R.drawable.yishouqing);
+			return true;
+		} else {
+			iv.setVisibility(View.INVISIBLE);
+			return false;
+		}
+	}
+
+	// 设置H5页面
+	void setH5Url(String url,WebView webview) {
+		// 获取session 加载到url中
+		List<Cookie> listcook = MyApplication.getInstance().getCookieStore()
+				.getCookies();
+		if (listcook.size() > 0) {
+			Cookie sessionCookie = listcook.get(0);
+			if (sessionCookie != null) {
+				CookieSyncManager.createInstance(baseActivity);
+				CookieManager cookieManager = CookieManager.getInstance();
+				cookieManager.setAcceptCookie(true);
+				cookieManager.removeSessionCookie();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				String cookieString = sessionCookie.getName() + "="
+						+ sessionCookie.getValue() + "; domain="
+						+ sessionCookie.getDomain() + "; path="
+						+ sessionCookie.getPath();
+				cookieManager.setCookie(url, cookieString);
+				CookieSyncManager.getInstance().sync();
+			}
+		}
+		webview.loadUrl(url);
+	}
+
+	/**
+	 * 
+	 * Describe:绑定控件数据
+	 * 
+	 * Date:2015-10-12
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void bindViewData() {
+
+		if (productDetailInfor != null) {
+			productInfor = productDetailInfor.getResult();
+			linear_moreinfo.setVisibility(View.VISIBLE);
+			if (productInfor != null) {
+				// 0:普通商品 1:组合套装
+				setH5Url(productInfor.getIntroduce_url(),h5_webview_main);
+				setH5Url(productInfor.getIntroduce_url(),webview_h5);
+				if(Integer.parseInt(StringUtil.isEmpty(productInfor.getSuitcount())?"0":productInfor.getSuitcount()) <= 0){
+					relative_more.setVisibility(View.GONE);
+					view_line.setVisibility(View.GONE);
+					view_line_two.setVisibility(View.GONE);
+				}else{
+					relative_more.setVisibility(View.VISIBLE);
+					view_line.setVisibility(View.VISIBLE);
+					view_line_two.setVisibility(View.VISIBLE);
+				}
+				Suitinfo suitinfo = productInfor.getSuit();
+				if (suitinfo != null && suitinfo.getListItem() != null) {
+					List<listItemDate> listDate = suitinfo.getListItem();
+					int size = listDate.size();
+					tv_num.setText("共" + size + "件");
+					if(size > 2)
+						tv_dd.setVisibility(View.VISIBLE);
+					else
+						tv_dd.setVisibility(View.INVISIBLE);
+					if (listDate != null && size > 0) {
+						for (int i = 0; i < size; i++) {
+							View view = getLayoutInflater().inflate(
+									R.layout.item_image_suit, null);
+							LinearLayout linear_thimal = (LinearLayout) view
+									.findViewById(R.id.linear_thimal);
+							LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewUtil.dip2px(this, 65), ViewUtil.dip2px(this, 65));
+							linear_thimal.setLayoutParams(lp);
+							iv_thimal = (ImageView) view
+									.findViewById(R.id.iv_thimal);
+							iv_jia = (ImageView) view
+									.findViewById(R.id.iv_jia);
+							MyApplication.imageLoader.displayImage(listDate
+									.get(i).getPic(), iv_thimal,
+									MyApplication.options);
+							if(i == size-1)
+								iv_jia.setVisibility(View.GONE);
+							linear_horizontal.addView(view);
+						}
+					}
+				}
+				pic = productInfor.getPic();
+				if (pic != null && pic.size() > 0) {
+					mViewPager.setAdapter(new ImagePagerAdapter(pic,productInfor.getIssuit(),baseActivity));
+					mViewPager.setCurrentItem(0);
+					mViewPager
+							.setOnPageChangeListener(new PicPageChangeListener());// 设置监听
+					tvCurrentNum.setText("1");
+					tvTotalNum.setText(pic.size() + "");
+				} else {
+					pic = new ArrayList<String>();
+					pic.add("");
+					mViewPager.setAdapter(new ImagePagerAdapter(pic,productInfor.getIssuit(),baseActivity));
+					mViewPager.setCurrentItem(0);
+					mViewPager
+							.setOnPageChangeListener(new PicPageChangeListener());// 设置监听
+					tvCurrentNum.setText("1");
+					tvTotalNum.setText(pic.size() + "");
+				}
+				LayoutParams para;  
+		        para = mViewPager.getLayoutParams();  
+		        para.width = LinearLayout.LayoutParams.MATCH_PARENT;  
+		        if(productInfor.getIssuit() == 1){
+		            para.height = (ViewUtil.dip2px(this, (float) 375.00));  
+		        	mViewPager.setLayoutParams(para);
+		        }
+		        tv_more.setText("共" + productInfor.getSuitcount() + "个套装");
+		        tv_save.setText("立省"+suitinfo.getSuitSave()+"元");
+		        tv_tzj.setText("¥ "+(StringUtil.isEmpty(suitinfo.getSuitPrice()) ? ""
+						: suitinfo.getSuitPrice()));
+				if (productInfor.getIssuit() == 1) {
+					// 套装
+					goods_one_price.setVisibility(View.GONE);
+					linear_single.setVisibility(View.GONE);
+					linear_tz.setVisibility(View.VISIBLE);
+					// 剩下库存
+					tv_kc.setText(StringUtil.isEmpty(productInfor.getKnum()) ? ""
+							: productInfor.getKnum()+productInfor.getUnit());
+					goods_name.setText(productInfor.getName());
+					ViewUtil.setActivityPrice(goods_price,
+							productInfor.getCurrentprice());
+					tv_unit.setText("/" + productInfor.getUnit());
+					goods_buyed.setText("销量:" + productInfor.getSalesvol()
+							+ productInfor.getUnit());
+				}else{
+					// 普通商品
+					linear_single.setVisibility(View.VISIBLE);
+					linear_tz.setVisibility(View.GONE);
+					if (!StringUtil.isEmpty(productInfor.getMinnum()))
+						minBuyNum = Integer.parseInt(productInfor.getMinnum());
+					goods_name.setText(productInfor.getName());
+					ViewUtil.setActivityPrice(goods_price,
+							productInfor.getCurrentprice());
+					tv_unit.setText("/" + productInfor.getUnit());
+					// 获取最大购买量
+					maxBuyNum = (Integer.parseInt(productInfor.getKnum()) - Integer
+							.parseInt(productInfor.getSoldnum()));
+					if (!StringUtil.isEmpty(productInfor.getUnivalent())) {
+						if ("箱".equals(productInfor.getUnit())) {
+							goods_one_price.setText("(¥"
+									+ productInfor.getUnivalent() + "元/瓶)");
+							goods_one_price.setVisibility(View.VISIBLE);
+						} else {
+							goods_one_price.setVisibility(View.INVISIBLE);
+						}
+					}
+					if (isShowActivityIcon(productInfor.getStatus(),
+							iv_activity)) {
+						btAddShoppingCart.setEnabled(false);
+						bt_buy.setEnabled(false);
+						btAddShoppingCart
+								.setBackgroundResource(R.drawable.shape_button_gray);
+						bt_buy.setBackgroundResource(R.drawable.shape_button_gray);
+					} else {
+						btAddShoppingCart.setEnabled(true);
+						bt_buy.setEnabled(true);
+						btAddShoppingCart
+								.setBackgroundResource(R.color.color_ef5151);
+						bt_buy.setBackgroundResource(R.color.color_333333);
+					}
+					if (productInfor.getIscod() == 1)
+						supportarrive.setText("支持");
+					else
+						supportarrive.setText("不支持");
+
+					tv_total.setText("共:" + back(productInfor.getKnum())
+							+ back(productInfor.getUnit()));
+					tv_left_total.setText(productInfor.getPromotiondesc());
+					tv_lable1.setText(back(productInfor.getIntroduce1()));
+					tv_lable2.setText(back(productInfor.getIntroduce2()));
+					tv_lable3.setText(back(productInfor.getIntroduce3()));
+					goods_num
+							.setText(StringUtil.isEmpty(productInfor.getKnum()) ? ""
+									: productInfor.getKnum());//
+					goods_min_num.setText(back(productInfor.getMinnum()));
+					goods_gg.setText(back(productInfor.getBottlevol()));
+					tv_yunfei.setText(back(productInfor.getTransdesc()));
+
+					baseInfo = productInfor.getBaseinfo();
+					if (baseInfo != null) {
+						goods_pp.setText(back(baseInfo.getType1()));
+						goods_area.setText(back(baseInfo.getType2()));
+						goods_tj.setText(back(baseInfo.getStorage()));
+						goods_yl.setText(back(baseInfo.getMaterials()));
+						goods_ds.setText(back(baseInfo.getAlcohol()));
+						goods_jhl.setText(back(baseInfo.getContent()));
+					}
+					if ("0".equals(productInfor.getType())) {
+						// 拼单
+
+						if (!StringUtil.isEmpty(productInfor.getSoldnum())
+								&& !StringUtil.isEmpty(productInfor.getKnum())) {
+							// 5.4注释
+							llShareParent.setVisibility(View.VISIBLE);
+							// llShareParent.setVisibility(View.GONE);
+							float proportion = (Float.parseFloat(productInfor
+									.getSoldnum()))
+									/ (float) (Integer.parseInt(productInfor
+											.getKnum()));
+							int progress = (int) (proportion * 100);
+							Resources res = this.getResources();
+							pb.setProgressDrawable(res
+									.getDrawable(R.drawable.progressbar_color_gray));
+							pb.setProgress(progress);
+						}
+						goods_buyed.setText("已拼单:" + productInfor.getSoldnum());
+						linear_pb.setVisibility(View.VISIBLE);
+						time.setVisibility(View.VISIBLE);
+						iv_pin.setVisibility(View.VISIBLE);
+						linear_buttom_pb.setVisibility(View.VISIBLE);
+						/**
+						 * 处理倒计时
+						 */
+						String endTime = productInfor.getEndtime();
+
+						long appointTime = 0;
+						if (!StringUtil.isEmpty(endTime)) {
+							appointTime = TimeUtil
+									.changeDateToTime(productInfor.getEndtime());
+						}
+						long currentTime = System.currentTimeMillis();
+						long gapTime = appointTime - currentTime;
+						if (gapTime > 0) {
+							// llShareParent.setVisibility(View.GONE);
+							llShareParent.setVisibility(View.VISIBLE);
+							if (task == null) {
+								task = new CustomTimerTask(tvDay, tvHour,
+										tvMinute, tvSecond, gapTime, 1000);
+								task.startTimer();
+							} else {
+								task.stopTimer();
+								task = new CustomTimerTask(tvDay, tvHour,
+										tvMinute, tvSecond, gapTime, 1000);
+								task.startTimer();
+							}
+						}
+
+						/**
+						 * 控制商品状态：是否活动结束
+						 */
+						String activityStateString = productInfor.getStatus();
+						if (!StringUtil.isEmpty(activityStateString)) {
+							if ("1".equals(activityStateString)) {
+								/**
+								 * 已经发布
+								 */
+								btAddShoppingCart.setOnClickListener(this);
+								btAddShoppingCart
+										.setBackgroundColor(getResources()
+												.getColor(R.color.color_333333));
+								bt_buy.setBackgroundColor(getResources()
+										.getColor(R.color.color_ef5151));
+								bt_buy.setOnClickListener(this);
+								bt_buy.setEnabled(true);
+							} else if ("2".equals(activityStateString)) {
+								/**
+								 * 已经抢光
+								 */
+								btAddShoppingCart
+										.setBackgroundResource(R.drawable.bg_gray_corner_rec);
+								btAddShoppingCart.setOnClickListener(null);
+								bt_buy.setBackgroundResource(R.drawable.bg_gray_corner_rec);
+								bt_buy.setOnClickListener(null);
+								bt_buy.setEnabled(false);
+							} else if ("3".equals(activityStateString)) {
+								/**
+								 * 已经结束
+								 */
+								btAddShoppingCart
+										.setBackgroundResource(R.drawable.bg_gray_corner_rec);
+								btAddShoppingCart.setOnClickListener(null);
+								bt_buy.setBackgroundResource(R.drawable.bg_gray_corner_rec);
+								bt_buy.setOnClickListener(null);
+								bt_buy.setEnabled(false);
+							} else {
+								btAddShoppingCart.setOnClickListener(this);
+								btAddShoppingCart
+										.setBackgroundColor(getResources().getColor(R.color.color_333333));
+								bt_buy.setEnabled(true);
+							}
+						} else {
+							btAddShoppingCart.setOnClickListener(this);
+							// btAddShoppingCart.setBackgroundResource(R.drawable.sharp_round_rec);
+							btAddShoppingCart.setBackgroundColor(getResources()
+									.getColor(R.color.color_333333));
+							bt_buy.setEnabled(true);
+						}
+					} else {
+						// 批发
+						linear_buttom_pb.setVisibility(View.GONE);
+						llShareParent.setVisibility(View.GONE);
+						iv_pin.setVisibility(View.INVISIBLE);
+						time.setVisibility(View.GONE);
+						linear_pb.setVisibility(View.GONE);
+						goods_buyed.setText("销量:" + productInfor.getSalesvol());
+						// 是否显示精选标志
+						// if(!StringUtil.isEmpty(productInfor.getRecommend())
+						// &&
+						// "1".equals(productInfor.getRecommend()))
+						// iv_jinxuan.setVisibility(View.VISIBLE);
+						// else
+						// iv_jinxuan.setVisibility(View.GONE);
+					}
+					goods_cs.setText(back(productInfor.getFactory()));
+					goods_pz.setText(back(baseInfo.getType3()));
+					TextView01.setText(back(baseInfo.getType7()));
+					goods_zl.setText(back(baseInfo.getType4()));
+					TextView02.setText(back(productInfor.getShopname()));
+					tv_fl.setText(back(baseInfo.getType5()));
+
+					
+				}
+				
+			}
+		}
+
+		viewAdapter.notifyDataSetChanged();
+	}
+
+	private String back(String tv) {
+		if (StringUtil.isEmpty(tv))
+			return "—";
+		else
+			return tv;
+
+	}
+
+	/**
+	 * 
+	 * Describe:设置商品基础信息
+	 * 
+	 * Date:2015-10-13
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void setBaseProductInfor(NewProductBaseInfor baseInfor) {
+		baseInforBeans = new ArrayList<PoductDetailBaseInforBean>();
+
+		if (!StringUtil.isEmpty(baseInfor.getType7())) {
+			/**
+			 * 香型不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("香型: ");
+			obj.setContenString(baseInfor.getType7());
+			baseInforBeans.add(obj);
+		}
+
+		if (!StringUtil.isEmpty(baseInfor.getMaterials())) {
+			/**
+			 * 原料不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("原料: ");
+			obj.setContenString(baseInfor.getMaterials());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getAlcohol())) {
+			/**
+			 * 度数不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("度数: ");
+			obj.setContenString(baseInfor.getAlcohol());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getType3())) {
+			/**
+			 * 品类不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("品类: ");
+			obj.setContenString(baseInfor.getType3());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getStorage())) {
+			/**
+			 * 存储条件不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("存储条件: ");
+			obj.setContenString(baseInfor.getStorage());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getType1())) {
+			/**
+			 * 品牌不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("品牌: ");
+			obj.setContenString(baseInfor.getType1());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getType2())) {
+			/**
+			 * 产地不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("产地: ");
+			obj.setContenString(baseInfor.getType2());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getType6())) {
+			/**
+			 * 品类不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("品类: ");
+			obj.setContenString(baseInfor.getType6());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(baseInfor.getContent())) {
+			/**
+			 * 净含量不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("净含量: ");
+			obj.setContenString(baseInfor.getContent());
+			baseInforBeans.add(obj);
+		}
+		if (!StringUtil.isEmpty(productInfor.getFactory())) {
+			/**
+			 * 厂家不为空
+			 */
+			PoductDetailBaseInforBean obj = new PoductDetailBaseInforBean();
+			obj.setNameString("厂家: ");
+			obj.setContenString(productInfor.getFactory());
+			baseInforBeans.add(obj);
+		}
+		if (baseInforBeans != null && baseInforBeans.size() > 0) {
+			/**
+			 * 绑定基础商品信息数据
+			 */
+			baseInforAdapter = new PoductDetailBaseInforAdapter(baseInforBeans,
+					baseContext);
+			gvBaseInfor.setAdapter(baseInforAdapter);
+		}
+
+	}
+
+	@Override
+	protected void reloadCallback() {
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		btAddShoppingCart.setOnClickListener(this);
+		ivTitleRight.setOnClickListener(this);
+		llShareParent.setOnClickListener(this);
+		linear_tj.setOnClickListener(this);
+		linear_yl.setOnClickListener(this);
+		linear_right.setOnClickListener(this);
+	}
+
+	@Override
+	protected String setTitleName() {
+		return "商品";
+	}
+
+	@Override
+	protected String setRightText() {
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		return R.drawable.shopping_cart_white;
+	}
+
+	// 获取购物车当前单品的数据
+	private int getCartNum() {
+		if (shoppingCartData != null && shoppingCartData.getResult() != null
+				&& shoppingCartData.getResult().getList() != null) {
+			ArrayList<NewProductInfo> listShoppingCart = (ArrayList<NewProductInfo>) shoppingCartData
+					.getResult().getList();
+			if (productInfor != null) {
+				for (NewProductInfo shoppingproductInfo : listShoppingCart) {
+					// 如果购物车里面有当前加入的商品 获取数据
+					if (shoppingproductInfo.getAid().equals(
+							productInfor.getId())) {
+						return Integer.parseInt(shoppingproductInfo.getNum());
+					}
+				}
+			}
+			return 0;
+		} else {
+			return 0;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+//		super.onClick(v);
+		if (productInfor != null) {
+			issold = Integer.parseInt(productInfor.getSoldnum());// 已售
+			knum = Integer.parseInt(productInfor.getKnum());// 库存
+		}
+		Intent intent = new Intent();
+		switch (v.getId()) {
+		case R.id.product_detail_add_shoppingcart:
+			/**
+			 * 添加购物车
+			 */
+			if (productDetailInfor != null
+					&& productDetailInfor.getResult() != null
+					&& productDetailInfor.getResult().getType() != null) {
+				if ("1".equals(productDetailInfor.getResult().getType()))
+					MobclickAgent.onEvent(baseActivity, "C_SAL_INF_6");
+				else
+					MobclickAgent.onEvent(baseActivity, "C_PD_INF_2");
+			}
+			boolean isLogin = IsLogin.isLogin(this);
+			if (isLogin) {
+				try {
+					if (productInfor != null) {
+						if (Long.parseLong(productInfor.getKnum()) == 0) {
+							ToastUtil.showToast(baseContext, "该商品已卖完，请选择其他商品");
+							return;
+						} else {
+							if (getCartNum() >= Integer.parseInt(productInfor
+									.getMinnum())) {
+								// 如果购物车有该商品并且数量大入最小起批量
+								addShoppingCart(productInfor.getId(), "1",
+										productInfor.getType());
+							} else if (getCartNum() == 0) {
+								addShoppingCart(productInfor.getId(),
+										productInfor.getMinnum(),
+										productInfor.getType());
+							} else if (getCartNum() > 0
+									&& getCartNum() < Integer
+											.parseInt(productInfor.getMinnum())) {
+								// 当前数量大入0 小于最小起批量 直接加入最小起批量和当前购物车数量差值
+								addShoppingCart(
+										productInfor.getId(),
+										""
+												+ (Integer
+														.parseInt(productInfor
+																.getMinnum()) - getCartNum()),
+										productInfor.getType());
+							}
+						}
+
+					}
+				} catch (NumberFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else {
+				MyApplication.getInstance().startLogin(new LoginCallBack() {
+					@Override
+					public void loginSuccess() {
+						try {
+
+							if (productInfor != null) {
+								if (Long.parseLong(productInfor.getKnum()) == 0) {
+									ToastUtil.showToast(baseContext,
+											"该商品已卖完，请选择其他商品");
+									return;
+								} else {
+									if (getCartNum() >= Integer
+											.parseInt(productInfor.getMinnum())) {
+										// 如果购物车有该商品并且数量大入最小起批量
+										addShoppingCart(productInfor.getId(),
+												"1", productInfor.getType());
+									} else if (getCartNum() == 0) {
+										addShoppingCart(productInfor.getId(),
+												productInfor.getMinnum(),
+												productInfor.getType());
+									} else if (getCartNum() > 0
+											&& getCartNum() < Integer
+													.parseInt(productInfor
+															.getMinnum())) {
+										// 当前数量大入0 小于最小起批量 直接加入最小起批量和当前购物车数量差值
+										addShoppingCart(
+												productInfor.getId(),
+												""
+														+ (Integer
+																.parseInt(productInfor
+																		.getMinnum()) - getCartNum()),
+												productInfor.getType());
+									}
+								}
+							}
+						} catch (NumberFormatException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+
+					@Override
+					public void loginFail() {
+					}
+				}, this);
+			}
+
+			break;
+		case R.id.base_activity_title_right_righticon:
+			/**
+			 * 进入购物车事件
+			 */
+			NeedLogin();
+			break;
+		case R.id.relative_shopping:
+			NeedLogin();
+			break;
+		case R.id.group_buy_list_shopping_cart:
+			NeedLogin();
+			break;
+		case R.id.base_activity_title_right_parent:
+			NeedLogin();
+			break;
+		case R.id.linear_more:
+			if (productDetailInfor != null
+					&& productDetailInfor.getResult() != null
+					&& productDetailInfor.getResult().getType() != null) {
+				if ("1".equals(productDetailInfor.getResult().getType()))
+					MobclickAgent.onEvent(baseActivity, "C_SAL_INF_10");
+				else
+					MobclickAgent.onEvent(baseActivity, "C_PD_INF_6");
+			}
+			intent.setClass(baseContext, DrinkInfoActivity.class);
+			intent.putExtra("h5url", productInfor.getIntroduce_url());
+			intent.putExtra("title", "详情");
+			StartActivityUtil.startActivity(NewProductDetailActivity.this,
+					intent);
+			break;
+		case R.id.bt_buy:
+			if (productDetailInfor != null
+					&& productDetailInfor.getResult() != null
+					&& productDetailInfor.getResult().getType() != null) {
+				if ("1".equals(productDetailInfor.getResult().getType()))
+					MobclickAgent.onEvent(baseActivity, "C_SAL_INF_7");
+				else
+					MobclickAgent.onEvent(baseActivity, "C_PD_INF_3");
+			if (knum > Integer.parseInt(productDetailInfor.getResult()
+					.getMinnum())) {
+				selectProductNotInEdit.clear();
+				ShoppingCartSelectBean dataBean = new ShoppingCartSelectBean();
+				dataBean.setNum(productDetailInfor.getResult().getMinnum());
+				dataBean.setAid(productInfor.getId());
+				selectProductNotInEdit.add(dataBean);
+				// 一键购买 直接生成预付订单
+				Preprview();
+			}
+			if (knum <= 0) {
+				ToastUtil.showToast(baseActivity, "该商品已卖完，请选择其他商品吧");
+			 }
+			}else{
+				ToastUtil.showToast(baseActivity, "服务器异常,请稍后重试");
+			}
+			break;
+		case R.id.product_detail_share_parent:
+			// 一键分享
+			if (api.isWXAppInstalled() && api.isWXAppSupportAPI()) {
+				ApiHttpCilent.getInstance(this).RequsetShare(this,
+						productInfor.getId(), new ShareRequestCallBack());
+			} else {
+				ToastUtil.showToast(baseActivity, "请您安装微信客户端再分享");
+			}
+			break;
+		case R.id.linear_tj:
+			// 点击存储条件
+			ShowDialog(goods_tj, "储存条件:", back(baseInfo.getStorage()));
+			break;
+		case R.id.linear_yl:
+			// 点击原料条件
+			ShowDialog(goods_yl, "原料:", back(baseInfo.getMaterials()));
+			break;
+		case R.id.linear_sp:
+			// 点击商品
+			pager.setCurrentItem(0);
+			break;
+		case R.id.linear_xq:
+			// 点击详情
+			pager.setCurrentItem(1);
+			break;
+		case R.id.linear_tel:
+			// 弹出框
+			showPopUp(llBottomParent);
+			break;
+		case R.id.linear_moreinfo:
+			SetTopAnimation(h5_webview_main, pager);
+			break;
+		case R.id.tv_ontel:
+			// 电话
+			if (productDetailInfor != null
+					&& productDetailInfor.getResult() != null
+					&& productDetailInfor.getResult().getType() != null) {
+				if ("1".equals(productDetailInfor.getResult().getType()))
+					MobclickAgent.onEvent(baseActivity, "C_SAL_INF_12");
+				else
+					MobclickAgent.onEvent(baseActivity, "C_PD_INF_8");
+			String tel = MyApplication.getInstance().getTel();
+			list.clear();
+			list.add(tel);
+			new AlertDialogCustom().CreateDialog(NewProductDetailActivity.this,
+					"喝喝客服", "", list, 1);
+			PopuwShowing();
+			}else{
+				ToastUtil.showToast(baseActivity, "服务器异常,请稍后重试");
+			}
+			break;
+		case R.id.tv_online:
+			// 在线客服
+			MobclickAgent.onEvent(baseActivity, "C_SAL_INF_11");
+
+			if (mWIMKit != null) {
+				OpenAppService();
+			} else {
+				myApplication = MyApplication.getInstance();
+				mWIMKit = myApplication.getmIMKit();
+				if (mWIMKit != null){
+					OpenAppService();
+			    }else{
+			    	Utils.StartLogin(baseActivity,false);
+				}
+			}
+			PopuwShowing();
+			break;
+		// 更多套装
+		case R.id.relative_more:
+			intent.putExtra("id", productInfor.getId());
+			intent.setClass(baseActivity, MoreSuitActivity.class);
+			StartActivityUtil.startActivity(baseActivity, intent);
+			break;
+		case R.id.linear_horizontal:
+			intent.putExtra("id", productInfor.getId());
+			intent.setClass(baseActivity, MoreSuitActivity.class);
+			StartActivityUtil.startActivity(baseActivity, intent);
+			break;
+		case R.id.linear_back_produce:
+			// 返回键处理
+			backPrewiew(intent);
+			break;
+		case R.id.base_activity_title_backicon:
+			backPrewiew(intent);
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void NeedLogin() {
+		boolean isLogin = IsLogin.isLogin(this);
+		if(isLogin){
+			StartShoppingPage();
+		}else{
+			Utils.StartLogin(baseActivity,false);
+		}
+	}
+
+	
+	private void backPrewiew(Intent intent){
+		if (isPush) {
+			intent.setClass(baseContext, GroupWholeSaleActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.putExtra("isPush", true);
+			StartActivityUtil.startActivity(baseActivity, intent);
+			finish();
+			if(!isFirstBack){
+				SetButtomAnimation(pager,h5_webview_main);
+				isFirstBack = true; 
+			}else{
+			   onBackPressed();
+		    }
+		} else {
+			if(!isFirstBack){
+				SetButtomAnimation(pager,h5_webview_main);
+				isFirstBack = true; 
+			}else{
+			   onBackPressed();
+		    }
+		}
+	}
+	/*
+	 * 
+	 * ViewEnter 显示视图view
+	 * 
+	 * viewExit 退出视图view
+	 * 
+	 * 最小边的时候拉动向上
+	 * */
+	void SetTopAnimation(View ViewEnter,View ViewExit){
+		AnimationUtil.getInstance(this).buttomEnterView(ViewEnter,ViewExit);
+		ViewEnter.setVisibility(View.VISIBLE);
+		ViewExit.setVisibility(View.GONE);
+		tv_center.setText("详情");
+		tv_center.setVisibility(View.VISIBLE);
+		linear_sp.setVisibility(View.INVISIBLE);
+		linear_xq.setVisibility(View.INVISIBLE);
+		line_one.setVisibility(View.INVISIBLE);
+		line_one.clearAnimation();
+		line_one.invalidate();
+	}
+	/*
+	 * 
+	 *  最上边的时候拉动向下
+	 */
+	void SetButtomAnimation(View ViewEnter,View ViewExit){
+		AnimationUtil.getInstance(this).TopEnterView(ViewEnter,ViewExit);
+		tv_center.setVisibility(View.INVISIBLE);
+		linear_sp.setVisibility(View.VISIBLE);
+		linear_xq.setVisibility(View.VISIBLE);
+		line_one.setVisibility(View.VISIBLE);
+		ViewEnter.setVisibility(View.VISIBLE);
+		ViewExit.setVisibility(View.GONE);
+	}
+	
+	
+	void PopuwShowing() {
+		if (popupWindow != null && popupWindow.isShowing()) {
+			popupWindow.dismiss();
+		}
+	}
+
+	// 弹出电话和客服
+	private void showPopUp(View v) {
+		View layout = getLayoutInflater().inflate(R.layout.popu_tel_kf, null);
+		popupWindow = new PopupWindow(layout, ViewUtil.dip2px(this, 78), ViewUtil.dip2px(this, 78));
+		popupWindow.setFocusable(true);
+		popupWindow.setOutsideTouchable(true);
+		popupWindow.setBackgroundDrawable(new BitmapDrawable());
+		tv_ontel = (TextView) layout.findViewById(R.id.tv_ontel);
+		tv_online = (TextView) layout.findViewById(R.id.tv_online);
+		tv_ontel.setOnClickListener(this);
+		tv_online.setOnClickListener(this);
+		int[] location = new int[2];
+		v.getLocationOnScreen(location);
+		popupWindow.showAtLocation(v, Gravity.NO_GRAVITY, location[0],
+				location[1] - popupWindow.getHeight());
+	}
+
+	/*
+	 * 跳转到购物车
+	 */
+
+	void StartShoppingPage() {
+		if (productDetailInfor != null
+				&& productDetailInfor.getResult() != null
+				&& productDetailInfor.getResult().getType() != null) {
+			if ("1".equals(productDetailInfor.getResult().getType()))
+				MobclickAgent.onEvent(baseActivity, "C_SAL_INF_5");
+			else
+				MobclickAgent.onEvent(baseActivity, "C_PD_INF_1");
+		}
+		int num = ActivityManagerUtil.getActivityManager().getActivityNum(
+				MainActivity.class);
+		Intent intent = new Intent();
+		intent.setClass(NewProductDetailActivity.this, MainActivity.class);
+		intent.putExtra(ConstantsUtil.MAIN_TAB_TYPE_KEY,
+				ConstantsUtil.MAIN_TAB_SHOP_CAR);
+		intent.putExtra(ConstantsUtil.SHOPPING_CART_IS_SHOW_BACK_KEY,
+				ConstantsUtil.SHOPPING_CART_SHOW_BACK);
+		if (num > 1) {
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		}
+		StartActivityUtil.startActivity(baseActivity, intent);
+	}
+
+	// 生成预览订单
+	private void Preprview() {
+		ApiHttpCilent.getInstance(baseActivity).CreatPaymentOrder(baseActivity,
+				null, "1", null, -1, selectProductNotInEdit, "0", null,
+				new MyShoppingCallBack());
+		// ApiHttpCilent.getInstance(baseActivity).CreatPaymentOrder(baseActivity,null,"1",null,null,-1,selectProductNotInEdit,
+		// "0",null,new MyShoppingCallBack());
+	}
+
+	// 预览订单返回数据
+	class MyShoppingCallBack extends
+			BaseJsonHttpResponseHandler<NewOrderBaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, NewOrderBaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				NewOrderBaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected NewOrderBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			java.lang.reflect.Type type = new TypeToken<NewOrderBaseBean>() {
+			}.getType();
+			NewOrderBaseBean bean = gson.fromJson(response, type);
+			Message message = Message.obtain();
+			if ("1".equals(bean.getStatus())) {// 正常
+				message.what = ConstantsUtil.ALI_BACK_CODE;
+				message.obj = bean.getResult();
+			} else {
+				if (ConstantsUtil.ERROE_LOGIN_CODE.equals(bean.getError()
+						.getCode())) {
+					message.what = ConstantsUtil.HTTP_NEED_LOGIN;
+				} else {
+					message.what = ConstantsUtil.HTTP_FAILE;// 错误
+					message.obj = bean.getError().getInfo();
+				}
+			}
+			productMessageHandler.sendMessage(message);
+			return bean;
+		}
+	}
+
+	// 打开APP客服
+	private void OpenShoper() {
+		// TODO Auto-generated method stub
+		String target = "maggie";// 消息接收者ID
+		Intent intentData = mWIMKit.getChattingActivityIntent(target);
+		startActivity(intentData);
+	}
+
+	// 打开商铺客服
+	private void OpenAppService() {
+		// TODO Auto-generated method stub
+		// userid是客服帐号，第一个参数是客服帐号，第二个是组ID，如果没有，传0
+		EServiceContact contact = new EServiceContact(groupName.trim(), 0);
+		// EServiceContact contact = new EServiceContact("喝喝酒类平台", 0);
+		// 如果需要发给指定的客服帐号，不需要Server进行分流(默认Server会分流)，请调用EServiceContact对象
+		// 的setNeedByPass方法，参数为false。
+		// contact.setNeedByPass(false);
+		Intent intent = mWIMKit.getChattingActivityIntent(contact);
+		startActivity(intent);
+	}
+
+	// 1 零售商
+	// 2 代理商员工
+	// 3 代理商
+	// 4 VIP商户
+	// 5 经销商
+	// 6 品牌连锁店
+	// 判断当前用户是否认证通过
+	// private boolean NotVerifystatus() {
+	// if(loginBean !=null )
+	// {
+	// if( "3".equals(loginBean.getResult().getVerifystatus())){
+	// String roleid = loginBean.getResult().getRoleid();
+	// if(!"1".equals(roleid) && !"6".equals(roleid)){
+	// // 1 零售商 6 品牌连锁店 角色才可以购买 其他角色不能购买
+	// ToastUtil.showToast(baseContext, "您的账号角色无法购买商品");
+	// return true;
+	// }
+	// }else{
+	// ToastUtil.showToast(baseContext, "该账户未认证,请提交认证资料后再购买");
+	// return true;
+	// }
+	// }
+	// return false;
+	// }
+
+	// 创建下来预览
+	private void ShowDialog(TextView ly, String tvname, String tvvalue) {
+		View view = LinearLayout.inflate(this, R.layout.popupview, null);
+		PopupWindow pw = new PopupWindow(view,
+				LinearLayout.LayoutParams.WRAP_CONTENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		TextView tvName = (TextView) view.findViewById(R.id.tvname);
+		TextView tvValue = (TextView) view.findViewById(R.id.tvvalue);
+		tvName.setText(tvname);
+		tvValue.setText(tvvalue);
+		pw.setFocusable(true);
+		pw.setBackgroundDrawable(new BitmapDrawable());
+		pw.showAsDropDown(ly);
+		pw.setOnDismissListener(new OnDismissListener() {
+			@Override
+			public void onDismiss() {
+				// TODO Auto-generated method stub
+
+			}
+		});
+	}
+
+	private void Dimess() {
+		this.runOnUiThread(new Runnable() {
+			public void run() {
+				if (ApiHttpCilent.loading != null
+						&& ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+	// 返回键处理 //处理消息推送后退事件
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+//			if (isPush) {
+//				Intent i = new Intent(baseContext, GroupWholeSaleActivity.class);
+//				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				StartActivityUtil.startActivity(baseActivity, i);
+//			} else {
+//				onBackPressed();
+//			}
+			backPrewiew(new Intent());
+		}
+		return false;
+	}
+
+
+	private void addShopCarAnimation(View startView, View endView, Bitmap bitmap) {
+		/**
+		 * 获取开始动画，结束动画视图位置
+		 */
+		int[] startLocation = new int[2];
+		int[] endLocation = new int[2];
+		startView.getLocationInWindow(startLocation);
+		endView.getLocationInWindow(endLocation);
+		/**
+		 * 执行动画视图:ImageView
+		 */
+		ImageView animationImg = new ImageView(this);
+		if (bitmap != null) {
+			animationImg.setImageBitmap(bitmap);
+		} else {
+			Resources res = baseContext.getResources();
+			Bitmap bmp = BitmapFactory.decodeResource(res,
+					R.drawable.imageview_default);
+			animationImg.setImageBitmap(bmp);
+		}
+
+		ProductDetailAnimation.getInstance().startAnimation(animationImg,
+				endView, startLocation, endLocation, this);
+
+	}
+
+
+	/**
+	 * 
+	 * Describe:添加购物车
+	 * 
+	 * Date:2015-10-13
+	 * 
+	 * Author:liuzhouliang sku 商品sku id 活动ID
+	 */
+	private void addShoppingCart(String id, String num, String type) {
+		ApiHttpCilent.getInstance(this).addShoppingCart(this, id, num, 1,
+				new AddShoppingCartRequestCallBack());
+	}
+
+	public class AddShoppingCartRequestCallBack extends
+			BaseJsonHttpResponseHandler<AddShoppingCartBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, AddShoppingCartBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			addShoppingCartMessageHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				AddShoppingCartBean arg3) {
+		}
+
+		@Override
+		protected AddShoppingCartBean parseResponse(String response,
+				boolean arg1) throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			addShoppingCartData = gson.fromJson(response,
+					AddShoppingCartBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(addShoppingCartData.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				// message.obj = addShoppingCartData.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = addShoppingCartData.getError().getInfo();
+			}
+			addShoppingCartMessageHandler.sendMessage(message);
+			return addShoppingCartData;
+		}
+
+	}
+
+	public static class AddShoppingCartMessageHandler extends
+			WeakHandler<NewProductDetailActivity> {
+
+		public AddShoppingCartMessageHandler(NewProductDetailActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				/**
+				 * 处理成功的数据
+				 */
+				getReference().addShopCarAnimation(getReference().ivAnimation,
+						getReference().bt_buy,
+						getReference().currentBitmap);
+				ToastUtil.showToast(getReference(), "加入购物车成功");
+				getReference().getShoppingCartDate();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LATER:
+				// 获取到购物车数据成功
+				getReference().ShoppingCartSuccess();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				/**
+				 * 处理失败的数据
+				 */
+				String messageString = (String) msg.obj;
+				if (!StringUtil.isEmpty(messageString)) {
+					ToastUtil
+							.showToast(getReference(), messageString);
+				}
+				break;
+			}
+		}
+	}
+
+	// 获取购物车数据成功
+	private void ShoppingCartSuccess() {
+		if (shoppingCartData != null && shoppingCartData.getResult() != null
+				&& shoppingCartData.getResult().getList() != null) {
+			if (shoppingCartData.getResult().getList().size() > 0) {
+				if (shoppingCartData.getResult().getCount() > 0) {
+					shoppingcare_num.setText(shoppingCartData.getResult()
+							.getCount() + "");
+					shoppingcare_num.setVisibility(View.VISIBLE);
+				} else {
+					shoppingcare_num.setVisibility(View.INVISIBLE);
+				}
+			} else {
+			}
+		} else {
+			selectProductNotInEdit.clear();
+		}
+	}
+
+	private class ImagePagerAdapter extends PagerAdapter {
+
+		private List<String> images;
+		private LayoutInflater inflater;
+		private int issuit;
+		private Context mContext;
+		ImagePagerAdapter(List<String> images,int issuit,Context mContext) {
+			this.images = images;
+			this.issuit = issuit;
+			this.mContext = mContext;
+			inflater = getLayoutInflater();
+		}
+
+		@Override
+		public void destroyItem(ViewGroup container, int position, Object object) {
+			container.removeView((View) object);
+			// LogUtil.d(TAG,
+			// "destroyItem==" + position + "====" + object.toString());
+		}
+
+		@Override
+		public int getCount() {
+			return images.size();
+		}
+
+		@Override
+		public Object instantiateItem(ViewGroup view, final int position) {
+			// LogUtil.d(TAG, "instantiateItem==" + position + "====");
+			View rootView = inflater.inflate(
+					R.layout.product_detail_viewpager_item, view, false);
+			assert rootView != null;
+			final ImageView ivImageView = (ImageView) rootView
+					.findViewById(R.id.product_detail_viewpager_item_iv);
+			final ProgressBar progressBar = (ProgressBar) rootView
+					.findViewById(R.id.product_detail_viewpager_item_pb);
+			progressBar.setVisibility(View.VISIBLE);
+			 LayoutParams para;  
+		        para = ivImageView.getLayoutParams();  
+		        para.width = LinearLayout.LayoutParams.MATCH_PARENT;  
+		        if(issuit == 1){
+		        	para.height = LinearLayout.LayoutParams.MATCH_PARENT;   
+		            ivImageView.setLayoutParams(para);
+		        }
+			MyApplication.imageLoader.displayImage(images.get(position),
+					ivImageView, new ImageLoadingListener() {
+
+						@Override
+						public void onLoadingStarted(String imageUri, View view) {
+							progressBar.setVisibility(View.VISIBLE);
+						}
+
+						@Override
+						public void onLoadingFailed(String imageUri, View view,
+								FailReason failReason) {
+							progressBar.setVisibility(View.GONE);
+							ivImageView
+									.setImageResource(R.drawable.imageview_default);
+						}
+
+						@Override
+						public void onLoadingComplete(String imageUri,
+								View view, Bitmap loadedImage) {
+							progressBar.setVisibility(View.GONE);
+							currentBitmap = loadedImage;
+						}
+
+						@Override
+						public void onLoadingCancelled(String imageUri,
+								View view) {
+							progressBar.setVisibility(View.GONE);
+						}
+					});
+			mViewPager.setObjectForPosition(rootView, position);
+			view.addView(rootView, 0);
+			rootView.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					// 点击查看大图
+					Intent intent = new Intent(NewProductDetailActivity.this,
+							BrowsPictureActivity.class);
+					Bundle bundle = new Bundle();
+					bundle.putStringArrayList("Urls",
+							(ArrayList<String>) images);
+					bundle.putInt("index", position);
+					bundle.putString("baseurl", "");
+					intent.putExtra("msg", bundle);
+					startActivity(intent);
+				}
+			});
+			return rootView;
+		}
+
+		@Override
+		public boolean isViewFromObject(View view, Object object) {
+			// LogUtil.d(TAG, "isViewFromObject==");
+			return view.equals(object);
+		}
+
+		@Override
+		public void restoreState(Parcelable state, ClassLoader loader) {
+			// LogUtil.d(TAG, "restoreState==");
+		}
+
+		@Override
+		public Parcelable saveState() {
+			// LogUtil.d(TAG, "saveState==");
+			return null;
+		}
+
+	}
+
+	class PicPageChangeListener implements OnPageChangeListener {
+
+		@Override
+		public void onPageScrollStateChanged(int arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onPageScrolled(int arg0, float arg1, int arg2) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onPageSelected(int arg0) {
+			// TODO Auto-generated method stub
+			tvCurrentNum.setText(arg0 + 1 + "");
+
+			int mCenterX = llVpNumParent.getWidth() / 2;
+			int mCenterY = llVpNumParent.getHeight() / 2;
+			Rotate3dAnimation rotation = new Rotate3dAnimation(180, 0,
+					mCenterX, mCenterY, 0, false);
+			rotation.setDuration(1000);
+			rotation.setFillAfter(true);
+			rotation.setInterpolator(new DecelerateInterpolator());
+			llVpNumParent.startAnimation(rotation);
+		}
+	}
+
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+		indexButtomStatus = 0;
+		indexTopStatus = 0;
+	}
+
+	@Override
+	public void scrollOritention(boolean isbuttom) {
+		if(isbuttom)
+			indexButtomStatus ++;
+		else
+			indexButtomStatus = 0;
+		if(indexButtomStatus == 2 && isbuttom && tv_center.getVisibility() == View.INVISIBLE){
+			SetTopAnimation(h5_webview_main, pager);
+			indexButtomStatus = 0;
+			isFirstBack = false;
+		}
+	}
+
+}

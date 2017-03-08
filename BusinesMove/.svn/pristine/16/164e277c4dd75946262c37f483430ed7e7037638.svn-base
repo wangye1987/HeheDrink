@@ -1,0 +1,601 @@
+package com.heheys.ec.controller.activity;
+
+
+import java.util.List;
+
+import org.apache.http.Header;
+import org.apache.http.cookie.Cookie;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
+import android.net.http.SslError;
+import android.os.Build;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebSettings;
+import android.webkit.WebSettings.ZoomDensity;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
+import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
+import android.widget.TabHost.TabSpec;
+import android.widget.TabWidget;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.application.MyApplication.LoginCallBack;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.lib.view.ViewUtil;
+import com.heheys.ec.model.dataBean.CanUserCouponBean;
+import com.heheys.ec.model.dataBean.CanUserCouponBean.MyUserCoupon;
+import com.heheys.ec.model.dataBean.MyCouponBean;
+import com.heheys.ec.model.dataBean.MyCouponBean.MyCoupon;
+import com.heheys.ec.model.dataBean.PayCouponbean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.netWorkHelper.UrlsUtil;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.SharedPreferencesUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * @author wangkui
+ * 
+ * @param 优惠券界面
+ */
+public class CouponActivity extends BaseActivity implements OnTabChangeListener {
+	private MyCouponBean couponBean;
+	private TabWidget tabs;
+	private TabHost mTabHost;
+	private TabWidget mTabWidget;
+	private TextView line1;
+	private TextView line2;
+	private TextView line3;
+	private String key;//user 是使用 scane 是查看
+	private StringBuffer sb;
+	private CouponHandler hanlder;
+	private TabSpec tabSpec1;
+	private TabSpec tabSpec2;
+	private TabSpec tabSpec3;
+	private PayCouponbean bean;//回调优惠券的id和title
+	private String baseamount;
+	private WebView wb1;
+	private WebView wb2;
+	private WebView wb3;
+	private String title1;
+	private String title2;
+	private String linkurl;
+	private boolean isPush;
+	private CookieManager cookieManager;
+	private CanUserCouponBean usercouponBean;
+	private MyUserCoupon myCoupon;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.coupon_my);
+		intData();
+	}
+
+	private void intData() {
+		// TODO Auto-generated method stub
+		// tvRight.setOnClickListener(this);
+		hanlder = new CouponHandler(this);
+		bean = new PayCouponbean();
+		isPush = getIntent().getBooleanExtra("isPush", false);
+//		if (isPush)
+//			SharedPreferencesUtil.writeSharedPreferencesBoolean(this,
+//					"message", "new", false);
+		Intent intent = getIntent();
+		if (intent != null) {
+			key = intent.getStringExtra("key");
+			initView(key);
+		}
+		if("use".equals(key)){
+			baseamount = intent.getStringExtra("baseamount");
+			ApiHttpCilent.getInstance(baseActivity).CouponCanuser(this, baseamount,new MyUserCouponCallBack());
+		}else{
+			ApiHttpCilent.getInstance(baseActivity).CouponMy(this,new MyCouponCallBack());
+		}
+	}
+
+	// 初始化界面
+	private void initView(String key) {
+		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+		line1 = (TextView) findViewById(R.id.line1);
+		line2 = (TextView) findViewById(R.id.line2);
+		line3 = (TextView) findViewById(R.id.line3);
+		line1.setVisibility(View.VISIBLE);
+		mTabHost.setup();
+		mTabWidget = mTabHost.getTabWidget();
+		wb1 = (WebView) findViewById(R.id.webView_content1);
+		wb2 = (WebView) findViewById(R.id.webView_content2);
+		
+		tabSpec1 = mTabHost.newTabSpec("tab1").setContent(R.id.linear_1)
+				.setIndicator("未使用");
+		tabSpec2 = mTabHost.newTabSpec("tab2").setContent(R.id.linear_2)
+				.setIndicator("已使用");
+		tabSpec3 = mTabHost.newTabSpec("tab3").setContent(R.id.linear_3)
+				.setIndicator("已过期");
+		if ("scan".equals(key)) {
+			// 我的界面查看
+			wb3 = (WebView)findViewById(R.id.webView_content3);
+			mTabHost.addTab(tabSpec1);
+			mTabHost.addTab(tabSpec2);
+			mTabHost.addTab(tabSpec3);
+		} else {
+			mTabHost.addTab(tabSpec1);
+			mTabHost.addTab(tabSpec2);
+			line3.setVisibility(View.GONE);
+		}
+
+		for (int i = 0; i < mTabWidget.getChildCount(); i++) {
+			mTabWidget.getChildAt(i).getLayoutParams().height = ViewUtil.dip2px(baseActivity,45);
+			// 获取tabview项
+			View view = mTabWidget.getChildTabViewAt(i);
+			// 设置tab背景颜色,对应配置文件的tab_bg.xml,可变化的背景,选中时为白色,未选中为黑色
+			view.setBackgroundDrawable(getResources().getDrawable(
+					R.drawable.brand_click));
+			// 获取textview控件
+			TextView textView = (TextView) view
+					.findViewById(android.R.id.title);
+			// textView.setGravity(Gravity.CENTER);
+			RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) textView
+					.getLayoutParams();
+			params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0); // 取消文字底边对齐
+			params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE); // 设置文字居中对齐
+			// 自动变换颜色，但是没实现
+			// textView.setTextColor(getResources().getColor(R.color.tabtext_color));
+			if (i == 0) {
+				// 默认的初始页为第一页,tab的文字颜色设为白色
+				textView.setTextColor(getResources().getColor(
+						R.color.color_af2942));
+			} else {
+				// 未选中的页的tab的文字设为黑色
+				textView.setTextColor(getResources().getColor(
+						R.color.color_666666));
+			}
+			// 设置tab的文字大小
+			textView.setTextSize(15);
+		}
+		mTabHost.setOnTabChangedListener(this);
+		mTabHost.setCurrentTab(0);
+
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+
+	}
+
+	@SuppressLint("JavascriptInterface")
+	@JavascriptInterface
+	private void SetWebViewNature(WebView webView, String url) {
+		WebSettings ws = webView.getSettings();
+        ws.setJavaScriptEnabled(true);
+        webView.setClickable(true);
+		ws.setDefaultTextEncodingName("UTF-8");
+		ws.setCacheMode(WebSettings.LOAD_NO_CACHE);//解决缓存问题
+		ws.setUseWideViewPort(true);
+		ws.setLoadWithOverviewMode(true);
+		ws.setSupportZoom(true);
+		ws.setBuiltInZoomControls(true);
+		ws.setDefaultZoom(ZoomDensity.FAR);
+		ws.setLoadWithOverviewMode(true);
+		ws.setTextZoom(100);
+		ws.setJavaScriptCanOpenWindowsAutomatically(true);
+		ws.setUserAgentString("heheys");
+		ws.setSavePassword(false);
+		//sdk小于17版本号的 移除以下接口调用漏洞
+		if(android.os.Build.VERSION.SDK_INT<Build.VERSION_CODES.JELLY_BEAN_MR1){
+			webView.removeJavascriptInterface("searchBoxJavaBridge_");
+			webView.removeJavascriptInterface("accessibility");
+			webView.removeJavascriptInterface("accessibilityTraversal");   
+		}
+		// 获取session 加载到url中
+				List<Cookie> listcook = MyApplication.getInstance().getCookieStore().getCookies();
+				if(listcook.size()>0){
+				Cookie sessionCookie = listcook.get(0);
+				if (sessionCookie != null) {
+					CookieSyncManager.createInstance(baseActivity);
+					CookieManager cookieManager = CookieManager.getInstance();
+					cookieManager.setAcceptCookie(true);  
+					cookieManager.removeSessionCookie();  
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					String cookieString = sessionCookie.getName() + "="
+							+ sessionCookie.getValue() + "; domain="
+							+ sessionCookie.getDomain()+"; path="
+									+ sessionCookie.getPath();
+					cookieManager.setCookie(url, cookieString);
+					CookieSyncManager.getInstance().sync();
+				 }
+				}
+		  webView.loadUrl(url);
+		webView.setWebViewClient(new WebViewClient() {
+			private String coupontemp;
+			private String couponid;
+			@Override
+			public void onLoadResource(WebView view, String url) {
+				super.onLoadResource(view, url);
+			}
+			@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//				 重写此方法表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
+				Uri uri = Uri.parse(url);
+				if (uri != null) {
+						if(uri.toString().contains(UrlsUtil.h5Url_yhq)){
+					     Intent intent = new Intent();
+					     String backcontent = uri.toString();
+					     if(backcontent.contains("choicecoupon?")){
+					    	 coupontemp = backcontent.split("choicecoupon?")[1];
+					    	 couponid = coupontemp.split("=")[1];
+					     }
+						 bean.setCouponid(couponid);
+						 intent.putExtra("PayCouponbean", bean);
+						 setResult(RESULT_OK, intent);
+						 finish();
+					}else if(uri.toString().contains(UrlsUtil.h5Url_login)){
+						//页面登录失效
+						MyApplication.getInstance().startLogin(new LoginCallBack() {
+							@Override
+							public void loginSuccess() {
+								Intent intent = new Intent(baseActivity, CouponActivity.class);//获取优惠券列表
+								intent.putExtra("key", "scan");
+								StartActivityUtil.startActivity(baseActivity, intent);
+							}
+							@Override
+							public void loginFail() {
+							}
+						}, baseActivity);
+					}else{
+						view.loadUrl(url);
+					}
+				}
+				return true;
+			}
+			@Override
+			public void onReceivedSslError(WebView view,
+					SslErrorHandler handle, SslError error) {
+				// TODO Auto-generated method stub
+				super.onReceivedSslError(view, handle, error);
+//				handle.proceed();
+			}
+		});
+	}
+
+
+	public void onTabChanged(String tabId) {
+		int curTabID = mTabHost.getCurrentTab();
+		if(0 == curTabID)
+			MobclickAgent.onEvent(baseActivity, "C_CPN_LST_1");
+		else if(1 == curTabID)
+			MobclickAgent.onEvent(baseActivity, "C_CPN_LST_2");
+		TabWidget tabWidget = mTabHost.getTabWidget();
+		View view = tabWidget.getChildTabViewAt(curTabID);
+		TextView textView = (TextView) view.findViewById(android.R.id.title);
+
+		// 将选中页tab的文字设为黑色
+		textView.setTextColor(getResources().getColor(R.color.color_af2942));
+		setVible(curTabID);
+		for (int i = 0; i < tabWidget.getChildCount(); i++) {
+			if (i != curTabID) {
+				// 未选中页tab的文字设为白色
+				((TextView) tabWidget.getChildTabViewAt(i).findViewById(
+						android.R.id.title)).setTextColor(getResources()
+						.getColor(R.color.color_666666));
+			}
+		}
+	}
+
+	private void setVible(int id) {
+		line1.setVisibility(View.INVISIBLE);
+		line2.setVisibility(View.INVISIBLE);
+		if ("scan".equals(key))
+			line3.setVisibility(View.INVISIBLE);
+		switch (id) {
+		case 0:
+			line1.setVisibility(View.VISIBLE);
+			break;
+		case 1:
+			line2.setVisibility(View.VISIBLE);
+			break;
+		case 2:
+			line3.setVisibility(View.VISIBLE);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public class MyCouponCallBack extends BaseJsonHttpResponseHandler<MyCouponBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, MyCouponBean arg4) {
+			Dismess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			hanlder.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				MyCouponBean arg3) {
+		}
+
+		@Override
+		protected MyCouponBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			Dismess();
+			Gson gson = new Gson();
+			couponBean = gson.fromJson(response, MyCouponBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(couponBean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = couponBean.getError().getInfo();
+			}
+			hanlder.sendMessage(message);
+			return couponBean;
+		}
+	}
+	
+	public class MyUserCouponCallBack extends BaseJsonHttpResponseHandler<CanUserCouponBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, CanUserCouponBean arg4) {
+			Dismess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			hanlder.sendMessage(message);
+		}
+		
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				CanUserCouponBean arg3) {
+		}
+		
+		@Override
+		protected CanUserCouponBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			Dismess();
+			Gson gson = new Gson();
+			usercouponBean = gson.fromJson(response, CanUserCouponBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(usercouponBean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = usercouponBean.getError().getInfo();
+			}
+			hanlder.sendMessage(message);
+			return usercouponBean;
+		}
+	}
+
+	private void Dismess() {
+		CouponActivity.this.runOnUiThread(new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading !=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+	/**
+	 * 
+	 * Describe:获取消息数据处理网络请求消息
+	 * 
+	 * Date:2015-11-03
+	 * 
+	 * Author:王奎
+	 */
+	public static class CouponHandler extends WeakHandler<CouponActivity> {
+
+		public CouponHandler(CouponActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				/**
+				 * 处理成功的数据
+				 */
+				getReference().bindViewData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				getReference().bindUserViewData();
+				
+			case ConstantsUtil.HTTP_FAILE:
+				/**
+				 * 处理失败的数据
+				 */
+				String messageString = (String) msg.obj;
+				if (messageString != null) {
+					ToastUtil.showToast(getReference().baseActivity,
+							messageString);
+					/**
+					 * 处理失败数据
+					 */
+				} else {
+					// ToastUtil.showToast(getReference().baseActivity, "请求失败");
+
+				}
+
+				break;
+			}
+		}
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void bindViewData() {
+		// TODO Auto-generated method stub
+		if(couponBean!=null && couponBean.getResult()!=null){
+			MyCoupon myCoupon = couponBean.getResult();
+			//浏览
+			if("scan".equals(key)){
+				TextView tv3 = (TextView) mTabHost.getTabWidget().getChildAt(2).findViewById(android.R.id.title);  
+				tv3.setText("已过期("+myCoupon.getInvalid().getCount()+")");  
+				SetWebViewNature(wb3, myCoupon.getInvalid().getUrl());
+				title1 = "未使用";
+				title2 = "已使用";
+				ResetTitle("我的优惠券");
+			}else{
+				title1 = "可用";
+				title2 = "不可用";
+				ResetTitle("使用优惠券");
+			}
+			TextView tv1 = (TextView) mTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);  
+			tv1.setText(title1+"("+myCoupon.getUnused().getCount()+")");  
+			TextView tv2 = (TextView) mTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);  
+			tv2.setText(title2+"("+myCoupon.getUsed().getCount()+")");  
+			
+			SetWebViewNature(wb1, myCoupon.getUnused().getUrl());
+			SetWebViewNature(wb2, myCoupon.getUsed().getUrl());
+		}
+	}
+	public void bindUserViewData() {
+		// TODO Auto-generated method stub
+		if(usercouponBean!=null && usercouponBean.getResult()!=null){
+			myCoupon = usercouponBean.getResult();
+			//浏览
+				title1 = "可用";
+				title2 = "不可用";
+				ResetTitle("使用优惠券");
+			TextView tv1 = (TextView) mTabHost.getTabWidget().getChildAt(0).findViewById(android.R.id.title);  
+			tv1.setText(title1+"("+myCoupon.getEnable().getCount()+")");  
+			TextView tv2 = (TextView) mTabHost.getTabWidget().getChildAt(1).findViewById(android.R.id.title);  
+			tv2.setText(title2+"("+myCoupon.getDisable().getCount()+")");  
+			
+			SetWebViewNature(wb1, myCoupon.getEnable().getUrl());
+			SetWebViewNature(wb2, myCoupon.getDisable().getUrl());
+		}
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "优惠券";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return "";
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.base_activity_title_right_righttv:
+			// StartActivityUtil.startActivity(baseActivity,
+			// ExchangCouponActivity.class);
+			break;
+		case R.id.base_activity_title_backicon:
+			if (isPush) {
+				Intent i = new Intent(baseContext, MainActivity.class);
+				i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				StartActivityUtil.startActivity(baseActivity, i);
+				finish();
+			} else {
+				onBackPressed();
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		if("scan".equals(key)){
+			MobclickAgent.onPageStart("PG_CPN_LST");
+		}else{
+			MobclickAgent.onPageStart("PG_MY_CPN");
+		}
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		if("scan".equals(key)){
+			MobclickAgent.onPageEnd("PG_CPN_LST");
+		}else{
+			MobclickAgent.onPageEnd("PG_MY_CPN");
+		}
+		MobclickAgent.onPause(this);
+	}
+	
+	
+}

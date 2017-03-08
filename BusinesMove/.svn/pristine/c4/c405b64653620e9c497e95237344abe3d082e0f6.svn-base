@@ -1,0 +1,636 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.model.adapter.CityListAdapter;
+import com.heheys.ec.model.dataBean.AddBackBean;
+import com.heheys.ec.model.dataBean.CityChioceBean;
+import com.heheys.ec.model.dataBean.DistrictBean;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean.Bean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ProvinceCityCounty;
+import com.heheys.ec.utils.ProvinceCityCounty.MyCallBack;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.view.DeleteEditText;
+import com.umeng.analytics.MobclickAgent;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * @author wangkui
+ * 
+ * @param地址选择界面
+ * 
+ * */
+public class DestanceChioceActivity extends BaseActivity implements
+		OnItemClickListener {
+	/**
+	 * 地址添加和需求里面使用的是同一个界面
+	 */
+	private DeleteEditText check_city_search_et;
+	private ListView lv_city;
+	private List<CityChioceBean> data = new ArrayList<CityChioceBean>();
+	private List<CityChioceBean> data_two = new ArrayList<CityChioceBean>();
+	private List<CityChioceBean> simpledata = new ArrayList<CityChioceBean>();
+	private ArrayList<String> list_name = new ArrayList<String>();// 名字集合
+	private ArrayList<String> list_id = new ArrayList<String>();// 地区id集合
+//	private StringBuffer tv_name = new StringBuffer();
+//	private StringBuffer tv_id = new StringBuffer();
+	private Button bt_subimt; 
+	private AddBackBean addBackBeanbuy;//买货单以及选中数据bean
+	private Context mContext;
+	private CityListAdapter mAdapter;
+	private int flag;
+	AddBackBean addbean = new AddBackBean();
+	DistrictBean districtBean = new DistrictBean();
+	private int indexJump;
+	private int checkIndex;
+	// 当前选中的城市是否已经选中过
+	boolean iscontain;
+	private int index;
+	/*
+	 * index=0,从订单收货地址跳转过来
+	 * 
+	 * index=1,从买货单地址跳转过来
+	 */
+	private String buyorsale;
+	private boolean isClickItem = true;
+	private ArrayList<AddBackBean> listbean;
+	private ArrayList<String> listWithoutDup;
+	private LinearLayout linaer_delete;
+	private CheckBox iv_check;
+	HashMap<String, String> map = new HashMap<String, String>();
+	private int size_id;
+	//当前集合数据长度是否等于所有数据长度
+	private int size_id_currt;
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				if (data.size() == 0) {
+					ToastUtil.showToast(mContext, "暂无数据！");
+				} else {
+					if (mAdapter != null){
+						if(index == 2){
+							//卖货单
+								if(listbean!=null){
+									for(CityChioceBean citybean:data){
+										for(AddBackBean addbean:listbean){
+										if(addbean.getProviceid().equals(citybean.getId()+"")){
+											citybean.setIsCheck(true);
+										  }
+									    }}}
+						         }else if(index ==1){
+						        	 //买货单
+						        	 if(addBackBeanbuy!=null){
+						        		 for(CityChioceBean citybean:data){
+						        			 if(addBackBeanbuy.getProivinceName().equals(citybean.getName())){
+						        				 citybean.setIsCheck(true);
+						        			 				}
+						        			 }
+						        		 }
+						         	}
+							}
+					mAdapter.setType(index);
+					mAdapter.setNewData(data);
+					mAdapter.notifyDataSetChanged();
+					}
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				if (data_two.size() == 0) {
+					ToastUtil.showToast(mContext, "数据异常请重试！");
+				} else {
+					checkIndex = 0;
+					indexJump = 2;
+					if (mAdapter != null){
+						if(index == 2){
+						if(listbean!=null){
+							for(AddBackBean addbean:listbean){
+								if(addbean.getProviceid().equals(districtBean.getProviceId())){
+									for(CityChioceBean citybean:data_two){
+										size_id = addbean.getList_id().size();
+										 for(int i=0;i<size_id;i++){
+											 if(addbean.getList_id().get(i).equals(citybean.getId()+"")){
+												 citybean.setIsCheck(true);
+												 size_id_currt = size_id;
+											 }
+										 }
+										}
+									break;
+								}
+							 }
+						}
+						if(size_id_currt == data_two.size())
+							iv_check.setChecked(true);
+						else
+							iv_check.setChecked(false);
+						 linaer_delete.setVisibility(View.VISIBLE);
+						}else if(index == 1){
+							//卖货单
+							if(addBackBeanbuy!=null){
+								for(CityChioceBean citybean:data_two){
+									if(addBackBeanbuy.getId().equals(citybean.getId()+"")){
+										 citybean.setIsCheck(true);
+										 break;
+									}
+								}
+							}
+						}
+						mAdapter.setType(index);
+						mAdapter.setNewData(data_two);
+						mAdapter.notifyDataSetChanged();
+					}
+				}
+				break;
+			default:
+				break;
+			}
+		}
+
+	};
+	
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.destance_chioce);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		mContext = DestanceChioceActivity.this;
+		initDate();
+		check_city_search_et = (DeleteEditText) findViewById(R.id.check_city_search_et);
+		linaer_delete = (LinearLayout) findViewById(R.id.linaer_delete);
+		bt_subimt = (Button) findViewById(R.id.bt_subimt);
+		iv_check = (CheckBox) findViewById(R.id.iv_check);
+		lv_city = (ListView) findViewById(R.id.lv_city);
+		mAdapter = new CityListAdapter(data, mContext);
+		lv_city.setAdapter(mAdapter);
+		lv_city.setOnItemClickListener(this);
+		check_city_search_et.setOnClickListener(this);
+		check_city_search_et.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				searchData(s.toString(), flag);
+				if ("1".equals(index)) {
+					map.put("Buy_area_search", "");
+					MobclickAgent.onEvent(baseActivity, "Buy_area_search", map);
+				} else {
+					map.put("Sell_province_search", "");
+					MobclickAgent.onEvent(baseActivity, "Sell_province_search",
+							map);
+				}
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+			}
+		});
+		try {
+			MessageDigest digst = MessageDigest.getInstance("MD5");
+			digst.update("baidu.com".getBytes());
+			Integer.toHexString(4);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	// 监听输入框数据 实时适配数据
+	private void searchData(String string, int flag) {
+		simpledata.clear();
+		for (CityChioceBean bean : data) {
+			if (bean.getName().contains(string)
+					|| bean.getPinyin().contains(string)) {
+				simpledata.add(bean);
+			}
+		}
+		if (simpledata.size() == 0)
+			ToastUtil.showToast(mContext, "查询数据为空");
+		mAdapter.setNewData(simpledata);
+		mAdapter.notifyDataSetChanged();
+
+	}
+
+	// 获取数据区分不同界面
+	@SuppressWarnings("unchecked")
+	private void initDate() {
+		Intent intent = getIntent();
+		if (intent != null) {
+			/*
+			 * index=0,从订单收货地址跳转过来
+			 * 
+			 * index=1,从买货单地址跳转过来
+			 * 
+			 * index =2,从卖货单地址跳转过来
+			 */
+			index = intent.getIntExtra("index", -1);
+			if (0 == index) {
+				// 订单界面地址选择
+				OrderCityChioce(intent);
+			} else if (1 == index) {
+				// 处理买货单界面跳转过来逻辑
+				indexJump = 1;
+				seachProvince();
+				addBackBeanbuy = (AddBackBean) intent.getSerializableExtra("addBackBean");
+				tvTitleName.setText("选择省份");
+				Dimess();
+				tvRight.setVisibility(View.INVISIBLE);
+			} else if (2 == index) {
+				listbean = (ArrayList<AddBackBean>) intent.getSerializableExtra("listbean");// 获取已经选中的城市数据
+				indexJump = 1;
+				seachProvince();
+				tvTitleName.setText("选择省份");
+				tvRight.setVisibility(View.INVISIBLE);
+				Dimess();
+			}
+		}
+	}
+	// 异常等待框
+		private void Dimess() {
+			DestanceChioceActivity.this.runOnUiThread(new Runnable() {
+				@Override
+				public void run() {
+					if(ApiHttpCilent.loading !=null && ApiHttpCilent.loading.isShowing())
+						ApiHttpCilent.loading.dismiss();
+				}
+			});
+		}
+	/**
+	 * 订单地址处理
+	 * */
+	private void OrderCityChioce(Intent intent) {
+		flag = intent.getIntExtra("flag", 0);
+		final Message msg = Message.obtain();
+		switch (flag) {
+		case 1:
+			seachProvince();
+			tvTitleName.setText("选择省份");
+			Dimess();
+			break;
+		case 2:
+			final int id_2 = intent.getIntExtra("id", -1);
+			if (id_2 != 0) {
+				new ProvinceCityCounty(mContext, new MyCallBack() {
+					@Override
+					public void setDate(Bean province) {
+						// TODO Auto-generated method stub
+						data = new ProvinceCityCounty().getList(province, 2,
+								id_2);
+						msg.what = ConstantsUtil.HTTP_SUCCESS;
+						msg.obj = data;
+						handler.sendMessage(msg);
+					}
+				});
+			} else {
+				ToastUtil.showToast(mContext, "请先选择省份");
+			}
+			tvTitleName.setText("选择城市");
+			Dimess();
+			break;
+		case 3:
+			final int id_3 = intent.getIntExtra("id", -1);
+			if (id_3 != 0) {
+				new ProvinceCityCounty(mContext, new MyCallBack() {
+					@Override
+					public void setDate(Bean province) {
+						// TODO Auto-generated method stub
+						data = new ProvinceCityCounty().getList(province, 3,
+								id_3);
+						msg.what = ConstantsUtil.HTTP_SUCCESS;
+						msg.obj = data;
+						handler.sendMessage(msg);
+					}
+				});
+			} else {
+				ToastUtil.showToast(mContext, "请先选择城市");
+			}
+			tvTitleName.setText("选择区县");
+			Dimess();
+			break;
+		default:
+			break;
+		}
+	}
+
+	// 省份选中
+	private void seachProvince() {
+		final Message msgs = Message.obtain();
+		new ProvinceCityCounty(mContext, new MyCallBack() {
+			@Override
+			public void setDate(Bean province) {
+				// TODO Auto-generated method stub
+				data = new ProvinceCityCounty().getList(province, 1, -1);
+				msgs.what = ConstantsUtil.HTTP_SUCCESS;
+				msgs.obj = data;
+				handler.sendMessage(msgs);
+			}
+		});
+	}
+	@Override
+	protected void getNetData() {
+	}
+	@Override
+	protected void reloadCallback() {
+	}
+	@Override
+	protected void setChildViewListener() {
+		tvRight.setOnClickListener(this);
+		iv_check.setOnClickListener(this);
+		bt_subimt.setOnClickListener(this);
+	}
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "选择城市";
+	}
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	@Override
+	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+			long position) {
+		CityChioceBean bean = mAdapter.dataList.get((int) position);
+		final int id = bean.getId();
+
+		if (0 == index) {// 订单跳转过来选中返回
+			if (isClickItem) {
+				isClickItem = false;
+				Intent intent = new Intent();
+				intent.putExtra("bean", bean);
+				setResult(100, intent);
+				finish();
+			}
+		} else{// 从买货单跳转过来选中返回
+			if (bean != null) {
+				if (indexJump == 1) {
+					/*
+					 * 点击完省份后 下一步跳转到城市
+					 */
+					checkIndex++;
+					if (checkIndex > 1) 
+						return;
+					tvTitleName.setText("选择城市");
+					tvRight.setVisibility(View.INVISIBLE);
+					if (2 == index) {// 卖货单
+						districtBean.setName(bean.getName());//省名称
+						districtBean.setProviceId(bean.getId()+"");//省ID
+						map.put("Sell_province_province", "");
+						MobclickAgent.onEvent(baseActivity,"Sell_province_province", map);
+					} else {// 买货单
+						addbean.setProivinceName(bean.getName());
+						map.put("Buy_province_province", "");
+						MobclickAgent.onEvent(baseActivity,
+								"Buy_province_province", map);
+					}
+					final Message msg = Message.obtain();
+					new ProvinceCityCounty(mContext, new MyCallBack() {
+						@Override
+						public void setDate(Bean province) {
+							data_two = new ProvinceCityCounty().getList(
+									province, 2, id);
+							msg.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+							msg.obj = data_two;
+							handler.sendMessage(msg);
+						}
+					});
+				} else if (indexJump == 2) {
+					/*
+					 * 点击完城市后 返回到买货单界面
+					 */
+					isClickItem = true;
+					HashMap<String, String> map = new HashMap<String, String>();
+					if (1 == index) {
+						map.put("Buy_class", "");
+						MobclickAgent.onEvent(baseActivity, "Buy_class", map);
+						addbean.setCityName(bean.getName());
+						addbean.setPingyin(bean.getPinyin());
+						addbean.setId(bean.getId() + "");
+						Intent intent = new Intent();
+						intent.putExtra("bean", addbean);
+						setResult(100, intent);
+						finish();
+					} else if (2 == index) {
+						/*
+						 * 点击完城市后 停留在当前界面
+						 */
+						if ("1".equals(index)) {
+							map.put("Buy_area_city", "");
+							MobclickAgent.onEvent(baseActivity,
+									"Buy_area_city", map);
+						} else {
+							map.put("Sell_city_city", "");
+							MobclickAgent.onEvent(baseActivity,
+									"Sell_city_city", map);
+						}
+						if (bean.getIsCheck()) 
+							bean.setIsCheck(false);
+						else 
+							bean.setIsCheck(true);
+						mAdapter.setType(index);
+						mAdapter.setNewData(mAdapter.dataList);
+						mAdapter.notifyDataSetChanged();
+					}
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		// super.onClick(v);
+		switch (v.getId()) {
+		case R.id.base_activity_title_backicon:
+			if (indexJump == 2) {
+				isClickItem = true;
+				if (mAdapter != null)
+					mAdapter.setNewData(data);
+				mAdapter.notifyDataSetChanged();
+				indexJump = 1;
+				if ("1".equals(index)) {
+					map.put("Sell_city_return", "");
+					MobclickAgent.onEvent(baseActivity, "Sell_city_return", map);
+				} else {
+					map.put("Sell_city_return", "");
+					MobclickAgent.onEvent(baseActivity, "Sell_city_return", map);
+				}
+				linaer_delete.setVisibility(View.GONE);
+			} else {
+				// 返回键处理
+				onBackPressed();
+				if ("1".equals(index)) {
+					map.put("Buy_area_return,", "");
+					MobclickAgent
+							.onEvent(baseActivity, "Buy_area_return,", map);
+				} else {
+					map.put("Sell_area_return,", "");
+					MobclickAgent.onEvent(baseActivity, "Sell_area_return,",
+							map);
+				}
+			}
+
+			break;
+		case R.id.iv_check:
+//			list_name.clear();
+//			list_id.clear();
+			if(iv_check.isChecked()){
+				//点击全选选择框
+				for(CityChioceBean city:data_two){
+					city.setIsCheck(true);
+//					list_name.add(city.getName());
+//					list_id.add(city.getId() + "");
+				}
+			}else{
+				//点击全不选选择框
+				for(CityChioceBean city:data_two){
+					city.setIsCheck(false);
+				}
+				
+			}
+			mAdapter.setType(index);
+			mAdapter.setNewData(data_two);
+			mAdapter.notifyDataSetChanged();
+			break;
+		case R.id.bt_subimt:
+			/*
+			 * 处理提交按钮事件
+			 */
+			if ("1".equals(index)) {
+				map.put("Buy_city_determine", "");
+				MobclickAgent.onEvent(baseActivity, "Buy_city_determine,", map);
+			} else {
+				map.put("Sell_city_determine", "");
+				MobclickAgent.onEvent(baseActivity, "Sell_city_determine", map);
+			}
+			/*当前选中的数据加入到listbean里面*/
+			for (int i = 0; i < listbean.size(); i++) {
+				if (listbean.get(i).getProivinceName().equals(districtBean.getName())) {
+						 for(int k = 0;k < data_two.size();k++){
+							 //如果当前城市被选中 并且传递过来之前的数据里面没有当前数据 就加入到集合
+							 if(data_two.get(k).getIsCheck() && !listbean.get(i).getList_id().contains(data_two.get(k).getId()+"") ){
+								 listbean.get(i).getList_id().add(data_two.get(k).getId()+"");
+								 listbean.get(i).getList_name().add(data_two.get(k).getName());
+								 //如果当前城市没有被选中 并且传递过来之前的数据里面有当前数据 就在当前集合剔除该数据
+							 }else if(!data_two.get(k).getIsCheck() && listbean.get(i).getList_id().contains(data_two.get(k).getId()+"")){
+								 listbean.get(i).getList_id().remove(data_two.get(k).getId()+"");
+								 listbean.get(i).getList_name().remove(data_two.get(k).getName());
+							 }
+					}
+						 if(listbean.get(i).getList_id().size() == 0){
+							 listbean.remove(listbean.get(i));
+						 }
+					iscontain = true;
+					break;
+				}
+			}
+			if (!iscontain) {
+				AddBackBean indexbean = new AddBackBean();
+				list_id.clear();
+				list_name.clear();
+				 for(int k = 0;k < data_two.size();k++){
+					 if(data_two.get(k).getIsCheck()){
+						 list_id.add(data_two.get(k).getId()+"");
+						 list_name.add(data_two.get(k).getName());
+					 }
+				 }
+			if(list_id.size()>0 && list_name.size()>0){
+				indexbean.setList_id(list_id);
+				indexbean.setList_name(list_name);
+				indexbean.setProivinceName(districtBean.getName());
+				indexbean.setProviceid(districtBean.getProviceId());
+				listbean.add(indexbean);
+				 }
+			}
+			Intent intent = new Intent();
+			intent.putExtra("bean", listbean);
+			setResult(100, intent);
+			finish();
+			break;
+		default:
+			break;
+		}
+	}
+
+	// 返回键处理
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			if (indexJump == 2) {
+				isClickItem = true;
+				if (mAdapter != null)
+					mAdapter.setNewData(data);
+				mAdapter.notifyDataSetChanged();
+				indexJump = 1;
+				linaer_delete.setVisibility(View.GONE);
+			} else {
+				// 返回键处理
+				onBackPressed();
+			}
+		}
+		return false;
+	}
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+}

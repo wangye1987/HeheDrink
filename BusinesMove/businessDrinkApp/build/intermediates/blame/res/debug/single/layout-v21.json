@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\update_password.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\update_password.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\fragment_user_center.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\fragment_user_center.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\msg_item.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\msg_item.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\about_us.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\about_us.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\coupon_item.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\coupon_item.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\base_activity.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\bundles\\default\\res\\layout-v21\\base_activity.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\my_order_item.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\my_order_item.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\login_beat2.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\login_beat2.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\produce_buttom_buy.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\produce_buttom_buy.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\count_setting.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\count_setting.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\message_layout.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\message_layout.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\base_activity_title.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\bundles\\default\\res\\layout-v21\\base_activity_title.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\layout-v21\\new_listview_footer.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkApp\\src\\main\\res\\layout-v21\\new_listview_footer.xml"
+    }
+]

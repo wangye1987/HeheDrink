@@ -1,0 +1,178 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.controller.fragment.AddressFragment;
+import com.heheys.ec.controller.fragment.MyWineFragment;
+import com.heheys.ec.controller.fragment.RetroactionFragment;
+import com.heheys.ec.controller.fragment.SettingFragment;
+import com.heheys.ec.model.dataBean.AddressBean;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.FragmentUtil;
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * @author 作者 E-mail:wk
+ * @version 创建时间：2015-9-23 下午3:34:57 类说明 我的所有界面Fragment容器
+ * @param
+ */
+public class SettingBaseActivity extends BaseActivity {
+
+	private FrameLayout content_frameLayout;
+	private Context context;
+    private AddressBean addbean = new AddressBean();
+	private boolean isCenter;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.setting_base);
+		context = SettingBaseActivity.this;
+		initView();
+		initDate();
+	}
+
+    private void initDate() {
+		// TODO Auto-generated method stub
+		Intent intent = getIntent();
+		if(intent!=null){
+		String type = intent.getStringExtra("type");
+		isCenter = intent.getBooleanExtra("isCenter",false);
+		initFragment(type);
+		}
+	}
+
+	public interface MyCallBack{//定义回调接口
+         void callBack(String param);//回调方法
+    }
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.linear_back:
+			onBackPressed();
+			break;
+
+		default:
+			break;
+		}
+	}
+	private void initFragment(String type) {
+		// TODO Auto-generated method stub
+		if(ConstantsUtil.WINE_NEED.equals(type)){
+			FragmentUtil.stratFragment((FragmentActivity) context,
+					new MyWineFragment( ), R.id.content_frameLayout, false,null);
+		}else if(ConstantsUtil.ADD_MANAGER.equals(type)){
+			AddressFragment addressFragment = new AddressFragment();
+			FragmentUtil.stratFragment((FragmentActivity) context,
+					addressFragment, R.id.content_frameLayout, false,null);
+			Bundle bundle = new Bundle();
+			bundle.putBoolean("isCenter", isCenter);  
+			addressFragment.setArguments(bundle);  
+		}else if(ConstantsUtil.SETTING.equals(type)){
+			FragmentUtil.stratFragment((FragmentActivity) context,
+					new SettingFragment( ), R.id.content_frameLayout, false,null);
+		}else if(ConstantsUtil.RETROACTION.equals(type)){
+			FragmentUtil.stratFragment((FragmentActivity) context,
+				new RetroactionFragment( ), R.id.content_frameLayout, false,null);
+	}
+	}
+
+	private void initView() {
+		content_frameLayout = (FrameLayout) findViewById(R.id.content_frameLayout);
+		rlTitlePrent.setBackgroundColor(getResources().getColor(R.color.white));
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	 public boolean onKeyDown(int keyCode, KeyEvent event) {
+	     // TODO Auto-generated method stub
+	     if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+	    	finish();
+	        return true;
+	     }
+	        return false;
+	   }
+	 
+	 public void onResume() {
+		    super.onResume();
+		    MobclickAgent.onResume(this);       //统计时长
+		}
+		public void onPause() {
+		    super.onPause();
+		    MobclickAgent.onPause(this);
+		}
+}

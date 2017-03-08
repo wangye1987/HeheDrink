@@ -1,0 +1,557 @@
+package com.heheys.ec.controller.activity; 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.http.Header;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Message;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.AddbusCardBean;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.ErrorBean;
+import com.heheys.ec.model.dataBean.MyCardBaseBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.utils.ValidatorUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+/** 
+ * @author 作者 E-mail: wangkui
+ * @version 创建时间：2015-11-16 下午2:51:50 
+ * 类说明 
+ * @param 添加个人名片
+ */
+public class AddBusinessCardActivity extends BaseActivity{
+
+	private EditText add_name_input;
+	private LinearLayout id_linear_tel;
+	private LinearLayout id_linear_plean;
+	private LinearLayout id_linear_weixin;
+	private EditText add_posotion_input;
+	private EditText add_company_input;
+	private EditText add_address_input;
+	private Button bt_tel;
+	private Button bt_plane;
+	private Button bt_weixin;
+	private Activity mContext;
+
+	private AddbusCardBean databean ;
+	private EditText add_tel_input_tel;
+	private EditText add_tel_input_landline;
+	private EditText add_tel_input_wx;
+	private AddCardHandler myHandler;
+	private TextView add_tel;
+	private TextView add_landline;
+	private TextView add_wx;
+	private LinearLayout linear_tel;
+	private LinearLayout linear_landline;
+	private LinearLayout linear_wx;
+	List<String> sb_tel = new ArrayList<String>();
+	List<String> sb_landline = new ArrayList<String>();
+	List<String> sb_landwx = new ArrayList<String>();
+	StringBuffer string_tel = new StringBuffer();
+	StringBuffer string_landline = new StringBuffer();
+	StringBuffer string_landwx = new StringBuffer();
+	private MyCardBaseBean bean;
+	private String lengthsts[];
+	private Animation animationShow,animationHide;
+	HashMap<String,String> map = new HashMap<String,String>();
+	private boolean editBean;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.add_business_card);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		mContext = AddBusinessCardActivity.this;
+//		animationShow=AnimationUtils.loadAnimation(baseActivity, R.anim.pop_enter);
+		animationShow=AnimationUtils.loadAnimation(baseActivity, R.anim.right_enter);
+		animationHide=AnimationUtils.loadAnimation(baseActivity, R.anim.left_exit);
+//		animationHide=AnimationUtils.loadAnimation(baseActivity, R.anim.pop_out);
+		add_name_input = (EditText) findViewById(R.id.add_name_input);
+		id_linear_tel = (LinearLayout) findViewById(R.id.id_linear_tel);
+		id_linear_plean = (LinearLayout) findViewById(R.id.id_linear_plean);
+		id_linear_weixin = (LinearLayout) findViewById(R.id.id_linear_weixin);
+		add_posotion_input = (EditText) findViewById(R.id.add_posotion_input);
+		add_company_input = (EditText) findViewById(R.id.add_company_input);
+		add_address_input = (EditText) findViewById(R.id.add_address_input);
+		add_tel = (TextView) id_linear_tel.findViewById(R.id.add_tel);
+		add_landline = (TextView) id_linear_plean.findViewById(R.id.add_tel);
+		add_wx = (TextView) id_linear_weixin.findViewById(R.id.add_tel);
+		add_tel_input_tel = (EditText) id_linear_tel.findViewById(R.id.add_tel_input);
+		add_tel_input_landline = (EditText) id_linear_plean.findViewById(R.id.add_tel_input);
+		add_tel_input_landline.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)}); //最大输入长度 20
+		add_tel_input_landline.setHint("请输入座机号");
+		add_tel_input_wx = (EditText) id_linear_weixin.findViewById(R.id.add_tel_input);
+		add_tel_input_wx.setInputType(InputType.TYPE_CLASS_TEXT);
+		add_tel_input_wx.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)}); //最大输入长度 20
+		add_tel_input_wx.setHint("请输入微信号");
+		linear_tel = (LinearLayout) findViewById(R.id.linear_tel);
+		linear_landline = (LinearLayout) findViewById(R.id.linear_landline);
+		linear_wx = (LinearLayout) findViewById(R.id.linear_wx);
+		bt_tel = (Button) findViewById(R.id.bt_tel);
+		bt_plane = (Button) findViewById(R.id.bt_plane);
+		bt_weixin = (Button) findViewById(R.id.bt_weixin);
+		add_tel.setText("手机");
+		add_landline.setText("座机");
+		add_wx.setText("微信");
+		myHandler = new AddCardHandler(this);
+		getData();
+	}
+	
+	//获取数据
+	private void getData() {
+		// TODO Auto-generated method stub
+		Intent intent = getIntent();
+		if(intent!=null){
+			bean = (MyCardBaseBean) intent.getSerializableExtra("bean");
+			if(bean!=null){
+				AddbusCardBean addbean = bean.getResult();
+				SetText(add_name_input, addbean.getName());
+				BackSetData(addbean,linear_tel,add_tel_input_tel,1);
+				BackSetData(addbean,linear_landline,add_tel_input_landline,2);
+				BackSetData(addbean,linear_wx,add_tel_input_wx,3);
+				SetText(add_posotion_input, addbean.getPosition());
+				SetText(add_company_input, addbean.getCompany());
+				SetText(add_address_input, addbean.getAddress());
+				editBean = true;
+			}
+		}
+	}
+
+	private void BackSetData(AddbusCardBean addbean,LinearLayout linear,EditText et,int flag) {
+		if(1==flag){
+			if(addbean.getMobile().contains(",")){
+				lengthsts = addbean.getMobile().split(",");
+				for(int i=0;i<lengthsts.length;i++){
+					if(0==i){
+							SetText(et, lengthsts[i]);
+					}else{
+						AddView(linear,flag, lengthsts[i]);
+					}
+				}
+			}else{
+				SetText(et, addbean.getMobile());
+			}
+		}else if(2==flag){
+			if(addbean.getLandline().contains(",")){
+				lengthsts = addbean.getLandline().split(",");
+				for(int i=0;i<lengthsts.length;i++){
+					if(0==i){
+							SetText(et, lengthsts[i]);
+					}else{
+						AddView(linear,flag, lengthsts[i]);
+					}
+				}
+			}else{
+				SetText(et, addbean.getLandline());
+			}
+		}else if(3==flag){
+			if(addbean.getWeixin().contains(",")){
+				lengthsts = addbean.getWeixin().split(",");
+				for(int i=0;i<lengthsts.length;i++){
+					if(0==i){
+							SetText(et, lengthsts[i]);
+					}else{
+						AddView(linear,flag, lengthsts[i]);
+					}
+				}
+			}else{
+				SetText(et, addbean.getWeixin());
+			}
+		}
+	}
+
+	
+	private void SetText(EditText dt,String tv){
+		dt.setText(tv);
+	}
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.base_activity_title_right_righttv:
+			if(editBean){
+				map.put("edit_card_Submit","");
+				MobclickAgent.onEvent(baseActivity, "edit_card_Submit", map); 
+			}else{
+				map.put("create_card_Submit","");
+				MobclickAgent.onEvent(baseActivity, "create_card_Submit", map); 
+			}
+			if(isNull(add_name_input)){
+				ToastUtil.showToast(mContext, "您的姓名没有填写");
+				return;
+			}
+			if(Lenght(add_name_input)){
+				ToastUtil.showToast(mContext, "姓名长度是2-10位");
+				return;
+			}
+			if(isNull(add_tel_input_tel)){
+				ToastUtil.showToast(mContext, "您的手机号没有填写");
+				return;
+			}
+//			if(!ValidatorUtil.isMobile(add_tel_input_tel.getText().toString().trim())){
+//				ToastUtil.showToast(mContext, "请您填写正确的手机号");
+//				return;
+//			}
+			if(!add_tel_input_landline.getText().toString().trim().equals("")){
+			if(!StringUtil.isLandline(add_tel_input_landline.getText().toString().trim())){
+				ToastUtil.showToast(mContext, "座机号填写不正确");
+				return;
+			}}
+			if(isNull(add_tel_input_wx)){
+				ToastUtil.showToast(mContext, "您的微信号没有填写");
+				return;
+			}
+			if(isNull(add_posotion_input)){
+				ToastUtil.showToast(mContext, "您的职位没有填写");
+				return;
+			}
+			if(isNull(add_company_input)){
+				ToastUtil.showToast(mContext, "您的公司名称没有填写");
+				return;
+			}
+			if(isNull(add_address_input)){
+				ToastUtil.showToast(mContext, "您的公司地址没有填写");
+				return;
+			}
+			
+				databean = new AddbusCardBean();
+				databean.setAddress(add_address_input.getText().toString().trim());
+				databean.setName(add_name_input.getText().toString().trim());
+				databean.setCompany(add_company_input.getText().toString().trim());
+				databean.setPosition(add_posotion_input.getText().toString().trim());
+				sb_tel.clear();
+				string_tel.delete(0, string_tel.length());
+				if(!SetData(linear_tel, sb_tel,string_tel,1)){
+					return;
+				}
+				databean.setMobile(string_tel.toString());
+				
+				sb_landline.clear();
+				string_landline.delete(0, string_landline.length());
+				if(!SetData(linear_landline, sb_landline,string_landline,2)){
+					return;
+				}
+				databean.setLandline(string_landline.toString());
+			
+				sb_landwx.clear();
+				string_landwx.delete(0, string_landwx.length());
+				if(!SetData(linear_wx, sb_landwx,string_landwx,3)){
+					return;
+				}
+				databean.setWeixin(string_landwx.toString());
+				
+				GetInternetData();
+			break;
+		case R.id.bt_tel:
+			if(linear_tel.getChildCount()>2)
+				return;
+			AddView(linear_tel,1,null);
+			break;
+		case R.id.bt_plane:
+			if(linear_landline.getChildCount()>2)
+				return;
+			AddView(linear_landline,2,null);
+			break;
+		case R.id.bt_weixin:
+			if(linear_wx.getChildCount()>2)
+				return;
+			AddView(linear_wx,3,null);
+			break;
+		case R.id.base_activity_title_backicon:
+			if(editBean){
+				map.put("edit_card_return","");
+				MobclickAgent.onEvent(baseActivity, "edit_card_return", map); 
+			}else{
+				map.put("create_card_return","");
+				MobclickAgent.onEvent(mContext, "create_card_return", map);
+			}
+				onBackPressed();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private boolean SetData(LinearLayout linear,List<String> list,StringBuffer sb,int id){
+		sb.delete(0, sb.length());
+		for(int i=0;i<linear.getChildCount();i++){
+			View viewChild = linear.getChildAt(i);
+			 final EditText et  = (EditText) viewChild.findViewById(R.id.add_tel_input);
+			 if(!et.getText().toString().trim().equals("")){
+			 if(1==id){
+			 if(!StringUtil.isMobileNo(et.getText().toString().trim())){
+				 if(1==i){
+					 ToastUtil.showToast(mContext, "手机号二填写不正确");
+				 }else if(2==i){
+					 ToastUtil.showToast(mContext, "手机号三填写不正确");
+				 }
+				 return false;
+			 	}
+			 }else if(2==id){
+				 if(!StringUtil.isLandline(et.getText().toString().trim())){
+					 if(1==i){
+						 ToastUtil.showToast(mContext, "座机号二填写不正确");
+					 }else if(2==i){
+						 ToastUtil.showToast(mContext, "座机号三填写不正确");
+					 }
+					 return false;
+				 }
+			 }
+			 if(!et.getText().toString().trim().equals(""))
+			 list.add(et.getText().toString().trim());
+			 }
+		}
+	
+		for(int i=0;i<list.size();i++){
+			if(i==list.size()-1)
+				sb.append(list.get(i));
+			else
+				sb.append(list.get(i)+",");
+		}
+		return true;
+	}
+	//动态添加view
+	private void AddView(final LinearLayout linear,int flag,String st){
+		final View view = LinearLayout.inflate(mContext, R.layout.add_buscard_item, null);
+		TextView add_tel_add = (TextView) view.findViewById(R.id.add_tel);
+		TextView add_more = (TextView) view.findViewById(R.id.add_more);
+		ImageView add_delete = (ImageView) view.findViewById(R.id.add_delete);
+		EditText add_tel_input = (EditText) view.findViewById(R.id.add_tel_input);
+		LinearLayout linear_delete = (LinearLayout) view.findViewById(R.id.linear_delete);
+		add_more.setText("手");
+		add_delete.setVisibility(View.VISIBLE);
+		//图片删除动画
+		Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.delete_image);
+		add_delete.startAnimation(animation);
+		if(flag==1){
+			add_tel_add.setText("手机"+GetNum((linear.getChildCount()+1)));
+			if(st!=null){
+				add_tel_input.setText(st);
+			}
+		}else if(flag==2){
+			add_tel_add.setText("座机"+GetNum((linear.getChildCount()+1)));
+			add_tel_input.setInputType(InputType.TYPE_CLASS_PHONE);
+			add_tel_input.setHint("请输入座机号码");
+			add_tel_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)}); //最大输入长度11
+			if(st!=null){
+				add_tel_input.setText(st);
+			}
+		}else if(flag==3){
+			add_tel_add.setText("微信"+GetNum((linear.getChildCount()+1)));
+			add_tel_input.setInputType(InputType.TYPE_CLASS_TEXT);
+			add_tel_input.setHint("请输入微信号码");
+			add_tel_input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)}); //最大输入长度 20
+			if(st!=null){
+				add_tel_input.setText(st);
+			}
+		}
+		linear_delete.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				view.startAnimation(animationHide);
+				linear.removeView(view);
+			}
+		});
+//		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,ViewUtil.px2dip(mContext, 160));
+//		lp.setMargins(ViewUtil.px2dip(mContext, 6),0, ViewUtil.px2dip(mContext, 6), ViewUtil.px2dip(mContext, 10));
+//		view.setLayoutParams(lp);
+		view.startAnimation(animationShow);
+		linear.addView(view);
+	}
+	
+	
+	private String GetNum(int num){
+		switch (num) {
+		case 2:
+			return "二";
+		case 3:
+			return "三";
+		default:
+			break;
+		}
+		return "";
+	}
+	private void bindDate(){
+		ToastUtil.showToast(this,"操作成功");
+		setResult(Activity.RESULT_OK); 
+		finish();
+	}
+	
+	public static class AddCardHandler extends WeakHandler<AddBusinessCardActivity>{
+
+		public AddCardHandler(AddBusinessCardActivity reference) {
+			super(reference);
+		}
+		
+		public void handleMessage(Message msg){
+			super.handleMessage(msg);
+			switch (msg.what) {
+			//获得正常数据
+			case ConstantsUtil.HTTP_SUCCESS:
+				getReference().bindDate();
+				break;
+			//获得异常数据
+			case ConstantsUtil.HTTP_FAILE:
+				ErrorBean back = (ErrorBean) msg.obj;
+				if(back !=null){
+					ToastUtil.showToast(getReference(), back.getInfo());
+				}else{
+					ToastUtil.showToast(getReference(), "数据异常,请稍后重试");
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	//隐藏等待框
+	private void Dismess(){
+		mContext.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	private class CallBackBusinessCardAdd extends BaseJsonHttpResponseHandler<BaseBean>{
+
+		private BaseBean bean;
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			// TODO Auto-generated method stub
+			Dismess();
+			
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean bean) {
+			// TODO Auto-generated method stub
+			 Dismess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dismess();
+			Gson gson = new Gson();
+			bean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(bean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = bean.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = bean.getError();
+			}
+			myHandler.sendMessage(message);
+			return bean;
+		}
+	}
+	private boolean isNull(EditText et){
+		if(et.getText().toString().trim()==null )
+			return true;
+		else
+			return false;
+	}
+	private boolean Lenght(EditText et){
+		if(et.getText().toString().trim().length()<2 )
+			return true;
+		else
+			return false;
+	}
+	//获取网络数据
+	private void GetInternetData(){
+		ApiHttpCilent.getInstance(getApplicationContext()).AddBusinessCard(mContext, databean, new CallBackBusinessCardAdd());
+		}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+		tvRight.setOnClickListener(this);
+		bt_tel.setOnClickListener(this);
+		bt_plane.setOnClickListener(this);
+		bt_weixin.setOnClickListener(this);
+		
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "创建个人名片";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return "提交";
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}
+ 

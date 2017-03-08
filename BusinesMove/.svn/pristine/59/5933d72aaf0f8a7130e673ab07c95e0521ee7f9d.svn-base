@@ -1,0 +1,945 @@
+package com.heheys.ec.base;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.controller.activity.ShoppingCartActivity;
+import com.heheys.ec.controller.activity.UsercenterActivity;
+import com.heheys.ec.controller.listener.OnBackListener;
+import com.heheys.ec.controller.receiver.PushReceiver;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.utils.ActivityManagerUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.view.CommonDialog;
+import com.heheys.ec.view.LoadingView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.heheys.ec.R.string.tel;
+
+/**
+ * 
+ * 
+ * Describe:ACTIVITY基础类
+ * 
+ * Date:2015-9-21
+ * 
+ * Author:liuzhouliang
+ */
+public abstract class BaseActivity extends FragmentActivity implements
+		View.OnClickListener {
+	protected Context baseContext;
+	protected Activity baseActivity;
+	protected static LayoutInflater baseLayoutInflater;
+	private RelativeLayout rlReload;
+	// 异常页面
+	protected View loadFialView, noDataView, noNetWorkView, noOrderDataView,
+			searchNodataView, noCouponDataView, businesscardNodataView;
+	protected LinearLayout llParent;
+	private TextView tvNoDataContent, tvNoOrderContent;
+	protected ImageView ivBack;
+	protected RelativeLayout rlTitlePrent,base_menu;
+	protected TextView tvTitleName;
+	protected ImageView base_tel_main;
+	// 标题栏上右侧三个区域的图标控件ivTitleMiddle
+	protected ImageView ivTitleLeft, ivTitleMiddle, ivTitleRight;
+	//menu显示箭头
+	protected ImageView button_hidded,iv_order,imageView_one;
+	// 右侧文本
+	protected TextView tvRight;
+	public List<OnBackListener> onBackListenerList = new ArrayList<OnBackListener>();
+	private LoadingView loadingDialog;
+	private ImageView ivTitledownIcon;
+	protected LinearLayout linear_back, tvTitleName_linear;
+	protected ImageView ivTitleArrow;
+	protected ImageView base_shopping_mian;
+	// 空地址视图
+	protected View viewNoAddress, viewNoGroupBuy, viewNoSalon, viewNoSalonMy,
+			viewNoClient, viewNoDrinksDemand;
+	private TextView tvAddAddress, tvSalonMySee, tvAddClent;
+	private TextView busAddCard;
+	private Button btDrinksDemandAdd;
+	Animation animation,animationbutton;
+	private FatherHandler handler = new FatherHandler(this);
+	protected LinearLayout linear_menu,button_hidded_linear;
+
+	/**
+	 * 
+	 * Describe:初始化容器
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract void onCreate();
+
+	/**
+	 * 
+	 * Describe:控制标题栏显示
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract boolean hasTitle();
+
+	/**
+	 * 
+	 * Describe:加载控件
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract void loadChildView();
+
+	/**
+	 * 
+	 * Describe:获取网络数据
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract void getNetData();
+
+	/**
+	 * 
+	 * Describe:重新加载页面的回调
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract void reloadCallback();
+
+	/**
+	 * 
+	 * Describe:子视图监听
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+
+	protected abstract void setChildViewListener();
+
+	/**
+	 * 
+	 * Describe:设置标题名称
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract String setTitleName();
+
+	/**
+	 * 
+	 * Describe:设置右侧文本
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract String setRightText();
+
+	/**
+	 * 
+	 * Describe:设置左侧的视图资源
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract int setLeftImageResource();
+
+	/**
+	 * 
+	 * Describe:设置中间控件视图资源
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract int setMiddleImageResource();
+
+	/**
+	 * 
+	 * Describe:设置右侧控件视图资源
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected abstract int setRightImageResource();
+	
+	/**
+	 * 
+	 * Describe:设置登录失效
+	 * 
+	 * Date:2016-5-16
+	 * 
+	 * Author:wangkui
+	 */
+//	protected abstract boolean setLoginFailure();
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		init();
+
+	}
+
+	/**
+	 * 
+	 * Describe:初始化
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void init() {
+		ActivityManagerUtil.getActivityManager().addActivity(this);
+		baseLayoutInflater = getLayoutInflater();
+		baseContext = this;
+		baseActivity = this;
+		onCreate();
+	}
+	
+
+	/**
+	 * 
+	 * Describe:设置布局内容
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void setBaseContentView(int layoutResID) {
+		super.setContentView(R.layout.base_activity);
+		// 获取父类外层容器
+		llParent = (LinearLayout) findViewById(R.id.base_activity_rootview);
+		// 加载子类控件资源
+		View childMainView = baseLayoutInflater.inflate(layoutResID, null);
+		LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.MATCH_PARENT,
+				LinearLayout.LayoutParams.MATCH_PARENT);
+		llParent.addView(childMainView, 0, ll);
+		initParentView();
+		setParentViewListener();
+		setParentViewData();
+		/**
+		 * 子视图控制
+		 */
+		loadChildView();
+		getNetData();
+		setChildViewListener();
+//		ActivityManager.addActivity(this);
+	}
+
+
+
+
+	public class FatherHandler extends WeakHandler<BaseActivity>{
+
+		public FatherHandler(BaseActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+		
+	}
+	/**
+	 * 
+	 * Describe:初始化父类视图
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void initParentView() {
+		// TODO Auto-generated method stub
+		btDrinksDemandAdd = (Button) findViewById(R.id.base_activity_no_drink_demand_add);
+		tvAddClent = (TextView) findViewById(R.id.base_activity_no_client_add);
+		viewNoClient = findViewById(R.id.base_activity_no_client);
+		tvSalonMySee = (TextView) findViewById(R.id.base_activity_no_salon_see);
+		viewNoSalonMy = findViewById(R.id.base_activity_no_salon_my);
+		viewNoSalon = findViewById(R.id.base_activity_no_salon);
+		viewNoGroupBuy = findViewById(R.id.base_activity_group_buy_nodata);
+		viewNoAddress = findViewById(R.id.base_activity_address_nodata);
+		searchNodataView = findViewById(R.id.base_activity_search_nodata);
+		businesscardNodataView = findViewById(R.id.base_activity_no_businesscard);
+		busAddCard = (TextView) findViewById(R.id.base_activity_no_business_add);
+		loadFialView = findViewById(R.id.base_activity_loadfail);
+		noDataView = findViewById(R.id.base_activity_no_data);
+		noNetWorkView = findViewById(R.id.base_activity_no_network);
+
+		ivBack = (ImageView) findViewById(R.id.base_activity_title_backicon);
+		rlTitlePrent = (RelativeLayout) findViewById(R.id.base_activity_title_parent);
+		tvTitleName_linear = (LinearLayout) findViewById(R.id.linear_titlename);
+		tvTitleName = (TextView) findViewById(R.id.base_activity_title_titlename);
+		ivTitleLeft = (ImageView) findViewById(R.id.base_activity_title_right_lefticon);
+		ivTitledownIcon = (ImageView) findViewById(R.id.base_activity_title_downicon);
+		ivTitleMiddle = (ImageView) findViewById(R.id.base_activity_title_right_middleicon);
+		ivTitleArrow = (ImageView) findViewById(R.id.base_activity_title_titleIcon);
+		ivTitleRight = (ImageView) findViewById(R.id.base_activity_title_right_righticon);
+		tvRight = (TextView) findViewById(R.id.base_activity_title_right_righttv);
+		rlReload = (RelativeLayout) findViewById(R.id.base_activity_load_fail_reload);
+		linear_back = (LinearLayout) findViewById(R.id.linear_back);
+		base_menu = (RelativeLayout) findViewById(R.id.base_menu);
+		tvNoDataContent = (TextView) findViewById(R.id.base_activity_no_data_content);
+		base_tel_main = (ImageView) findViewById(R.id.base_tal_main);
+		button_hidded = (ImageView) findViewById(R.id.button_hidded);
+		iv_order = (ImageView) findViewById(R.id.iv_order);
+		imageView_one = (ImageView) findViewById(R.id.imageView_one);
+		base_shopping_mian = (ImageView) findViewById(R.id.base_shopping_mian);
+		linear_menu = (LinearLayout) findViewById(R.id.linear_menu);
+		button_hidded_linear = (LinearLayout) findViewById(R.id.button_hidded_linear);
+		/**
+		 * 异常页面控件
+		 */
+		// 添加地址
+		tvAddAddress = (TextView) findViewById(R.id.base_activity_no_address_add);
+		viewNoDrinksDemand = findViewById(R.id.base_activity_no_drink_demand);
+		NoMenu();
+		NoTelMenu();
+	}
+
+
+
+	/**
+	 * 隐藏menu菜单
+	 * */
+	public  void hiddenMenu(boolean isHedden)  {
+		if(isHedden) {
+			linear_menu.setVisibility(View.GONE);
+
+			animation = AnimationUtils.loadAnimation(baseActivity,R.anim.meun_main_animation_exit);
+			animation.setAnimationListener(new Animation.AnimationListener() {
+				@Override
+				public void onAnimationStart(Animation animation) {
+				}
+				@Override
+				public void onAnimationEnd(Animation animation) {
+					button_hidded.setVisibility(View.VISIBLE);
+					button_hidded_linear.setVisibility(View.VISIBLE);
+				}
+				@Override
+				public void onAnimationRepeat(Animation animation) {
+				}
+			});
+		}else{
+			linear_menu.setVisibility(View.VISIBLE);
+			button_hidded.setVisibility(View.GONE);
+			button_hidded_linear.setVisibility(View.GONE);
+			animation = AnimationUtils.loadAnimation(baseActivity,R.anim.meun_main_animation_enter);
+		}
+		linear_menu.setAnimation(animation);
+	}
+
+	/**
+	 * 不显示菜单
+	 * */
+	protected  void  NoMenu(){
+		button_hidded_linear.setVisibility(View.GONE);
+		button_hidded.setVisibility(View.GONE);
+	}
+	/**
+	 * 显示菜单
+	 * */
+	protected  void  HaseMenu(){
+		button_hidded_linear.setVisibility(View.VISIBLE);
+		button_hidded.setVisibility(View.VISIBLE);
+	}
+	/**
+	 * 不显示电话
+	 * */
+	protected  void  NoTelMenu(){
+		base_tel_main.setVisibility(View.GONE);
+	}
+	/**
+	 * 显示电话
+	 * */
+	protected  void  HaseTelMenu(){
+		base_tel_main.setVisibility(View.VISIBLE);
+	}
+	/**
+	 * 拨打电话
+	 * */
+	public void TelClick(View view){
+		ShowDialog("是否拨打电话:" + tel, "温馨提示", 1, 0);
+
+	}
+
+	/**
+	 * 购物车
+	 * */
+	public void ShoppingClick(View view){
+		StartActivityUtil.startActivity(baseActivity, ShoppingCartActivity.class);
+
+	}
+	/**
+	 * 个人中心
+	 * */
+	public void UserCenterClick(View view){
+		StartActivityUtil.startActivity(baseActivity, UsercenterActivity.class);
+
+	}
+
+	public void BackClick(View view){
+		if(linear_menu.getVisibility() == View.VISIBLE){
+			//显示菜单
+			hiddenMenu(true);
+		}
+	}
+	/**
+	 * 菜单
+	 * */
+	public void MeunClick(View view){
+		//如果可见
+
+//		if(linear_menu.getVisibility() == View.GONE) {
+//			 linear_menu.setVisibility(View.VISIBLE);
+//			 button_hidded.setVisibility(View.INVISIBLE);
+//			button_hidded_linear.setVisibility(View.INVISIBLE);
+//			 animation = AnimationUtils.loadAnimation(baseActivity,R.anim.meun_main_animation_enter);
+//		}else{
+//			linear_menu.setVisibility(View.GONE);
+//			animation = AnimationUtils.loadAnimation(baseActivity,R.anim.meun_main_animation_exit);
+//			button_hidded.setVisibility(View.VISIBLE);
+//			button_hidded_linear.setVisibility(View.VISIBLE);
+//		}
+//		linear_menu.setAnimation(animation);
+	}
+	/**
+	 * 
+	 * Describe:绑定控件资源
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void setParentViewData() {
+		// TODO Auto-generated method stub
+		if (setLeftImageResource() != 0) {
+			ivTitleLeft.setVisibility(View.VISIBLE);
+			ivTitleLeft.setImageResource(setLeftImageResource());
+		}
+		if (setMiddleImageResource() != 0) {
+			ivTitleMiddle.setVisibility(View.VISIBLE);
+			ivTitleMiddle.setImageResource(setMiddleImageResource());
+		}
+		if (setRightImageResource() != 0) {
+			ivTitleRight.setVisibility(View.VISIBLE);
+			ivTitleRight.setImageResource(setRightImageResource());
+		}
+		if (hasTitle()) {
+			rlTitlePrent.setVisibility(View.VISIBLE);
+		} else {
+			rlTitlePrent.setVisibility(View.GONE);
+		}
+		tvTitleName.setText(setTitleName());
+		if (rlTitlePrent.getBackground() != null) {
+			rlTitlePrent.getBackground().setAlpha(230);
+		}
+		if (setRightText() != null) {
+			tvRight.setVisibility(View.VISIBLE);
+			tvRight.setText(setRightText());
+		}
+	}
+
+	protected void setBackIcon(int id) {
+		ivBack.setImageResource(id);
+
+	}
+
+	/**
+	 * 
+	 * Describe:设置控件监听
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void setParentViewListener() {
+		// TODO Auto-generated method stub
+		ivBack.setOnClickListener(this);
+		rlReload.setOnClickListener(this);
+		noNetWorkView.setOnClickListener(this);
+		linear_back.setOnClickListener(this);
+		tvAddAddress.setOnClickListener(this);
+		tvSalonMySee.setOnClickListener(this);
+		tvAddClent.setOnClickListener(this);
+		busAddCard.setOnClickListener(this);
+		btDrinksDemandAdd.setOnClickListener(this);
+	}
+
+	/**
+	 * 事件响应
+	 */
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.linear_back:
+			// 返回键处理
+			onBackPressed();
+			break;
+		case R.id.base_activity_title_backicon:
+			// 返回键处理
+			onBackPressed();
+			break;
+
+		case R.id.base_activity_load_fail_reload:
+			/**
+			 * 数据加载失败重新加载数据
+			 */
+			showReloadView();
+			reloadCallback();
+			break;
+
+		case R.id.base_activity_no_data:
+			/**
+			 * 网络异常页面事件
+			 */
+			showReloadView();
+			reloadCallback();
+			break;
+
+		case R.id.base_activity_no_network:
+			/**
+			 * 网络不给力，点击屏幕刷新
+			 */
+			showReloadView();
+			reloadCallback();
+			break;
+//		case R.id.base_tal_main:
+//			ToastUtil.showToast(baseActivity,"电话");
+//			break;
+		case R.id.base_shopping_mian:
+			//跳转到购物车
+
+			break;
+		}
+	}
+
+	/**
+	 * 
+	 * Describe:重新加载页面，设置内容视图
+	 * 
+	 * Date:2015-9-21
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void setReloadContent(int layoutResID) {
+		super.setContentView(R.layout.base_activity);
+		// 获取父类外层容器
+		llParent = (LinearLayout) findViewById(R.id.base_activity_rootview);
+		// 加载子类控件资源
+		View childMainView = baseLayoutInflater.inflate(layoutResID, null);
+		LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+		llParent.addView(childMainView, 1, ll);
+		initParentView();
+		setParentViewListener();
+		setParentViewData();
+		/**
+		 * 子视图控制
+		 */
+		loadChildView();
+		setChildViewListener();
+	}
+
+	/**
+	 * 
+	 * Describe:设置加载失败页面
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showLoadFailView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		loadFialView.setVisibility(View.VISIBLE);
+	}
+
+	protected void showReloadView() {
+		llParent.setVisibility(View.VISIBLE);
+		loadFialView.setVisibility(View.GONE);
+	}
+
+	/**
+	 * 
+	 * Describe:设置数据为空页面
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoDataView(String content) {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		tvNoDataContent.setText(content);
+		noDataView.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 
+	 * Describe:无订单视图
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoOrderView(String content, int resId) {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		tvNoOrderContent.setText(content);
+		((ImageView) findViewById(R.id.no_order_iv)).setImageResource(resId);
+		noOrderDataView.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 
+	 * Describe:设置没有网络页面
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoNetWork() {
+
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		noNetWorkView.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 
+	 * Describe:显示搜索没有数据页面
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showSearchNoData() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		searchNodataView.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 
+	 * Describe:显示名片没有数据页面
+	 * 
+	 * Date:2015-11-16
+	 * 
+	 * Author:wk
+	 */
+	protected void showBusinessNoData() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		businesscardNodataView.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 
+	 * Describe:显示地址空白页面
+	 * 
+	 * Date:2015-10-30
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoAddressView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		viewNoAddress.setVisibility(View.VISIBLE);
+
+	}
+
+	/**
+	 * 
+	 * Describe:拼单空白页面
+	 * 
+	 * Date:2015-10-30
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoGroupbuyView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		viewNoGroupBuy.setVisibility(View.VISIBLE);
+
+	}
+
+	/**
+	 * 
+	 * Describe:沙龙列表空白页面
+	 * 
+	 * Date:2015-10-30
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoSalonView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		viewNoSalon.setVisibility(View.VISIBLE);
+
+	}
+
+	/**
+	 * 
+	 * Describe:我的没有沙龙空页面
+	 * 
+	 * Date:2015-10-30
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoSalonMyView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		viewNoSalonMy.setVisibility(View.VISIBLE);
+
+	}
+
+	/**
+	 * 
+	 * Describe:没有终端空白页面
+	 * 
+	 * Date:2015-10-30
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showNoClientView() {
+		// if (llParent != null) {
+		// llParent.removeViewAt(1);
+		// }
+		llParent.setVisibility(View.GONE);
+		viewNoClient.setVisibility(View.VISIBLE);
+
+	}
+
+	/**
+	 * 
+	 * Describe:显示没有酒水需求空白页面
+	 *
+	 * Date:2015年11月23日下午5:31:27
+	 *
+	 * Author:LZL
+	 *
+	 */
+
+	protected void showNoDrinksDemand() {
+		llParent.setVisibility(View.GONE);
+		viewNoDrinksDemand.setVisibility(View.VISIBLE);
+
+	}
+	
+	protected void hideNoDrinksDemand() {
+		llParent.setVisibility(View.VISIBLE);
+		viewNoDrinksDemand.setVisibility(View.GONE);
+	}
+
+	/**
+	 * 
+	 * Describe:隐藏返回键
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void hideBack() {
+		ivBack.setVisibility(View.GONE);
+	}
+
+	/**
+	 * 
+	 * Describe:显示返回键
+	 * 
+	 * Date:2015-11-2
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showBack() {
+		ivBack.setVisibility(View.VISIBLE);
+	}
+
+	/**
+	 * 处理返回界面
+	 */
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		InputMethodManager imm0 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm0.hideSoftInputFromWindow(ivBack.getWindowToken(), 0);
+		super.onBackPressed();
+
+		ActivityManagerUtil.getActivityManager().finishActivity(this);
+		this.overridePendingTransition(R.anim.back_left_into,
+				R.anim.back_right_out);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		// 结束Activity从堆栈中移除
+		ActivityManagerUtil.getActivityManager().finishActivity(this);
+	}
+
+	/**
+	 * 
+	 * Describe:显示对话框
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void showLoadingDialog() {
+		if (!loadingDialog.isShowing() && baseActivity!=null) {
+			loadingDialog = new LoadingView(baseActivity);
+			loadingDialog.show();
+		}
+
+	}
+
+	/**
+	 * 
+	 * Describe:取消对话框
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 */
+	protected void cancleLoadingDialog() {
+		if (loadingDialog.isShowing()) {
+			loadingDialog.dismiss();
+		}
+	}
+	/**
+	 * 
+	 * Describe:重新设置标题
+	 * 
+	 * Date:2016-3-11
+	 * 
+	 * Author:wangkui
+	 */
+	protected void ResetTitle(String text) {
+		tvTitleName.setText(text);
+	}
+	/**
+	 * 
+	 * Describe:隐藏标题
+	 * 
+	 * Date:2016-4-27
+	 * 
+	 * Author:wangkui
+	 */
+	protected void Hindtitle() {
+		rlTitlePrent.setVisibility(View.GONE);
+	}
+	
+	//关闭当前dialog
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		if(PushReceiver.isAlert && PushReceiver.alertDialog !=null){
+			PushReceiver.alertDialog.dismiss();
+		}
+	}
+	private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+	private void ShowDialog(String notice, String title, final int flag,
+							final int type) {
+		CommonDialog.makeText(baseActivity, title, notice, new CommonDialog.OnDialogListener() {
+			@Override
+			public void onResult(int result, CommonDialog commonDialog,
+								 String tel) {
+				// TODO Auto-generated method stub
+				if (CommonDialog.OnDialogListener.LEFT == result && flag == 1) {
+					if(Build.VERSION.SDK_INT >= 23){
+						if (ContextCompat.checkSelfPermission(baseActivity, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED)
+						{
+							ActivityCompat.requestPermissions(baseActivity,new String[]{Manifest.permission.CALL_PHONE},
+									MY_PERMISSIONS_REQUEST_CALL_PHONE);
+						} else{
+							callPhone();
+						}
+					}else{
+						callPhone();
+					}
+					//6.0权限处理
+					CommonDialog.Dissmess();
+				}  else {
+					CommonDialog.Dissmess();
+				}
+			}
+		}).showDialog();
+	}
+	private void callPhone() {
+		// TODO Auto-generated method stub
+		Uri data = Uri.parse("tel:"+tel);
+		Intent intents = new Intent(Intent.ACTION_CALL,data);
+		startActivity(intents);
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode,String[] permissions,  int[] grantResults) {
+		if (requestCode == MY_PERMISSIONS_REQUEST_CALL_PHONE)
+		{
+			if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+			{
+				callPhone();
+			} else
+			{
+				// Permission Denied
+				ToastUtil.showToast(baseActivity, "请去设置里面开启拨打电话权限");
+			}
+			return;
+		}
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+	}
+}

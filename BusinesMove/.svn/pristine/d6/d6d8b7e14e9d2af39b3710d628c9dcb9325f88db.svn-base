@@ -1,0 +1,194 @@
+package com.heheys.ec.controller.activity;
+
+import android.text.TextUtils;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.baidu.mapapi.cloud.CloudListener;
+import com.baidu.mapapi.cloud.CloudManager;
+import com.baidu.mapapi.cloud.CloudPoiInfo;
+import com.baidu.mapapi.cloud.CloudRgcInfo;
+import com.baidu.mapapi.cloud.CloudRgcResult;
+import com.baidu.mapapi.cloud.CloudSearchResult;
+import com.baidu.mapapi.cloud.DetailSearchResult;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.model.adapter.LocationAdapter;
+import com.heheys.ec.model.dataBean.LoactionBean;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/21 17:29
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:定位地址
+ */
+
+public class LocationSearchActivity extends BaseActivity  {
+    private EditText search_location;
+    private TextView tv_nowlcation;
+    private TextView tv_location;
+    private ListView location_lv;
+    private LocationAdapter locationAdater;
+    private List<LoactionBean> listLocation;
+    private GeoCoder mSearch;
+
+    @Override
+    protected void onCreate() {
+        setBaseContentView(R.layout.location);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        CloudListener listen = new CloudListener() {
+            @Override
+            public void onGetSearchResult(CloudSearchResult result, int error) {
+
+            }
+            @Override
+            public void onGetDetailSearchResult(DetailSearchResult result, int error) {
+            }
+            @Override
+            public void onGetCloudRgcResult(CloudRgcResult result, int error) {
+                //获取云反地理编码检索结果
+                if(result != null){
+                    List<CloudPoiInfo> addList = result.customPois;
+                    for(CloudPoiInfo info:addList){
+                        LoactionBean bean = new LoactionBean();
+                        bean.setId(info.geotableId);
+                        bean.setNameContent(info.address);
+                        bean.setNameTitle(info.district);
+                        listLocation.add(bean);
+                    }
+                    locationAdater.notifyDataSetChanged();
+                }
+            }
+        };
+        CloudManager.getInstance().init( listen);
+        CloudRgcInfo info = new CloudRgcInfo();
+        info.geoTableId = 145801;
+        info.location = "40.047969,116.313718";
+        CloudManager.getInstance().rgcSearch(info);
+    }
+        //获取反编译地址
+      private void SearchAddress(){
+          mSearch = GeoCoder.newInstance();
+          OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
+              public void onGetGeoCodeResult(GeoCodeResult result) {
+                  if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                      //没有检索到结果
+                  }
+                  //获取地理编码结果
+              }
+
+              @Override
+              public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+                  if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+                      //没有找到检索结果
+                      return;
+                  }
+                  //获取反向地理编码结果
+                  List<PoiInfo> list = result.getPoiList();
+                  for(PoiInfo poi:list){
+                  }
+              }
+          };
+          mSearch.setOnGetGeoCodeResultListener(listener);
+          mSearch.geocode(new GeoCodeOption()
+                  .city("北京")
+                  .address("通州"));
+      }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearch.destroy();
+        CloudManager.getInstance().destroy();
+    }
+
+    private void initView() {
+        search_location = (EditText) findViewById(R.id.search_location);
+        search_location.setOnClickListener(this);
+        tv_nowlcation = (TextView) findViewById(R.id.tv_nowlcation);
+        tv_location = (TextView) findViewById(R.id.tv_location);
+        tv_location.setOnClickListener(this);
+        location_lv = (ListView) findViewById(R.id.location_lv);
+        listLocation = new ArrayList<LoactionBean>();
+        locationAdater = new LocationAdapter(listLocation,this);
+        location_lv.setAdapter(locationAdater);
+    }
+
+    @Override
+    protected boolean hasTitle() {
+        return true;
+    }
+
+    @Override
+    protected void loadChildView() {
+
+    }
+
+    @Override
+    protected void getNetData() {
+
+    }
+
+    @Override
+    protected void reloadCallback() {
+
+    }
+
+    @Override
+    protected void setChildViewListener() {
+
+    }
+
+    @Override
+    protected String setTitleName() {
+        return "选择当前位置";
+    }
+
+    @Override
+    protected String setRightText() {
+        return null;
+    }
+
+    @Override
+    protected int setLeftImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setMiddleImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setRightImageResource() {
+        return 0;
+    }
+
+    private void submit() {
+        // validate
+        String location = search_location.getText().toString().trim();
+        if (TextUtils.isEmpty(location)) {
+            Toast.makeText(this, "location不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // TODO validate success, do something
+
+
+    }
+}

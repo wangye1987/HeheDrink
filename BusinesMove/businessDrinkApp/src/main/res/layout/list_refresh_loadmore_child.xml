@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.heheys.ec.view.PullToRefreshView
+        android:id="@+id/main_pull_refresh_view"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/color_ebebeb"
+        android:orientation="vertical" >
+
+<!--         android:background="#00000000" -->
+        <ListView
+            android:layoutAnimation="@anim/listview_layoutanim_from_left"
+            android:divider="@null"
+            android:id="@+id/gvIndexData"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:horizontalSpacing="8dp"
+            android:numColumns="2"
+            android:verticalSpacing="8dp" />
+    </com.heheys.ec.view.PullToRefreshView>
+
+</LinearLayout>

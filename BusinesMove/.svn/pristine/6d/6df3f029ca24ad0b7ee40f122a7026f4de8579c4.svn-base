@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/id_footer"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linear_paytype"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_18"
+            android:layout_marginRight="@dimen/margin_15"
+            android:gravity="center|left"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_14"
+                android:textColor="@color/color_2b2b2b"
+                android:text="支付方式" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:id="@+id/linear_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical" >
+
+                    <TextView
+                        android:id="@+id/tv_hehebalance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
+                        android:layout_marginRight="@dimen/margin_10"
+                        android:textColor="@color/color_999999"
+                        android:text="" />
+
+                    <ImageView
+                        android:id="@+id/iv_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/hehe" />
+
+                    <TextView
+                        android:id="@+id/tv_pay"
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/margin_19"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:textColor="@color/color_999999"
+                        android:textSize="@dimen/text_size_12"
+                         />
+
+                    <ImageView
+                        android:id="@+id/iv_arrow_buttom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/arrow" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_ebebeb" />
+
+<include layout="@layout/coupon_item"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:layout_marginRight="@dimen/margin_15"
+        android:gravity="center_vertical|right" >
+
+        <TextView
+            android:id="@+id/tv_transuredec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_34"
+            android:textColor="@color/color_2b2b2b"
+            android:textSize="@dimen/text_size_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_14"
+                android:textColor="@color/color_2b2b2b"
+            android:text="运费:" />
+
+        <TextView
+            android:id="@+id/tv_yunfei"
+            android:textSize="@dimen/text_size_14"
+                android:textColor="@color/red_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:text="元"
+            android:textSize="@dimen/text_size_14"
+                android:textColor="@color/color_2b2b2b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/color_ebebeb"
+        android:orientation="vertical" >
+    </LinearLayout>
+
+</LinearLayout>

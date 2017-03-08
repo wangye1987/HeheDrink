@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <!-- 插入标题栏布局 -->
+
+    <include layout="@layout/base_activity_title" />
+    <!-- 内容显示区域 -->
+
+    <LinearLayout
+        android:id="@+id/base_activity_rootview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/white"
+        android:orientation="vertical" />
+
+    <!-- 加载失败视图 -->
+
+    <include
+        android:id="@+id/base_activity_loadfail"
+        layout="@layout/base_activity_load_fail"
+        android:visibility="gone" />
+
+    <!-- 空数据视图 -->
+
+    <include
+        android:id="@+id/base_activity_no_data"
+        layout="@layout/base_activity_no_data"
+        android:visibility="gone" />
+
+    <!-- 网络异常 -->
+
+    <include
+        android:id="@+id/base_activity_no_network"
+        layout="@layout/base_activity_no_network"
+        android:visibility="gone" />
+    <!-- 搜索空页面 -->
+
+    <include
+        android:id="@+id/base_activity_search_nodata"
+        layout="@layout/search_no_data"
+        android:visibility="gone" />
+    <!-- 地址空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_address_nodata"
+        layout="@layout/base_activity_no_address"
+        android:visibility="gone" />
+
+    <!-- 拼单空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_group_buy_nodata"
+        layout="@layout/base_activity_group_buy_empty"
+        android:visibility="gone" />
+    <!-- 沙龙空页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_salon"
+        layout="@layout/base_activity_no_salon"
+        android:visibility="gone" />
+    <!-- 我的沙龙空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_salon_my"
+        layout="@layout/base_activity_no_salon_my"
+        android:visibility="gone" />
+    <!-- 终端空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_client"
+        layout="@layout/base_activity_no_client"
+        android:visibility="gone" />
+    <!-- 名片空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_businesscard"
+        layout="@layout/base_activity_no_businesscard"
+        android:visibility="gone" />
+    <!-- 酒水需求空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_drink_demand"
+        layout="@layout/base_activity_no_drink_demand"
+        android:visibility="gone" />
+
+</LinearLayout>

@@ -1,0 +1,215 @@
+/*package com.heheys.ec.utils;
+
+import java.io.InputStream;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+
+import com.heheys.ec.controller.activity.UpdateActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.onlineconfig.UmengOnlineConfigureListener;
+import com.umeng.update.UmengUpdateAgent;
+import com.umeng.update.UmengUpdateListener;
+import com.umeng.update.UpdateResponse;
+import com.umeng.update.UpdateStatus;
+
+*//**
+ * 
+ * Describe:升级服务
+ * 
+ * Date:2015-10-21
+ * 
+ * Author:liuzhouliang
+ *//*
+public class CheckUpdateServer {
+
+	private static final String TAG = CheckUpdateServer.class.getSimpleName();
+	private static final String KEY_FORCE_UPDATE_CODE = "force_update_code";
+	private static final String KEY_MAX_VERSIONCODE = "max_version_code";
+	private UpdateResponse mUpdateResponse;
+	private boolean isForceCheckUpdate;
+	private Context mContext;
+
+	public CheckUpdateServer(Context context) {
+		super();
+		this.mContext = context;
+	}
+
+	*//**
+	 * 
+	 * Describe:检测更新
+	 * 
+	 * Date:2015-10-21
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+	public void checkUpdate() {
+		UmengUpdateAgent.setAppkey(null);
+		UmengUpdateAgent.setChannel(null);
+		UmengUpdateAgent.setUpdateOnlyWifi(false);
+		UmengUpdateAgent.setDeltaUpdate(true);
+		UmengUpdateAgent.setUpdateAutoPopup(false);
+		UmengUpdateAgent.setRichNotification(true);
+		UmengUpdateAgent.setUpdateUIStyle(UpdateStatus.STYLE_DIALOG);
+
+		UmengUpdateAgent.setUpdateListener(new UmengUpdateListener() {
+			@Override
+			public void onUpdateReturned(int updateStatus,
+					UpdateResponse updateInfo) {
+				if (updateStatus == 0 && updateInfo != null) {
+
+					mUpdateResponse = updateInfo;
+//					LogUtil.d(TAG, "升级返回信息==" + mUpdateResponse.toString());
+					if (updateInfo.hasUpdate) {
+						setUpdateParamListener();
+					}
+				}
+			}
+		});
+		UmengUpdateAgent.update(mContext);
+	}
+
+	*//**
+	 * 
+	 * Describe:设置在线参数监听
+	 * 
+	 * Date:2015-10-21
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+	private void setUpdateParamListener() {
+		*//**
+		 * 设置在线参数的监听器
+		 *//*
+		MobclickAgent
+				.setOnlineConfigureListener(new UmengOnlineConfigureListener() {
+					@Override
+					public void onDataReceived(JSONObject data) {
+						if (null != data) {
+							try {
+								LogUtil.d(TAG,
+										"force_update_code onDataReceived"
+												+ data.toString());
+								// 获取强制更新版本号
+								String intForceVersionCode = data
+										.getString(KEY_FORCE_UPDATE_CODE);
+								// 获取最大版本号
+								String maxVersionCode = data
+										.getString(KEY_MAX_VERSIONCODE);
+								setUpdate(intForceVersionCode, maxVersionCode);
+							} catch (JSONException e) {
+								e.printStackTrace();
+							}
+						}
+					}
+				});
+		*//**
+		 * 请求在线参数
+		 *//*
+		MobclickAgent.updateOnlineConfig(mContext);
+		*//**
+		 * 请求在线参数后，在线参数被缓存到本地，可以通过如下接口来获取在线参数值，key表示要获取的在线参数， value表示返回的在线参数值
+		 *//*
+		String minVersionCodeString = MobclickAgent.getConfigParams(mContext,
+				"force_update_code");
+		String maxVersionCodeString = MobclickAgent.getConfigParams(mContext,
+				"max_version_code");
+		if (!StringUtil.isEmpty(minVersionCodeString)
+				&& !StringUtil.isEmpty(maxVersionCodeString)) {
+			setUpdate(minVersionCodeString, maxVersionCodeString);
+		}
+	}
+
+	*//**
+	 * 
+	 * Describe:设置更新提示
+	 * 
+	 * Date:2015-10-21
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+	private void setUpdate(String minVersionCode, String maxVersionCode) {
+		LogUtil.d(TAG, "forceUpdateCode" + minVersionCode);
+		int intForceVersionCode = 0;
+		int intMaxVersionCode = 0;
+		try {
+			intForceVersionCode = Integer.parseInt(minVersionCode);
+			intMaxVersionCode = Integer.parseInt(maxVersionCode);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+		update(intForceVersionCode, intMaxVersionCode);
+	}
+
+	*//**
+	 * 
+	 * Describe:调用更新页面
+	 * 
+	 * Date:2015-10-21
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+	private void update(int minVersionCode, int maxVersionCode) {
+		int currentVersionCode = getCurrentAppVersionCode();
+		if (currentVersionCode < minVersionCode) {
+			*//**
+			 * 当前版本小于最小版本
+			 *//*
+			isForceCheckUpdate = true;
+		} else if (currentVersionCode < maxVersionCode) {
+			*//**
+			 * 当前版本小于最大版本
+			 *//*
+			isForceCheckUpdate = false;
+		} else if (currentVersionCode == maxVersionCode) {
+			*//**
+			 * 当前版本等于最大版本
+			 *//*
+			return;
+		} else {
+			isForceCheckUpdate = false;
+		}
+		Intent intent = new Intent(mContext, UpdateActivity.class);
+		intent.putExtra(ConstantsUtil.IS_FORCE_UPDATE_KEY, isForceCheckUpdate);
+		intent.putExtra(ConstantsUtil.UPDATE_DATA_KEY, mUpdateResponse);
+		mContext.startActivity(intent);
+	}
+
+	*//**
+	 * 
+	 * Describe:获取当前应用版本值
+	 * 
+	 * Date:2015-10-21
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+	public int getCurrentAppVersionCode() {
+		int intVersionCodeCur = 0;
+		try {
+			intVersionCodeCur = mContext.getPackageManager().getPackageInfo(
+					mContext.getPackageName(), 0).versionCode;
+		} catch (PackageManager.NameNotFoundException e) {
+			e.printStackTrace();
+		}
+		return intVersionCodeCur;
+	}
+	//测试方法 读取本地json
+		public static String ReadJson(Context context,String text){
+			try {
+				InputStream in = context.getResources().getAssets().open(text);
+				byte buffer[] = new byte[in.available()];
+				in.read(buffer);
+				String json = new String(buffer,"UTF-8");
+				return json;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+}
+*/

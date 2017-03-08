@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/login_linear_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height"
+        android:background="@drawable/sharp_login"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="18dp"
+            android:layout_height="21dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/login_phone_ic" />
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/login_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tel"
+            android:textColor="@color/color_bababa" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/username_et"
+            style="@style/login_text_hint_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="0123456789"
+            android:hint="@string/notice_phone_null"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_454545" >
+
+            <requestFocus />
+        </com.heheys.ec.view.DeleteEditText>
+        <!--
+    <Spinner    
+        android:id="@+id/spinner_username"  
+        android:background="@drawable/arrow_down"  
+        android:layout_width="30dp"  
+        android:layout_height="wrap_content">    
+    </Spinner>定义一个下拉菜单
+        -->
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/login_linear_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height"
+        android:layout_marginTop="@dimen/margin_18"
+        android:background="@drawable/sharp_login"
+        android:gravity="center_vertical" >
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="22dp"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp"
+            android:src="@drawable/login_psw_ic" />
+
+        <TextView
+            style="@style/login_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_password"
+            android:textColor="@color/color_bababa" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/text"
+            android:visibility="invisible" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/password_et"
+            style="@style/login_text_hint_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789"
+            android:hint="@string/hint_pwd"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_454545" >
+        </com.heheys.ec.view.DeleteEditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/forget_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_27"
+            android:layout_marginTop="@dimen/margin_20"
+            android:text="@string/forget_password"
+            android:textColor="@color/gray_text_notice" />
+    </LinearLayout>
+
+    <com.heheys.ec.lib.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/commit_verify"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_29"
+            android:background="@drawable/bt_bg_yellow"
+            android:text="@string/login_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18" />
+    </com.heheys.ec.lib.view.RevealLayout>
+
+    <LinearLayout
+        android:id="@+id/register_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_28" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_29"
+            android:text="@string/no_account"
+            android:textColor="@color/gray_text_notice" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/marginagent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="@dimen/margin_29"
+            android:text="@string/go_register"
+            android:textColor="@color/red_text_color"
+            android:textSize="@dimen/text_size_16" />
+    </LinearLayout>
+
+</LinearLayout>

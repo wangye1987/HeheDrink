@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_444446"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="@dimen/linearLayout_height_44" >
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_16"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tv_total_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text="" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+           />
+
+        <TextView
+            android:id="@+id/tv_pay"
+            android:layout_gravity="right"
+            android:layout_width="@dimen/button_width_83"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="@color/color_ef5150"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15"
+            android:text="结算" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/group_buy_list_shopping_cart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/have_goods"
+            android:layout_marginLeft="@dimen/margin_19"
+            android:focusable="true" />
+			<Button
+                    android:id="@+id/shoppingcare_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_marginLeft="60dp"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/message_num_bg"
+                    android:gravity="center"
+                    android:padding="1dp"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:visibility="gone" />
+    </RelativeLayout>
+</RelativeLayout>

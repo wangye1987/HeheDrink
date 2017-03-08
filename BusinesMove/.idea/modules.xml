@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/BusinessDrinkApp.iml" filepath="$PROJECT_DIR$/BusinessDrinkApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseWebViewActivity/baseWebViewActivity.iml" filepath="$PROJECT_DIR$/baseWebViewActivity/baseWebViewActivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/businessDrinkApp/businessDrinkApp.iml" filepath="$PROJECT_DIR$/businessDrinkApp/businessDrinkApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/businessDrinkAppLib/businessDrinkAppLib.iml" filepath="$PROJECT_DIR$/businessDrinkAppLib/businessDrinkAppLib.iml" />
+    </modules>
+  </component>
+</project>

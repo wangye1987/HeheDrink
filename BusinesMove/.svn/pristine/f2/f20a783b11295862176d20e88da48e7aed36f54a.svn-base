@@ -1,0 +1,711 @@
+package com.heheys.ec.controller.activity;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.LoginNamePwd;
+import com.heheys.ec.model.dataBean.ResultBean;
+import com.heheys.ec.model.dataBean.VersionInitdatabean;
+import com.heheys.ec.model.dataBean.VersionInitdatabean.VersionInfo.VersionBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.sqliteHelper.BaseSQLHelper;
+import com.heheys.ec.utils.AnimationUtil;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.Md5Util;
+import com.heheys.ec.utils.SharedPreferencesUtil;
+import com.heheys.ec.utils.ToastNoNetWork;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.utils.Utils;
+import com.heheys.ec.view.AlertDialogCustom;
+import com.heheys.ec.view.AlertDialogCustom.UpdateOrNot;
+import com.heheys.ec.view.DeleteEditText;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+//import com.alibaba.mobileim.IYWLoginService;
+//import com.alibaba.mobileim.YWAPI;
+//import com.alibaba.mobileim.YWIMKit;
+//import com.alibaba.mobileim.YWLoginParam;
+//import com.alibaba.wxlib.util.IWxCallback;
+
+/**
+ * Author:LiuZhouLiang
+ * <p/>
+ * Date:2015/9/20
+ * <p/>
+ * Describe:
+ */
+public class LoginActivity extends BaseActivity {
+	private LinearLayout forget_pwd;
+	private LinearLayout linear_eye;
+	private LinearLayout base_activity_title_right_parent;
+	private  Context context;
+	private Button commit_verify;
+	private DeleteEditText username_et;
+	private DeleteEditText password_et;
+	private String passWord;
+	private String userName;
+	private MyHandler handler = new MyHandler(this);
+	private boolean isLoginSuccess;
+	private int flag = 0;//请求flag 0 是登录 1是绑定push cid
+	private List<LoginNamePwd> listsd;
+	static BaseSQLHelper sqlhelper;
+	private boolean isOpen = true;//是否点击过看密码
+//	public static YWIMKit mIMKit;
+	private final int LOGIN_1 = 501;
+	private final int LOGIN_2 = 2;
+	private final int LOGIN_0 = 5000;
+//	private final int LOGIN_4 = 4;
+	private String id;
+	private VersionInitdatabean versionInitdatabean;
+	ResultBean loginObj;
+	private AlertDialogCustom alertDialog;
+	public static final String AUTO_LOGIN_STATE_ACTION = "com.openim.autoLoginStateActionn";
+    private List<LoginNamePwd> list;
+	private boolean isOld = false;
+	private ProgressDialog pd;
+	@Override
+	protected void onCreate() {
+		setBaseContentView(R.layout.login_beat2);
+		initDate();
+	}
+	private void initDate() {
+		// TODO Auto-generated method stub
+		showBack();
+		Intent intent = getIntent();
+		if(intent  != null){
+			userCenter = intent.getBooleanExtra("userCenter", false);
+		}
+	}
+	@Override
+	protected boolean hasTitle() {
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		context = LoginActivity.this;
+		base_activity_title_right_parent = (LinearLayout) findViewById(R.id.base_activity_title_right_parent);
+		forget_pwd = (LinearLayout) findViewById(R.id.forget_pwd);
+		linear_eye = (LinearLayout) findViewById(R.id.linear_eye);
+		commit_verify = (Button) findViewById(R.id.commit_verify);
+		pw_eye = (ImageView) findViewById(R.id.pw_eye);
+		username_et = (DeleteEditText) findViewById(R.id.username_et);
+		password_et = (DeleteEditText) findViewById(R.id.password_et);
+		base_activity_title_right_righttv = (TextView) findViewById(R.id.base_activity_title_right_righttv);
+//		register_linear.setOnClickListener(this);
+		forget_pwd.setOnClickListener(this);
+		commit_verify.setOnClickListener(this);
+		username_et.setOnClickListener(this);
+		password_et.setOnClickListener(this);
+		linear_eye.setOnClickListener(this);
+		base_activity_title_right_parent.setOnClickListener(this);
+		base_activity_title_right_righttv.setOnClickListener(this);
+		username_et.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				   if(StringUtil.isEmpty(s.toString().trim())){
+					   password_et.setText("");
+				   }
+			}
+		});
+//		setBackIcon(R.drawable.login_cancel);
+		ivBack.setVisibility(View.INVISIBLE);
+//		tvRight.setTextSize(ViewUtil.px2sp(baseActivity, 28));
+		@SuppressWarnings("unchecked")
+		ArrayList<LoginNamePwd> listlogin = (ArrayList<LoginNamePwd>) SharedPreferencesUtil.getObject(baseContext, "loginUserPwd");
+		if(listlogin!=null && listlogin.size()>0){
+			username_et.setText(listlogin.get(listlogin.size()-1).getUserName().toString());
+		}
+		alertDialog = new AlertDialogCustom();//初始化弹出框
+		//获取版本信息
+		ApiHttpCilent.getInstance(baseActivity).initVersiondata(context, "android",new VersionCallBack());
+	}
+	
+	//升级版本
+	private void upgradeVersion() {
+		if(versionInitdatabean !=null && versionInitdatabean.getResult()!=null && versionInitdatabean.getResult().getVersion() != null){
+			VersionBean versionBean = versionInitdatabean.getResult().getVersion();
+			//获取当前app版本号 
+			int currtversion = Utils.getCurrentAppVersionCode(baseActivity);
+			//获取服务器版本号 
+			int serverversion = versionBean.getVersion();
+			//是否强制更新
+			final boolean isfocuse =  versionBean.getIsmust();
+			//升级地址
+			final String appUrl = versionBean.getUrl(); 
+			//升级提示
+			final String updateNotice = versionBean.getUpdateinfo(); 
+			if(currtversion < serverversion){
+				if(alertDialog != null)
+					alertDialog.Updategrade(LoginActivity.this, updateNotice,new UpdateOrNot() {
+						@Override
+						public void setResult(int modle) {
+							if(1 == modle){
+								if(alertDialog !=null )
+								{
+									alertDialog.Demiss();
+								}
+								if(isfocuse){
+									android.os.Process.killProcess(android.os.Process.myPid());
+								    System.exit(0);
+								}
+							}else{
+								//更新
+//								ToastUtil.showToast(baseActivity, "更新aspp");
+								 if (Environment.getExternalStorageState().equals(  
+						                    Environment.MEDIA_MOUNTED)) {  
+						                downFile(appUrl);     //在下面的代码段  
+						            } else {  
+						                Toast.makeText(baseActivity, "SD卡不可用，请插入SD卡",  
+						                        Toast.LENGTH_SHORT).show();  
+						            }  
+							}
+						}
+					});
+			}
+		}
+	}
+
+	//下载apk
+	private void downFile(final String appUrl) {
+		alertDialog.pb.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				HttpClient httpclient =  new DefaultHttpClient();
+				HttpGet httpget = new HttpGet(appUrl); 
+				HttpResponse response;
+				HttpEntity httpentry;
+				FileOutputStream fo = null;
+				InputStream in = null;
+				try {
+					 response = httpclient.execute(httpget);
+					 httpentry = response.getEntity();
+					 int apksize = (int) httpentry.getContentLength();
+					 alertDialog.pb.setMax(apksize);
+					 in =  httpentry.getContent();
+					if(in != null){
+						File file = new File(Environment.getExternalStorageDirectory(),"hehe.apk");
+						fo = new FileOutputStream(file);
+						byte bytezie[] = new byte[1024];
+						int ch;
+						int lenthcurrt = 0;
+						while((ch=in.read(bytezie)) != -1){
+							//如果还有就写入到本地文件
+							fo.write(bytezie, 0, ch);
+							lenthcurrt += ch;
+							alertDialog.pb.setProgress(lenthcurrt);
+						}
+						fo.flush();//刷新缓存
+						if(fo !=null){
+							fo.close();
+						}
+						if(in !=null){
+							in.close();
+						}
+						InitApk();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();
+	}
+	private void InitApk() {
+		handler.post(new Runnable() {  
+            public void run() {  
+            	alertDialog.Demiss();  
+                update();  
+            }  
+        });  
+	}
+	//安装文件，固定写法  
+    void update() {                      
+        Intent intent = new Intent(Intent.ACTION_VIEW);  
+        intent.setDataAndType(Uri.fromFile(new File(Environment  
+                .getExternalStorageDirectory(), "hehe.apk")),  
+                "application/vnd.android.package-archive");  
+        startActivity(intent);  
+    } 
+	/**
+	 * 
+	 * Describe:检测升级
+	 * 
+	 * Date:2015-11-2
+	 * 
+	 * Author:liuzhouliang
+	 */
+	@Override
+	protected void getNetData() {
+		
+	}
+
+	@Override
+	protected void reloadCallback() {
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		return "登录";
+	}
+
+	@Override
+	protected String setRightText() {
+		return "注册";
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		return 0;
+	}
+	
+	private IWXAPI api;
+	private TextView base_activity_title_right_righttv;
+	private ImageView pw_eye;
+	private boolean userCenter;
+	@SuppressLint("NewApi") @Override
+	public void onClick(View v) {
+		super.onClick(v);
+		HashMap<String,String> map = new HashMap<String,String>();
+		switch (v.getId()) {
+		case R.id.base_activity_title_right_parent:
+			MobclickAgent.onEvent(baseActivity, "C_LGN_3"); 
+			StartActivityUtil.startActivity((Activity) context,
+					RegisterActivity.class);
+			break;
+		case R.id.base_activity_title_right_righttv:
+			MobclickAgent.onEvent(baseActivity, "C_LGN_3"); 
+			StartActivityUtil.startActivity((Activity) context,
+					RegisterActivity.class);
+			break;
+		case R.id.forget_pwd:
+			userName = username_et.getText().toString().trim();
+			MobclickAgent.onEvent(baseActivity, "C_LGN_2"); 
+			StartActivityUtil.startActivity((Activity) context,
+					FrogetPwdActivity.class);
+			break;
+		case R.id.commit_verify:
+
+			userName = username_et.getText().toString().trim();
+			passWord = password_et.getText().toString().trim();
+			if(!StringUtil.isEmpty(userName)){
+				if(userName.length()>4)
+					map.put("login","*******"+userName.substring(userName.length()-4,userName.length()));
+			}
+			/** 
+			 * 登录事件
+			 */
+			if (ToastNoNetWork.ToastError(context)) {
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				return;
+			}
+			if (userName == null || userName.equals("")) {
+				ToastUtil.showToast(context,
+						getResources().getString(R.string.notice_userName));
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				return;
+			}
+
+			if (!StringUtil.isMobileNo(userName)) {
+				ToastUtil
+						.showToast(
+								context,
+								getResources().getString(
+										R.string.notice_correct_phone));
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				return;
+			}
+
+			if (passWord == null || passWord.equals("")) {
+				ToastUtil.showToast(context,
+						getResources().getString(R.string.notice_password));
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				return;
+			}
+			if (passWord.length() < 6) {
+				ToastUtil.showToast(context,
+						getResources().getString(R.string.pwd_one_length));
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				return;
+			}
+			flag = 0;
+			ApiHttpCilent.getInstance(context).login(context,
+					StringUtil.filterSpace(userName),
+					StringUtil.filterSpace(passWord), new MyCallBack());
+			break;
+		case R.id.linear_eye:
+			if(isOpen){
+				pw_eye.setBackground(getResources().getDrawable(R.drawable.eye_open));
+				isOpen = false;
+				password_et.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+			}else{
+				pw_eye.setBackground(getResources().getDrawable(R.drawable.eye_close));
+				isOpen = true;
+				password_et.setTransformationMethod(PasswordTransformationMethod.getInstance());
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	
+	private void Dimess() {
+		LoginActivity.this.runOnUiThread(new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading != null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+	/*
+	 * 获取版本信息 是否可以升级
+	 * **/
+	class VersionCallBack extends BaseJsonHttpResponseHandler<VersionInitdatabean> {
+		
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, VersionInitdatabean arg4) {
+			Dimess();
+		}
+		
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				VersionInitdatabean arg3) {
+			Dimess();
+		}
+		
+		@Override
+		protected VersionInitdatabean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			versionInitdatabean = gson.fromJson(response, VersionInitdatabean.class);
+			Message message = Message.obtain();
+			 if("1".equals(versionInitdatabean.getStatus())){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+			}else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误 
+				message.obj = versionInitdatabean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return versionInitdatabean;
+		}
+	}
+	class MyCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			BaseBean loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus()) && flag == 0) {// 正常
+//				//审核未通过
+//				if(loginBean.getResult().getVerifystatus().equals("4")){
+//					message.what = LOGIN_4;
+//					message.obj = loginBean.getResult();
+//				}else {
+//				//审核通过
+					message.what = ConstantsUtil.HTTP_SUCCESS;
+					message.obj = loginBean.getResult();
+//				}
+			}
+			else if("1".equals(loginBean.getStatus()) && flag == 1){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+			}
+			else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return loginBean;
+		}
+	}
+
+			public  class MyHandler extends WeakHandler<LoginActivity> {
+
+				//		private YWIMKit mIMKit;
+				private MyApplication myApplication;
+				public MyHandler(LoginActivity reference) {
+					super(reference);
+					// TODO Auto-generated constructor stub
+				}
+				public void handleMessage(final Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				loginObj=(ResultBean) msg.obj;
+				LoginSuccessSaveData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				//处理绑定cid成功事件
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+				//获取版本信息成功
+				upgradeVersion();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				AnimationUtil.getInstance(context).ShakeView(commit_verify);
+				getReference().isLoginSuccess = false;
+				String back = (String) msg.obj;
+				ToastUtil.showToast(context, back);
+				if (getReference().isLoginSuccess
+						&& MyApplication.getInstance().loginCallBack != null) {
+					MyApplication.getInstance().loginCallBack.loginSuccess();
+					MyApplication.getInstance().loginCallBack = null;
+				} else if (MyApplication.getInstance().loginCallBack != null) {
+					MyApplication.getInstance().loginCallBack.loginFail();
+					MyApplication.getInstance().loginCallBack = null;
+				}
+				break;
+//				"verifystatus":"" 认证状态 0未认证，1 未申请 2 正在审核 3 审核通过 4 审核失败
+//			case LOGIN_0:
+//				alertDialog.LoginPremission(baseActivity, "还未提交认证资料,现在去提交？", LOGIN_0);
+//				break;
+//			case LOGIN_1:
+//				alertDialog.LoginPremission(baseActivity, "还未提交认证资料,现在去提交？",LOGIN_1);
+//				break;
+//			case LOGIN_2:
+//				alertDialog.LoginPremission(baseActivity, "正在审核中,请稍后再试,或致电客服咨询   "+ ConstantsUtil.SERVICE_TEL,LOGIN_2);
+//				break;
+//			case LOGIN_4:
+//				 loginObj=(ResultBean) msg.obj;
+//				//跳转到首页
+//				String account = Md5Util.MD5(loginObj.getMobile());
+//				String value = SharedPreferencesUtil.getSharedPreferencesString(baseActivity, "authfail", "isfirst"+account, "0");
+//				if("1".equals(value)){
+//					LoginSuccessSaveData();
+//				}else{
+//					SharedPreferencesUtil.writeSharedPreferencesString(baseActivity, "authfail", "isfirst"+account, "1");
+//					alertDialog.LoginPremission(loginObj,passWord,baseActivity, "审核未通过",LOGIN_4,new IsRegsiterOrMain() {
+//						@Override
+//						public void setResult(int modle) {
+//							// TODO Auto-generated method stub
+//							if(modle == 2){
+//								//跳转到首页
+//								LoginSuccessSaveData();
+//							}
+//						}
+//
+//					});
+//				}
+//				break;
+			default:
+				break;
+			}
+		}
+
+
+		private void LoginSuccessSaveData() {
+			
+			//此实现不一定要放在Application onCreate中
+			
+			/*登录阿里IM*/
+			/***************/
+//			final String userid = loginObj.getImaccount();
+//			mIMKit = YWAPI.getIMKitInstance(userid, ConstantsUtil.APP_KEY);
+//			myApplication = MyApplication.getInstance();
+//			myApplication.setmIMKit(mIMKit);
+//			loginService(userid,loginObj.getImpassword());
+			/***************/
+			
+			//保存当前登录用户信息 和登录返回数据
+			MoreUserInfo();//保存历史登录账号信息
+			getReference().isLoginSuccess = true;
+			ToastUtil.showToast(context,context.getResources().getString(R.string.login_success));
+			SharedPreferencesUtil.saveObject(context, loginObj,"resultbean");
+			//保存当前登录获取的数据
+			SharedPreferencesUtil.writeSharedPreferencesBoolean(context,"login", "islogin", true);
+			SharedPreferencesUtil.writeSharedPreferencesString(context, "loginaccount", "account", Md5Util.MD5(loginObj.getMobile()));
+			Intent intent = new Intent();
+			intent.setAction(ConstantsUtil.LOGIIN_ACTION);
+			context.sendBroadcast(intent);
+				if( MyApplication.getInstance().loginCallBack != null){
+					MyApplication.getInstance().loginCallBack.loginSuccess();
+					getReference().finish();
+				}else{
+					StartActivityUtil.startActivity((Activity) baseContext, MainActivity.class);
+				}
+//			else if (MyApplication.getInstance().loginCallBack != null) {
+//				MyApplication.getInstance().loginCallBack.loginFail();
+//				MyApplication.getInstance().loginCallBack = null;
+//			}
+
+			//登录成功调取绑定cid事件
+		    String cid = SharedPreferencesUtil.getSharedPreferencesString(baseContext, "loginCid", "cid", "");
+			flag = 1;
+			ApiHttpCilent.getInstance(baseContext).BindCid(LoginActivity.this, loginObj.getId(), cid, new MyCallBack());
+			SharedPreferencesUtil.writeSharedPreferencesString(baseContext, "loginId", "loginId",  loginObj.getId());
+			SharedPreferencesUtil.writeSharedPreferencesString(baseContext, "passwordlogin", "passwordlogin",  passWord);
+
+			HashMap<String,String> map = new HashMap<String,String>();
+//			if(loginObj !=null && loginObj.getRoleid()!=null )
+//			map.put("userType",loginObj.getRoleid());
+//			map.put("province",loginObj.getProvincename());
+//			map.put("city",loginObj.getCityname());
+			if(!"3".equals(loginObj.getVerifystatus()))
+				map.put("isVisitor","访客");
+			else
+				map.put("isVisitor","认证用户");
+//			map.put("retentedPeriod",loginObj.getRegdays());
+			MobclickAgent.onEvent(baseContext, "C_LGN_1", map);
+			getReference().baseActivity.finish();
+			MyApplication.getInstance().isLogin = true;
+			
+		}
+//		private void loginService(String imaccount, String impassword) {
+//			// TODO Auto-generated method stub
+//			//开始登录
+//			String userid = imaccount;
+//			String password = impassword;
+//			IYWLoginService loginService = myApplication.getmIMKit().getLoginService();
+//			YWLoginParam loginParam = YWLoginParam.createLoginParam(userid, password);
+//			loginService.login(loginParam, new com.alibaba.mobileim.channel.event.IWxCallback() {
+//				@Override
+//				public void onSuccess(Object... arg0) {
+//					// TODO Auto-generated method stub
+////					System.out.println("success");
+//				}
+//
+//				@Override
+//				public void onProgress(int arg0) {
+//					// TODO Auto-generated method stub
+////					System.out.println("onprogress");
+//
+//				}
+//
+//				@Override
+//				public void onError(int arg0, String arg1) {
+//					// TODO Auto-generated method stub
+//
+////					System.out.println("error");
+//				}
+//			});
+//		}
+		//
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+//		if(keyCode == KeyEvent.KEYCODE_BACK && userCenter){
+//			Intent intent = new Intent();
+//			intent.setClass(baseActivity, MainActivity.class);
+//			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//			StartActivityUtil.startActivity(baseActivity, intent);
+//			return true;
+//		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
+	//存储当前用户名密码
+	private void MoreUserInfo() {
+		list = new ArrayList<LoginNamePwd>();
+		list.clear();
+		//安全存储用户名
+		LoginNamePwd loginbean = new LoginNamePwd();
+		loginbean.setUserName(userName);
+		loginbean.setUserPwd(passWord);
+		list.add(loginbean);
+		SharedPreferencesUtil.saveObject(baseContext, list, "loginUserPwd");
+	}
+	 public void onResume() {
+		    super.onResume();
+		    MobclickAgent.onPageStart("PG_LGN");
+		    MobclickAgent.onResume(this);       //统计时长
+		}
+		public void onPause() {
+		    super.onPause();
+		    MobclickAgent.onPageEnd("PG_LGN");
+		    MobclickAgent.onPause(this);
+		}
+}

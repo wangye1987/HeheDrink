@@ -1,0 +1,356 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Intent;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.adapter.LocationAdapter;
+import com.heheys.ec.model.dataBean.LoactionBean;
+import com.heheys.ec.utils.ToastUtil;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/21 17:29
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:定位地址
+ */
+
+public class LocationSearchActivity extends BaseActivity  {
+    private EditText search_location;
+    private TextView tv_nowlcation;
+    private TextView tv_location;
+    private ListView location_lv;
+    private LocationAdapter locationAdater;
+    private List<LoactionBean> listLocation;
+    private LocationClient mLocationClient;
+    private MyLocationListener mMyLocationListener;
+    private String tempcoor = "bd09ll";
+    private String locationCity;
+    private String currentCheckCity;
+    private PoiSearch mPoiSearch;
+    private LinearLayout top_content;
+
+    @Override
+    protected void onCreate() {
+        setBaseContentView(R.layout.location);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        initLocation();
+
+        mPoiSearch = PoiSearch.newInstance();
+//        第二步，创建POI检索监听者；
+        OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener(){
+            public void onGetPoiResult(PoiResult result){
+                //获取POI检索结果
+                if(result != null){
+                    List<PoiInfo>  poiAddrInfos = result.getAllPoi();
+                    if(poiAddrInfos != null && poiAddrInfos.size()>0) {
+                        top_content.setVisibility(View.GONE);
+//                        top_content.setAnimationStyle(R.style.popwin_anim_style);
+//                        top_content.setAnimation(AnimationUtils.loadAnimation());
+                        for (PoiInfo info : poiAddrInfos) {
+                            LoactionBean bean = new LoactionBean();
+                            bean.setNameContent(info.address);
+                            bean.setNameTitle(info.name);
+                            listLocation.add(bean);
+                        }
+                        locationAdater.notifyDataSetChanged();
+                    }
+                }
+            }
+            public void onGetPoiDetailResult(PoiDetailResult result){
+                //获取Place详情页检索结果
+
+            }
+
+            @Override
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+
+            }
+        };
+//        第三步，设置POI检索监听者；
+        mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
+//        第四步，发起检索请求；
+
+    }
+        //获取反编译地址
+      private void SearchAddress(String city,String key){
+          mPoiSearch.searchInCity((new PoiCitySearchOption())
+                  .city(city)
+                  .keyword(key)
+                  .pageNum(10));
+      }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()){
+            case R.id.tv_location:
+                //获取地址
+                if(mLocationClient != null){
+                    mLocationClient.requestLocation();
+                    mLocationClient.start();
+                }
+                break;
+            case R.id.tv_nowlcation:
+                //获取
+                if(!StringUtil.isEmpty(tv_nowlcation.getText().toString())) {
+                    Intent intent = new Intent();
+                    intent.putExtra("add", tv_nowlcation.getText().toString());
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+                break;
+
+        }
+    }
+    BDLocation location;
+    public void setLocation(BDLocation location) {
+        this.location = location;
+    }
+
+    /**
+     * 实现实时位置回调监听
+     */
+    public class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            // Receive Location
+            StringBuffer sb = new StringBuffer(256);
+            sb.append("time : ");
+            sb.append(location.getTime());
+            sb.append("\nerror code : ");
+            sb.append(location.getLocType());
+            sb.append("\nlatitude : ");
+            sb.append(location.getLatitude());
+            sb.append("\nlontitude : ");
+            sb.append(location.getLongitude());
+            sb.append("\nradius : ");
+            sb.append(location.getRadius());
+            if (location.getLocType() == BDLocation.TypeGpsLocation) {// GPS定位结果
+                sb.append("\nspeed : ");
+                sb.append(location.getSpeed());// 单位：公里每小时
+                sb.append("\nsatellite : ");
+                sb.append(location.getSatelliteNumber());
+                sb.append("\nheight : ");
+                sb.append(location.getAltitude());// 单位：米
+                sb.append("\ndirection : ");
+                sb.append(location.getDirection());
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                sb.append("\ndescribe : ");
+                sb.append("gps定位成功");
+
+            } else if (location.getLocType() == BDLocation.TypeNetWorkLocation) {// 网络定位结果
+                sb.append("\naddr : ");
+                sb.append(location.getAddrStr());
+                // 运营商信息
+                sb.append("\noperationers : ");
+                sb.append(location.getOperators());
+                sb.append("\ndescribe : ");
+                sb.append("网络定位成功");
+            } else if (location.getLocType() == BDLocation.TypeOffLineLocation) {// 离线定位结果
+                sb.append("\ndescribe : ");
+                sb.append("离线定位成功，离线定位结果也是有效的");
+            } else if (location.getLocType() == BDLocation.TypeServerError) {
+                sb.append("\ndescribe : ");
+                sb.append("服务端网络定位失败，可以反馈IMEI号和大体定位时间到loc-bugs@baidu.com，会有人追查原因");
+            } else if (location.getLocType() == BDLocation.TypeNetWorkException) {
+                sb.append("\ndescribe : ");
+                sb.append("网络不同导致定位失败，请检查网络是否通畅");
+            } else if (location.getLocType() == BDLocation.TypeCriteriaException) {
+                sb.append("\ndescribe : ");
+                sb.append("无法获取有效定位依据导致定位失败，一般是由于手机的原因，处于飞行模式下一般会造成这种结果，可以试着重启手机");
+            }
+            if (StringUtil.isEmpty(location.getCity())) {
+                locationCity = "定位失败";
+                ToastUtil.showToast(LocationSearchActivity.this,locationCity,Toast.LENGTH_SHORT);
+            } else {
+                currentCheckCity = location.getCity();
+                locationCity = location.getCity();
+                ToastUtil.showToast(LocationSearchActivity.this,"定位成功",Toast.LENGTH_SHORT);
+
+            }
+//            logMsg(location.getCity());
+            setLocation(location);
+            tv_nowlcation.setText(location.getAddrStr());
+//            Log.i("BaiduLocationApiDem", sb.toString());
+			mLocationClient.stop();
+        }
+
+    }
+    private void initLocation(){
+//        mLocationClient = new LocationClient(this.getApplicationContext());
+        mLocationClient = MyApplication.getInstance().mLocationClient;
+        mMyLocationListener = new MyLocationListener();
+        mLocationClient.registerLocationListener((BDLocationListener) mMyLocationListener);
+        initLocations();
+        mLocationClient.start();
+        // start之后会默认发起一次定位请求，开发者无须判断isstart并主动调用request
+        mLocationClient.requestLocation();
+    }
+
+    private void initLocations() {
+        LocationClientOption option = new LocationClientOption();
+//		option.setLocationMode(tempMode);// 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
+        option.setCoorType(tempcoor);// 可选，默认gcj02，设置返回的定位结果坐标系，
+        int span = 3000;
+        try {
+            span = Integer.valueOf(1000);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        option.setScanSpan(5000);// 可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
+        option.setIsNeedAddress(true);// 可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);// 可选，默认false,设置是否使用gps
+        option.setLocationNotify(true);// 可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
+        option.setIsNeedLocationDescribe(true);
+        option.setIgnoreKillProcess(true);// 可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+
+        mLocationClient.setLocOption(option);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPoiSearch.destroy();
+    }
+
+
+    class MyItemLister implements AdapterView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Intent intent=new Intent();
+            intent.putExtra("add", listLocation.get(position).getNameContent());
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+    }
+    private void initView() {
+        top_content = (LinearLayout) findViewById(R.id.top_content);
+        search_location = (EditText) findViewById(R.id.search_location);
+        tv_nowlcation = (TextView) findViewById(R.id.tv_nowlcation);
+        tv_location = (TextView) findViewById(R.id.tv_location);
+        tv_location.setOnClickListener(this);
+        tv_nowlcation.setOnClickListener(this);
+        location_lv = (ListView) findViewById(R.id.location_lv);
+        listLocation = new ArrayList<LoactionBean>();
+        locationAdater = new LocationAdapter(listLocation,this);
+        location_lv.setAdapter(locationAdater);
+        location_lv.setOnItemClickListener(new MyItemLister());
+        search_location.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+					/**
+					 * 搜索事件
+					 */
+					HashMap<String, String> mapss = new HashMap<String, String>();
+					mapss.put("seach", "");
+					MobclickAgent.onEvent(baseActivity, "0019", mapss);
+					if (StringUtil.isEmpty(search_location.getText().toString())) {
+						ToastUtil.showToast(baseActivity, "请输入搜索内容");
+					} else {
+                        SearchAddress(location.getCity(),search_location.getText().toString());
+					}
+				}
+				return false;
+			}
+		});
+    }
+
+    @Override
+    protected boolean hasTitle() {
+        return true;
+    }
+
+    @Override
+    protected void loadChildView() {
+
+    }
+
+    @Override
+    protected void getNetData() {
+
+    }
+
+    @Override
+    protected void reloadCallback() {
+
+    }
+
+    @Override
+    protected void setChildViewListener() {
+
+    }
+
+    @Override
+    protected String setTitleName() {
+        return "选择当前位置";
+    }
+
+    @Override
+    protected String setRightText() {
+        return null;
+    }
+
+    @Override
+    protected int setLeftImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setMiddleImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setRightImageResource() {
+        return 0;
+    }
+
+    private void submit() {
+        // validate
+        String location = search_location.getText().toString().trim();
+        if (TextUtils.isEmpty(location)) {
+            Toast.makeText(this, "location不能为空", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // TODO validate success, do something
+
+
+    }
+}

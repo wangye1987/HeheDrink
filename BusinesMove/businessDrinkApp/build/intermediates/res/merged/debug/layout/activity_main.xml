@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lzl="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_f7f7f7" >
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/activity_main_vp"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:gravity="center_vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/color_f1f1f1"
+        android:orientation="horizontal" >
+
+        <com.heheys.ec.view.TabView
+            android:id="@+id/activity_main_home_tab"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            lzl:drawable="@drawable/tab_home_not_focus"
+            lzl:text="@string/tab_home_name"
+            lzl:textSize="12sp" />
+
+        <com.heheys.ec.view.TabView
+            android:id="@+id/activity_main_shoppingcart_tab"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            lzl:drawable="@drawable/tab_shoppingcart_not_focus"
+            lzl:text="@string/tab_shoppingcart_name"
+            lzl:textSize="12sp" />
+
+        <com.heheys.ec.view.TabView
+            android:id="@+id/activity_main_order_tab"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            lzl:drawable="@drawable/tab_order_not_focus"
+            lzl:text="@string/tab_oroder_name"
+            lzl:textSize="12sp" />
+
+        <com.heheys.ec.view.TabView
+            android:id="@+id/activity_main_usercenter_tab"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:padding="5dp"
+            lzl:drawable="@drawable/tab_usercenter_not_focus"
+            lzl:text="@string/tab_usercenter_name"
+            lzl:textSize="12sp" />
+    </LinearLayout>
+
+</LinearLayout>

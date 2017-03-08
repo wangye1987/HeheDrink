@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <com.heheys.ec.lib.view.ScrollViewListView
+        android:id="@+id/lv_moresuit"
+        android:layout_weight="1"
+        android:listSelector="@color/transparent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" >
+    </com.heheys.ec.lib.view.ScrollViewListView>
+
+</LinearLayout>

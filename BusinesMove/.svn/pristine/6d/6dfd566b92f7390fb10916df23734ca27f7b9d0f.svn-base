@@ -1,0 +1,688 @@
+package com.heheys.ec.controller.activity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.LoginNamePwd;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean.Bean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.SharedPreferencesUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 
+ * Describe:应用启动页面
+ * 
+ * Date:2015-10-20
+ * 
+ * Author:liuzhouliang
+ */
+public class GuideActivity extends Activity implements OnClickListener {
+	private String TAG = "启动页";
+	// 标记第一次启动的Key值
+	private String initTag = "com.heheys.ec";
+	private String isFirst = "FIRST";
+	private String notFirst = "NOTFIRST";
+	// 动画区域父容器
+	private RelativeLayout rlAnima;
+	private RelativeLayout rlBg;
+	private MyHandler handler = new MyHandler(this);
+	/**
+	 * 动画区域视图
+	 */
+	public ImageView ivGuideOne, ivGuideTwo, ivGuideThree, ivGuideFour;
+	private ImageView ivLauncher;
+	private boolean isFirstLaunche;
+	private Button btStart;
+	private String spName;
+	private BaseBean loginBean;
+	private String passWord;
+	private String userName;
+	private List<LoginNamePwd> list;
+//	private YWIMKit mIMKit;
+	private MyApplication myApplication;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		initView();
+		initData();
+		setViewListener();
+		// 打开集成测试模式
+		MobclickAgent.setDebugMode(false);
+		// 包含activity和fragment的页面禁止只统计activity的页面数据
+		MobclickAgent.openActivityDurationTrack(false);
+		// 打开发送策略 启动发送
+		MobclickAgent.updateOnlineConfig(this);
+		// 打开日志加密
+		AnalyticsConfig.enableEncrypt(true);
+	}
+
+	/**
+	 * 
+	 * Describe:初始化资源
+	 * 
+	 * Date:2015-10-20
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void initView() {
+		// TODO Auto-generated method stub
+		setContentView(R.layout.guide_layout);
+		/**
+		 * 加载动画区域视图
+		 */
+		ivLauncher = (ImageView) findViewById(R.id.guide_layout_launcher_iv);
+		ivGuideOne = (ImageView) findViewById(R.id.guide_animation_one);
+		ivGuideTwo = (ImageView) findViewById(R.id.guide_animation_two);
+		ivGuideThree = (ImageView) findViewById(R.id.guide_animation_three);
+		ivGuideFour = (ImageView) findViewById(R.id.guide_animation_four);
+		btStart = (Button) findViewById(R.id.guide_animation_bt);
+		rlAnima = (RelativeLayout) findViewById(R.id.guide_layout_anim_parent);
+		rlBg = (RelativeLayout) findViewById(R.id.guide_layout_bg);
+
+	}
+
+	/**
+	 * 
+	 * Describe:设置控件监听
+	 * 
+	 * Date:2015-10-20
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void setViewListener() {
+		btStart.setOnClickListener(this);
+	}
+
+	/**
+	 * 
+	 * Describe:初始化数据
+	 * 
+	 * Date:2015-10-20
+	 * 
+	 * Author:liuzhouliang
+	 */
+	@SuppressWarnings("unchecked")
+	private void initData() {
+		mactivity = GuideActivity.this;
+		SharedPreferences sharedPreferences_create = getSharedPreferences(
+				"app_state", Context.MODE_PRIVATE);
+		try {
+			spName = sharedPreferences_create.getString(
+					initTag
+							+ "_"
+							+ getPackageManager().getPackageInfo(
+									getPackageName(), 0).versionCode, isFirst);
+		} catch (NameNotFoundException e) {
+			// TODO Auto-generated catch block
+			spName = sharedPreferences_create.getString(initTag, isFirst);
+			e.printStackTrace();
+		}
+		if (spName.equals(isFirst)) {
+			/**
+			 * 第一次启动===============
+			 */
+			isFirstLaunche = true;
+		} else if (spName.equals(notFirst)) {
+			/**
+			 * 非第一次启动=============
+			 */
+			// rlAnima.setVisibility(View.GONE);
+			// rlBg.getBackground().setAlpha(0);
+			isFirstLaunche = false;
+			//不是第一次登陆 调取自动登录
+			boolean islogin = SharedPreferencesUtil.getSharedPreferencesBoolean(this,
+					"login", "islogin", false);
+			list = (List<LoginNamePwd>) SharedPreferencesUtil.getObject(this,"loginUserPwd");
+			if(list != null && list.size()>0 && islogin){
+				userName = list.get(0).getUserName();
+				passWord = list.get(0).getUserPwd();
+				if(!StringUtil.isEmpty(userName) && !StringUtil.isEmpty(passWord)){
+			ApiHttpCilent.getInstance(this).login(this,
+					StringUtil.filterSpace(userName),
+					StringUtil.filterSpace(passWord), new MyLoginCallBack());
+				}
+			}
+		}
+		new Handler().postDelayed(new Runnable() {
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				Message message = Message.obtain();
+				message.what = 1000;
+				messageHandle.sendMessage(message);
+
+			}
+		}, 1500);
+		/**
+		 * 获取省市信息
+		 */
+		ApiHttpCilent.getInstance(this).InitProvinceList(this,
+				new MyCallBack());
+	}
+	
+	class MyLoginCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1){
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus())) {// 正常
+				//登录成功
+					message.what = ConstantsUtil.HTTP_SUCCESS_LATER;
+					message.obj = loginBean.getResult();
+			} else if("1".equals(loginBean.getStatus())){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+			}else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return loginBean;
+		}
+	}
+	class MyCidCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+		
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+		
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+		
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus())) {// 正常
+				//登录成功
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+				message.obj = loginBean.getResult();
+			} else if("1".equals(loginBean.getStatus())){
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+			}else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return loginBean;
+		}
+	}
+	class MyCallBack extends BaseJsonHttpResponseHandler<ProvinceListBaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, ProvinceListBaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				ProvinceListBaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected ProvinceListBaseBean parseResponse(String response,
+				boolean arg1) throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			ProvinceListBaseBean bean = gson.fromJson(response,
+					ProvinceListBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(bean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = bean.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = bean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+
+			return bean;
+		}
+	}
+
+	private void Dimess() {
+		GuideActivity.this.runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(ApiHttpCilent.loading!=null && GuideActivity.this !=null){
+					ApiHttpCilent.loading.dismiss();
+				}
+			}
+		});
+	}
+	public static class MyHandler extends WeakHandler<GuideActivity> {
+
+		public MyHandler(GuideActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				//存储省份 城市 地区 元数据
+				Bean bean = (Bean) msg.obj;
+				SharedPreferencesUtil.saveProvinceObject(
+						getReference().mactivity, bean);
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LATER:
+				//重新登录
+				getReference().LoginSuccess();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+	//存储当前用户名密码
+		private void MoreUserInfo() {
+			list = new ArrayList<LoginNamePwd>();
+			list.clear();
+			//安全存储用户名
+			LoginNamePwd loginbeans = new LoginNamePwd();
+			loginbeans.setUserName(userName);
+			loginbeans.setUserPwd(passWord);
+			list.add(loginbeans);
+			SharedPreferencesUtil.saveObject(this, list, "loginUserPwd");
+		}
+	private void LoginSuccess() {
+		// TODO Auto-generated method stub
+		myApplication = MyApplication.getInstance();
+		//安全存储当前登录用户名密码
+//		MoreUserInfo();
+		//保存当前登录获取的数据
+		SharedPreferencesUtil.writeSharedPreferencesBoolean(this,"login", "islogin", true);
+		SharedPreferencesUtil.saveObject(this, loginBean.getResult(),"resultbean");
+		String cid = SharedPreferencesUtil.getSharedPreferencesString(this, "loginCid", "cid", "");
+		ApiHttpCilent.getInstance(GuideActivity.this).BindCid(GuideActivity.this, loginBean.getResult().getId(), cid, new MyCidCallBack());
+		SharedPreferencesUtil.writeSharedPreferencesString(this, "loginId", "loginId",  loginBean.getResult().getId());
+	}
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if(ApiHttpCilent.loading != null && ApiHttpCilent.loading.isShowing()){
+			ApiHttpCilent.loading.dismiss();
+			ApiHttpCilent.loading = null;
+		}
+	}
+	/**
+	 * 消息处理
+	 */
+	private Handler messageHandle = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+
+			case 1000:
+				/**
+				 * 启动动画
+				 */
+				if (isFirstLaunche) {
+					ivLauncher.setVisibility(View.GONE);
+				}
+
+				LoadTask asyncTask = new LoadTask();
+				asyncTask.execute();
+				break;
+			default:
+				break;
+			}
+
+		}
+	};
+	private Context mactivity;
+
+	/**
+	 * 
+	 * Describe:获取网络图片
+	 * 
+	 * Date:2015-10-20
+	 * 
+	 * Author:liuzhouliang
+	 */
+	class LoadTask extends AsyncTask<Integer, Integer, String> {
+		String name = "";
+
+		@Override
+		protected String doInBackground(Integer... params) {
+			// TODO Auto-generated method stub
+			/**
+			 * 取出存储状态值
+			 */
+
+			SharedPreferences sharedPreferences_create = getSharedPreferences(
+					"app_state", Context.MODE_PRIVATE);
+			try {
+				name = sharedPreferences_create.getString(
+						initTag
+								+ "_"
+								+ getPackageManager().getPackageInfo(
+										getPackageName(), 0).versionCode,
+						isFirst);
+			} catch (NameNotFoundException e) {
+				// TODO Auto-generated catch block
+				name = sharedPreferences_create.getString(initTag, isFirst);
+				e.printStackTrace();
+			}
+			if (name.equals(isFirst)) {
+				/**
+				 * 第一次启动===============
+				 */
+				Editor editor = sharedPreferences_create.edit();
+				try {
+					editor.putString(
+							initTag
+									+ "_"
+									+ getPackageManager().getPackageInfo(
+											getPackageName(), 0).versionCode,
+							notFirst);
+				} catch (NameNotFoundException e) {
+					// TODO Auto-generated catch block
+					editor.putString(initTag, notFirst);
+					e.printStackTrace();
+				}
+				// 提交修改
+				editor.commit();
+			} else if (name.equals(notFirst)) {
+
+			}
+
+			// name = isFirst;//
+			// 测试每次启动引导页========================================
+			return "";
+		}
+
+		@Override
+		protected void onPostExecute(String result) {
+//			if (name.equals(isFirst)) {
+//				/**
+//				 * 第一次启动===============
+//				 */
+//				/**
+//				 * 执行动画==================
+//				 */
+//				AlphaAnimation mAnimationOne = new AlphaAnimation(1.0f, 0.0f);
+//				mAnimationOne.setDuration(3000);
+//				mAnimationOne.setStartOffset(0);
+//				mAnimationOne.setAnimationListener(new AnimationListenerOne());
+//				ivGuideOne.startAnimation(mAnimationOne);
+//			} else if (name.equals(notFirst)) {
+//				/**
+//				 * 非第一次启动，加载广告图
+//				 */
+//
+//			}
+			startMainActivity();
+
+		}
+
+	}
+
+	/**
+	 * 监听事件处理
+	 */
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		switch (v.getId()) {
+		case R.id.guide_animation_bt:
+			startMainActivity();
+			break;
+		}
+	}
+
+	/**
+	 * 
+	 * Describe:启动主页面
+	 * 
+	 * Date:2015-10-20
+	 * 
+	 * Author:liuzhouliang
+	 */
+	private void startMainActivity() {
+//		CityData obj = (CityData) FileManager.getObject(this,
+//				ConstantsUtil.SAVE_CHECK_CITY_INFOR);
+//		if (obj != null && !StringUtil.isEmpty(obj.getId())&& !StringUtil.isEmpty(obj.getName())) {
+//				if(IsLogin.isLogin(GuideActivity.this)){
+					StartActivityUtil.startActivity(GuideActivity.this, MainActivity.class);
+//				}else{
+//					StartActivityUtil.startActivity(GuideActivity.this, LoginActivity.class);
+//				}
+			
+//		} else {
+//			Intent intent = new Intent(this, CheckCityActivity.class);
+//			if (isFirstLaunche) {
+//				/**
+//				 * 第一次加载，隐藏当前城市
+//				 */
+//				intent.putExtra(ConstantsUtil.CHECK_CITY_FROM_KEY,
+//						ConstantsUtil.CHECK_CITY_FROM_GUIDE);
+//				intent.putExtra(ConstantsUtil.CHECK_CITY_SHOW_KEY,
+//						ConstantsUtil.CHECK_CITY_NOT_SHOW_BACK);
+//			} else {
+//				/**
+//				 * 非第一次加载，显示当前城市
+//				 */
+//				intent.putExtra(ConstantsUtil.CHECK_CITY_FROM_KEY,
+//						ConstantsUtil.CHECK_CITY_FROM_MAIN);
+//				intent.putExtra(ConstantsUtil.CHECK_CITY_SHOW_KEY,
+//						ConstantsUtil.CHECK_CITY_NOT_SHOW_BACK);
+//			}
+//			StartActivityUtil.startActivity(this, intent);
+//		}
+		finish();
+	}
+
+	/**
+	 * 动画运行监听===============================
+	 */
+	private class AnimationListenerOne implements AnimationListener {
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// TODO Auto-generated method stub
+			ivGuideOne.setVisibility(View.GONE);
+			AlphaAnimation mAnimationTwo = new AlphaAnimation(1.0f, 0.0f);
+			mAnimationTwo.setDuration(3000);
+			mAnimationTwo.setStartOffset(0);
+			mAnimationTwo.setAnimationListener(new AnimationListenerTwo());
+			ivGuideTwo.startAnimation(mAnimationTwo);
+			ivGuideTwo.setOnClickListener(new AnimationClick());
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation arg0) {
+			// TODO Auto-generated method stub
+//			Log.d("Test", "onAnimationRepeat==");
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	private class AnimationListenerTwo implements AnimationListener {
+
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// TODO Auto-generated method stub
+			ivGuideTwo.setVisibility(View.GONE);
+			AlphaAnimation mAnimationThree = new AlphaAnimation(1.0f, 0.0f);
+			mAnimationThree.setDuration(3000);
+			mAnimationThree.setStartOffset(0);
+			mAnimationThree.setAnimationListener(new AnimationListenerThree());
+			ivGuideThree.startAnimation(mAnimationThree);
+			ivGuideThree.setOnClickListener(new AnimationClick());
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	private class AnimationListenerThree implements AnimationListener {
+
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// TODO Auto-generated method stub
+			ivGuideThree.setVisibility(View.GONE);
+			AlphaAnimation mAnimationFour = new AlphaAnimation(1.0f, 0.0f);
+			mAnimationFour.setDuration(3000);
+			mAnimationFour.setStartOffset(0);
+			mAnimationFour.setAnimationListener(new AnimationListenerFour());
+			ivGuideFour.startAnimation(mAnimationFour);
+			ivGuideFour.setOnClickListener(new AnimationClick());
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	
+	class AnimationClick implements OnClickListener{
+		@Override
+		public void onClick(View v) {
+			// TODO Auto-generated method stub
+			MobclickAgent.onEvent(GuideActivity.this,"C_ADR_ADD_1");
+		}
+		
+	}
+	private class AnimationListenerFour implements AnimationListener {
+
+		@Override
+		public void onAnimationEnd(Animation arg0) {
+			// TODO Auto-generated method stub
+			ivGuideOne.setVisibility(View.VISIBLE);
+			ivGuideTwo.setVisibility(View.VISIBLE);
+			ivGuideThree.setVisibility(View.VISIBLE);
+
+			AlphaAnimation mAnimationOne = new AlphaAnimation(1.0f, 0.0f);
+			mAnimationOne.setDuration(3000);
+			mAnimationOne.setStartOffset(0);
+			mAnimationOne.setAnimationListener(new AnimationListenerOne());
+			ivGuideOne.startAnimation(mAnimationOne);
+			ivGuideOne.setOnClickListener(new AnimationClick());
+		}
+
+		@Override
+		public void onAnimationRepeat(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void onAnimationStart(Animation arg0) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MobclickAgent.onPageStart("GuideActivity");
+		MobclickAgent.onResume(this);
+	}
+
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		MobclickAgent.onPageEnd("GuideActivity");
+		MobclickAgent.onPause(this);
+	}
+}

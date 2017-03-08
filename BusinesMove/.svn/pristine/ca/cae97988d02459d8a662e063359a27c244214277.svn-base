@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/marginagent"
+        android:layout_marginTop="@dimen/margin_29"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="@dimen/linearLayout_height"
+        android:background="@drawable/sharp_login" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/list_user_default"
+            style="@style/login_text_style"
+            android:text="@string/setting_pwd" />
+
+        <EditText
+            android:id="@+id/password_one"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/setting_pwd"
+            style="@style/login_text_hint_style"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        style="@style/marginagent"
+        android:layout_width="match_parent"
+         android:gravity="center"
+         android:layout_marginTop="@dimen/margin_18"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_height="@dimen/linearLayout_height"
+        android:background="@drawable/sharp_login" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/login_text_style"
+            android:src="@drawable/list_user_default"
+            android:text="@string/commit_pwd" />
+
+        <EditText
+            android:id="@+id/password_two"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="@string/commit_pwd"
+            style="@style/login_text_hint_style"
+            android:inputType="textPassword"
+            android:maxLength="20"
+             >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+
+        <Button
+            android:id="@+id/commit_register"
+            android:layout_width="match_parent"
+            style="@style/login_button_style"
+            android:layout_marginTop="@dimen/margin_32"
+            android:paddingTop="@dimen/margin_16"
+            android:paddingBottom="@dimen/margin_16"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bt_bg_yellow"
+            android:text="@string/register_text" />
+
+</LinearLayout>

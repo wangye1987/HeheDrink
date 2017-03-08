@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFEAEAEA"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_35"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_12_style_666"
+            android:text="@string/search_tip" />
+
+        <TextView
+            android:id="@+id/brand_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:text=""
+            android:textColor="@color/color_FF3939"
+            style="@style/text_12_style_666" />
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_5"
+            android:text=""
+            android:textColor="@color/color_FF3939"
+            style="@style/text_12_style_666"/>
+
+    </LinearLayout>
+
+
+   <!-- <com.heheys.ec.view.RefreshOrLoadMoreListViewParent
+        android:id="@+id/group_buy_list_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:footerDividersEnabled="false"
+        android:layoutAnimation="@anim/anima_layout"
+        android:scrollbars="none"
+        android:transcriptMode="normal"
+        android:visibility="visible"></com.heheys.ec.view.RefreshOrLoadMoreListViewParent>-->
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.heheys.ec.lib.view.RefreshListView
+        android:id="@+id/list_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:clickable="true"
+        android:background="@color/white"
+        android:listSelector="@drawable/list_selector" >
+    </com.heheys.ec.lib.view.RefreshListView>
+    <LinearLayout
+        android:id="@+id/lv_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/system_null"
+            android:text="没有查询到结果"
+            android:drawablePadding="10dp"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/text_size_15" />
+
+    </LinearLayout>
+</FrameLayout>
+</LinearLayout>

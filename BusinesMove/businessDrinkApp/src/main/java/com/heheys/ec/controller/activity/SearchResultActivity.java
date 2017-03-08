@@ -1,0 +1,293 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.NetWorkState;
+import com.heheys.ec.lib.view.RefreshListView;
+import com.heheys.ec.model.adapter.SearchResultAdapter;
+import com.heheys.ec.model.dataBean.SearchResultBean;
+import com.heheys.ec.model.dataBean.SearchResultBean.SearchBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/15 16:02
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:检索结果
+ */
+
+public class SearchResultActivity extends BaseActivity implements RefreshListView.OnRefreshListener, RefreshListView.OnMoreListener {
+
+    private String brand;
+    private String cityId;
+    //返回检索结果
+    private SearchResultBean searchResultBean;
+    private SearchResultBean.SearchResultListBean searchResultListBean;
+    private TextView brand_type, brand_tv;
+    private RefreshListView mListView;
+    private SearchResultAdapter searcheAdapter;
+    private List<SearchBean> listResult;
+    private List<SearchBean> allListResult;
+    // 列表数据开始和结束位置
+    private int startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX,
+            endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+    // 标记是否是下拉刷新状态
+    private boolean isRefresh;
+    // 标记是否是分页状态
+    private boolean isLoadMore;
+    private LinearLayout lv_empty;
+    private String brandtv;
+    private String brandType;
+    private Handler mhandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case ConstantsUtil.HTTP_SUCCESS:
+                    bindViewData();
+                    break;
+                case ConstantsUtil.HTTP_FAILE:
+                    /**
+                     * 处理失败的数据
+                     */
+                    String messageString = (String) msg.obj;
+                    if (messageString != null) {
+                        ToastUtil.showToast(baseActivity, messageString);
+                    }
+            }
+        }
+    };
+    @Override
+    protected void onCreate() {
+        setBaseContentView(R.layout.search_result);
+        initView();
+    }
+
+    /**
+     * 绑定数据
+     */
+    private void bindViewData() {
+        if (startIndex == 1) {
+            //第一页 有数据
+            if (searchResultListBean.getList() != null && searchResultListBean.getList().size() > 0) {
+                listResult = searchResultListBean.getList();
+                searcheAdapter.setNewData(searchResultListBean.getList());
+                hideRefreshView();
+            } else {
+                lv_empty.setVisibility(View.VISIBLE);
+                mListView.setVisibility(View.GONE);
+            }
+        } else {
+            if (searchResultListBean.getList() != null && searchResultListBean.getList().size() > 0) {
+                listResult.addAll(searchResultListBean.getList());
+                hideLoadMoreView();
+            } else {
+                // 回滚页码
+                startIndex = startIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+                endIndex = endIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+                hideLoadMoreView();
+            }
+        }
+    }
+
+    private void initReuquestParams() {
+        startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX;
+        endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+    }
+
+    private void initData() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            brand = intent.getStringExtra("brand");
+            cityId = intent.getStringExtra("cityId");
+            brandtv = intent.getStringExtra("brandtv");
+            brandType = intent.getStringExtra("brandType");
+        }
+    }
+
+    @Override
+    protected boolean hasTitle() {
+        return true;
+    }
+
+    @Override
+    protected void loadChildView() {
+
+    }
+
+    @Override
+    protected void getNetData() {
+        initData();
+        ApiHttpCilent.getInstance(getApplicationContext()).SearcheResult(this, brand, cityId, startIndex, endIndex, new RequestBrandCallBack());
+    }
+
+    private void initView() {
+        brand_type = (TextView) findViewById(R.id.brand_type);
+        brand_tv = (TextView) findViewById(R.id.brand);
+        brand_type.setText(brandtv);
+        brand_tv.setText(brandType);
+        lv_empty = (LinearLayout) findViewById(R.id.lv_empty);
+        mListView = (RefreshListView) findViewById(R.id.list_lv);
+        mListView.setonLoadListener(this);
+        mListView.setonRefreshListener(this);
+        listResult = new ArrayList<SearchBean>();
+        searcheAdapter = new SearchResultAdapter(listResult, this);
+        mListView.setAdapter(searcheAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
+        allListResult = new ArrayList<SearchBean>();
+        rlTitlePrent.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    public void onRefresh() {
+// TODO Auto-generated method stub
+        if (!NetWorkState.isNetWorkConnection(this)) {
+            ToastUtil.showToast(this, "网络连接失败");
+            return;
+        }
+        isRefresh = true;
+        initReuquestParams();
+        getNetData();
+    }
+
+    // 更多界面
+    private void hideLoadMoreView() {
+        if (isLoadMore) {
+            mListView.onLoadComplete();
+            searcheAdapter.setNewData(listResult);
+            searcheAdapter.notifyDataSetChanged();
+            isLoadMore = false;
+        }
+    }
+
+    @Override
+    public void onLoadMore() {
+        // TODO Auto-generated method stub
+        if (!NetWorkState.isNetWorkConnection(this)) {
+            ToastUtil.showToast(this, "网络连接失败");
+            return;
+        }
+        isLoadMore = true;
+        startIndex = startIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+        endIndex = endIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+        getNetData();
+    }
+
+    private void hideRefreshView() {
+        if (isRefresh) {
+            mListView.onRefreshComplete();
+            isRefresh = false;
+        }
+    }
+
+    public class RequestBrandCallBack extends
+            BaseJsonHttpResponseHandler<SearchResultBean> {
+
+
+        @Override
+        public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+                              String arg3, SearchResultBean arg4) {
+            Dimessis();
+            Message message = Message.obtain();
+            message.what = ConstantsUtil.HTTP_FAILE;// 错误
+            mhandler.sendMessage(message);
+        }
+
+        @Override
+        public void onSuccess(int arg0, Header[] arg1, String arg2,
+                              SearchResultBean arg3) {
+        }
+
+        @Override
+        protected SearchResultBean parseResponse(String response, boolean arg1)
+                throws Throwable {
+            Dimessis();
+            Gson gson = new Gson();
+            searchResultBean = gson.fromJson(response,
+                    SearchResultBean.class);
+            Message message = Message.obtain();
+            if ("1".equals(searchResultBean.getStatus())) {// 正常
+                message.what = ConstantsUtil.HTTP_SUCCESS;
+                searchResultListBean = searchResultBean.getResult();
+            } else {
+                message.what = ConstantsUtil.HTTP_FAILE;// 错误
+                message.obj = searchResultBean.getError().getInfo();
+            }
+            mhandler.sendMessage(message);
+            return searchResultBean;
+        }
+    }
+
+    /**
+     * 隐藏等待框
+     */
+    private void Dimessis() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (SearchResultActivity.this != null
+                        && !SearchResultActivity.this.isFinishing()) {
+                    if (ApiHttpCilent.loading != null
+                            && ApiHttpCilent.loading.isShowing())
+                        ApiHttpCilent.loading.dismiss();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void reloadCallback() {
+
+    }
+
+    @Override
+    protected void setChildViewListener() {
+
+    }
+
+    @Override
+    protected String setTitleName() {
+        return "搜索";
+    }
+
+    @Override
+    protected String setRightText() {
+        return null;
+    }
+
+    @Override
+    protected int setLeftImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setMiddleImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setRightImageResource() {
+        return 0;
+    }
+}

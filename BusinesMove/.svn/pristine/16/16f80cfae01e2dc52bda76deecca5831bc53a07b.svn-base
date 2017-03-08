@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_eeeeeee"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/ra_coin"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_above="@id/tv_shopping"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:paddingTop="@dimen/margin_102" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_result"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/margin_15"
+            android:text="" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_result"
+            android:gravity="center|top"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/margin_42">
+
+            <TextView
+                android:id="@+id/tv_recharge"
+                android:layout_width="@dimen/button_width_150"
+                android:layout_height="40dp"
+                android:layout_marginTop="47dp"
+                android:background="@drawable/bt_bg_yellow"
+                android:gravity="center"
+                android:text="继续充值"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_17" />
+
+            <View
+                android:layout_width="25dp"
+                android:layout_height="1dp"></View>
+
+            <TextView
+                android:id="@+id/tv_shopping_coin"
+                android:layout_width="@dimen/button_width_150"
+                android:layout_height="40dp"
+                android:layout_marginTop="47dp"
+                android:background="@drawable/bt_bg_yellow"
+                android:gravity="center"
+                android:text="去逛逛"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_17" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/sc_order"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/order_linear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_17"
+                    android:orientation="vertical"></LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/color_eeeeeee" />
+
+                <LinearLayout
+                    android:id="@+id/linear_transmation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/margin_17">
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="运费:"
+                        android:textColor="@color/color_666666" />
+                    <TextView
+                        android:id="@+id/freight_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="343"
+                        android:textColor="@color/color_FF3838" />
+                    <!-- <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="@dimen/margin_10"
+                         android:text="合计: "
+                         android:textColor="@color/color_666666" />
+
+                     <TextView
+                         android:id="@+id/tv_total"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text=""
+                         android:textColor="@color/color_FF3838"
+                         android:textSize="@dimen/text_size_15" />-->
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_jf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_point"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_45"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:gravity="center|left"
+                    android:paddingLeft="@dimen/margin_17"
+                    android:text="本次奖励积分:"
+                    android:textColor="@color/color_2b2b2b"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/tv_mypoint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/margin_45"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/white"
+                    android:drawablePadding="3dp"
+                    android:drawableRight="@drawable/arrow"
+                    android:gravity="center"
+                    android:paddingRight="@dimen/margin_10"
+                    android:text="去看看"
+                    android:textColor="@color/color_999999"
+                    android:textSize="@dimen/text_size_12" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_45"
+                android:layout_marginTop="@dimen/margin_10"
+                android:background="@color/white"
+                android:gravity="center"
+                android:text="支付成功"
+                android:textColor="@color/color_2b2b2b"
+                android:textSize="@dimen/text_size_16"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_shopping"
+        android:layout_width="@dimen/button_width_150"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_marginBottom="@dimen/margin_40"
+        android:background="@drawable/bt_bg_yellow"
+        android:gravity="center"
+        android:text="继续逛逛"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size_17" />
+</LinearLayout>

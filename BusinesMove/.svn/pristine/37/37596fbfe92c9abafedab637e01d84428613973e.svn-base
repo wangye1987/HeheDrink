@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f6f6f6"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+            style="@style/login_linear_style"
+            android:layout_marginTop="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_50"
+             >
+
+           <!-- <TextView
+                 style="@style/login_reigster_style_666"
+                       android:layout_width="@dimen/button_width_80"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="0dp"
+                android:src="@drawable/list_user_default"
+                android:text="@string/tel" />-->
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/phone"
+                style="@style/login_reigster_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:hint="@string/notice_phone_null"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:paddingRight="5dp"
+                android:textColor="@color/color_454545" >
+
+                <requestFocus />
+            </com.heheys.ec.view.DeleteEditText>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+               android:background="@color/color_efefef" />
+
+            <TextView
+                android:id="@+id/outh_code"
+                android:layout_width="108dp"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:text="@string/send_postcode"
+                android:textColor="@color/color_FFd938" />
+        </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:background="@color/color_efefef" />
+        <LinearLayout
+            style="@style/login_linear_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_36"
+            android:layout_marginTop="@dimen/margin_8" >
+
+          <!--  <TextView
+                style="@style/login_reigster_style_666"
+                       android:layout_width="@dimen/button_width_80"
+                android:layout_height="wrap_content"
+                android:text="@string/postcode_text" />-->
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/pass_code"
+                style="@style/login_reigster_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:digits="0123456789"
+                android:layout_weight="1"
+                android:hint="@string/hint_postcode"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:maxLength="6"
+                android:paddingRight="5dp"
+                android:textColor="@color/color_454545" />
+        </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:background="@color/color_efefef" />
+        <LinearLayout
+            style="@style/login_linear_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_36"
+            android:layout_marginTop="@dimen/margin_8" >
+
+           <!-- <TextView
+                style="@style/login_reigster_style_666"
+                       android:layout_width="@dimen/button_width_80"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="0dp"
+                android:src="@drawable/list_user_default"
+                android:text="@string/setting_pwd" />-->
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/password_one"
+                style="@style/login_reigster_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789"
+                android:hint="@string/setting_pwd"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:paddingRight="5dp"
+                android:textColor="@color/color_454545" />
+        </LinearLayout>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:background="@color/color_efefef" />
+        <LinearLayout
+            style="@style/login_linear_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_36"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginTop="@dimen/margin_8" >
+
+           <!-- <TextView
+                style="@style/login_reigster_style_666"
+                android:layout_width="@dimen/button_width_80"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="0dp"
+                android:text="@string/commit_pwd" />-->
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/password_two"
+                style="@style/login_reigster_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789"
+                android:hint="@string/hint_pwd_next"
+                android:imeOptions="actionDone"
+                android:inputType="textPassword"
+                android:maxLength="20"
+                android:paddingRight="5dp"
+                android:textColor="@color/color_454545" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.heheys.ec.lib.view.RevealLayout
+         android:layout_marginTop="@dimen/margin_35"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+   <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_54"
+            android:layout_marginLeft="@dimen/margin_25"
+            android:layout_marginRight="@dimen/margin_25"
+            android:gravity="center"
+            android:orientation="vertical" >
+        <Button
+            android:id="@+id/commit_verify"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/login_button"
+            android:layout_marginRight="4dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/reset_pwd"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size_18" />
+        </FrameLayout>
+    </com.heheys.ec.lib.view.RevealLayout>
+
+</LinearLayout>

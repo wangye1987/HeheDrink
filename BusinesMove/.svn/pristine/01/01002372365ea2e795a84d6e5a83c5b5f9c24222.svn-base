@@ -1,0 +1,81 @@
+package com.heheys.ec.model.dataBean;
+
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/22 11:27
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:
+ */
+
+public class GoodsMapList implements Serializable{
+    private static final long serialVersionUID = 1L;
+
+    private String status;//状态码
+    private MapResultBean result;//返回结果
+    private ErrorBean error;//返回失败结果
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    public ErrorBean getError() {
+        return error;
+    }
+    public void setError(ErrorBean error) {
+        this.error = error;
+    }
+    public MapResultBean getResult() {
+        return result;
+    }
+    public void setResult(MapResultBean result) {
+        this.result = result;
+    }
+
+    public class MapResultBean implements Serializable{
+           private List<MapList> list;
+
+        public List<MapList> getList() {
+            return list;
+        }
+
+        public void setList(List<MapList> list) {
+            this.list = list;
+        }
+    }
+
+    public class MapList implements Serializable {
+        private double lng;//经度
+
+        private double lat;//纬度
+
+        private String name;
+
+        public double getLng() {
+            return lng;
+        }
+
+        public void setLng(double lng) {
+            this.lng = lng;
+        }
+
+        public double getLat() {
+            return lat;
+        }
+
+        public void setLat(double lat) {
+            this.lat = lat;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+}

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 城市列表布局 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical" >
+
+    <!-- 输入框布局 -->
+
+    <LinearLayout
+        android:id="@+id/check_city_search_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="12dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:layout_weight="6"
+            android:background="@drawable/check_city_search_bg"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp" >
+
+            <ImageView
+                android:id="@+id/check_city_search_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="48dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/search_icon" />
+
+            <com.heheys.ec.view.DeleteEditText
+                android:textSize="15sp"
+                android:textColorHint="@color/color_c8c8c8"
+                android:id="@+id/check_city_search_et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="18dp"
+                android:layout_toRightOf="@id/check_city_search_icon"
+                android:background="@null"
+                android:ellipsize="end"
+                android:hint="请输入城市中文名称或拼音"
+                android:imeOptions="actionSearch"
+                android:paddingRight="5dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:scaleType="fitXY"
+                android:layout_marginRight="15dp"
+                android:id="@+id/check_city_clear_iv"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/search_clear"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/check_city_cancle_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="取消"
+            android:textColor="@color/title_bg"
+            android:textSize="15sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/sf_vi_gray_line_dc" />
+    <!-- 显示Fragment的容器 -->
+
+    <FrameLayout
+        android:id="@+id/check_city_fragment_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+    </FrameLayout>
+
+</LinearLayout>

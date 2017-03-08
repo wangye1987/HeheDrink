@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:paddingBottom="14dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f7f7f7"
+        android:orientation="vertical"
+        android:paddingLeft="21dp"
+        android:paddingRight="21dp" >
+
+        <com.heheys.ec.lib.view.GridViewScrollview
+            android:id="@+id/drinks_demand_buy_type_gv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:horizontalSpacing="10dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="3"
+            android:verticalSpacing="14dp"
+            android:visibility="visible" />
+        <!-- 品牌 -->
+
+        <RelativeLayout
+            android:id="@+id/my_brand_RelativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:text="所属品牌:"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/my_brand_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:layout_toLeftOf="@+id/drinks_demand_buy_icon"
+                android:text="请选择"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/drinks_demand_buy_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/wine_demand_icon_choice" />
+        </RelativeLayout>
+        <!-- 名称 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="名称:"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/drinks_demand_buy_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:background="@null"
+                android:hint="请输入酒水名称"
+                android:gravity="right"
+                android:maxLength="75"
+                android:singleLine="true"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="酒精含量:"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/drinks_demand_buy_degress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:digits="0123456789."
+                android:gravity="right"
+                android:hint="小于100度"
+                android:inputType="number"
+                android:maxLength="5"
+                android:singleLine="true"
+               android:layout_weight="1"
+                android:textColor="@color/color_8c8c8c"
+               android:layout_marginRight="5dp"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="度"
+                android:textColor="@color/color_454545"
+                android:layout_marginRight="5dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <!-- 数量 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="数量:"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/drinks_demand_buy_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:background="@null"
+                android:digits="0123456789"
+                android:gravity="right"
+                 android:hint="请输入酒水数量"
+                android:inputType="number"
+                android:maxLength="8"
+                android:singleLine="true"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <!-- 单位 -->
+
+        <RelativeLayout
+            android:id="@+id/drinks_demand_buy_unit_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:text="酒水规格"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/drinks_demand_buy_unit_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:layout_toLeftOf="@+id/drinks_demand_buy_unit_icon"
+                android:text="请选择"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/drinks_demand_buy_unit_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/wine_demand_icon_choice" />
+        </RelativeLayout>
+        <!-- 求购价格 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:orientation="horizontal"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:id="@+id/tv_price_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:text="销售单价:"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/drinks_demand_buy_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:digits="0123456789."
+                android:gravity="right"
+                android:hint="请输入酒水单价"
+                android:inputType="number"
+                android:maxLength="7"
+                android:layout_weight="1"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textColor="@color/color_454545"
+                android:layout_marginRight="5dp"
+                android:textSize="14sp" />
+        </LinearLayout>
+        <!-- 送货区域 -->
+
+        <RelativeLayout
+            android:id="@+id/my_demand_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <LinearLayout
+                android:id="@+id/linear_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/tv_district_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:text="供货区域:"
+                    android:textColor="@color/color_454545"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/demand_add"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="11dp"
+                    android:ellipsize="end"
+                    android:gravity="right|center"
+                    android:singleLine="true"
+                    android:text="请选择"
+                    android:layout_weight="1"
+                    android:paddingLeft="11dp"
+                    android:textColor="@color/color_8c8c8c"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/drinks_demand_buy_area_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="13dp"
+                    android:src="@drawable/wine_demand_icon_choice"
+                    android:visibility="visible" />
+
+                <!-- <LinearLayout
+                    android:id="@+id/linear_down"
+                    android:layout_width="20dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginRight="4dp"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/groupbuy_arrow_down_gray"
+                         />
+
+                </LinearLayout> -->
+
+            </LinearLayout>
+
+            <!-- <com.heheys.ec.lib.view.ScrollTextView
+                android:id="@+id/more_tv"
+                android:layout_below="@id/linear_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="9dp"
+                android:layout_marginRight="9dp"
+                android:visibility="gone" /> -->
+        </RelativeLayout>
+
+        <!-- 需求开始时间 -->
+
+        <RelativeLayout
+            android:id="@+id/drinks_demand_buy_starttime_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:id="@+id/tv_starttime_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:text="需求时间(起):"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/drinks_demand_buy_starttime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:layout_toLeftOf="@+id/drinks_demand_buy_starttime_icon"
+                android:text="请选择"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/drinks_demand_buy_starttime_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/wine_demand_icon_choice" />
+        </RelativeLayout>
+
+        <!-- 需求时间 -->
+
+        <RelativeLayout
+            android:id="@+id/drinks_demand_buy_endtime_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <TextView
+                android:id="@+id/tv_endtime_notice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:text="需求时间(止):"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/drinks_demand_buy_endtime_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="11dp"
+                android:layout_toLeftOf="@+id/drinks_demand_buy_endtime_icon"
+                android:text="请选择"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/drinks_demand_buy_endtime_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="13dp"
+                android:src="@drawable/wine_demand_icon_choice" />
+        </RelativeLayout>
+        <!-- 备注 -->
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_white_solid_gray_stroke"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp" >
+
+            <EditText
+                android:id="@+id/drinks_demand_buy_remark"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="9dp"
+                android:background="@null"
+                android:hint="请填写备注"
+                android:maxLength="50"
+                android:textColor="@color/color_454545"
+                android:textSize="14sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

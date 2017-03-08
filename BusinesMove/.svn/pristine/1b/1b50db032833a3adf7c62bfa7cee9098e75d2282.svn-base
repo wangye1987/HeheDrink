@@ -1,0 +1,414 @@
+package com.heheys.ec.controller.activity;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.NetWorkState;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.lib.view.RefreshListView;
+import com.heheys.ec.lib.view.RefreshListView.OnMoreListener;
+import com.heheys.ec.lib.view.RefreshListView.OnRefreshListener;
+import com.heheys.ec.model.adapter.HeheMoneyListAdapter;
+import com.heheys.ec.model.dataBean.ErrorBean;
+import com.heheys.ec.model.dataBean.HeheMoneyBaseBean;
+import com.heheys.ec.model.dataBean.HeheMoneyBaseBean.HeheMoneyitem;
+import com.heheys.ec.model.dataBean.MyHeheAccount;
+import com.heheys.ec.model.dataBean.MyHeheAccount.MyHeheBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.thirdPartyModule.payModule.JDPayActivity;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+
+//import com.heheys.ec.thirdPartyModule.IM.LoginSampleHelper;
+
+/**
+ * @author wangkui
+ * 
+ *         2016-07-25 喝币明细
+ */
+public class HeheMoneyListActivity extends BaseActivity implements
+		OnRefreshListener, OnMoreListener,OnClickListener {
+	private RefreshListView mListView;
+	// 标记是否是上拉获取更多状态
+	private boolean isLoadMore;
+	private int startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX,
+			endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+	// 标记是否是下拉刷新状态
+	private boolean isRefresh;
+	private Context mContext;
+	//服务器返回赫比数据
+	private HeheMoneyBaseBean hehemoneybean;
+	
+	private HeheMoneyHandler mHandler;
+	private HeheMoneyListAdapter mAdapter;
+	private ArrayList<HeheMoneyitem> data;
+	private LinearLayout lv_empty;
+	private String account;
+	private String userhelp;
+	private TextView tv_hehemoney;
+	private TextView help;
+	private MyHeheAccount myhehemoneybean;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setBaseContentView(R.layout.hehe_money_list);
+		initView();
+		initData();
+	}
+
+	private void initData() {
+		// TODO Auto-generated method stub
+		mContext = HeheMoneyListActivity.this;
+		mHandler = new HeheMoneyHandler(this);
+		data = new ArrayList<HeheMoneyitem>();
+		mAdapter = new HeheMoneyListAdapter(data, mContext);
+		mListView.setAdapter(mAdapter);
+		//获取账户余额
+		ApiHttpCilent.getInstance(baseActivity).UserHeheMoney(baseActivity, new MyHeheMoneyCallBack());
+	}
+
+	private void initView() {
+		rlTitlePrent.setBackgroundColor(getResources().getColor(R.color.white));
+		mListView = (RefreshListView) findViewById(R.id.list_lv);
+		lv_empty = (LinearLayout) findViewById(R.id.lv_empty);
+		tv_hehemoney = (TextView) findViewById(R.id.tv_hehemoney);
+		help = (TextView) findViewById(R.id.help);
+		help.setOnClickListener(this);
+		mListView.setonLoadListener(this);
+		mListView.setonRefreshListener(this);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+		//获取账户积分列表
+		ApiHttpCilent.getInstance(baseActivity).UserHeheMoneyDetail(baseActivity,startIndex,endIndex,
+				new HeheMoneyCallBack());
+	}
+	
+	class MyHeheMoneyCallBack extends BaseJsonHttpResponseHandler<MyHeheAccount> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, MyHeheAccount arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				MyHeheAccount arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected MyHeheAccount parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			myhehemoneybean = gson.fromJson(response, MyHeheAccount.class);
+			Message message = Message.obtain();
+			if ("1".equals(myhehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+				message.obj = myhehemoneybean.getResult();
+			} else if ("0".equals(myhehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = myhehemoneybean.getError();
+			}
+			mHandler.sendMessage(message);
+			return myhehemoneybean;
+		}
+	}
+	private void Dimess() {
+		((Activity) mContext).runOnUiThread(new Runnable() {
+			public void run() {
+				if (ApiHttpCilent.loading != null
+						&& ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	class HeheMoneyCallBack extends BaseJsonHttpResponseHandler<HeheMoneyBaseBean> {
+	
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, HeheMoneyBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				HeheMoneyBaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected HeheMoneyBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			hehemoneybean = gson.fromJson(response, HeheMoneyBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(hehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = hehemoneybean.getResult();
+			} else if ("0".equals(hehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = hehemoneybean.getError();
+			}
+			mHandler.sendMessage(message);
+			return hehemoneybean;
+		}
+	}
+
+	// 列表获取成功
+	public class HeheMoneyHandler extends WeakHandler<HeheMoneyListActivity> {
+		public HeheMoneyHandler(HeheMoneyListActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:// 我的喝喝币明细
+				getReference().bindData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:// 我的喝喝币账号
+				getReference().bindCountData();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				ErrorBean errorBean = (ErrorBean) msg.obj;
+				if(errorBean !=null){
+				if ("100".equals(errorBean.getCode())) {
+					// 登录失效
+					ToastUtil.showToast(getReference(), errorBean.getInfo());
+					//注销阿里IM
+//					LoginSampleHelper.getInstance().loginOut_Sample(mContext);
+				} else {
+					if (!StringUtil.isEmpty(errorBean.getInfo()))
+						ToastUtil.showToast(mContext, errorBean.getInfo());
+					hideRefreshView();
+					hideLoadMoreView();
+				}}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	// 适配数据
+		private void bindData() {
+			// TODO Auto-generated method stub
+			if (startIndex == 1) {
+				// 第一页
+				if (hehemoneybean != null && hehemoneybean.getResult() != null
+						&& hehemoneybean.getResult().getList() != null) {
+					if(hehemoneybean.getResult().getList().size()>0){
+						data = hehemoneybean.getResult().getList();
+						mAdapter.setNewData(data);
+						mAdapter.notifyDataSetChanged();
+						hideRefreshView();
+						lv_empty.setVisibility(View.GONE);
+						mListView.setVisibility(View.VISIBLE);
+					}else{
+						//显示没有数据视图
+						lv_empty.setVisibility(View.VISIBLE);
+						mListView.setVisibility(View.GONE);
+					}
+				}
+			} else {
+				if (hehemoneybean != null && hehemoneybean.getResult() != null
+						&& hehemoneybean.getResult().getList() != null) {
+					data.addAll(hehemoneybean.getResult().getList());
+					mAdapter.setNewData(data);
+					mAdapter.notifyDataSetChanged();
+					hideLoadMoreView();
+				} else {
+					// 回滚页码
+					startIndex = startIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+					endIndex = endIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+					hideLoadMoreView();
+					ToastUtil.showToasts(getApplication(),"没有更多数据了", Toast.LENGTH_SHORT);
+				}
+			}
+		}
+
+
+		//获取账户余额
+		public void bindCountData() {
+		if(myhehemoneybean !=null && myhehemoneybean.getResult() != null){
+			MyHeheBean myHeheBean = myhehemoneybean.getResult();
+			account = myHeheBean.getCoin();
+			userhelp = myHeheBean.getHelpurl();
+			tv_hehemoney.setText(StringUtil.isEmpty(account)?"":account);
+			String tv_coin = tv_hehemoney.getText().toString().trim();
+			Spannable WordtoSpan = new SpannableString(tv_coin);  
+			WordtoSpan.setSpan(new AbsoluteSizeSpan(50), 0, tv_coin.length()-2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			WordtoSpan.setSpan(new AbsoluteSizeSpan(34), tv_coin.length()-2, tv_coin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv_hehemoney.setText(WordtoSpan);
+		}
+			
+			
+	}
+
+	// 更多界面
+	private void hideLoadMoreView() {
+		if (isLoadMore) {
+			mListView.onLoadComplete();
+			mAdapter.setNewData(data);
+			mAdapter.notifyDataSetChanged();
+			isLoadMore = false;
+		}
+	}
+	
+	private void hideRefreshView() {
+		if (isRefresh) {
+			mListView.onRefreshComplete();
+			isRefresh = false;
+		}
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "喝币收支明细";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public void onLoadMore() {
+		if (!NetWorkState.isNetWorkConnection(mContext)) {
+			ToastUtil.showToast(mContext, "网络连接失败");
+			return;
+		}
+		isLoadMore = true;
+		startIndex = startIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+		endIndex = endIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+		getNetData();
+
+	}
+
+	// 初始化开始和结束页面
+	private void initReuquestParams() {
+		startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX;
+		endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+	}
+
+	// 下拉获取第一页数据
+	@Override
+	public void onRefresh() {
+		if (!NetWorkState.isNetWorkConnection(mContext)) {
+			ToastUtil.showToast(mContext, "网络连接失败");
+			return;
+		}
+		isRefresh = true;
+		initReuquestParams();
+		getNetData();
+	}
+	
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.help:
+			if(!StringUtil.isEmpty(userhelp)){
+				Intent intent = new Intent(baseActivity, JDPayActivity.class);//获取电子合同
+				intent.putExtra("url",userhelp);
+				intent.putExtra("title", "喝币使用帮助");
+				intent.putExtra("flag", 3);//积分合同
+				StartActivityUtil.startActivity(baseActivity, intent);
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+}

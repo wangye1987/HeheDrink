@@ -1,0 +1,316 @@
+package com.heheys.ec.controller.activity;
+
+import java.util.List;
+
+import org.apache.http.Header;
+
+import android.os.Message;
+import android.view.View;
+import android.widget.LinearLayout;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.NetWorkState;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.lib.view.RefreshListView;
+import com.heheys.ec.lib.view.RefreshListView.OnMoreListener;
+import com.heheys.ec.lib.view.RefreshListView.OnRefreshListener;
+import com.heheys.ec.model.adapter.MessgaeListAdapter;
+import com.heheys.ec.model.dataBean.MessageListBean;
+import com.heheys.ec.model.dataBean.MessageListBean.MsgBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * @author 作者 E-mail:王奎
+ * @version 创建时间：2015-11-3 上午10:01:38 类说明
+ * @param 消息详情界面
+ */
+public class MessageDetailActivity extends BaseActivity implements
+		OnRefreshListener, OnMoreListener {
+
+	private MessgaeListAdapter msgAdapter;
+	private MessageListBean listbean;
+	private MessageHandler handler = new MessageHandler(this);
+	private RefreshListView lv_message;
+	// 列表数据开始和结束位置
+	private int startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX,
+			    endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+	// 标记是否是下拉刷新状态
+	private boolean isRefresh;
+	// 标记是否是分页状态
+	private boolean isLoadMore;
+	private List<MsgBean> listData;
+	private LinearLayout linear_noMsg;
+	private int type;//消息类型1  业务类型 1 订单列表 2 订单详情 3 沙龙列表 4 沙龙详情 5 拼单列表 6 拼单详情
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		setBaseContentView(R.layout.message_detail);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		lv_message = (RefreshListView) findViewById(R.id.lv_message);
+		linear_noMsg = (LinearLayout) findViewById(R.id.linear_noMsg);
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+		type = getIntent().getIntExtra("type", 0);//获取消息类型 
+		if(0 == type){
+			ResetTitle("系统消息");
+		}else if(1 == type){
+			ResetTitle("通知消息");
+		}else if(2 == type){
+			ResetTitle("优惠券消息");
+		}
+		
+		ApiHttpCilent.getInstance(baseContext).MsgList(baseContext,startIndex,endIndex,type,
+				new MyMsgCallBack());// 请求消息列表数据
+	}
+	void Dimess(){
+	MessageDetailActivity.this.runOnUiThread(new Runnable() {
+		public void run() {
+			if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+				ApiHttpCilent.loading.dismiss();
+		}
+	});
+	}
+	/**
+	 * 
+	 * Describe:获取消息数据请求回调
+	 * 
+	 * Date:2015-11-03
+	 * 
+	 * Author:wk
+	 */
+	public class MyMsgCallBack extends
+			BaseJsonHttpResponseHandler<MessageListBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, MessageListBean arg4) {
+			// ApiHttpCilent.hideLoading();
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			handler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				MessageListBean arg3) {
+		}
+
+		@Override
+		protected MessageListBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			Dimess();
+			Gson gson = new Gson();
+			listbean = gson.fromJson(response, MessageListBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(listbean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = listbean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return listbean;
+		}
+
+	}
+
+	/**
+	 * 
+	 * Describe:获取消息数据处理网络请求消息
+	 * 
+	 * Date:2015-11-03
+	 * 
+	 * Author:王奎
+	 */
+	public static class MessageHandler extends
+			WeakHandler<MessageDetailActivity> {
+
+		public MessageHandler(MessageDetailActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				/**
+				 * 处理成功的数据
+				 */
+				getReference().bindViewData();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				/**
+				 * 处理失败的数据
+				 */
+				String messageString = (String) msg.obj;
+				if (messageString != null) {
+					ToastUtil.showToast(getReference().baseActivity,
+							messageString);
+					/**
+					 * 处理失败数据
+					 */
+				} else {
+					// ToastUtil.showToast(getReference().baseActivity, "请求失败");
+
+				}
+
+				break;
+			}
+		}
+	}
+
+	private void bindViewData() {
+		if (startIndex == 1) {//第一页数据展示处理
+			hindRefreshView();
+			if (listbean.getResult() != null
+					&& listbean.getResult().getList() != null
+					&& listbean.getResult().getList().size() > 0) {
+				listData = listbean.getResult().getList();
+				msgAdapter = new MessgaeListAdapter(listData, baseContext);
+				lv_message.setAdapter(msgAdapter);
+				linear_noMsg.setVisibility(View.GONE);
+			}else{
+				//消息为空的显示空消息视图
+				linear_noMsg.setVisibility(View.VISIBLE);
+			}
+		} else {
+			//分页数据处理
+			if(listbean.getResult() != null
+					&& listbean.getResult().getList() != null
+					&& listbean.getResult().getList().size() > 0){
+				List<MsgBean> data = listbean.getResult().getList();
+				if(listData!=null && isLoadMore){
+					listData.addAll(data);
+					hindOnLoadMoreView();
+				}
+			}else{
+				//分页没有数据时
+				startIndex = startIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+				endIndex   = endIndex - ConstantsUtil.DEFAULT_PAGE_SIZE;
+				hindOnLoadMoreView();
+			}
+		}
+	}
+
+	
+	//隐藏刷新界面
+	private void hindRefreshView(){
+		if(isRefresh){
+			lv_message.onRefreshComplete();
+			isRefresh = false;
+		}
+	}
+	//隐藏加载更多界面
+	private void hindOnLoadMoreView(){
+		if(isLoadMore){
+			lv_message.onLoadComplete();
+			isLoadMore = false;
+		}
+	}
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+		lv_message.setonLoadListener(this);
+		lv_message.setonRefreshListener(this);
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "通知消息";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onLoadMore() {
+		// TODO Auto-generated method stub
+		if (!NetWorkState.isNetWorkConnection(baseContext)) {
+			ToastUtil.showToast(baseContext, "网络连接失败");
+			return;
+		}
+		isLoadMore = true;
+		initReuquestMoreParams();
+		getNetData();
+	}
+
+	private void initReuquestMoreParams() {
+		// TODO Auto-generated method stub
+		startIndex = startIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+		endIndex = endIndex + ConstantsUtil.DEFAULT_PAGE_SIZE;
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		if (!NetWorkState.isNetWorkConnection(baseContext)) {
+			ToastUtil.showToast(baseContext, "网络连接失败");
+			return;
+		}
+		isRefresh = true;
+		initReuquestParams();
+		getNetData();
+	}
+
+	private void initReuquestParams() {
+		// TODO Auto-generated method stub
+		startIndex = ConstantsUtil.DEFAULT_PAGE_START_INDEX;
+		endIndex = ConstantsUtil.DEFAULT_PAGE_SIZE;
+	}
+	 public void onResume() {
+		    super.onResume();
+		    MobclickAgent.onResume(this);       //统计时长
+		}
+		public void onPause() {
+		    super.onPause();
+		    MobclickAgent.onPause(this);
+		}
+}

@@ -1,0 +1,342 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.model.adapter.BrandGridAdapter;
+import com.heheys.ec.model.adapter.WineBrandAdapter;
+import com.heheys.ec.model.dataBean.BrandBaseBean;
+import com.heheys.ec.model.dataBean.BrandBaseBean.BrandBean;
+import com.heheys.ec.model.dataBean.BrandBaseBean.BrandList;
+import com.heheys.ec.model.dataBean.SeachBaseBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by wangkui on 2016/12/14.
+ */
+
+public class SearchWineActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+    private ListView lv_brands;
+    private LinearLayout linear_brands;
+//    private ImageView iv_adverce;
+    private TextView tv_hot;
+//    private TextView tv_all;
+    private GridView grid_brand;
+    private BrandList beanbrands;
+    private WineBrandAdapter leftbrandAdapter;
+    private List<BrandBaseBean.BrandBean> listbrand;
+    private SeachBaseBean.BrandResultBean brandResultBean;
+    private SeachBaseBean.BrandResultBean resultGridBean;
+    //检索品牌集合
+    private List<SeachBaseBean> listBrand;
+    //适配器
+    private BrandGridAdapter gridAdapter;
+    //品牌数据集合
+    private List<SeachBaseBean.BrandSearchList> listSearchBrand;
+    //地区ID
+    String cityIdString = null;
+    private String typeName = "全部";
+
+    private SeachBaseBean seachBaseBean;
+    /**
+     * 减少的商品类型ID
+     */
+    private String windType;
+    private Handler mhandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+                    bindLeftBrand();
+                    break;
+                case ConstantsUtil.HTTP_SUCCESS:
+                    listSearchBrand = resultGridBean.getList();
+                    if(listSearchBrand != null && listSearchBrand.size() > 0) {
+                        gridAdapter.setNewData(listSearchBrand);
+                        grid_brand.setVisibility(View.VISIBLE);
+                        lv_empty.setVisibility(View.GONE);
+                    }else{
+                        grid_brand.setVisibility(View.GONE);
+                        lv_empty.setVisibility(View.VISIBLE);
+                    }
+                    break;
+                case ConstantsUtil.HTTP_FAILE:
+                    /**
+                     * 处理失败的数据
+                     */
+                    String messageString = (String) msg.obj;
+                    if (messageString != null) {
+                        ToastUtil.showToast(baseActivity, messageString);
+                    }
+            }
+        }
+    };
+    private LinearLayout lv_empty;
+
+
+    @Override
+    protected void onCreate() {
+        setBaseContentView(R.layout.search_item);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        listbrand = new ArrayList<BrandBean>();
+        leftbrandAdapter = new WineBrandAdapter(listbrand, this);
+        lv_brands.setAdapter(leftbrandAdapter);
+        lv_brands.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                windType = listbrand.get(position).getId();
+                typeName = listbrand.get(position).getName();
+                setBrandList(windType);
+                leftbrandAdapter.changeSelected(position);// 刷新
+            }
+        });
+        lv_brands.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view,
+                                       int position, long id) {
+                leftbrandAdapter.changeSelected(position);// 刷新
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+    }
+
+    private void initView() {
+
+        lv_empty = (LinearLayout) findViewById(R.id.lv_empty);
+        lv_brands = (ListView) findViewById(R.id.lv_brands);
+        linear_brands = (LinearLayout) findViewById(R.id.linear_brands);
+        tv_hot = (TextView) findViewById(R.id.tv_hot);
+        tv_hot.setOnClickListener(this);
+        grid_brand = (GridView) findViewById(R.id.grid_brand);
+        listSearchBrand = new ArrayList<SeachBaseBean.BrandSearchList>();
+        gridAdapter = new BrandGridAdapter(listSearchBrand, this);
+        grid_brand.setAdapter(gridAdapter);
+        grid_brand.setOnItemClickListener(this);
+        rlTitlePrent.setBackgroundColor(getResources().getColor(R.color.white));
+    }
+
+    @Override
+    protected boolean hasTitle() {
+        return true;
+    }
+
+    @Override
+    protected void loadChildView() {
+
+    }
+
+    /**
+     * 绑定左侧品牌数据
+     */
+    private void bindLeftBrand() {
+        listbrand = beanbrands.getList();
+        if (listbrand != null && listbrand.size() > 0) {
+            if (!listbrand.get(0).getName().equals("全部")) {
+                BrandBean brand = new BrandBean();
+                brand.setId("");
+                brand.setName("全部");
+                listbrand.add(0, brand);
+            }
+        }
+        leftbrandAdapter.setNewData(listbrand);
+        leftbrandAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void getNetData() {
+        /*
+         * 获取左侧品牌数据
+		 */
+        cityIdString = MyApplication.getInstance().GetCityId();
+        ApiHttpCilent.getInstance(getApplicationContext()).BrandList(this,cityIdString,
+                new RequestBrandNameCallBack());
+        setBrandList("");
+    }
+
+        /*
+		 * 获取当前品牌数据
+		 */
+    void setBrandList(String brand){
+
+        ApiHttpCilent.getInstance(getApplicationContext()).GridBrandList(this, cityIdString, brand,
+                new RequestBrandGridCallBack());
+    }
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent();
+        intent.putExtra("brand", listSearchBrand.get(position).getId());
+        intent.putExtra("cityId", cityIdString);
+        intent.putExtra("brandtv", typeName);
+        intent.putExtra("brandType", listSearchBrand.get(position).getName());
+        intent.setClass(this, SearchResultActivity.class);
+        StartActivityUtil.startActivity(this, intent);
+    }
+
+    /*
+         * 获取左侧品牌回调数据
+         */
+    public class RequestBrandNameCallBack extends
+            BaseJsonHttpResponseHandler<BrandBaseBean> {
+
+        @Override
+        public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+                              String arg3, BrandBaseBean arg4) {
+            Dimessis();
+            Message message = Message.obtain();
+            message.what = ConstantsUtil.HTTP_FAILE;// 错误
+            mhandler.sendMessage(message);
+        }
+
+        @Override
+        public void onSuccess(int arg0, Header[] arg1, String arg2,
+                              BrandBaseBean arg3) {
+        }
+
+        @Override
+        protected BrandBaseBean parseResponse(String response, boolean arg1)
+                throws Throwable {
+            Dimessis();
+            Gson gson = new Gson();
+            BrandBaseBean brandNameList = gson.fromJson(response,
+                    BrandBaseBean.class);
+            Message message = Message.obtain();
+            if ("1".equals(brandNameList.getStatus())) {// 正常
+                message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+                beanbrands = brandNameList.getResult();
+            } else {
+                message.what = ConstantsUtil.HTTP_FAILE;// 错误
+                message.obj = brandNameList.getError().getInfo();
+            }
+            mhandler.sendMessage(message);
+            return brandNameList;
+        }
+    }
+
+        /*
+         * 获取左侧品牌回调数据
+         */
+      public class RequestBrandGridCallBack extends
+            BaseJsonHttpResponseHandler<SeachBaseBean> {
+
+
+        @Override
+        public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+                              String arg3, SeachBaseBean arg4) {
+            Dimessis();
+            Message message = Message.obtain();
+            message.what = ConstantsUtil.HTTP_FAILE;// 错误
+            mhandler.sendMessage(message);
+        }
+
+        @Override
+        public void onSuccess(int arg0, Header[] arg1, String arg2,
+                              SeachBaseBean arg3) {
+        }
+
+        @Override
+        protected SeachBaseBean parseResponse(String response, boolean arg1)
+                throws Throwable {
+            Dimessis();
+            Gson gson = new Gson();
+            seachBaseBean = gson.fromJson(response,
+                    SeachBaseBean.class);
+            Message message = Message.obtain();
+            if ("1".equals(seachBaseBean.getStatus())) {// 正常
+                message.what = ConstantsUtil.HTTP_SUCCESS;
+                resultGridBean = seachBaseBean.getResult();
+            } else {
+                message.what = ConstantsUtil.HTTP_FAILE;// 错误
+                message.obj = seachBaseBean.getError().getInfo();
+            }
+            mhandler.sendMessage(message);
+            return seachBaseBean;
+        }
+    }
+
+    /**
+     * 隐藏等待框
+     */
+    private void Dimessis() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (SearchWineActivity.this != null
+                        && !SearchWineActivity.this.isFinishing()) {
+                    if (ApiHttpCilent.loading != null
+                            && ApiHttpCilent.loading.isShowing())
+                        ApiHttpCilent.loading.dismiss();
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void reloadCallback() {
+
+    }
+
+    @Override
+    protected void setChildViewListener() {
+
+    }
+
+    @Override
+    protected String setTitleName() {
+        return "搜索";
+    }
+
+    @Override
+    protected String setRightText() {
+        return null;
+    }
+
+    @Override
+    protected int setLeftImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setMiddleImageResource() {
+        return 0;
+    }
+
+    @Override
+    protected int setRightImageResource() {
+        return 0;
+    }
+}

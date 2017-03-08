@@ -1,0 +1,477 @@
+package com.heheys.ec.controller.activity;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Message;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.CustomerBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.MaxLengthWatcher;
+import com.heheys.ec.utils.ToastNoNetWork;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.Header;
+
+import java.util.HashMap;
+
+/**
+ * Describe:
+ * 
+ * Date:2015-9-28
+ * 
+ * Author:liuzhouliang
+ */
+public class AddMyCustomerActivity extends BaseActivity {
+
+	private EditText et_name;
+	private EditText et_tel;
+	private EditText et_address;
+	private EditText et_comment;
+	private Button bt_small;
+	private Button bt_big;
+	private LinearLayout base_activity_title_right_parent;
+	private String btype;
+	private  Context context;
+	private MyHandler handler = new MyHandler(this);
+	private  CustomerBean bean;
+	private TextView tv_right;
+	private  String id = "";
+	private LinearLayout linear_add1;
+	private LinearLayout linear_add2;
+	private LinearLayout linear_add3;
+	private LinearLayout linear_add4;
+	private LinearLayout linear_add5;
+	private LinearLayout linear_tel1;
+	private LinearLayout linear_tel2;
+	private LinearLayout linear_tel3;
+	private LinearLayout linear_tel4;
+	private LinearLayout linear_tel5;
+	private EditText et_tel2;
+	private EditText et_tel3;
+	private EditText et_tel4;
+	private EditText et_tel5;
+	private StringBuffer sb = new StringBuffer();
+	private int size;
+	@Override
+	protected void onCreate() {
+		setBaseContentView(R.layout.add_mycustomer);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		context = AddMyCustomerActivity.this;
+		et_name = (EditText) findViewById(R.id.et_name);
+		et_tel = (EditText) findViewById(R.id.et_tel);
+		et_address = (EditText) findViewById(R.id.et_address);
+		et_comment = (EditText) findViewById(R.id.et_comment);
+		et_tel2 = (EditText) findViewById(R.id.et_tel2);
+		et_tel3 = (EditText) findViewById(R.id.et_tel3);
+		et_tel4 = (EditText) findViewById(R.id.et_tel4);
+		et_tel5 = (EditText) findViewById(R.id.et_tel5);
+		bt_small = (Button) findViewById(R.id.bt_small);
+		bt_big = (Button) findViewById(R.id.bt_big);
+		linear_add1 = (LinearLayout) findViewById(R.id.linear_add1);
+		linear_add2 = (LinearLayout) findViewById(R.id.linear_add2);
+		linear_add3 = (LinearLayout) findViewById(R.id.linear_add3);
+		linear_add4 = (LinearLayout) findViewById(R.id.linear_add4);
+		linear_tel1 = (LinearLayout) findViewById(R.id.linear_tel1);
+		linear_tel2 = (LinearLayout) findViewById(R.id.linear_tel2);
+		linear_tel3 = (LinearLayout) findViewById(R.id.linear_tel3);
+		linear_tel4 = (LinearLayout) findViewById(R.id.linear_tel4);
+		linear_tel5 = (LinearLayout) findViewById(R.id.linear_tel5);
+		tv_right = (TextView) findViewById(R.id.base_activity_title_right_righttv);
+		bt_small.setOnClickListener(this);
+		bt_big.setOnClickListener(this);
+		tv_right.setOnClickListener(this);
+		linear_add1.setOnClickListener(this);
+		linear_add2.setOnClickListener(this);
+		linear_add3.setOnClickListener(this);
+		linear_add4.setOnClickListener(this);
+		et_comment.addTextChangedListener(new MaxLengthWatcher(200,
+				et_comment,context));
+		et_name.addTextChangedListener(new MaxLengthWatcher(20,
+				et_name,context));
+		et_tel.addTextChangedListener(new MaxLengthWatcher(11,
+				et_tel,context));
+		et_address.addTextChangedListener(new MaxLengthWatcher(100,
+				et_address,context));
+		initDate();
+	}
+
+	private void initDate() {
+		Intent intent = getIntent();
+		if(intent!=null){
+			bean = (CustomerBean) intent.getSerializableExtra("CustomerBean");
+		}
+		if(bean!=null){
+			id = bean.getId();
+			et_name.setText(bean.getName());
+			String mobile = bean.getMobile();
+			if(mobile.contains(",")){
+				String mobilearray[] = mobile.split(",");
+				size = mobilearray.length;
+				for(int i = 0;i<size;i++){
+					if(i==0){
+						et_tel.setText(mobilearray[i]);
+					}else if(i==1){
+						et_tel2.setText(mobilearray[i]);
+						linear_tel2.setVisibility(View.VISIBLE);
+						linear_add1.setVisibility(View.INVISIBLE);
+					}else if(i==2){
+						et_tel3.setText(mobilearray[i]);
+						linear_tel3.setVisibility(View.VISIBLE);
+						linear_add2.setVisibility(View.INVISIBLE);
+					}else if(i==3){
+						et_tel4.setText(mobilearray[i]);
+						linear_tel4.setVisibility(View.VISIBLE);
+						linear_add3.setVisibility(View.INVISIBLE);
+					}else if(i==4){
+						et_tel5.setText(mobilearray[i]);
+						linear_tel5.setVisibility(View.VISIBLE);
+						linear_add4.setVisibility(View.INVISIBLE);
+					}
+				}
+			}else{
+				et_tel.setText(mobile);
+			}
+			et_address.setText(bean.getAddress());
+			et_comment.setText(bean.getRemark());
+			String type = bean.getBtype();
+			btype = type;
+			if("1".equals(type)){
+				ButtonSmall();
+			}else{
+				ButtonBig();
+			}
+		}else{
+			id = "";
+		}
+	}
+
+	@SuppressLint("NewApi") @Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		HashMap<String,String> map = new HashMap<String,String>();
+		switch (v.getId()) {
+		case R.id.base_activity_title_right_righttv:
+			map.put("addcustomok","");
+			MobclickAgent.onEvent(baseActivity, "00100", map); 
+			if(ToastNoNetWork.ToastError(context)){
+				return;
+			}
+			tv_right.setEnabled(false);
+			String name = et_name.getText().toString().trim();
+			String mobile = et_tel.getText().toString().trim();
+			String address = et_address.getText().toString().trim();
+			String remark = et_comment.getText().toString().trim();
+			String st_tel2 = et_tel2.getText().toString().trim();
+			String st_tel3 = et_tel3.getText().toString().trim();
+			String st_tel4 = et_tel4.getText().toString().trim();
+			String st_tel5 = et_tel5.getText().toString().trim();
+			if(ToastString(name,"您的姓名没有填写")){
+				tv_right.setEnabled(true);
+				return;
+			}
+			if(ToastString(mobile,"您的手机号没有填写")){
+				tv_right.setEnabled(true);
+				return;
+			}
+			if(ToastString(btype,"您的终端商铺类型没有选择")){
+				tv_right.setEnabled(true);
+				return;
+			}
+			if(ToastString(mobile,"您的地址没有填写")){
+				tv_right.setEnabled(true);
+				return;
+			}
+			if(name.length()<2){
+				ToastUtil("姓名有误");
+				tv_right.setEnabled(true);
+				return;
+			}
+//			if(!ValidatorUtil.isMobile(mobile)){
+//				ToastUtil("请填写正确的联系方式");
+//				tv_right.setEnabled(true);
+//				return;
+//			}
+//			if(st_tel2!=null && !"".equals(st_tel2)){
+//			if(!ValidatorUtil.isMobile(st_tel2)){
+//				ToastUtil("请填写正确的联系方式");
+//				tv_right.setEnabled(true);
+//				return;
+//			}}
+//			if(st_tel3!=null && !"".equals(st_tel3)){
+//			if(!ValidatorUtil.isMobile(st_tel3)){
+//				ToastUtil("请填写正确的联系方式");
+//				tv_right.setEnabled(true);
+//				return;
+//			}}
+//			if(st_tel4!=null && !"".equals(st_tel4)){
+//			if(!ValidatorUtil.isMobile(st_tel4)){
+//				ToastUtil("请填写正确的联系方式");
+//				tv_right.setEnabled(true);
+//				return;
+//			}}
+//			if(st_tel5!=null && !"".equals(st_tel5)){
+//			if(!ValidatorUtil.isMobile(st_tel5)){
+//				ToastUtil("请填写正确的联系方式");
+//				tv_right.setEnabled(true);
+//				return;
+//			}}
+			sb.delete(0, sb.length());
+			sb.append(mobile);
+			StringBuffers(st_tel2);
+			StringBuffers(st_tel3);
+			StringBuffers(st_tel4);
+			StringBuffers(st_tel5);
+			//添加修改上下游用户
+			ApiHttpCilent.getInstance(getApplicationContext()).AddUpdateCustomer(context,id, name, sb.toString(), address, remark, btype, new MyCallBack());
+			break;
+		case R.id.bt_small:
+			map.put("samllshop","");
+			MobclickAgent.onEvent(baseActivity, "0098", map); 
+			btype = "1";
+			ButtonSmall();
+			break;
+		case R.id.bt_big:
+			map.put("bigshop","");
+			MobclickAgent.onEvent(baseActivity, "0099", map); 
+			btype = "2";
+			ButtonBig();
+			break;
+		case R.id.linear_add1:
+			map.put("addtel","");
+			MobclickAgent.onEvent(baseActivity, "0097", map); 
+			IsMobile(et_tel, linear_add1, linear_tel2);
+			break;
+		case R.id.linear_add2:
+			map.put("addtel","");
+			MobclickAgent.onEvent(baseActivity, "0097", map); 
+			IsMobile(et_tel2, linear_add2, linear_tel3);
+			break;
+		case R.id.linear_add3:
+			map.put("addtel","");
+			MobclickAgent.onEvent(baseActivity, "0097", map); 
+			IsMobile(et_tel3, linear_add3, linear_tel4);
+			break;
+		case R.id.linear_add4:
+			map.put("addtel","");
+			MobclickAgent.onEvent(baseActivity, "0097", map); 
+			IsMobile(et_tel4, linear_add4, linear_tel5);
+			break;
+		case R.id.base_activity_title_backicon:
+			map.put("addcustomback","");
+			MobclickAgent.onEvent(baseActivity, "00101", map); 
+			// 返回键处理
+			onBackPressed();
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void IsMobile(EditText et_tel,LinearLayout linearadd,LinearLayout linear_tel){
+		String tel1 = et_tel.getText().toString().trim();
+		if(tel1 == null || tel1.equals("")){
+			ToastUtil.showToast(context, "您的联系方式没有填写");
+			return;
+		}else{
+			if(!StringUtil.isMobileNo(tel1)){
+				ToastUtil.showToast(context, "您的联系方式格式不正确");
+				return;
+			}
+			linearadd.setVisibility(View.INVISIBLE);
+			linear_tel.setVisibility(View.VISIBLE);
+		}
+	}
+	private boolean ToastString(String address,String notice) {
+		if(address == null || "".equals(address)){
+			ToastUtil(notice);
+			return true;
+		}
+		return false;
+	}
+
+	private void StringBuffers(String st_tel) {
+		if(st_tel!=null && !"".equals(st_tel)){
+			sb.append(","+st_tel);
+		}
+	}
+
+	@SuppressLint("NewApi") private void ButtonBig() {
+		bt_small.setBackground(getResources().getDrawable(R.drawable.shape_mycustom));
+		bt_big.setBackground(getResources().getDrawable(R.drawable.shape_round_button));
+		bt_small.setTextColor(getResources().getColor(R.color.color_a1a1a1));
+		bt_big.setTextColor(getResources().getColor(R.color.color_f98c43));
+	}
+
+	@SuppressLint("NewApi") private void ButtonSmall() {
+		bt_small.setBackground(getResources().getDrawable(R.drawable.shape_round_button));
+		bt_small.setTextColor(getResources().getColor(R.color.color_f98c43));
+		bt_big.setTextColor(getResources().getColor(R.color.color_a1a1a1));
+		bt_big.setBackground(getResources().getDrawable(R.drawable.shape_mycustom));
+	}
+	void Dimess(){
+	((Activity) context).runOnUiThread(new Runnable() {
+		public void run() {
+			if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+				ApiHttpCilent.loading.dismiss();
+		}
+	});
+	}
+	class MyCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			handler.sendMessage(message);
+			 Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			 Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			 Dimess();
+			Gson gson = new Gson();
+			BaseBean loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+
+			return loginBean;
+		}
+	}
+	//隐藏等待框
+	private void Dismess(){
+		((Activity) context).runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	public class MyHandler extends WeakHandler<AddMyCustomerActivity> {
+
+		@SuppressLint("HandlerLeak") public MyHandler(AddMyCustomerActivity reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				if(id.equals("")){
+					ToastUtil.showToast(context,
+							context.getResources()
+							.getString(R.string.custom_add));
+					tv_right.setEnabled(true);
+				}else{
+				ToastUtil.showToast(context,
+						context.getResources()
+								.getString(R.string.custom_update));
+					tv_right.setEnabled(true);
+				}
+				 MyApplication.getInstance().getRefresh().back();
+				 finish();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				String back = (String) msg.obj;
+				ToastUtil.showToast(context, back);
+				tv_right.setEnabled(true);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	private void ToastUtil(String string) {
+		// TODO Auto-generated method stub
+		ToastUtil.showToast(context,string);
+	}
+
+	@Override
+	protected void getNetData() {
+	}
+
+	@Override
+	protected void reloadCallback() {
+	}
+
+	@Override
+	protected void setChildViewListener() {
+	}
+
+	@Override
+	protected String setTitleName() {
+		return "添加终端";
+	}
+
+	@Override
+	protected String setRightText() {
+		return "完成";
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		return 0;
+	}
+
+	 public void onResume() {
+		    super.onResume();
+		    MobclickAgent.onResume(this);       //统计时长
+		}
+		public void onPause() {
+		    super.onPause();
+		    MobclickAgent.onPause(this);
+		}
+}

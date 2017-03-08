@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" 
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/white">
+
+
+        <LinearLayout
+            android:id="@+id/order_layout"
+            style="@style/marginagent"
+            android:layout_marginRight="@dimen/margin_18"
+            android:layout_marginLeft="@dimen/margin_25"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="@dimen/text_size_13"
+                android:text="@string/orderFactory" />
+
+            <TextView
+                android:id="@+id/tv_orderFactory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="@dimen/text_size_13"
+                />
+
+            <TextView
+                android:id="@+id/TextView01"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+            <TextView
+                android:id="@+id/tv_createtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/marginTopButtom"
+                android:textColor="@color/color_8c8c8c"
+                android:textSize="@dimen/text_size_13"
+                android:text="2015-10-26 17:15:30"
+                 />
+
+        </LinearLayout>
+		<com.heheys.ec.lib.view.DrawLineTextView 
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+       />
+        <LinearLayout
+            android:id="@+id/orderinfo_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginLeft="@dimen/margin_25"
+            android:layout_marginRight="@dimen/margin_18"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_pic"
+                android:layout_width="@dimen/image_height_135"
+                android:layout_height="@dimen/image_width_84"
+                android:layout_marginRight="@dimen/margin_20"
+                android:layout_marginTop="@dimen/margin_11"
+                android:layout_marginBottom="@dimen/margin_11"
+                android:src="@drawable/default_image" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/tv_winename"
+                    android:paddingTop="@dimen/margin_5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_14"
+                    android:textColor="@color/color_454545"
+                    android:layout_weight="1"
+                    android:text="@string/orderInfo" />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:paddingTop="@dimen/margin_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_8c8c8c"
+                        android:textSize="13sp"
+                        android:text="数量:" />
+                    <TextView
+                        android:id="@+id/tv_winenum"
+                        android:textSize="13sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/color_454545"
+                         />
+
+                </LinearLayout>
+
+                <FrameLayout
+                    android:layout_gravity="bottom"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/tv_status"
+                        android:layout_width="@dimen/button_width_90"
+                        android:layout_height="@dimen/button_height_32"
+                        android:text="待付款"
+                        android:visibility="invisible"
+                        android:textSize="13sp"
+                        android:focusable="false"
+                        android:layout_gravity="bottom|right"
+                        android:background="@drawable/transtan_xml"/>
+
+                    <Button
+                        android:layout_gravity="bottom|right"
+                        android:id="@+id/pay_button"
+                        style="@style/white_text_style"
+                        android:layout_width="@dimen/button_width_90"
+                        android:layout_height="@dimen/button_height_32"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:focusable="false"
+                        android:textSize="15sp"
+                        android:text="@string/isPay" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_f8f8f8"
+             />
+
+</LinearLayout>

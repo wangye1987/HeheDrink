@@ -1,0 +1,166 @@
+/*
+package com.heheys.ec.model.adapter;
+
+import java.util.List;
+
+import com.heheys.ec.R;
+import com.heheys.ec.controller.activity.GuideActivity;
+import com.heheys.ec.controller.fragment.ShowCityFragment.MessageHandler;
+import com.heheys.ec.lib.view.DrawLineTextView;
+import com.heheys.ec.model.dataBean.AddressModel;
+import com.umeng.analytics.MobclickAgent;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.SectionIndexer;
+import android.widget.TextView;
+
+*/
+/**
+ * 
+ * Describe:显示城市列表数据
+ * 
+ * Date:2015-9-22
+ * 
+ * Author:liuzhouliang
+ *//*
+
+public class ShowCityAdapter extends BaseAdapter implements SectionIndexer {
+	private List<AddressModel> list = null;
+	private Context mContext;
+	private MessageHandler mhandler;
+
+	public ShowCityAdapter(Context mContext, List<AddressModel> list,
+			MessageHandler handler) {
+		this.mContext = mContext;
+		this.list = list;
+		mhandler = handler;
+	}
+
+	*/
+/**
+	 * 
+	 * Describe:更新列表数据
+	 * 
+	 * Date:2015-9-22
+	 * 
+	 * Author:liuzhouliang
+	 *//*
+
+	public void updateListView(List<AddressModel> list) {
+		this.list = list;
+		notifyDataSetChanged();
+	}
+
+	public int getCount() {
+		return this.list.size();
+	}
+
+	public Object getItem(int position) {
+		return list.get(position - 1);
+	}
+
+	public long getItemId(int position) {
+		return position;
+	}
+
+	public View getView(final int position, View convertView, ViewGroup arg2) {
+		ViewHolder viewHolder = null;
+		final AddressModel mModel = list.get(position);
+		if (convertView == null) {
+			viewHolder = new ViewHolder();
+			convertView = LayoutInflater.from(mContext).inflate(
+					R.layout.position_address_item, null);
+			viewHolder.tvAddress = (TextView) convertView
+					.findViewById(R.id.title);
+			viewHolder.tvLetter = (TextView) convertView
+					.findViewById(R.id.catalog);
+			viewHolder.tvLine=(DrawLineTextView) convertView.findViewById(R.id.position_address_item_line_top);
+			convertView.setTag(viewHolder);
+		} else {
+			viewHolder = (ViewHolder) convertView.getTag();
+		}
+		// 根据position获取分类的首字母的Char ascii值
+		int section = getSectionForPosition(position);
+		// 如果当前位置等于该分类首字母的Char的位置 ，则认为是第一次出现
+		if (position == getPositionForSection(section)) {
+			viewHolder.tvLetter.setVisibility(View.VISIBLE);
+			viewHolder.tvLine.setVisibility(View.VISIBLE);
+			viewHolder.tvLetter.setText(mModel.getSortLetters());
+		} else {
+			viewHolder.tvLetter.setVisibility(View.GONE);
+			viewHolder.tvLine.setVisibility(View.GONE);
+		}
+
+		viewHolder.tvAddress.setText(this.list.get(position).getName());
+		setConvertViewListener(position,convertView, this.list.get(position).getName());
+		return convertView;
+
+	}
+
+	final static class ViewHolder {
+		TextView tvLetter;
+		TextView tvAddress;
+		DrawLineTextView tvLine;
+	}
+
+	*/
+/**
+	 * 根据ListView的当前位置获取分类的首字母的值
+	 *//*
+
+	public int getSectionForPosition(int position) {
+		return list.get(position).getSortLetters().charAt(0);
+	}
+
+	*/
+/**
+	 * 根据分类的首字母的值获取其第一次出现该首字母的位置
+	 *//*
+
+	public int getPositionForSection(int section) {
+		for (int i = 0; i < getCount(); i++) {
+			String sortStr = list.get(i).getSortLetters();
+			char firstChar = sortStr.toUpperCase().charAt(0);
+			if (firstChar == section) {
+				return i;
+			}
+		}
+
+		return -1;
+	}
+
+	@Override
+	public Object[] getSections() {
+		return null;
+	}
+
+	private void setConvertViewListener(final int position,View covertView, final String city) {
+		covertView.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				*/
+/**
+				 * 发送消息更新界面
+				 *//*
+
+				Message message = Message.obtain();
+				message.what = 1002;
+				Bundle bundle = new Bundle();
+				bundle.putString("searchContent", city);
+				bundle.putInt("position", position);
+				message.setData(bundle);
+				mhandler.sendMessage(message);
+				MobclickAgent.onEvent(mContext,"C_INIT_CTY_1");
+			}
+		});
+	}
+}*/

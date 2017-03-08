@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_42"
+        android:background="@drawable/login_welcom"
+        android:textSize="22sp" />
+
+    <LinearLayout
+        style="@style/login_linear_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_36"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            style="@style/login_reigster_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/tel" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/username_et"
+            style="@style/login_text_hint_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="0123456789"
+            android:imeOptions="actionDone"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:paddingRight="10dp"
+            android:layout_marginRight="45dp"
+            android:singleLine="true"
+            android:textColor="@color/color_454545" >
+
+            <requestFocus />
+        </com.heheys.ec.view.DeleteEditText>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:layout_marginRight="@dimen/margin_25"
+        android:background="@color/color_efefef" />
+
+    <LinearLayout
+        style="@style/login_linear_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_36"
+        android:layout_marginTop="@dimen/margin_18"
+        android:gravity="center_vertical" >
+
+        <TextView
+            style="@style/login_reigster_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/login_password" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/text"
+            android:visibility="invisible" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/password_et"
+            style="@style/login_text_hint_style"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/order_margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:digits="QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm0123456789"
+            android:inputType="textPassword"
+            android:maxLength="20"
+            android:paddingRight="10dp"
+            android:singleLine="true"
+            android:textColor="@color/color_454545" >
+        </com.heheys.ec.view.DeleteEditText>
+
+        <LinearLayout
+            android:id="@+id/linear_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/margin_30"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/pw_eye"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/text"
+            android:background="@drawable/eye_close"
+            android:visibility="visible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:layout_marginRight="@dimen/margin_25"
+        android:background="@color/color_efefef" />
+
+    <com.heheys.ec.lib.view.RevealLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_25"
+        android:layout_marginRight="@dimen/margin_25"
+        android:layout_marginTop="@dimen/margin_31" >
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_54"
+            android:background="@drawable/login_bt_red"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/commit_verify"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="4dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bt_bg_yellow"
+                android:text="@string/login_text"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18" />
+        </FrameLayout>
+    </com.heheys.ec.lib.view.RevealLayout>
+
+    <LinearLayout
+        android:id="@+id/forget_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_27"
+            android:layout_marginTop="@dimen/margin_10"
+            android:text="@string/forget_password"
+            android:textColor="@color/color_777777" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="1dp"
+        android:layout_weight="1"
+        android:layout_height="0dp" />
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:gravity="bottom|center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_buttom_bg" />
+    </LinearLayout>
+
+</LinearLayout>

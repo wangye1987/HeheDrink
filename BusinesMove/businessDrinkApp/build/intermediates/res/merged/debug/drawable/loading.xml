@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/jiu000" android:duration="200" />
+    <item android:drawable="@drawable/jiu111" android:duration="200" />
+    <item android:drawable="@drawable/jiu222" android:duration="200" />
+    <item android:drawable="@drawable/jiu444" android:duration="200" />
+    <item android:drawable="@drawable/jiu555" android:duration="200" />
+    <item android:drawable="@drawable/jiu777" android:duration="200" />
+    <item android:drawable="@drawable/jiu888" android:duration="200" />
+</animation-list>

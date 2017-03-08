@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/iv_upload"
+        android:layout_width="@dimen/image_height_60"
+        android:layout_height="@dimen/image_height_60"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"
+        android:src="@drawable/upload" />
+
+    <LinearLayout
+        android:id="@+id/linear_delete"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/iv"
+            android:layout_margin="@dimen/order_margin_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/delete_iv" />
+
+    </LinearLayout>
+
+</FrameLayout>

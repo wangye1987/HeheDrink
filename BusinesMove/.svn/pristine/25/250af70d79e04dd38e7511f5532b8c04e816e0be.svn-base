@@ -1,0 +1,534 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\home_time.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\home_time.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\yiqipindan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\yiqipindan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\adress.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\adress.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\hehe.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\hehe.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_on_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_on_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\down_suit.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\down_suit.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\userinfo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\userinfo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\erji.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\erji.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shauxuanfanhuijian.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shauxuanfanhuijian.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jiagtoheise.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jiagtoheise.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhifubao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\zhifubao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\order_down.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\order_down.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\baijiantou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\baijiantou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xuliehao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xuliehao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhonghuijiantou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\zhonghuijiantou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xianshibeijing.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xianshibeijing.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\people.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\people.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\kefu_msg.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\kefu_msg.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jingxuan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jingxuan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_close_bg_normal.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_close_bg_normal.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\app_icon.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\app_icon.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iconfont_phone.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iconfont_phone.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_off_focused_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_off_focused_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\hehe_tel.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\hehe_tel.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jian.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jian.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\mine_wine_demand.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\mine_wine_demand.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\my_salon_setting.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\my_salon_setting.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\show_type_grid.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\show_type_grid.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\huisejiantou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\huisejiantou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jindiankankan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jindiankankan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jiu.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jiu.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\mine_card_management.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\mine_card_management.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iconfont_xiangxia.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iconfont_xiangxia.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\adver_arrow.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\adver_arrow.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\daishouhuo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\daishouhuo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\heisanjiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\heisanjiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\home_client_manage_shop.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\home_client_manage_shop.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_notpaypress.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_notpaypress.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_allpressed.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_allpressed.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\lunboyuanhong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\lunboyuanhong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\heheinfo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\heheinfo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xiangxiajiantoubaise.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xiangxiajiantoubaise.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\daifukuan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\daifukuan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\reduce_add.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\reduce_add.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jingdong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jingdong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_off_pressed_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_off_pressed_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\slideshow_default.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\slideshow_default.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\show_type_list.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\show_type_list.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_on_pressed_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_on_pressed_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\home_client_manage_yunpi.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\home_client_manage_yunpi.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\slideshow_selected.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\slideshow_selected.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\weixin.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\weixin.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhomgbiao_list.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\zhomgbiao_list.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\kefu.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\kefu.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_work.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_work.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\home_client_manage_excellent.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\home_client_manage_excellent.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\baisejiantou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\baisejiantou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\close_suit.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\close_suit.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhomgbiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\zhomgbiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\arrow.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\arrow.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\lingxing.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\lingxing.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\arrow_up_order.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\arrow_up_order.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\reduce_detaile.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\reduce_detaile.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_on_focused_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_on_focused_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\delete_iv.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\delete_iv.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\gouwuxuanfudianzhong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\gouwuxuanfudianzhong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\lunboyuanbai.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\lunboyuanbai.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\gouwuxuanfuweidianzhong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\gouwuxuanfuweidianzhong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\wo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\wo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\order_null.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\order_null.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\message_empty.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\message_empty.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_allpress.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_allpress.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\pin.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\pin.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\zhanghao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\zhanghao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_ingpressed.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_ingpressed.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_sendpress.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_sendpress.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\weixin_share.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\weixin_share.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\yishouhuo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\yishouhuo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\weirenzheng.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\weirenzheng.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\pingtutubiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\pingtutubiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shaixuanxuanzejian.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shaixuanxuanzejian.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\qianbao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\qianbao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\yuangong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\yuangong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\arrow_down.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\arrow_down.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\upload.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\upload.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iconfont_sousuo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iconfont_sousuo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\push.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\push.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iconfont_xingming.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iconfont_xingming.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\add_address.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\add_address.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\mingpian.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\mingpian.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\system_null.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\system_null.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\up_suit.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\up_suit.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jia.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jia.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shopping_suit.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shopping_suit.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shop_null.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shop_null.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\ic_launcher.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\duigou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\duigou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xingxing.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xingxing.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\productionjia.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\productionjia.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\no_suggist.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\no_suggist.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\productionright.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\productionright.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xixin.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xixin.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_btn_check_off_holo_light.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_btn_check_off_holo_light.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\renzheng.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\renzheng.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\productionim.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\productionim.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\home_client_manage_pingdan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\home_client_manage_pingdan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\check_address.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\check_address.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\delete_province.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\delete_province.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\hengpu.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\hengpu.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\tel_my_yellow.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\tel_my_yellow.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\jiagtoubaise.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\jiagtoubaise.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_notpaypressed.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_notpaypressed.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\toumingtiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\toumingtiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shalong.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shalong.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\baisanjiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\baisanjiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\dailishang.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\dailishang.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\pengyouquan.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\pengyouquan.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\sanjiao_down.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\sanjiao_down.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\xianxingxing.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\xianxingxing.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\address_my.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\address_my.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iconfont_xianshitejiabiao.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iconfont_xianshitejiabiao.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\demo_common_back_btn_white.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\demo_common_back_btn_white.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\productionlie.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\productionlie.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\qianhuijiantou.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\qianhuijiantou.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\icon_time.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\icon_time.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\daifahuo.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\daifahuo.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_worked.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_worked.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\yuanmoren.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\yuanmoren.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\iv_sendpressed.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\iv_sendpressed.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\shouye_xianshitejia.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\shouye_xianshitejia.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\umeng_update_close_bg_tap.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\umeng_update_close_bg_tap.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\tel_my_gray.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\tel_my_gray.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi\\dianhua.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\drawable-xhdpi\\dianhua.png"
+    }
+]

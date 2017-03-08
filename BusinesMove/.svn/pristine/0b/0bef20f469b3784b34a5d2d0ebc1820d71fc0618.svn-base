@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_55" >
+
+        <CheckBox
+            android:id="@+id/fragment_suit_item_cb"
+            style="@style/SingleCheckBoxStyle"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:gravity="center"
+            android:paddingRight="@dimen/margin_6" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/fragment_suit_item_cb"
+            android:background="@drawable/shape_button"
+            android:paddingBottom="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="2dp"
+            android:text="套装"
+            android:textColor="@color/color_af2942"
+            android:textSize="@dimen/text_size_10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_7"
+            android:layout_toRightOf="@id/textView1"
+            android:text="套装价 :"
+            android:textSize="@dimen/text_size_12" />
+
+        <TextView
+            android:id="@+id/tv_suitprice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/textView2"
+            android:text="" />
+
+        <LinearLayout
+            android:id="@+id/fragment_shopping_cart_item_price_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_10"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/fragment_shopping_cart_item_num_reduce"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:background="@drawable/jian"
+                android:gravity="center"
+                android:scaleType="fitXY" />
+
+            <com.heheys.ec.view.SoftEditText
+                android:id="@+id/fragment_shopping_cart_item_num_et"
+                android:layout_width="27dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="@dimen/margin_5"
+                android:layout_marginRight="@dimen/margin_5"
+                android:background="@drawable/cart_edit"
+                android:clickable="true"
+                android:digits="0123456789"
+                android:enabled="true"
+                android:focusable="false"
+                android:gravity="center"
+                android:inputType="number"
+                android:text="1"
+                android:textColor="@color/color_333333"
+                android:textSize="10sp" />
+
+            <ImageView
+                android:id="@+id/fragment_shopping_cart_item_num_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/jia"
+                android:gravity="center"
+                android:scaleType="fitXY" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_goods_saleover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textView1"
+            android:visibility="invisible"
+            android:layout_marginLeft="@dimen/margin_40"
+            android:text="套装内存在缺货商品,暂不能购买"
+            android:paddingTop="@dimen/margin_6"
+            android:textColor="@color/color_af2942"
+            android:textSize="8dp" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/color_e5e5e5" >
+    </View>
+
+    <ListView
+        android:id="@+id/lv_suit_cart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@color/transparent"
+        android:layout_marginLeft="@dimen/margin_36" >
+    </ListView>
+<View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/color_ebebeb" >
+    </View>
+</LinearLayout>

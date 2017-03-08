@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-security-8.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="cde6b38761614cc49a7b02bbfb99c9f6af160de0">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-security-8_f4cc2e9e7d87c2e425a8d3466edaf1ebbbc7afeb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0faef4253b4ba28f47d7bd56a1d438f79ab04e92">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\universal-image-loader-1.9.2-SNAPSHOT-with-sources_8ff9a87b162166dd06e0884f051db91cece136bd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-kernel-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a53f8fbcdd9fe00cbf0cb1f52eb0b361a894dbb3">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-kernel-2.1.0_0b6b6cb1de60169682096a39c8fb116365944dec\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\SecurityGuardSDK-5.1.38.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d2ba2a61c54a48427ff4f98791ed69a0fa1ab4f1">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\SecurityGuardSDK-5.1.38_2eb57aa70af597b2422d353491be0940318de492\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-upload-1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b56b0b9b12b30fcc0a2e776a2de00e3896c2c5a9">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-upload-1_66e0c0dd1dd3a2a1ff27207b6671a8d5d6cd84f2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\libammsdk.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c2f29c05b35e8c8713be2b81c41cf18f98b64a">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\libammsdk_3d51b41e9791d0451483408aea9f59a8bd64700d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\IMCore-2.0.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6dde94cd818b3ad7cb92c89a3e8d31ffbba08653">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\IMCore-2.0.0.2_c8e388075892974789483e4a8f991717f89b5f08\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a61c633508a0663551482f4c98166f6a6a7e4459">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_45245391213218da81c2c266d5b38e33f30eeb15\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-rpc-3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="969f2e51f5ac7da1846be77c67310a0234d761b6">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-rpc-3_130b8eceb401d3905014caf2a04152bba8491399\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\sdk-legacy-support-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03d37c291844d9ab055089e4979779886da6362f">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\sdk-legacy-support-2.1.0_9e161ea445247585c5b9fe61bb4f53eb07b35824\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-ut-5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6507a1ee104487bb090e838e45a880cbf603b034">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-ut-5_c641c9f76ff486bbd1674fd5c7858d8524324955\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\GetuiExt-2.0.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="7825bfa9135d693e2046eab96fd94e724e0f9eda">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\GetuiExt-2.0.3_9aabae0b93e5769bbd792dc9f0cd4590861b0ca8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\IMKit-2.0.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="63c897adb2150c604398362d3ab47e71b9668b8d">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\IMKit-2.0.0.2_8b920fb68254cd9201ccf655989b076bb63f7ff6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\umeng-analytics-v5.5.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5d503ec571e2e98d972209afa203f94d11882c15">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\umeng-analytics-v5.5.3_4386ec30bb4580f92f441e462411bb44c5f3b3dd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\360Downloads\android-studio-ide-162.3454121-windows\android-studio\gradle\m2repository\com\google\code\gson\gson\2.2.4\gson-2.2.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a60a5e993c98c864010053cb901b7eab25306568">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.2.4_2ca93c176292ec685082106324d2429e2fb7d877\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkAppLib\build\intermediates\bundles\default\libs\nineoldandroids-2.4.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f086e018e187da53a1432c188023c86d1fa3ff73">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\nineoldandroids-2.4.0_0f1d27834cda7f2b0b98bce829d9deecdf29dd57\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-kernel-base-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="5ab7106700b26b83780d0268632b0b52e6d2a550">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-kernel-base-2.1.0_183d1d9ff0b67dc253d490a1afb484fdf3c26e10\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\baidumapapi_map_v4_0_0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="db4a1025ee9c6f95747aab4a69baa1391534d80e">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\baidumapapi_map_v4_0_0_e963070c3ee77f582a07c696b62819bf7153dbf7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-hotpatch-3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b4192e98b793550c14530d742d471cbe801cf17d">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-hotpatch-3_64c26b8ca6d36193f668d3660f6ca7f4778419b6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\alipaySingle-20160223.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b6bc879a6cbb44544eb46701e169296ac6cf3078">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\alipaySingle-20160223_fbf1fbf0c84f199cafff13af86253a0bd055c031\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\httpmime-4.1.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ed8b5ee0167cb27dea55851259eb34b609f31df0">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\httpmime-4.1.2_be574fe39d9101d6cf33dd42ec5c9a29cf2d3948\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-ui-7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a59d49901cc3f8cfc174a2c235cd6bf610be326c">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-ui-7_19714d890157465c3e1a0decf81394a043743651\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\utdid4all-1.0.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d58701f32ca13f8d4de68492d24843d8a9290687">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\utdid4all-1.0.4_1dbc5d6b3fa6cbcb30d1b87091d80fbf94049add\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-system-15.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="98eaadc5ca8917ed0fc0346322e95146aa16a3e9">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-system-15_94d3c8d8f69f8f7936ed6a2cbe14354f2dc40f1b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\baseWebViewActivity\build\intermediates\bundles\default\libs\alisdk-tlog-1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="89634ad8c1adccea7a9f3e4e7d4b35baa9ae237c">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\8\alisdk-tlog-1_a78f3d145eb33b057dfa7a2713c35bf52f6345ec\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\GetuiSDK2.6.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3100fe637e8a196d202d7ab652355d5ecc31d465">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\GetuiSDK2.6.1.0_9a5dcc590fba1b30e5373cdb9e923a938ea6eecf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\android-async-http-1.4.5.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="77bf7cacf9cefe19dc105e5425d2eb1bb5285881">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\android-async-http-1.4.5_4df136a4775b7b8c426ea3d901f186001b172733\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\libs\BaiduLBS_Android.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="30ffb6c883cec65ada4d8c8611ced0c6d7590cc6">
+        <dex dex="F:\AndroidHeheSpace\BusinessDrinkApp\businessDrinkApp\build\intermediates\transforms\dex\debug\folders\1000\2\BaiduLBS_Android_f31aa9e94564fa79f361ed06db72cbe8d2c87180\classes.dex" />
+    </item>
+
+</items>

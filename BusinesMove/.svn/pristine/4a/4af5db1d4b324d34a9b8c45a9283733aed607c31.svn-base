@@ -1,0 +1,28 @@
+package com.heheys.ec.utils; 
+
+import android.content.Context;
+
+import com.heheys.ec.R;
+import com.heheys.ec.lib.utils.NetWorkState;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+
+/** 
+ * @author 作者 E-mail: wk
+ * @version 创建时间：2015-10-14 上午11:21:57 
+ * 类说明 
+ * @param 没有网络提示
+ */
+public class ToastNoNetWork {
+
+	public static boolean ToastError(Context context){
+		boolean isAviable = NetWorkState.isNetWorkConnection(context);
+		if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+			ApiHttpCilent.loading.dismiss();
+		if(!isAviable){
+			ToastUtil.showToast(context,R.string.network_error);
+			return true;
+		}
+		return false;
+	}
+}
+ 

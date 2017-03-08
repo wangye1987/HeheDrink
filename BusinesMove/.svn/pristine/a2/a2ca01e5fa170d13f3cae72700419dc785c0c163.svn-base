@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/produce_fx"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible">
+
+    <TextView
+        android:id="@+id/produce_goods_name_fx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:maxLength="40"
+        android:maxLines="2"
+        android:text=""
+        android:textSize="@dimen/text_size_16" />
+
+    <LinearLayout
+        android:id="@+id/linear_tip"
+        android:layout_below="@id/produce_goods_name_fx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/produce_title_tip_fx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/produce_goods_name_fx"
+        android:background="@drawable/shape_detaile"
+        android:text="预售价"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_10" />
+
+    <TextView
+        android:id="@+id/produce_price_and_unit_fx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/produce_title_tip_fx"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_toRightOf="@id/produce_title_tip_fx"
+        android:text="¥/箱"
+        android:textSize="@dimen/text_size_17"
+        android:textColor="@color/color_FF3939" />
+<TextView
+    android:layout_weight="1"
+    android:layout_width="0dp"
+    android:layout_height="1dp" />
+    <TextView
+        android:id="@+id/produce_guige_fx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/produce_price_and_unit_fx"
+        android:layout_marginRight="@dimen/margin_10"
+        android:text="规格:"
+        android:textColor="@color/color_999999" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/produce_area_fx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/linear_tip"
+        android:layout_below="@id/linear_tip"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="发行区域:"
+        android:textColor="@color/color_999999" />
+
+    <!--统计-->
+    <TextView
+        android:id="@+id/line_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/produce_area_fx"
+        android:layout_marginLeft="-10dp"
+        android:layout_marginRight="-10dp"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@color/color_e5e5e5" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/line_top"
+        android:layout_margin="@dimen/margin_10">
+
+        <ImageView
+            android:id="@+id/produce_iv_look"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@drawable/good_eyes" />
+
+        <TextView
+            android:id="@+id/produce_look_tv_fx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_toRightOf="@id/produce_iv_look"
+            style="@style/text_12_style"
+            android:text="" />
+        <LinearLayout
+            android:id="@+id/linear_look_fx"
+            android:layout_toRightOf="@id/produce_look_tv_fx"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/produce_iv_heart_fx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_30"
+            android:src="@drawable/good_callocation" />
+
+        <TextView
+            android:id="@+id/produce_heart_tv_fx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_8"
+            android:layout_toRightOf="@id/produce_iv_heart"
+            android:text="64"
+            style="@style/text_12_style" />
+</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

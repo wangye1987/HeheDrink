@@ -1,0 +1,30 @@
+package com.heheys.ec.netWorkHelper;
+
+public class RequestConfiguration {
+
+	public static final String CONTENT_TYPE = "application/json; encoding=utf-8";
+	
+	
+	public static final String BASE_URL_ONLINE = "http://101.200.235.7/api/";
+//	 公网测试环境地址
+//	public static final String BASE_URL_TEST = "http://101.200.235.7:8090/api/";
+//	public static final String BASE_URL_TEST = "http://192.168.0.122:8080/api/";
+//	public static final String BASE_URL_TEST_LACALHOST = "http://101.201.141.108/api/";
+	
+	//生产环境
+//	public static final String BASE_URL_TEST = "http://www.heheys.com/api/";
+	public static final String BASE_URL_TEST = "https://www.heheys.com/api/";
+	// 本地测试环境地址
+//	public static final String BASE_URL_TEST_LACALHOST = "http://192.168.0.199/api/";
+	public static final String BASE_URL_TEST_LACALHOST = "http://test.heheys.com/api/";
+//	zhengjun
+//	public static final String BASE_URL_TEST_LACALHOST = "http://heheys.wllei.com/api/";
+	
+	//CHEN
+//	public static final String  BASE_URL_TEST = "http://192.168.0.115:8080/api/";
+	
+	// 本地测试环境地址
+//	public static final String BASE_URL_TEST_LACALHOST = "http://192.168.0.139:8080/api/";
+	
+	
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:layout_width="71dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="119dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/no_buscard" />
+
+    <TextView
+        android:id="@+id/tv_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:text="您还没创建名片,快去创建吧~!"
+        android:textColor="#7d7c7c"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/create_card"
+        android:layout_width="191dp"
+        android:layout_height="@dimen/button_height_32"
+        android:background="@drawable/bt_bg_yellow"
+        android:gravity="center"
+        android:text="创建个人名片"
+        android:layout_marginTop="39dp"
+        android:textSize="@dimen/text_size_16"
+        android:textColor="@color/white" />
+
+</LinearLayout>

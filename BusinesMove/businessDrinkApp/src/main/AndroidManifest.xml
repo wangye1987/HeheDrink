@@ -1,0 +1,837 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.heheys.ec"
+    android:versionCode="18"
+    android:versionName="2.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="21" />
+    <!-- 设置不同屏幕的支持 -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:xlargeScreens="true" >
+    </supports-screens>
+
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL" />
+    <!-- 友盟升级 start -->
+    <uses-permission android:name="android.permission.TYPE_SYSTEM_ALERT" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <!-- tsl权限 -->
+
+
+    <!--  -->
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+
+    <!-- 友盟升级  end -->
+
+
+    <!-- 百度导航权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCES_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_GPS" />
+    <!-- SDK1.5需要android.permission.GET_TASKS权限判断本程序是否为当前运
+
+
+
+
+
+
+
+    行的应用? -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <!-- 来电消音 -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <!-- 摄影机 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- 结束 -->
+    <!-- 友盟社会化统计权限  start -->
+    <uses-permission android:name="android.permission.INTERNET" >
+    </uses-permission>
+    <!-- 友盟社会化统计权限  end -->
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+
+    <!-- 个推SDK权限配置开始 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 支持iBeancon 需要蓝牙权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 支持个推3.0 电子围栏功能 -->
+    <!-- 浮动通知权限 -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <!-- 自定义权限 -->
+    <uses-permission android:name="getui.permission.GetuiService.com.heheys.ec" />
+
+    <permission
+        android:name="getui.permission.GetuiService.com.heheys.ec"
+        android:protectionLevel="normal" >
+    </permission>
+    <!-- 个推SDK权限配置结束 -->
+
+
+    <!-- 百度定位 -->
+    <!-- 这个权限用于进行网络定位 -->
+    <!-- 这个权限用于访问GPS定位 -->
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" >
+    </uses-permission>
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" >
+    </uses-permission>
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" >
+    </uses-permission>
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <!-- 用于读取手机当前的状态 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" >
+    </uses-permission>
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" >
+    </uses-permission>
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" >
+    </uses-permission>
+    <!-- 百度定位 -->
+    <application
+        android:name=".application.MyApplication"
+        android:debuggable="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar"
+        tools:ignore="HardcodedDebugMode"
+        tools:replace="android:icon, android:label, android:theme, android:name" >
+
+        <!-- 友盟升级 -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="56273a6a67e58e36a00002bd" >
+        </meta-data>
+
+        <!--<service-->
+        <!--android:name="com.umeng.update.net.DownloadingService"-->
+        <!--android:process=":DownloadingService" >-->
+        <!--</service>-->
+
+        <!--<activity-->
+        <!--android:name="com.umeng.update.UpdateDialogActivity"-->
+        <!--android:theme="@android:style/Theme.Translucent.NoTitleBar" >-->
+        <!--</activity>-->
+
+        <!-- 友盟升级 -->
+        <!-- 百度定位start -->
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+         android:value="uUifrv5sgE85OgvMBQmFLqBD6aoG21UP" />
+         <!--   android:value="AMZoz9bpyVE0UXlRGGdb1WEUhgQFE3Vh" />-->
+        <!-- 百度定位end -->
+        <activity
+            android:name=".controller.activity.GuideActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:pathPrefix="/openwith"
+                    android:host="my.com"
+                    android:scheme="heheapp" />
+
+            </intent-filter>
+            <!-- <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
+
+                 <category android:name="android.intent.category.DEFAULT" />
+
+                 <data android:scheme="wx17e4df51dd029038" />
+             </intent-filter>-->
+
+        </activity>
+        <activity
+
+            android:name=".wxapi.WXEntryActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 微信支付成功回调 -->
+        <activity
+            android:name="com.heheys.ec.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop" />
+        <!-- 选择城市页面 -->
+        <!--<activity
+            android:name=".controller.activity.CheckCityActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>-->
+        <!-- 主界面 -->
+        <!-- 主界面 -->
+        <activity
+            android:name=".controller.activity.MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:pathPrefix="/openwith"
+                    android:host="my.com"
+                    android:scheme="heheys" />
+
+            </intent-filter>
+        </activity>
+        <!-- <activity
+             android:name=".controller.activity.MainActivity"
+             android:configChanges="orientation|keyboardHidden"
+             android:screenOrientation="portrait"
+             android:windowSoftInputMode="adjustPan" >
+             <intent-filter>
+                 <action android:name="android.intent.action.VIEW" />
+
+                 <category android:name="android.intent.category.DEFAULT" />
+                 <category android:name="android.intent.category.BROWSABLE" />
+
+
+                 <data
+                     android:host="my.com"
+                     android:pathPrefix="/openwith"
+                     android:scheme="heheapp" />
+             </intent-filter>
+         </activity>-->
+
+
+
+        <!-- 商品详情 -->
+        <!--<activity-->
+        <!--android:name=".controller.activity.ProductDetail"-->
+        <!--android:configChanges="orientation|keyboardHidden"-->
+        <!--android:screenOrientation="portrait"-->
+        <!--android:windowSoftInputMode="stateHidden" >-->
+        <!--</activity>-->
+        <!-- 新商品详情 兼容批发和拼单详情展示 -->
+        <activity
+            android:name=".controller.activity.NewProductDetailActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 登录界面 -->
+        <activity
+            android:name=".controller.activity.LoginActivity"
+            android:label="@string/title_activity_login"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 新购物车详情 -->
+        <activity
+            android:name=".controller.activity.ShoppingCartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 我的详情 -->
+        <activity
+            android:name=".controller.activity.UsercenterActivity"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 新支付详情 -->
+        <activity
+            android:name=".controller.activity.NewOrderDetailActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 我的代理商 -->
+        <activity
+            android:name=".controller.activity.MyClientListActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <!-- 支付方式 -->
+        <activity
+            android:name=".controller.activity.PayTypeActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait"
+            android:theme="@style/transtart_Theme_dialog" />
+        <!-- 代理商身份认证 -->
+        <activity
+            android:name=".controller.activity.AuthActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <!-- 设置基础页面 -->
+        <activity
+            android:name=".controller.activity.SettingBaseActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <!-- 新建收货地址页面 -->
+        <activity
+            android:name=".controller.activity.EditAddressActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <!-- 忘记密码页面 -->
+        <activity
+            android:name=".controller.activity.FrogetPwdActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <!-- 注册获取验证码页面 -->
+        <activity
+            android:name=".controller.activity.RegisterActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <!-- 注册设置密码页面 -->
+        <activity
+            android:name=".controller.activity.RegisterTowActivity"
+            android:label="@string/title_activity_login"
+            android:screenOrientation="portrait" />
+        <!-- 沙龙页面 -->
+        <activity
+            android:name=".controller.activity.SalonListActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 沙龙报名页面 -->
+        <activity
+            android:name=".controller.activity.SalonJoinActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 更多拼单页面 -->
+        <!--<activity-->
+        <!--android:name=".controller.activity.GroupBuyListActivity"-->
+        <!--android:screenOrientation="portrait" >-->
+        <!--</activity>-->
+        <!-- 更多批发页面 -->
+        <activity
+            android:name=".controller.activity.GroupWholeSaleActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <!-- 下游用户页面 -->
+        <activity
+            android:name=".controller.activity.MyCustomerActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 添加顾客 -->
+        <activity
+            android:name=".controller.activity.AddMyCustomerActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 京东支付 -->
+        <activity
+            android:name="com.heheys.ec.thirdPartyModule.payModule.JDPayActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".controller.activity.H5Activity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 订单详细 -->
+        <activity
+            android:name=".controller.activity.OrderInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 沙龙详情 -->
+        <activity
+            android:name=".controller.activity.SalonDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 城市选择页 -->
+        <activity
+            android:name=".controller.activity.DestanceChioceActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 沙龙客户信息详情 -->
+        <activity
+            android:name=".controller.activity.SalonCustomerDetail"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 升级窗口 -->
+        <activity
+            android:name="com.heheys.ec.controller.activity.UpdateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/DialogTheme" >
+        </activity>
+        <!-- 消息页面 -->
+        <activity
+            android:name="com.heheys.ec.controller.activity.MessageActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 消息详情页面 -->
+        <activity
+            android:name="com.heheys.ec.controller.activity.MessageDetailActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 活动页面 -->
+        <activity
+            android:name="com.heheys.ec.controller.activity.ActivityPage"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 酒水需求页面 -->
+        <activity
+            android:name=".controller.activity.DrinksDemandActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 名片管理页面 -->
+        <activity
+            android:name=".controller.activity.IdCardManagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 名片添加页面 -->
+        <activity
+            android:name=".controller.activity.AddBusinessCardActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 个人名片页面 -->
+        <activity
+            android:name=".controller.activity.MyBusCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 酒水需求买货单 -->
+        <activity
+            android:name=".controller.activity.DrinksDemandBuyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 酒水需求单位页面 -->
+        <activity
+            android:name=".controller.activity.DrinksDemandUnitCheckActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 酒水品牌页面 -->
+        <activity
+            android:name=".controller.activity.BrandWineActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 酒水品牌页面 -->
+        <activity
+            android:name=".controller.activity.SaleDistanceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 酒讯详细页面 -->
+        <activity
+            android:name=".controller.activity.DrinkInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 微信支付页面 -->
+        <!--
+        <activity
+            android:name="net.sourceforge.simcpux.PayActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        -->
+        <!-- 选择产区页面 -->
+        <activity
+            android:name=".controller.activity.SelectPicPopupWindow"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme_dialog"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的钱包页面 -->
+        <activity
+            android:name=".controller.activity.MyBalanceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的钱包页面 -->
+        <activity
+            android:name=".controller.activity.WithDrawActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的全部订单页面 -->
+        <activity
+            android:name=".controller.activity.MyAllOrderActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的提现记录页面 -->
+        <activity
+            android:name=".controller.activity.WithdrawRecordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的订单详情页面 -->
+        <activity
+            android:name=".controller.activity.MyOrderDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 云店详情页面 -->
+        <activity
+            android:name=".controller.activity.HomeShopActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 支付成功页面 -->
+        <activity
+            android:name=".controller.activity.PaySuccessActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 商品详细页面 -->
+        <activity
+            android:name=".controller.activity.ShopListDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateVisible" >
+        </activity>
+        <!-- 查看大图 -->
+        <activity
+            android:name=".controller.activity.BrowsPictureActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 查看优惠券 -->
+        <activity
+            android:name=".controller.activity.CouponActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 查看消息优惠券 -->
+        <activity
+            android:name=".controller.activity.CouponMessageActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 兑换优惠券 -->
+        <activity
+            android:name=".controller.activity.ExchangCouponActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 选择发票 -->
+        <activity
+            android:name=".controller.activity.InvoiceActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 选择我的积分 -->
+        <activity
+            android:name=".controller.activity.MyPointsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 选择我的喝喝币 -->
+        <activity
+            android:name=".controller.activity.HeHeMoneyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 选择我的喝喝币明细 -->
+        <activity
+            android:name=".controller.activity.HeheMoneyListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 选择我的喝喝币充值结果 -->
+        <activity
+            android:name=".controller.activity.RechargeResult"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 关于我们 -->
+        <activity
+            android:name=".controller.activity.AboutUs"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 地图相关 -->
+        <activity
+            android:name=".controller.activity.BaiduMapActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/transtart_Theme_dialog"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".controller.activity.Baidu"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 更多套装 -->
+        <activity
+            android:name=".controller.activity.MoreSuitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 套装列表 -->
+        <activity
+            android:name=".controller.activity.SuitListActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 地址选择 -->
+        <activity
+            android:name=".controller.activity.AddressChioceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/transtart_Theme_dialog"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 地址选择 -->
+        <activity
+            android:name=".controller.activity.SearchWineActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 品牌检索结果 -->
+        <activity
+            android:name=".controller.activity.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 定位地址选择 -->
+        <activity
+            android:name=".controller.activity.LocationSearchActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- App设置 -->
+        <activity
+            android:name=".controller.activity.CountSettingActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 修改密码 -->
+        <activity
+            android:name=".controller.activity.UpdatePassWordActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <!-- 我的收藏 -->
+        <activity
+            android:name=".controller.activity.MyCollectActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity android:name=".controller.activity.MipcaActivityCapture"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <!-- 个推SDK配置开始 -->
+        <!-- 配置的第三方参数属性 -->
+        <!-- 正式key -->
+
+        <meta-data
+            android:name="PUSH_APPID"
+            android:value="lDeVAMhbD8AJGd8EJkY2Z7" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="f9mOz3yqL5Arxe3SrhakG1" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="6yZediYUDp7dalTlnC3UI6" />
+
+        <!-- 测试key -->
+        <!--
+      <meta-data
+            android:name="PUSH_APPID"
+            android:value="EsLjjyX0DF8j0I1wuoCzt" />
+        <meta-data
+            android:name="PUSH_APPKEY"
+            android:value="a9szutJCUVAGdsdUo59gd8" />
+        <meta-data
+            android:name="PUSH_APPSECRET"
+            android:value="tSRyDPx49b7o8LYK1jF494" />
+        -->
+        <!-- 配置第三方Receiver -->
+        <receiver
+            android:name="com.heheys.ec.controller.receiver.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.lDeVAMhbD8AJGd8EJkY2Z7" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.heheys.ec.controller.receiver.AlarmReceiver">
+
+        </receiver>
+        <!--
+        <receiver
+            android:name="com.heheys.ec.controller.receiver.PushReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.EsLjjyX0DF8j0I1wuoCzt" />
+            </intent-filter>
+        </receiver>
+        -->
+        <!-- 配置SDK核心服务 -->
+        <service
+            android:name="com.igexin.sdk.PushService"
+            android:exported="true"
+            android:label="NotificationCenter"
+            android:process=":pushservice" >
+        </service>
+        <!-- SDK　2.6.1.0版本新增配置项 -->
+        <service
+            android:name="com.igexin.sdk.PushServiceUser"
+            android:exported="true"
+            android:label="NotificationCenterUser" >
+        </service>
+
+        <receiver android:name="com.igexin.sdk.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="com.igexin.sdk.action.refreshls" />
+                <!-- 以下三项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+                <action android:name="android.intent.action.MEDIA_MOUNTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.igexin.sdk.PushManagerReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.pushmanager" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name="com.igexin.sdk.PushActivity"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="com.igexin.sdk.PushActivityTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <service
+            android:name="com.igexin.download.DownloadService"
+            android:process=":pushservice" />
+
+        <receiver android:name="com.igexin.download.DownloadReceiver" >
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.igexin.download.DownloadProvider"
+            android:authorities="downloads.com.heheys.ec"
+            android:exported="true"
+            android:process=":pushservice" />
+
+        <activity
+            android:name="com.igexin.getuiext.activity.GetuiExtActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:exported="false"
+            android:process=":pushservice"
+            android:taskAffinity="android.task.myServicetask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 阿里支付配置开始 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <!-- 阿里支付结束 -->
+
+
+        <!--
+        <receiver
+            android:name="com.igexin.getuiext.service.PayloadReceiver"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.igexin.sdk.action.7fjUl2Z3LH6xYy7NQK4ni4" />
+                <action android:name="com.igexin.sdk.action.lDeVAMhbD8AJGd8EJkY2Z7" />
+            </intent-filter>
+        </receiver>
+        -->
+        <receiver
+            android:name=".controller.receiver.AppRegister"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.igexin.getuiext.service.GetuiExtService"
+            android:process=":pushservice" />
+        <!-- 个推SDK配置结束 -->
+        <service android:name="com.heheys.ec.service.HeartService"
+            android:process=":heart"
+            ></service>
+
+        <!-- 友盟社会化统计开始 -->
+        <meta-data
+            android:name="56273a6a67e58e36a00002bd"
+            android:value="YOUR_APP_KEY" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="hehe" /><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <!-- 友盟社会化统计结束 -->
+    </application>
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+</manifest>

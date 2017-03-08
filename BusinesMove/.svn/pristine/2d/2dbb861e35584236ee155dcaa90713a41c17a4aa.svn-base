@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/produce_tm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/produce_goods_name_tm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:maxLength="40"
+        android:maxLines="2"
+        android:text=" "
+        android:textSize="@dimen/text_size_16" />
+
+    <TextView
+        android:id="@+id/produce_title_tip_tm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/produce_goods_name_tm"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/shape_detaile"
+        android:padding="2dp"
+        android:text="特卖价"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12" />
+
+    <TextView
+        android:id="@+id/produce_price_and_unit_tm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/produce_title_tip_tm"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_toRightOf="@id/produce_title_tip_tm"
+        android:text="¥/箱"
+        android:textSize="@dimen/text_size_17"
+        android:textColor="@color/color_FF3939" />
+
+    <TextView
+        android:id="@+id/produce_price_and_unit_xl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/produce_title_tip_tm"
+        android:layout_below="@id/produce_title_tip_tm"
+        android:layout_marginTop="@dimen/margin_10"
+        android:text="销量:66瓶"
+        style="@style/text_12_style" />
+
+    <TextView
+        android:id="@+id/produce_price_and_unit_syl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/produce_price_and_unit_xl"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_toRightOf="@id/produce_price_and_unit_xl"
+        android:text="剩余量:瓶"
+        style="@style/text_12_style" />
+    <!--统计-->
+  <!--  <include
+        android:id="@+id/produce_tj"
+        layout="@layout/look_heart"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/produce_price_and_unit_xl"></include>-->
+    <include
+        android:id="@+id/produce_tj"
+        layout="@layout/look_heart_tm"
+        android:layout_marginTop="@dimen/margin_20"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_below="@id/produce_price_and_unit_xl"></include>
+</RelativeLayout>

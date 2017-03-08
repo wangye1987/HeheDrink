@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ececec"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_52"
+        android:background="@drawable/usercenter_click"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/usercenter_text_style"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账号" />
+        <TextView
+            android:id="@+id/name"
+            android:layout_weight="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_52"
+        android:background="@drawable/usercenter_click"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/usercenter_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="登录密码" />
+
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/et_pw"
+            android:hint="请输入当前登录密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_52"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10"
+        android:background="@drawable/usercenter_click"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/usercenter_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="设置新密码" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/pw_one"
+            android:hint="6-20位字母数字组合"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_52"
+        android:background="@drawable/usercenter_click"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/usercenter_text_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认新密码" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/pw_two"
+            android:hint="再次填写密码"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
+    </LinearLayout>
+</LinearLayout>

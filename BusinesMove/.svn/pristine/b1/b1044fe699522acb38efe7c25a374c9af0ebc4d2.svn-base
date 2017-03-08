@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/re_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center|top"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/order_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="@android:color/transparent"
+        android:scrollbars="none" >
+    </ListView>
+
+    <FrameLayout
+        android:id="@+id/order_detail_bottom_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <TextView
+            android:id="@+id/tv_white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TextView"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/linear_buttom"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_width_45"
+            android:background="#383838"
+            android:gravity="center"
+            android:orientation="vertical"
+             >
+
+            <LinearLayout
+                android:id="@+id/add_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_5"
+                android:layout_marginTop="@dimen/margin_10"
+                android:gravity="left|center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:paddingRight="@dimen/order_margin_5" >
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_18"
+                android:layout_marginRight="@dimen/margin_18"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/tv_totalNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="共计件"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合计:"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tv_final"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_16"
+                    android:textColor="@color/color_FF3838" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.heheys.ec.lib.view.RevealLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/to_pay"
+                        style="@style/white_text_style"
+                        android:layout_width="@dimen/button_width_100"
+                        android:layout_height="@dimen/button_height_32"
+                        android:background="@drawable/pay_bt"
+                        android:enabled="true"
+                        android:text="@string/to_pay" />
+                </com.heheys.ec.lib.view.RevealLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+</RelativeLayout>

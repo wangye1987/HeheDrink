@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f5f4f4"
+    android:orientation="vertical"
+    android:paddingLeft="28dp"
+    android:paddingRight="28dp" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="29dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center_vertical"
+                android:hint="姓名"
+                android:paddingLeft="15dp"
+                android:maxLines="1"
+                android:maxLength="10"
+                android:textColorHint="@color/color_a1a1a1"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/linear_tel1"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp" >
+
+                <EditText
+                    android:id="@+id/et_tel"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="联系方式"
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:textColorHint="@color/color_a1a1a1"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/linear_add1"
+                    android:layout_width="@dimen/button_width_36"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/order_margin_5"
+                        android:src="@drawable/add_address" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_tel2"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/et_tel2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="联系方式"
+                    android:maxLength="11"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:textColorHint="@color/color_a1a1a1"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/linear_add2"
+                    android:layout_width="@dimen/button_width_36"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/order_margin_5"
+                        android:src="@drawable/add_address" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_tel3"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/et_tel3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:gravity="center_vertical"
+                    android:hint="联系方式"
+                    android:maxLength="11"
+                    android:textColorHint="@color/color_a1a1a1"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/linear_add3"
+                    android:layout_width="@dimen/button_width_36"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/order_margin_5"
+                        android:src="@drawable/add_address" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_tel4"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/et_tel4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:gravity="center_vertical"
+                    android:hint="联系方式"
+                    android:maxLength="11"
+                    android:textColorHint="@color/color_a1a1a1"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:id="@+id/linear_add4"
+                    android:layout_width="@dimen/button_width_36"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/order_margin_5"
+                        android:src="@drawable/add_address" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_tel5"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingLeft="15dp"
+                android:visibility="gone" >
+
+                <EditText
+                    android:id="@+id/et_tel5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:inputType="phone"
+                    android:digits="0123456789"
+                    android:gravity="center_vertical"
+                    android:hint="联系方式"
+                    android:maxLength="11"
+                    android:textColorHint="@color/color_a1a1a1"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_48"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="center_vertical"
+                android:hint="地址"
+                android:maxLength="100"
+                android:paddingLeft="15dp"
+                android:textColorHint="@color/color_a1a1a1"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/et_comment"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/linearLayout_height_95"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/et_bg_stroke_cc"
+                android:gravity="left|top"
+                android:hint="描述备注"
+                android:paddingLeft="15dp"
+                android:maxLength="200"
+                android:textColorHint="@color/color_a1a1a1"
+                android:paddingTop="@dimen/margin_10"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:gravity="center" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="类型"
+                     android:textColor="@color/color_a1a1a1"
+                    android:textSize="@dimen/text_size_15" />
+
+                 <com.heheys.ec.lib.view.DrawLineTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginLeft="@dimen/order_margin_5"
+                    android:gravity="center" /> 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_16" 
+                android:paddingBottom="@dimen/margin_16">
+
+                <Button
+                    android:id="@+id/bt_small"
+                    android:layout_width="@dimen/button_width_145"
+                    android:layout_height="@dimen/button_height_32"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_button"
+                    android:textColor="@color/selector_add"
+                    android:text="门店" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="@dimen/margin_14"
+                    android:layout_height="wrap_content"
+                     />
+
+                <Button
+                    android:id="@+id/bt_big"
+                    android:layout_width="@dimen/button_width_145"
+                    android:layout_height="@dimen/button_height_32"
+                    android:layout_weight="1"
+                     android:textColor="@color/selector_add"
+                    android:background="@drawable/selector_button"
+                    android:text="超市" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

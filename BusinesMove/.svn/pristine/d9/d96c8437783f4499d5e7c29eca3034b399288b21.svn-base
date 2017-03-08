@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+
+    <LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 插入标题栏布局 -->
+
+        <include layout="@layout/base_activity_title" />
+    <!-- 内容显示区域 -->
+
+
+
+        <LinearLayout
+        android:id="@+id/base_activity_rootview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" />
+
+    <!-- 加载失败视图 -->
+
+    <include
+        android:id="@+id/base_activity_loadfail"
+        layout="@layout/base_activity_load_fail"
+        android:visibility="gone" />
+
+    <!-- 空数据视图 -->
+
+    <include
+        android:id="@+id/base_activity_no_data"
+        layout="@layout/base_activity_no_data"
+        android:visibility="gone" />
+
+    <!-- 网络异常 -->
+
+    <include
+        android:id="@+id/base_activity_no_network"
+        layout="@layout/base_activity_no_network"
+        android:visibility="gone" />
+    <!-- 搜索空页面 -->
+
+    <include
+        android:id="@+id/base_activity_search_nodata"
+        layout="@layout/search_no_data"
+        android:visibility="gone" />
+    <!-- 地址空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_address_nodata"
+        layout="@layout/base_activity_no_address"
+        android:visibility="gone" />
+
+    <!-- 拼单空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_group_buy_nodata"
+        layout="@layout/base_activity_group_buy_empty"
+        android:visibility="gone" />
+    <!-- 沙龙空页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_salon"
+        layout="@layout/base_activity_no_salon"
+        android:visibility="gone" />
+    <!-- 我的沙龙空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_salon_my"
+        layout="@layout/base_activity_no_salon_my"
+        android:visibility="gone" />
+    <!-- 终端空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_client"
+        layout="@layout/base_activity_no_client"
+        android:visibility="gone" />
+    <!-- 名片空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_businesscard"
+        layout="@layout/base_activity_no_businesscard"
+        android:visibility="gone" />
+    <!-- 酒水需求空白页面 -->
+
+    <include
+        android:id="@+id/base_activity_no_drink_demand"
+        layout="@layout/base_activity_no_drink_demand"
+        android:visibility="gone" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="left"
+        android:layout_marginBottom="100dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/search_empty" />
+
+        <ImageView
+            android:id="@+id/iv_order"
+            android:layout_toRightOf="@id/imageView"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/order_empty" />
+
+        <ImageView
+            android:layout_toRightOf="@id/iv_order"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shoppingcart_empty" />
+
+        <TextView
+            android:text="联系客服"
+            android:background="@color/reveal_color"
+            android:textDirection="firstStrong"
+            android:textColor="@color/color_999999"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    </FrameLayout>

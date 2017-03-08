@@ -1,0 +1,1205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="create_table">
+        <!-- 首页选择城市列表 -->
+        <item>
+           	CREATE TABLE IF NOT EXISTS home_city (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            CITY_ID VARCHR(20) NOT NULL , NAME VARCHAR(20) NOT NULL , HOT INTEGER);
+        </item>
+       <!-- 登陆信息表 -->
+        <item>
+            CREATE TABLE IF NOT EXISTS login_infor (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            USERID VARCHAR(20) NOT NULL, MOBILE VARCHAR(30) NOT NULL, VERIFY_STATUS INTEGER, SHOPNAME VARCHAR(20));
+        </item>
+       <!-- 名片管理信息表 -->
+       <!--NAME 名字  -->
+       <!--POSITION 职位  -->
+       <!--COMPANY 公司名字  -->
+       <!--MOBILE 手机号  -->
+       <!--LANDLINE 座机名字  -->
+       <!--WEIXING 微信号  -->
+       <!--	ADDRESS 地址  -->
+       <!--	REMARK 备注  -->
+        <item>
+            CREATE TABLE IF NOT EXISTS buscard_manager (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            NAME VARCHAR(20) NOT NULL, POSITION VARCHAR(20) NOT NULL, COMPANY VARCHAR(50) NOT NULL,
+            MOBILE VARCHAR(50) NOT NULL,LANDLINE VARCHAR(50) NOT NULL,WEIXING VARCHAR(50) NOT NULL, 
+            ADDRESS VARCHAR(100) NOT NULL,REMARK VARCHAR(100),  TIME VARCHAR(30) NOT NULL
+            ,ID VARCHAR(30) NOT NULL,VERIFY_STATUS VARCHAR(2) NOT NULL);
+        </item>
+        
+       
+    </string-array>
+    <string-array name="drop_table">
+        <item>
+            DROP TABLE IF EXISTS home_city ;</item>
+    
+        <item>
+            DROP TABLE IF EXISTS  login_infor ;
+		</item>
+        <item>
+            DROP TABLE IF EXISTS  buscard_manager ;
+		</item>
+        
+            
+        
+    </string-array>
+    <color name="bca070_color">#bca070</color>
+    <color name="black">#000000</color>
+    <color name="border_gray">#cccccc</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="color_06F90E">#06F90E</color>
+    <color name="color_1a1210">#1a1210</color>
+    <color name="color_2b2b2b">#2b2b2b</color>
+    <color name="color_302f3f">#302f3f</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_363636">#363636</color>
+    <color name="color_41c646">#41c646</color>
+    <color name="color_444446">#444446</color>
+    <color name="color_454545">#454545</color>
+    <color name="color_45b722">#45b722</color>
+    <color name="color_494747">#494747</color>
+    <color name="color_545151">#545151</color>
+    <color name="color_565656">#565656</color>
+    <color name="color_585858">#585858</color>
+    <color name="color_5d5a5a">#5d5a5a</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_676672">#676672</color>
+    <color name="color_6a6a6a">#6a6a6a</color>
+    <color name="color_777777">#777777</color>
+    <color name="color_787878">#787878</color>
+    <color name="color_7d7c7c">#7d7c7c</color>
+    <color name="color_7f8080">#7f8080</color>
+    <color name="color_7f8180">#7f8180</color>
+    <color name="color_808080">#808080</color>
+    <color name="color_818181">#818181</color>
+    <color name="color_858585">#858585</color>
+    <color name="color_888888">#888888</color>
+    <color name="color_8c8c8c">#8c8c8c</color>
+    <color name="color_8e8e8e">#8e8e8e</color>
+    <color name="color_8f8f8f">#8f8f8f</color>
+    <color name="color_959596">#959596</color>
+    <color name="color_979797">#979797</color>
+    <color name="color_999999">#999999</color>
+    <color name="color_9a9a9a">#9a9a9a</color>
+    <color name="color_9b9797">#9b9797</color>
+    <color name="color_9e9e9e">#9e9e9e</color>
+    <color name="color_A3A3A3">#A3A3A3</color>
+    <color name="color_D3D3D3">#d3d3d3</color>
+    <color name="color_FBBE1B">#fbbe1b</color>
+    <color name="color_FF333333">#FF333333</color>
+    <color name="color_FF372D6C">#FF372D6C</color>
+    <color name="color_FF3838">#FF3838</color>
+    <color name="color_FF3939">#FF3939</color>
+    <color name="color_FF5C5C5C">#FF5C5C5C</color>
+    <color name="color_FFEAEAEA">#FFEAEAEA</color>
+    <color name="color_FFEDEDED">#FFEDEDED</color>
+    <color name="color_FFEFEFEF">#FFEFEFEF</color>
+    <color name="color_FFF2F2F2">#FFF2F2F2</color>
+    <color name="color_FFF799FD">#FFF799FD</color>
+    <color name="color_FFFB7375">#FFFB7375</color>
+    <color name="color_FFFDC901">#FFFDC901</color>
+    <color name="color_FFd838">#FFd838</color>
+    <color name="color_FFd938">#FFd938</color>
+    <color name="color_a1a1a1">#a1a1a1</color>
+    <color name="color_a7a7a7">#a7a7a7</color>
+    <color name="color_aaaaaa">#aaaaaa</color>
+    <color name="color_ababab">#ababab</color>
+    <color name="color_af2942">#af2942</color>
+    <color name="color_b7b7b7">#b7b7b7</color>
+    <color name="color_b9b9b9">#b9b9b9</color>
+    <color name="color_bababa">#bababa</color>
+    <color name="color_bdbdc4">#bdbdc4</color>
+    <color name="color_c29418">#c29418</color>
+    <color name="color_c6c5c5">#c6c5c5</color>
+    <color name="color_c8c8c8">#c8c8c8</color>
+    <color name="color_c9c9c9">#c9c9c9</color>
+    <color name="color_cb7484">#cb7484</color>
+    <color name="color_cc394b">#cc394b</color>
+    <color name="color_cccccc">#cccccc</color>
+    <color name="color_cdced9">#cdcec9</color>
+    <color name="color_d5d4d4">#d5d4d4</color>
+    <color name="color_d6">#d6d6d6</color>
+    <color name="color_d9d9d9">#d9d9d9</color>
+    <color name="color_dfdfdf">#dfdfdf</color>
+    <color name="color_e1e1e1">#e1e1e1</color>
+    <color name="color_e5e5e5">#e5e5e5</color>
+    <color name="color_e8e8e8">#e8e8e8</color>
+    <color name="color_ebebeb">#ebebeb</color>
+    <color name="color_ececec">#ececec</color>
+    <color name="color_eeeeeee">#eeeeee</color>
+    <color name="color_ef5150">#ef5150</color>
+    <color name="color_ef5151">#ef5151</color>
+    <color name="color_ef7828">#ef7828</color>
+    <color name="color_efefef">#efefef</color>
+    <color name="color_f1f1f1">#f1f1f1</color>
+    <color name="color_f3f3f3">#f3f3f3</color>
+    <color name="color_f5f4f4">#F5F4F4</color>
+    <color name="color_f63c3c">#f63c3c</color>
+    <color name="color_f6f6f6">#f6f6f6</color>
+    <color name="color_f7f7f7">#f7f7f7</color>
+    <color name="color_f8f1f1">#f8f1f1</color>
+    <color name="color_f8f8f8">#f8f8f8</color>
+    <color name="color_f9883d">#f9883d</color>
+    <color name="color_f98b43">#f98b43</color>
+    <color name="color_f98c43">#f98c43</color>
+    <color name="color_fc7f2b">#fc7f2b</color>
+    <color name="color_fef1f3">#fef1f3</color>
+    <color name="color_ff0000">#ff0000</color>
+    <color name="color_ff6600">#ff6600</color>
+    <color name="color_ffc600">#ffc600</color>
+    <color name="color_ffd946">#ffd946</color>
+    <color name="color_ffffff">#ffffff</color>
+    <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_google_signin_btn_text_dark_disabled">#1F000000</color>
+    <color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>
+    <color name="common_google_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_google_signin_btn_text_light_default">#90000000</color>
+    <color name="common_google_signin_btn_text_light_disabled">#1F000000</color>
+    <color name="common_google_signin_btn_text_light_focused">#90000000</color>
+    <color name="common_google_signin_btn_text_light_pressed">#DE000000</color>
+    <color name="contents_text">#ff000000</color>
+    <color name="encode_view">#ffffffff</color>
+    <color name="gray">#CDC9C9</color>
+    <color name="gray_drak">#737373</color>
+    <color name="gray_line">#BABABA</color>
+    <color name="gray_text">#A1A1A1</color>
+    <color name="gray_text_hint">#BBBBBB</color>
+    <color name="gray_text_notice">#7f8080</color>
+    <color name="help_button_view">#ffcccccc</color>
+    <color name="help_view">#ff404040</color>
+    <color name="line_gray">#F2F2F2</color>
+    <color name="ms_3dd8c1">#3dd8c1</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="province_line_border">#C7C7C7</color>
+    <color name="red_text_color">#af2942</color>
+    <color name="red_text_color_DE2342">#DE2342</color>
+    <color name="result_image_border">#ffffffff</color>
+    <color name="result_minor_text">#ffc0c0c0</color>
+    <color name="result_points">#c000ff00</color>
+    <color name="result_text">#ffffffff</color>
+    <color name="result_view">#b0000000</color>
+    <color name="reveal_color">#1b000000</color>
+    <color name="rippelColor">#FFFFFF</color>
+    <color name="sbc_header_text">#ff808080</color>
+    <color name="sbc_header_view">#ffffffff</color>
+    <color name="sbc_layout_view">#ffffffff</color>
+    <color name="sbc_list_item">#fffff0e0</color>
+    <color name="sbc_page_number_text">#ff000000</color>
+    <color name="sbc_snippet_text">#ff4b4b4b</color>
+    <color name="sf_gray_bb">#bbbdc1</color>
+    <color name="sf_vi_gray_64">#646464</color>
+    <color name="sf_vi_gray_96">#969696</color>
+    <color name="sf_vi_gray_bg_f0">#f0f0f0</color>
+    <color name="sf_vi_gray_line_dc">#dcdcdc</color>
+    <color name="sf_vi_green_69">#69af05</color>
+    <color name="share_text">#ff000000</color>
+    <color name="share_view">#ffffffff</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="status_view">#50000000</color>
+    <color name="tb_munion_item_force">#e3e3e3</color>
+    <color name="third_text_color">#999999</color>
+    <color name="title_bg">#af2942</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_alert">#DCDCD0</color>
+    <color name="transparent_background">#50000000</color>
+    <color name="transparent_half"> #e0000000</color>
+    <color name="viewfinder_frame">#ff000000</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="white">#ffffff</color>
+    <color name="yellow">#ffc807</color>
+    <color name="yellow_text">#ffc600</color>
+    <color name="yellow_text_down">#f9883d</color>
+    <declare-styleable name="AppDataSearch"/>
+    <declare-styleable name="CircleFlowIndicator"><attr format="color" name="activeColor"/><attr format="color" name="inactiveColor"/><attr format="dimension" name="radius"/><attr format="boolean" name="centered"/><attr format="integer" name="fadeOut"/><attr name="inactiveType">
+            <flag name="stroke" value="0"/>
+            <flag name="fill" value="1"/>
+        </attr><attr name="activeType">
+            <flag name="stroke" value="0"/>
+            <flag name="fill" value="1"/>
+        </attr><attr format="dimension" name="circleSeparation"/><attr format="dimension" name="activeRadius"/></declare-styleable>
+    <declare-styleable name="CircleImageView"><attr format="dimension" name="border_width"/><attr format="color" name="border_color"/></declare-styleable>
+    <declare-styleable name="Corpus"><attr format="string" name="corpusId"/><attr format="string" name="corpusVersion"/><attr format="string" name="contentProviderUri"/><attr format="boolean" name="trimmable"/><attr format="string" name="schemaOrgType"/><attr format="boolean" name="semanticallySearchable"/><attr format="integer" name="documentMaxAgeSecs"/><attr format="boolean" name="perAccountTemplate"/></declare-styleable>
+    <declare-styleable name="CustomCoverFlow"><attr format="float" name="unselectedAlpha"/><attr format="float" name="unselectedSaturation"/><attr format="float" name="unselectedScale"/><attr format="integer" name="maxRotation"/><attr format="float" name="scaleDownGravity"/><attr format="integer" name="actionDistance">
+            <enum name="auto" value="2147483647"/>
+        </attr></declare-styleable>
+    <declare-styleable name="CustomTheme"><attr format="reference" name="gifViewStyle"/></declare-styleable>
+    <declare-styleable name="FeatureParam"><attr format="string" name="paramName"/><attr format="string" name="paramValue"/></declare-styleable>
+    <declare-styleable name="GifView"><attr format="reference" name="gif"/><attr format="boolean" name="paused"/></declare-styleable>
+    <declare-styleable name="GlobalSearch"><attr format="boolean" name="searchEnabled"/><attr format="string" name="searchLabel"/><attr format="string" name="settingsDescription"/><attr format="string" name="defaultIntentAction"/><attr format="string" name="defaultIntentData"/><attr format="string" name="defaultIntentActivity"/></declare-styleable>
+    <declare-styleable name="GlobalSearchCorpus"><attr format="boolean" name="allowShortcuts"/></declare-styleable>
+    <declare-styleable name="GlobalSearchSection"><attr name="sectionType">
+<enum name="text1" value="0"/>
+
+<enum name="text2" value="1"/>
+
+<enum name="icon_uri" value="2"/>
+
+<enum name="intent_action" value="3"/>
+
+<enum name="intent_data" value="4"/>
+
+<enum name="intent_data_id" value="5"/>
+
+<enum name="intent_extra_data" value="6"/>
+
+<enum name="large_icon_uri" value="7"/>
+
+<enum name="intent_activity" value="8"/>
+
+<enum name="thing_proto" value="9"/>
+
+</attr><attr format="string" name="sectionContent"/></declare-styleable>
+    <declare-styleable name="IMECorpus"><attr format="boolean" name="inputEnabled"/><attr name="sourceClass">
+<enum name="email" value="0"/>
+
+<enum name="contact" value="1"/>
+
+<enum name="instant_message" value="2"/>
+
+</attr><attr format="string" name="userInputTag"/><attr format="string" name="userInputSection"/><attr format="string" name="userInputValue"/><attr format="string" name="toAddressesSection"/></declare-styleable>
+    <declare-styleable name="LoadingImageView"><attr name="imageAspectRatioAdjust">
+<enum name="none" value="0"/>
+
+<enum name="adjust_width" value="1"/>
+
+<enum name="adjust_height" value="2"/>
+
+</attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
+    <declare-styleable name="RippleView"><attr format="integer" name="rv_alpha"/><attr format="integer" name="rv_framerate"/><attr format="integer" name="rv_rippleDuration"/><attr format="integer" name="rv_zoomDuration"/><attr format="color" name="rv_color"/><attr format="boolean" name="rv_centered"/><attr format="enum" name="rv_type">
+            <enum name="simpleRipple" value="0"/>
+            <enum name="doubleRipple" value="1"/>
+            <enum name="rectangle" value="2"/>
+        </attr><attr format="dimension" name="rv_ripplePadding"/><attr format="boolean" name="rv_zoom"/><attr format="float" name="rv_zoomScale"/></declare-styleable>
+    <declare-styleable name="Section"><attr format="string" name="sectionId"/><attr name="sectionFormat">
+<enum name="plain" value="0"/>
+
+<enum name="html" value="1"/>
+
+<enum name="rfc822" value="2"/>
+
+<enum name="url" value="3"/>
+
+</attr><attr format="boolean" name="noIndex"/><attr format="integer" name="sectionWeight"/><attr format="boolean" name="indexPrefixes"/><attr format="string" name="subsectionSeparator"/><attr format="string" name="schemaOrgProperty"/></declare-styleable>
+    <declare-styleable name="SectionFeature"><attr name="featureType">
+<enum name="match_global_nicknames" value="1"/>
+
+<enum name="demote_common_words" value="2"/>
+
+<enum name="demote_rfc822_hostnames" value="3"/>
+
+<enum name="omnibox_url_section" value="4"/>
+
+<enum name="omnibox_title_section" value="5"/>
+
+<enum name="index_entity_types" value="6"/>
+
+</attr></declare-styleable>
+    <declare-styleable name="SignInButton"><attr format="reference" name="buttonSize">
+<enum name="standard" value="0"/>
+
+<enum name="wide" value="1"/>
+
+<enum name="icon_only" value="2"/>
+
+</attr><attr format="reference" name="colorScheme">
+<enum name="dark" value="0"/>
+
+<enum name="light" value="1"/>
+
+<enum name="auto" value="2"/>
+
+</attr><attr format="reference|string" name="scopeUris"/></declare-styleable>
+    <declare-styleable name="TabViewStyle"><attr format="reference" name="drawable"/><attr format="color" name="textColor"/><attr format="dimension" name="textSize"/><attr format="string" name="text"/></declare-styleable>
+    <declare-styleable name="ViewFlow"><attr format="integer" name="sidebuffer"/></declare-styleable>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="button_height_22">22dp</dimen>
+    <dimen name="button_height_24">24dp</dimen>
+    <dimen name="button_height_28">28dp</dimen>
+    <dimen name="button_height_30">30dp</dimen>
+    <dimen name="button_height_32">32dp</dimen>
+    <dimen name="button_height_38">38dp</dimen>
+    <dimen name="button_height_40">40dp</dimen>
+    <dimen name="button_height_48">48dp</dimen>
+    <dimen name="button_width">72dp</dimen>
+    <dimen name="button_width_10">10dp</dimen>
+    <dimen name="button_width_100">100dp</dimen>
+    <dimen name="button_width_108">108dp</dimen>
+    <dimen name="button_width_12">12dp</dimen>
+    <dimen name="button_width_124">124dp</dimen>
+    <dimen name="button_width_130">130dp</dimen>
+    <dimen name="button_width_143">143dp</dimen>
+    <dimen name="button_width_145">145dp</dimen>
+    <dimen name="button_width_150">150dp</dimen>
+    <dimen name="button_width_36">36dp</dimen>
+    <dimen name="button_width_45">45dp</dimen>
+    <dimen name="button_width_48">48dp</dimen>
+    <dimen name="button_width_83">83dp</dimen>
+    <dimen name="button_width_90">90dp</dimen>
+    <dimen name="button_width_94">94dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="grid_textsize_10">11dp</dimen>
+    <dimen name="grid_textsize_13">18dp</dimen>
+    <dimen name="hint_text_view_height">40dip</dimen>
+    <dimen name="image_height">72dp</dimen>
+    <dimen name="image_height_100">100dp</dimen>
+    <dimen name="image_height_108">108dp</dimen>
+    <dimen name="image_height_122">122dp</dimen>
+    <dimen name="image_height_130">130dp</dimen>
+    <dimen name="image_height_135">135dp</dimen>
+    <dimen name="image_height_158">158dp</dimen>
+    <dimen name="image_height_173">173dp</dimen>
+    <dimen name="image_height_180">180dp</dimen>
+    <dimen name="image_height_245">245dp</dimen>
+    <dimen name="image_height_250">250dp</dimen>
+    <dimen name="image_height_280">280dp</dimen>
+    <dimen name="image_height_326">326dp</dimen>
+    <dimen name="image_height_54">54dp</dimen>
+    <dimen name="image_height_70">70dp</dimen>
+    <dimen name="image_height_73">73dp</dimen>
+    <dimen name="image_height_80">80dp</dimen>
+    <dimen name="image_height_82">82dp</dimen>
+    <dimen name="image_width">72dp</dimen>
+    <dimen name="image_width_100">100dp</dimen>
+    <dimen name="image_width_12">12dp</dimen>
+    <dimen name="image_width_120">120dp</dimen>
+    <dimen name="image_width_122">122dp</dimen>
+    <dimen name="image_width_158">158dp</dimen>
+    <dimen name="image_width_180">180dp</dimen>
+    <dimen name="image_width_200">200dp</dimen>
+    <dimen name="image_width_25">25dp</dimen>
+    <dimen name="image_width_70">70dp</dimen>
+    <dimen name="image_width_73">73dp</dimen>
+    <dimen name="image_width_80">80dp</dimen>
+    <dimen name="image_width_82">82dp</dimen>
+    <dimen name="image_width_84">84dp</dimen>
+    <dimen name="linearLayout_height">48dp</dimen>
+    <dimen name="linearLayout_height_110">110dp</dimen>
+    <dimen name="linearLayout_height_112">112dp</dimen>
+    <dimen name="linearLayout_height_12">12dp</dimen>
+    <dimen name="linearLayout_height_122">122dp</dimen>
+    <dimen name="linearLayout_height_123">123dp</dimen>
+    <dimen name="linearLayout_height_150">150dp</dimen>
+    <dimen name="linearLayout_height_158">158dp</dimen>
+    <dimen name="linearLayout_height_18">18dp</dimen>
+    <dimen name="linearLayout_height_23">23dp</dimen>
+    <dimen name="linearLayout_height_24">24dp</dimen>
+    <dimen name="linearLayout_height_285">285dp</dimen>
+    <dimen name="linearLayout_height_32">32dp</dimen>
+    <dimen name="linearLayout_height_33">33dp</dimen>
+    <dimen name="linearLayout_height_34">34dp</dimen>
+    <dimen name="linearLayout_height_35">35dp</dimen>
+    <dimen name="linearLayout_height_36">36dp</dimen>
+    <dimen name="linearLayout_height_40">40dp</dimen>
+    <dimen name="linearLayout_height_41">41dp</dimen>
+    <dimen name="linearLayout_height_42">42dp</dimen>
+    <dimen name="linearLayout_height_43">43dp</dimen>
+    <dimen name="linearLayout_height_44">44dp</dimen>
+    <dimen name="linearLayout_height_48">48dp</dimen>
+    <dimen name="linearLayout_height_49">49dp</dimen>
+    <dimen name="linearLayout_height_52">52dp</dimen>
+    <dimen name="linearLayout_height_58">58dp</dimen>
+    <dimen name="linearLayout_height_68">68dp</dimen>
+    <dimen name="linearLayout_height_80">80dp</dimen>
+    <dimen name="linearLayout_height_84">84dp</dimen>
+    <dimen name="linearLayout_height_88">88dp</dimen>
+    <dimen name="linearLayout_height_95">95dp</dimen>
+    <dimen name="linearLayout_width">72dp</dimen>
+    <dimen name="linearLayout_width_110">110dp</dimen>
+    <dimen name="linearLayout_width_200">200dp</dimen>
+    <dimen name="linearLayout_width_48">48dp</dimen>
+    <dimen name="linearLayout_width_52">52dp</dimen>
+    <dimen name="margin_1">1dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_11">11dp</dimen>
+    <dimen name="margin_12">12dp</dimen>
+    <dimen name="margin_13">13dp</dimen>
+    <dimen name="margin_14">14dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_16">16dp</dimen>
+    <dimen name="margin_17">17dp</dimen>
+    <dimen name="margin_18">18dp</dimen>
+    <dimen name="margin_19">19dp</dimen>
+    <dimen name="margin_2">2dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_21">21dp</dimen>
+    <dimen name="margin_22">22dp</dimen>
+    <dimen name="margin_24">24dp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+    <dimen name="margin_26">26dp</dimen>
+    <dimen name="margin_27">27dp</dimen>
+    <dimen name="margin_28">28dp</dimen>
+    <dimen name="margin_29">29dp</dimen>
+    <dimen name="margin_3">3dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_31">31dp</dimen>
+    <dimen name="margin_32">32dp</dimen>
+    <dimen name="margin_34">34dp</dimen>
+    <dimen name="margin_35">35dp</dimen>
+    <dimen name="margin_36">36dp</dimen>
+    <dimen name="margin_37">37dp</dimen>
+    <dimen name="margin_4">4dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+    <dimen name="margin_42">42dp</dimen>
+    <dimen name="margin_45">45dp</dimen>
+    <dimen name="margin_47">47dp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_50">50dp</dimen>
+    <dimen name="margin_53">53dp</dimen>
+    <dimen name="margin_55">55dp</dimen>
+    <dimen name="margin_6">6dp</dimen>
+    <dimen name="margin_60">60dp</dimen>
+    <dimen name="margin_7">7dp</dimen>
+    <dimen name="margin_70">70dp</dimen>
+    <dimen name="margin_8">8dp</dimen>
+    <dimen name="margin_80">80dp</dimen>
+    <dimen name="margin_84">84dp</dimen>
+    <dimen name="margin_9">9dp</dimen>
+    <dimen name="margin_92">92dp</dimen>
+    <dimen name="order_margin_10">10dp</dimen>
+    <dimen name="order_margin_11">11dp</dimen>
+    <dimen name="order_margin_15">15dp</dimen>
+    <dimen name="order_margin_17">17dp</dimen>
+    <dimen name="order_margin_21">21dp</dimen>
+    <dimen name="order_margin_3">3dp</dimen>
+    <dimen name="order_margin_5">5dp</dimen>
+    <dimen name="order_margin_buttom">2dp</dimen>
+    <dimen name="order_margin_small">5dp</dimen>
+    <dimen name="order_margin_top">2dp</dimen>
+    <dimen name="sf_margin_10">10dp</dimen>
+    <dimen name="sf_margin_20">8dp</dimen>
+    <dimen name="sf_size_13">13sp</dimen>
+    <dimen name="sf_size_16">16sp</dimen>
+    <dimen name="text_size_10">10dp</dimen>
+    <dimen name="text_size_11">11dp</dimen>
+    <dimen name="text_size_12">12dp</dimen>
+    <dimen name="text_size_13">13dp</dimen>
+    <dimen name="text_size_14">14dp</dimen>
+    <dimen name="text_size_15">15dp</dimen>
+    <dimen name="text_size_16">16dp</dimen>
+    <dimen name="text_size_17">17dp</dimen>
+    <dimen name="text_size_18">18dp</dimen>
+    <dimen name="text_size_8">8dp</dimen>
+    <dimen name="title_bar_height">45dip</dimen>
+    <dimen name="titlebar_height">50dp</dimen>
+    <drawable name="dkgray">#f9893b</drawable>
+    <drawable name="gary_alter">#666666</drawable>
+    <drawable name="gray_l">#bbbdc1</drawable>
+    <drawable name="normal">#565656</drawable>
+    <drawable name="press">#f9883d</drawable>
+    <drawable name="red">#fff7e9</drawable>
+    <drawable name="white">#ffffff</drawable>
+    <drawable name="yellow_alter">#f9893b</drawable>
+    <item name="auto_focus" type="id"/>
+    <item name="decode" type="id"/>
+    <item name="decode_failed" type="id"/>
+    <item name="decode_succeeded" type="id"/>
+    <item name="encode_failed" type="id"/>
+    <item name="encode_succeeded" type="id"/>
+    <item name="launch_product_query" type="id"/>
+    <item name="quit" type="id"/>
+    <item name="restart_preview" type="id"/>
+    <item name="return_scan_result" type="id"/>
+    <item name="search_book_contents_failed" type="id"/>
+    <item name="search_book_contents_succeeded" type="id"/>
+    <integer name="google_play_services_version">9877000</integer>
+    <string name="UMAppUpdate">App updating</string>
+    <string name="UMBreak_Network">Please make sure you are connected to internet,update failed</string>
+    <string name="UMCLOSE">退出</string>
+    <string name="UMDialog_InstallAPK">The lastest version has been downloaded, install now ?</string>
+    <string name="UMGprsCondition">(Warning: Not WIFI Condition)</string>
+    <string name="UMIgnore">Ingore this</string>
+    <string name="UMNewVersion">Latest version: </string>
+    <string name="UMNotNow">Not now</string>
+    <string name="UMTargetSize">Target size: </string>
+    <string name="UMToast_IsUpdating">Updating....</string>
+    <string name="UMUpdateCheck">2.6.0.1.20150312</string>
+    <string name="UMUpdateContent">Update Content</string>
+    <string name="UMUpdateNow">Update now</string>
+    <string name="UMUpdateSize">Update size: </string>
+    <string name="UMUpdateTitle">New version found</string>
+    <string name="action_settings">Settings</string>
+    <string name="add_address">新增收货地址</string>
+    <string name="add_manager">地址管理</string>
+    <string name="add_out">您的公司详细地址没有填写</string>
+    <string name="add_out_null">您的店铺地址没有填写</string>
+    <string name="add_shopcart">加入购物车</string>
+    <string name="add_text">公司详细地址输入错误,请您重新填写！</string>
+    <string name="agent">代理商身份验证</string>
+    <string name="all_statue">全部</string>
+    <string name="already">可订购:</string>
+    <string name="answer_back">问题反馈</string>
+    <string name="app_list_footer_loading">正在加载</string>
+    <string name="app_list_footer_more">更多</string>
+    <string name="app_name">喝喝云商</string>
+    <string name="app_tip">提示</string>
+    <string name="buy_lest">最小起批量:</string>
+    <string name="cancle">取消</string>
+    <string name="cancle_statue">已取消</string>
+    <string name="city">城市</string>
+    <string name="commit_address_success">提交成功</string>
+    <string name="commit_fail">提交信息失败</string>
+    <string name="commit_pwd">确认密码</string>
+    <string name="commit_retroaction">提交</string>
+    <string name="commit_shop_fail">您的审核失败,请重新提交审核信息！</string>
+    <string name="commit_success">恭喜您，审核已经通过！</string>
+    <string name="commit_success_ing">审核已受理，请耐心等候！</string>
+    <string name="commit_update_ing">您的资料已提交成功，请耐心等候审核！</string>
+    <string name="commit_verify">提交认证</string>
+    <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable</string>
+    <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t work unless you enable Google Play services.</string>
+    <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>
+    <string msgid="7153882981874058840" name="common_google_play_services_install_button">Install</string>
+    <string name="common_google_play_services_install_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are missing from your device.</string>
+    <string msgid="7215213145546190223" name="common_google_play_services_install_title">Get Google Play services</string>
+    <string name="common_google_play_services_notification_ticker">Google Play services error</string>
+    <string name="common_google_play_services_unknown_issue"><ns1:g id="app_name">%1$s</ns1:g> is having trouble with Google Play services. Please try again.</string>
+    <string name="common_google_play_services_unsupported_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are not supported by your device.</string>
+    <string msgid="6556509956452265614" name="common_google_play_services_update_button">Update</string>
+    <string msgid="9053896323427875356" name="common_google_play_services_update_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run unless you update Google Play services.</string>
+    <string msgid="6006316683626838685" name="common_google_play_services_update_title">Update Google Play services</string>
+    <string name="common_google_play_services_updating_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are currently updating.</string>
+    <string name="common_google_play_services_wear_update_text">New version of Google Play services needed. It will update itself shortly.</string>
+    <string name="common_open_on_phone">Open on phone</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
+    <string name="complete">完成</string>
+    <string name="consignee">收货人姓名</string>
+    <string name="copytright">喝喝科技</string>
+    <string name="county">县   /  区</string>
+    <string name="current_price">当前价</string>
+    <string name="custom_add">添加信息成功</string>
+    <string name="custom_adduser">添加</string>
+    <string name="custom_delete">删除</string>
+    <string name="custom_delete_success">删除成功</string>
+    <string name="custom_list_fail">获取下游用户列表失败</string>
+    <string name="custom_update">修改信息成功</string>
+    <string name="dastance">详细地址</string>
+    <string name="degree">度数:</string>
+    <string name="delivery">配送费</string>
+    <string name="demand_wine">酒类需求</string>
+    <string name="destace">所在区域</string>
+    <string name="detail_add">详细地址</string>
+    <string name="drink_info">酒讯</string>
+    <string name="drink_not_empty_brand">请您选择酒的品牌</string>
+    <string name="drink_not_empty_buy">请您填写求购价格</string>
+    <string name="drink_not_empty_degress">请您填写度数</string>
+    <string name="drink_not_empty_distance">请您先选中配送区域</string>
+    <string name="drink_not_empty_endtime">请您选择结束时间</string>
+    <string name="drink_not_empty_name">请您填写酒类名称</string>
+    <string name="drink_not_empty_starttime">请您选择开始时间</string>
+    <string name="drink_not_empty_unit">请您选择单位</string>
+    <string name="drink_not_empty_winnnum">请您填写数量</string>
+    <string name="errcode_cancel">发送取消</string>
+    <string name="errcode_deny">发送被拒绝</string>
+    <string name="errcode_success">发送成功</string>
+    <string name="errcode_unknown">发送返回</string>
+    <string name="error_check_tv">重新加载</string>
+    <string name="error_note">休息一下再来试试吧!</string>
+    <string name="exchange_tv">兑换</string>
+    <string name="exit_message">再按一次返回键退出喝喝云商</string>
+    <string name="exit_title">温馨提示</string>
+    <string name="faren_text">法人姓名输入错误,请您重新填写！</string>
+    <string name="favorable">品牌</string>
+    <string name="flavor">香型:</string>
+    <string name="forget_password">忘记密码?</string>
+    <string name="friday">星期五</string>
+    <string name="get_goods">待收货</string>
+    <string name="get_money">提现金额</string>
+    <string name="getcode_success">获取验证码成功</string>
+    <string name="getinfo_fail">获取个人信息失败</string>
+    <string name="getting_prepayid">获取预付订单号</string>
+    <string name="go_register">去注册</string>
+    <string name="goods_payed">订单已支付</string>
+    <string name="goods_price">商品金额</string>
+    <string name="goods_price_dong">(动态):</string>
+    <string name="goods_send_price">配送费:</string>
+    <string name="goods_total_price">订单总金额:</string>
+    <string name="hasloading_moreValues">加载中...</string>
+    <string name="hb_pay">喝币支付</string>
+    <string name="hehe_businesscard">名片管理</string>
+    <string name="hehe_deal">已完整阅读《喝喝云商用户协议》</string>
+    <string name="hehe_demand">酒水需求</string>
+    <string name="hehe_tel">喝喝客服</string>
+    <string name="hehe_xy">同意&lt;&lt;喝币服务条款>></string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="hint_money">请输入提现金额</string>
+    <string name="hint_postcode">请输入验证码</string>
+    <string name="hint_pwd">6-20位数字字母组合</string>
+    <string name="hint_pwd_login">密码</string>
+    <string name="hint_pwd_next">请再次填写密码</string>
+    <string name="hint_register">注册</string>
+    <string name="hint_tel">请填写注册手机号</string>
+    <string name="id_card">法人身份证号</string>
+    <string name="idcard_out">您的身份证没有填写</string>
+    <string name="instance">立即报名</string>
+    <string name="isPay">去支付</string>
+    <string name="is_pay">受理中</string>
+    <string name="is_send">备货中</string>
+    <string name="jd_pay">京东</string>
+    <string name="legal_person">法人姓名</string>
+    <string name="lianxiren_text">联系人姓名输入错误,请您重新填写！</string>
+    <string name="license_out">您的营业执照号没有填写</string>
+    <string name="lineoff_pay">货到付款</string>
+    <string name="link_man">联系人姓名</string>
+    <string name="link_tel">联系方式</string>
+    <string name="linkname_out">您的联系人信息没有填写</string>
+    <string name="loading">加载中</string>
+    <string name="loading_moreValues">加载更多</string>
+    <string name="login_out">退出登录</string>
+    <string name="login_password">密码</string>
+    <string name="login_success">登录成功</string>
+    <string name="login_text">登录</string>
+    <string name="loginout_success">退出成功</string>
+    <string name="manager">管理</string>
+    <string name="monday">星期一</string>
+    <string name="my_address">设为默认地址</string>
+    <string name="my_balance">我的余额:</string>
+    <string name="my_client">我的客户</string>
+    <string name="my_coupon">我的优惠券:</string>
+    <string name="my_hehemoney">我的喝币:</string>
+    <string name="my_info">认证信息</string>
+    <string name="my_points">我的积分:</string>
+    <string name="my_salon">我的沙龙</string>
+    <string name="myclientlist">客户通讯录</string>
+    <string name="name_out">您的法人姓名没有填写</string>
+    <string name="net_weight">净含量:</string>
+    <string name="network_error">网络连接异常,请稍后重试！</string>
+    <string name="next_step">下一步</string>
+    <string name="nick">昵称</string>
+    <string name="no_account">还没有账号?</string>
+    <string name="not_auth">未认证</string>
+    <string name="not_pay">待付款</string>
+    <string name="not_updated_yet">暂未更新过</string>
+    <string name="notice_code">输入验证码</string>
+    <string name="notice_company_hint">请输入单位名称</string>
+    <string name="notice_correct_phone">请填写正确的手机号</string>
+    <string name="notice_correct_yqm">请填写邀请码</string>
+    <string name="notice_password">请您填写密码</string>
+    <string name="notice_password_next">请您填写确认密码</string>
+    <string name="notice_phone">请输入正确的手机号</string>
+    <string name="notice_phone_login">手机号</string>
+    <string name="notice_phone_null">请输入手机号</string>
+    <string name="notice_retroaction">请您填写问题反馈后提交</string>
+    <string name="notice_tel">请您填写手机号</string>
+    <string name="notice_userName">请您填写用户名</string>
+    <string name="ok">确定</string>
+    <string name="orderFactory">厂商:</string>
+    <string name="orderInfo">商品信息:</string>
+    <string name="orderTime">订单时间:</string>
+    <string name="ordersinfo">订单信息</string>
+    <string name="password_same">两次密码输入不一致</string>
+    <string name="pay_overrun">超过最高支付限额:提交订单后,请移步网页端用网页支付网址</string>
+    <string name="pay_overrun_address">网址</string>
+    <string name="pay_overrun_http">http://www.hehe.com</string>
+    <string formatted="false" name="pay_result_callback_msg">微信支付结果：%s</string>
+    <string name="postcode">邮编编码</string>
+    <string name="postcode_text">验证码</string>
+    <string name="prepayid">订单号:</string>
+    <string name="price">价格</string>
+    <string name="production_area">产地</string>
+    <string name="production_type">品类</string>
+    <string name="proorder">拼单商品</string>
+    <string name="province">省份</string>
+    <string name="pull_to_refresh">下拉可以刷新</string>
+    <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
+    <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
+    <string name="pull_to_refresh_footer_release_label">松开后加载</string>
+    <string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    <string name="pull_to_refresh_release_label">松开后刷新</string>
+    <string name="pwd_agreed">密码一样</string>
+    <string name="pwd_one_length">密码长度应为6-20位</string>
+    <string name="ranking">快结束</string>
+    <string name="refreshing">正在刷新…</string>
+    <string name="register_success">注册成功</string>
+    <string name="register_text">注册</string>
+    <string name="register_yaoqingma">邀请码</string>
+    <string name="register_yaoqingma_hint">邀请码</string>
+    <string name="release_to_refresh">释放立即刷新</string>
+    <string name="renxiren_tel">联系人电话输入错误,请您重新填写！</string>
+    <string name="reset_pwd">重置密码</string>
+    <string name="salon_company">所属公司</string>
+    <string name="salon_linktel">联系方式</string>
+    <string name="salon_name">姓名</string>
+    <string name="salon_position">工作职位</string>
+    <string name="salon_weixing">微信</string>
+    <string name="saturday">星期六</string>
+    <string name="search_no_data">报歉，没有找到您要查找的内容</string>
+    <string name="search_tip">搜索内容</string>
+    <string name="send_postcode">获取验证码</string>
+    <string name="server_error">系统有点繁忙,请稍后再试 !</string>
+    <string name="service_phone">010-85782811</string>
+    <string name="setting">设置</string>
+    <string name="setting_default">选择收货地址</string>
+    <string name="setting_guanli">管理收货地址</string>
+    <string name="setting_pwd">设置密码(6-20位字母数字组合)</string>
+    <string name="shenfenzheng_text">身份证输入错误,请您重新填写！</string>
+    <string name="shop_add">公司地址</string>
+    <string name="shop_id">营业执照号</string>
+    <string name="shop_name">公司名称</string>
+    <string name="shop_null">您的店铺名称没有填写</string>
+    <string name="shop_null1">公司环境照片没有上传</string>
+    <string name="shop_null2">法人身份证照片没有上传</string>
+    <string name="shop_null3">营业执照照片没有上传</string>
+    <string name="shop_null4">组织机构代码照片没有上传</string>
+    <string name="shop_null5">税务登记证照片没有上传</string>
+    <string name="st_tx">提现</string>
+    <string name="st_tx_jl">提现记录</string>
+    <string name="stock">原料:</string>
+    <string name="store_up">贮藏条件:</string>
+    <string name="stree">所在街道</string>
+    <string name="subscription">已支付订金:</string>
+    <string name="success_statue">已完成</string>
+    <string name="sunday">星期日</string>
+    <string name="tab_home_name">首页</string>
+    <string name="tab_oroder_name">订单</string>
+    <string name="tab_salon_name">沙龙</string>
+    <string name="tab_shoppingcart_name">购物车</string>
+    <string name="tab_usercenter_name">我的</string>
+    <string name="tb_munion_tip_download_prefix">正在下载:</string>
+    <string name="tel">手机号</string>
+    <string name="tel_authcode">验证码</string>
+    <string name="tel_link">手机号码</string>
+    <string name="tel_out">您的联系电话没有填写</string>
+    <string name="text">邮</string>
+    <string name="thursday">星期四</string>
+    <string name="time_error">时间有问题</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="to_pay">提交订单</string>
+    <string name="today">今天</string>
+    <string name="total_left">剩余量:</string>
+    <string name="total_wine">货品量:</string>
+    <string name="tuesday">星期二</string>
+    <string name="tv_hehemoney">未使用喝币</string>
+    <string name="tv_noinvoice">暂不开发票</string>
+    <string name="tv_points">暂无积分</string>
+    <string name="umeng_common_action_cancel">Cancel</string>
+    <string name="umeng_common_action_continue">Continue</string>
+    <string name="umeng_common_action_info_exist">The app is already in downloading list.</string>
+    <string name="umeng_common_action_pause">Pause</string>
+    <string name="umeng_common_download_failed">Download Failed! </string>
+    <string name="umeng_common_download_finish">Download finished,click to install it.</string>
+    <string name="umeng_common_download_notification_prefix">Downloading: </string>
+    <string name="umeng_common_icon">icon</string>
+    <string name="umeng_common_info_interrupt">dowload interrupted.</string>
+    <string name="umeng_common_network_break_alert">Please make sure you are connected to internet, download failed</string>
+    <string name="umeng_common_patch_finish">Patch finished,click to install it.</string>
+    <string name="umeng_common_pause_notification_prefix">Pause: </string>
+    <string name="umeng_common_silent_download_finish">New version is ready,click to install it.</string>
+    <string name="umeng_common_start_download_notification">Download start.</string>
+    <string name="umeng_common_start_patch_notification">Patch start.</string>
+    <string name="updated_at">上次更新于%1$s前</string>
+    <string name="updated_just_now">刚刚更新</string>
+    <string name="wednesday">星期三</string>
+    <string name="weixin_pay">微信</string>
+    <string name="weixingpay">微信(最高支持5万)</string>
+    <string name="wine_factory">酒厂:</string>
+    <string name="wx_pay_string_order">订单编号:</string>
+    <string name="zfb_pay">支付宝</string>
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+
+
+        -->
+    </style>
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="CheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_check</item>
+    </style>
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="MultipleCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+    </style>
+    <style name="SingleCheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_single_selector</item>
+    </style>
+    <style name="SquareSingleCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/square_checkbox_single_selector</item>
+    </style>
+    <style name="Theme_dialog" parent="@android:style/Theme.Dialog">
+	     <item name="android:windowFrame">@null</item>
+
+        <item name="android:windowIsFloating">true</item>
+
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:background">@android:color/white</item>
+
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowCloseOnTouchOutside">true</item> 
+       <item name="android:windowAnimationStyle">@anim/dialog_exit</item>
+	 </style>
+    <style name="Widget_GifView" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+    <style name="WindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_in</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_out</item>
+    </style>
+    <style name="appTheme" parent="@android:style/Theme.Light.NoTitleBar">
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="applicationTheme" parent="@android:style/Theme.Light">
+                <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
+    </style>
+    <style name="button_yellow">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:src">@drawable/selector_click_button</item>
+        <item name="android:height">@dimen/button_height_32</item>
+        <item name="android:width">@dimen/button_width_94</item>
+    </style>
+    <style name="dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:alpha">1</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <style name="gray_textstyle">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="gray_textstyle_12">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="gray_textstyle_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_13_af2942">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_FF3838</item>
+    </style>
+    <style name="gray_textstyle_14">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_666666</item>
+    </style>
+    <style name="gray_textstyle_142b">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_15">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_999999">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="home_time_bg">
+        <item name="android:alpha">0.8</item>
+        <item name="android:textColor">@color/color_f8f1f1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:background">@drawable/home_time_bg</item>
+    </style>
+    <style name="home_time_limit_bg">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:background">@drawable/time_limit_bg</item>
+    </style>
+    <style name="linearLayout_background">
+        <item name="android:layout_marginBottom">@dimen/order_margin_10</item>
+        <item name="android:layout_marginTop">@dimen/order_margin_10</item>
+    </style>
+    <style name="linearLayout_background_5">
+        <item name="android:layout_marginBottom">@dimen/order_margin_5</item>
+        <item name="android:layout_marginTop">@dimen/order_margin_5</item>
+    </style>
+    <style name="load_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+    <style name="loading_dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/rectangle_loading_bg</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+    <style name="login_button_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_28</item>
+        <item name="android:layout_marginRight">@dimen/margin_28</item>
+        <item name="android:layout_marginTop">@dimen/margin_53</item>
+        <item name="android:paddingTop">@dimen/margin_16</item>
+        <item name="android:paddingBottom">@dimen/margin_16</item>
+    </style>
+    <style name="login_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_25</item>
+    </style>
+    <style name="login_reigster_style">
+        <item name="android:textColorHint">@color/color_bdbdc4</item>
+        <item name="android:textColor">@color/color_bdbdc4</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    <style name="login_reigster_style_666">
+        <item name="android:textColorHint">@color/color_666666</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    <style name="login_text_hint_style">
+        <item name="android:textColorHint">@color/color_bababa</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    <style name="login_text_style">
+        <item name="android:textColor">@color/gray_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_10</item>
+        <item name="android:layout_marginRight">@dimen/margin_10</item>
+    </style>
+    <style name="marginRightLeft">
+        <item name="android:paddingRight">@dimen/order_margin_10</item>
+        <item name="android:paddingLeft">@dimen/order_margin_10</item>
+    </style>
+    <style name="marginTopButtom">
+        <item name="android:paddingBottom">@dimen/order_margin_buttom</item>
+        <item name="android:paddingTop">@dimen/order_margin_top</item>
+    </style>
+    <style name="marginagent">
+        <item name="android:layout_marginTop">@dimen/margin_10</item>
+        <item name="android:layout_marginBottom">@dimen/margin_10</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+    </style>
+    <style name="marginagent_address">
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+    </style>
+    <style name="marginagent_left">
+        <item name="android:layout_marginLeft">@dimen/margin_29</item>
+        <item name="android:layout_marginRight">@dimen/margin_29</item>
+    </style>
+    <style name="marginagent_topbuttom">
+        <item name="android:layout_marginTop">@dimen/margin_5</item>
+        <item name="android:layout_marginBottom">@dimen/margin_5</item>
+    </style>
+    <style name="marginall">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginBottom">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+    </style>
+    <style name="marginall_5">
+        <item name="android:layout_marginTop">@dimen/order_margin_5</item>
+        <item name="android:layout_marginBottom">@dimen/order_margin_5</item>
+        <item name="android:layout_marginLeft">@dimen/order_margin_5</item>
+        <item name="android:layout_marginRight">@dimen/order_margin_5</item>
+    </style>
+    <style name="marginall_8_17">
+        <item name="android:layout_marginTop">@dimen/margin_8</item>
+        <item name="android:layout_marginLeft">@dimen/margin_16</item>
+        <item name="android:layout_marginRight">@dimen/margin_16</item>
+    </style>
+    <style name="marquee_style">
+        <item name="android:paddingTop">@dimen/margin_5</item>
+        <item name="android:paddingBottom">@dimen/margin_5</item>
+        <item name="android:paddingLeft">@dimen/margin_10</item>
+        <item name="android:paddingRight">@dimen/margin_10</item>
+    </style>
+    <style name="mobile_style">
+        <item name="android:maxLength">11</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">number</item>
+    </style>
+    <style name="money_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_29</item>
+        <item name="android:layout_marginRight">@dimen/margin_29</item>
+    </style>
+    <style name="mySpinnerStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#cccccc</item>
+        <item name="android:dividerHeight">1px</item>
+
+    </style>
+    <style name="my_card_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_28</item>
+        <item name="android:layout_marginRight">@dimen/margin_28</item>
+    </style>
+    <style name="mystyle" parent="android:Animation">  
+        <item name="@android:windowEnterAnimation">@anim/pop_buttom</item>  //进入时的动画  
+        <item name="@android:windowExitAnimation">@anim/pop_top</item>    //退出时的动画  
+    </style>
+    <style name="nomarl_textstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="pop_buttom_anim_style">
+        <item name="android:windowEnterAnimation">@anim/suit_enter</item>
+        <item name="android:windowExitAnimation">@anim/suit_exit</item>
+    </style>
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+    <style name="red_horizontal_progressbar_style" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/red_progress_drawable</item>
+    </style>
+    <style name="text_12_style">
+        <item name="android:textColor">@color/color_999999</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+    <style name="text_12_style_666">
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+    <style name="text_nomarl_style">
+        <item name="android:layout_margin">@dimen/order_margin_10</item>
+        <item name="android:textColor">@color/gray_line</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+    <style name="text_nomarl_style_12">
+        <item name="android:layout_marginTop">@dimen/order_margin_5</item>
+        <item name="android:layout_marginRight">@dimen/order_margin_10</item>
+        <item name="android:layout_marginBottom">@dimen/order_margin_5</item>
+        <item name="android:layout_marginLeft">@dimen/order_margin_10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray_line</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+    <style name="text_pay_style">
+        <item name="android:paddingBottom">@dimen/margin_12</item>
+        <item name="android:paddingTop">@dimen/margin_12</item>
+        <item name="android:paddingRight">@dimen/margin_15</item>
+        <item name="android:paddingLeft">@dimen/margin_15</item>
+    </style>
+    <style name="textsize_9">
+        <item name="android:textSize">@dimen/text_size_9</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="textstyle">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/yellow</item>
+    </style>
+    <style name="textview_style">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_a1a1a1</item>
+        <item name="android:padding">@dimen/margin_15</item>
+    </style>
+    <style name="textview_style_333">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+    <style name="textview_style_666">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_454545</item>
+    </style>
+    <style name="textview_style_999_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="textview_style_fff_12">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+    </style>
+    <style name="textview_style_hint">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_454545</item>
+    </style>
+    <style name="textview_style_marqueen">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_454545</item>
+        <item name="android:padding">@dimen/margin_10</item>
+    </style>
+    <style name="transtart_Theme_dialog" parent="@android:style/Theme.Dialog">
+	    <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowCloseOnTouchOutside">true</item> 
+       <item name="android:windowAnimationStyle">@anim/dialog_buttom_exit</item>
+	 </style>
+    <style name="umeng_update_dialog_background_custom" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+    <style name="usercenter_text_style">
+        <item name="android:padding">@dimen/margin_15</item>
+        <item name="android:textColor">@color/color_FF333333</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+    <style name="usercenter_text_style_12">
+        <item name="android:textColor">@color/color_FF333333</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+    </style>
+    <style name="white_text_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="white_textstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="yellow_buttonstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_button</item>
+        <item name="android:padding">@dimen/order_margin_10</item>
+    </style>
+</resources>

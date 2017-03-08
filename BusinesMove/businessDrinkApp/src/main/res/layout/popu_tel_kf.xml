@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_ontel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginRight="@dimen/margin_5"
+        android:alpha="0.8"
+        android:background="#202020"
+        android:gravity="center"
+        android:padding="@dimen/margin_10"
+        android:text="电话客服"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginRight="@dimen/margin_5"
+        android:background="#868686"
+        android:paddingLeft="@dimen/margin_10"
+        android:paddingRight="@dimen/margin_10" >
+    </View>
+
+    <TextView
+        android:id="@+id/tv_online"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_marginRight="@dimen/margin_5"
+        android:alpha="0.8"
+        android:background="#202020"
+        android:gravity="center"
+        android:padding="@dimen/margin_10"
+        android:text="在线客服"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12" />
+
+    <ImageView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sanjiao_down" />
+
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/catalog"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:paddingBottom="13dp"
+        android:paddingLeft="18dp"
+        android:paddingTop="13dp"
+        android:text="A"
+        android:textColor="@color/color_565656" />
+
+    <com.heheys.ec.lib.view.DrawLineTextView
+        android:id="@+id/position_address_item_line_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="12dp"
+        android:textColor="@color/black"
+        />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1.0"
+        android:gravity="center_vertical"
+        android:paddingBottom="13dp"
+        android:paddingLeft="18dp"
+        android:paddingTop="13dp"
+        android:text="hhhh"
+        android:textColor="@color/color_565656"
+        android:textSize="@dimen/sf_size_16" />
+
+    <com.heheys.ec.lib.view.DrawLineTextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginRight="13dp"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+</LinearLayout>

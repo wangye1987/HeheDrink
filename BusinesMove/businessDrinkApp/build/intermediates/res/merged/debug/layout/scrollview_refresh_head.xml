@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ListView的头部 -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical" 
+    android:gravity="center_horizontal">
+
+    <ProgressBar
+        android:id="@+id/scrollview_refresh_head_pb"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="visible" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:id="@+id/scrollview_refresh_head_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="释放刷新"
+        android:textColor="#909090"
+        android:textSize="17sp" />
+
+</LinearLayout>

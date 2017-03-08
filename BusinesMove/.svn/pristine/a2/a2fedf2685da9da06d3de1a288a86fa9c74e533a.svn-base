@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/color_FFEDEDED"
+    android:layout_height="match_parent">
+    <com.heheys.ec.lib.view.RefreshListView
+        android:id="@+id/list_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:clickable="true"
+        android:visibility="visible"
+        android:background="@color/white"
+        android:listSelector="@drawable/list_selector" >
+    </com.heheys.ec.lib.view.RefreshListView>
+    <LinearLayout
+        android:id="@+id/linear_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_40"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/margin_20"
+            android:drawableTop="@drawable/collect_empty"
+            android:text="您还没有收藏任何信息呢"
+            android:textColor="@color/color_FF5C5C5C" />
+    </LinearLayout>
+</LinearLayout>

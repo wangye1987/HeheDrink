@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right" >
+
+        <TextView
+            android:id="@+id/groupbuy_list_production_item_bt"
+            android:layout_width="94dp"
+            android:layout_height="32dp"
+            android:layout_margin="@dimen/margin_10"
+            android:background="@drawable/groupbuy_list_item_bg"
+            android:ellipsize="middle"
+            android:focusable="true"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/production_area"
+            android:textColor="@color/group_buy_item_selector"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/groupbuy_list_category_item_bt"
+            android:layout_width="94dp"
+            android:layout_height="32dp"
+            android:layout_margin="@dimen/margin_10"
+            android:background="@drawable/groupbuy_list_item_bg"
+            android:ellipsize="middle"
+            android:focusable="true"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/production_type"
+            android:textColor="@color/group_buy_item_selector"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/view_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_f7f7f7"
+            android:id="@+id/destance_content"
+            android:orientation="vertical" >
+
+            <!-- 城市列表 -->
+
+            <ListView
+                android:id="@+id/show_city_fragment_lv"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="35dp"
+                android:divider="@null"
+                android:listSelector="@drawable/list_selector"
+                android:scrollbars="none" >
+            </ListView>
+
+            <TextView
+                android:id="@+id/show_city_fragment_taost"
+                android:layout_width="80.0dip"
+                android:layout_height="80.0dip"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@color/title_bg"
+                android:gravity="center"
+                android:textColor="#ffffffff"
+                android:textSize="30.0dip"
+                android:visibility="invisible" />
+            <!-- 侧边显示字母控件 -->
+
+            <com.heheys.ec.view.SideView
+                android:id="@+id/show_city_fragment_sideview"
+                android:layout_width="30dp"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="50dp"
+                android:focusable="false" />
+        </RelativeLayout>
+
+        <GridView
+            android:id="@+id/groupbuy_whole_brand_gv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="14dp"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

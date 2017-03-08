@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lv_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linear_share"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_19"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="分享"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/text_size_17" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.heheys.ec.lib.view.RevealLayout
+                android:id="@+id/linear_wxfriend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/weixin_share" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_8"
+                        android:text="微信"
+                        android:textColor="@color/color_999999"
+                        android:textSize="@dimen/text_size_11" />
+            </com.heheys.ec.lib.view.RevealLayout>
+
+            <com.heheys.ec.lib.view.RevealLayout
+                android:id="@+id/linear_wxcicle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/pengyouquan" />
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="@dimen/margin_8"
+                        android:text="朋友圈"
+                        android:textColor="@color/color_999999"
+                        android:textSize="@dimen/text_size_11" />
+            </com.heheys.ec.lib.view.RevealLayout>
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.RevealLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/cancle_share"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="取消"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/text_size_15" />
+        </com.heheys.ec.lib.view.RevealLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_points"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_eeeeeee"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/titlebar_height"
+            android:background="@color/white"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_cancelpoint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_15"
+                android:text="取消"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tv_type_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="使用积分"
+                android:textColor="@color/color_2b2b2b"
+                android:textSize="@dimen/text_size_14" />
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/margin_15"
+                android:text="不使用"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/text_size_12" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingTop="@dimen/margin_17"
+            android:text=""
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size_12" />
+
+        <TextView
+            android:id="@+id/tv_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingTop="@dimen/margin_17"
+            android:text=""
+            android:textColor="@color/color_666666"
+            android:textSize="@dimen/text_size_12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_30"
+            android:paddingLeft="@dimen/margin_15"
+            android:paddingTop="@dimen/margin_17">
+
+            <EditText
+                android:id="@+id/tv_etpoint"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/sharp_login"
+                android:digits=".0123456789"
+                android:hint="请输入要使用的积分个数"
+                android:maxLength="20"
+                android:padding="@dimen/margin_12"
+                android:text=""
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_10"
+                android:text="抵扣:"
+                android:textColor="@color/color_666666" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_10"
+                android:text=""
+                android:textColor="@color/color_af2942" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="bottom|center"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/user_bt"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/linearLayout_height_41"
+                android:background="@color/color_af2942"
+                android:text="确定使用"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_15" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_pay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:id="@+id/linear_hehe"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hehe" />
+
+            <TextView
+                android:id="@+id/TextView02"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="余额支付" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_hehe"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_cccccc" />
+
+        <LinearLayout
+            android:id="@+id/linear_zfb"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/zhifubao" />
+
+            <TextView
+                android:id="@+id/TextView01"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/zfb_pay" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_zfb"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_cccccc"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linear_wx"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/weixin" />
+
+            <TextView
+                android:id="@+id/total_price"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/weixin_pay" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_wx"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_cccccc"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linear_jd"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/jingdong" />
+
+            <TextView
+                android:id="@+id/jd_pay"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/jd_pay" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_jd"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_cccccc"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linear_hb"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/hehe_pay" />
+
+            <TextView
+                android:id="@+id/hb_pay"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/hb_pay" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rb_hb"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_cccccc"
+            android:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/linear_lineoff"
+            style="@style/text_pay_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/arrive" />
+
+            <TextView
+                android:id="@+id/lineoff_pay"
+                style="@style/text_nomarl_style_12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/lineoff_pay" />
+
+            <!-- <TextView
+                android:id="@+id/tv_jfnotice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(消耗100积分)" /> -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_arrive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="" />
+
+                <RadioButton
+                    android:id="@+id/rb_lineoff"
+                    style="@style/SingleCheckBoxStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

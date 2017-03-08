@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\loading_refresh.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\loading_refresh.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\rectangle_loading_bg.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\rectangle_loading_bg.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\bt_bg_yellow.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\bt_bg_yellow.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\loading_head.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\bundles\\debug\\res\\drawable\\loading_head.xml"
+    }
+]

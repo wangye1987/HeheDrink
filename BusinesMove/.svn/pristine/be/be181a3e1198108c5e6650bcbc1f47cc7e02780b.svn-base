@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="0.5px"
+        android:background="@color/color_dfdfdf"
+        android:text="TextView" />
+
+    <LinearLayout
+        android:id="@+id/linear_brands"
+        android:layout_width="60dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/textView"
+        android:background="@color/color_e8e8e8"
+        android:weightSum="1" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_41"
+            android:gravity="center"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/color_333333"
+            android:text="品类" />
+
+        <ListView
+            android:id="@+id/lv_brands"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:listSelector="@android:color/transparent">
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView"
+        android:layout_toRightOf="@id/linear_brands"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:background="@color/color_FFF2F2F2"
+            android:layout_width="match_parent"
+            android:gravity="center|left"
+            android:layout_height="@dimen/linearLayout_height_23"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_hot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="@dimen/text_size_11"
+                android:textColor="@color/color_666666"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="品牌" />
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/grid_brand"
+            android:numColumns="3"
+            android:visibility="visible"
+            android:listSelector="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/lv_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/system_null"
+                android:text="没有查询到结果"
+                android:drawablePadding="10dp"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/text_size_15" />
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

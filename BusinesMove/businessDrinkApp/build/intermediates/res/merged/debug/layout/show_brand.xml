@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="right"
+    android:id="@+id/groupbuy_brand_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/lv_brand"
+        android:layout_width="@dimen/image_height_70"
+        android:layout_height="261dp"
+        android:scrollbars="none"
+        android:layout_marginRight="@dimen/margin_24"
+        android:listSelector="@android:color/transparent"
+        ></ListView>
+
+</LinearLayout>

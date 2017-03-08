@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="15dp"
+        android:background="@drawable/check_city_search_bg"
+        android:padding="10dp" >
+
+        <ImageView
+            android:id="@+id/check_city_search_icon"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="28dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/search_icon" />
+
+        <com.heheys.ec.view.DeleteEditText
+            android:id="@+id/check_city_search_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="18dp"
+            android:layout_toRightOf="@id/check_city_search_icon"
+            android:background="@null"
+            android:ellipsize="end"
+            android:hint="请输入城市中文名称或拼音"
+            android:imeOptions="actionSearch"
+            android:paddingRight="5dp"
+            android:singleLine="true"
+            android:textColorHint="@color/color_c8c8c8"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/check_city_clear_iv"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/search_clear"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lv_city"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:listSelector="@drawable/list_click"
+        android:dividerHeight="0dp" >
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/linaer_delete"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="#545151"
+        android:visibility="gone"
+        android:gravity="center_vertical" >
+
+                    <CheckBox
+                        android:id="@+id/iv_check"
+                        style="@style/CheckBoxStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:textColor="@color/white"
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:text="全选" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/bt_subimt"
+                        android:layout_width="@dimen/button_width"
+                        android:layout_height="@dimen/button_height_38"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:text="@string/ok"
+                        android:textColor="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>

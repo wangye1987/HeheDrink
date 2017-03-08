@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "25.0.0"
+
+    defaultConfig {
+        applicationId "com.heheys.ec"
+        minSdkVersion 14
+        targetSdkVersion 21
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+}
+dependencies {
+    compile project(':businessDrinkAppLib')
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.android.gms:play-services-appindexing:9.8.0'
+    compile files('libs/alipaySingle-20160223.jar')
+    compile files('libs/android-async-http-1.4.5.jar')
+    compile files('libs/GetuiExt-2.0.3.jar')
+    compile files('libs/GetuiSDK2.6.1.0.jar')
+    compile files('libs/httpmime-4.1.2.jar')
+    compile files('libs/libammsdk.jar')
+    compile files('libs/SecurityGuardSDK-5.1.38.jar')
+    compile files('libs/BaiduLBS_Android.jar')
+    compile files('libs/umeng-analytics-v5.5.3.jar')
+    compile files('libs/universal-image-loader-1.9.2-SNAPSHOT-with-sources.jar')
+    compile files('libs/zxing.jar')
+}

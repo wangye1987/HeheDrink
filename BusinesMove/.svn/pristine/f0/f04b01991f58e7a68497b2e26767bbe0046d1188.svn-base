@@ -1,0 +1,143 @@
+package com.heheys.ec.model.adapter;
+
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.lib.base.BaseListAdapter;
+import com.heheys.ec.lib.base.ViewHolderUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.dataBean.CollectGoodsResultBean.CollectGoodResultListBean.CollectGoods;
+
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/26 11:13
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:
+ */
+
+public class GoodCollectAdapter extends BaseListAdapter<CollectGoods> {
+    //特卖视图
+    private static final int SM_LAYOUT = 0;
+    //合伙买视图
+    private static final int HHM_LAYOUT = 1;
+    //E发行视图
+    private static final int YFX_LAYOUT = 2;
+
+
+    //是否编辑
+    private boolean isEdit = false;
+    private int returnLayout;
+    private int TOTAL = 3;
+    public GoodCollectAdapter(List<CollectGoods> data, Context context) {
+        super(data, context);
+    }
+
+    public GoodCollectAdapter(List<CollectGoods> data, Object obj, Context context) {
+        super(data, obj, context);
+    }
+    @Override
+    public int getItemViewType(int position) {
+//        0:合伙 1:甩卖 3:发行价
+        String type = dataList.get(position).getType();
+        if("0".equals(type)){
+            returnLayout = SM_LAYOUT;
+        }else if("1".equals(type)){
+            returnLayout = HHM_LAYOUT;
+        }else if("3".equals(type)){
+            returnLayout = YFX_LAYOUT;
+        }
+        return returnLayout;
+    }
+
+    public void setEdit(boolean isEdit){
+        this.isEdit = isEdit;
+        notifyDataSetChanged();
+    }
+    @Override
+    public View bindView(int position, View convertView, ViewGroup parent) {
+
+        CollectGoods collectbean = dataList.get(position);
+        int viewType = getItemViewType(position);
+        if (convertView == null) {
+            switch (viewType){
+                case SM_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_tm_item,parent,false);
+                    break;
+                case HHM_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_hhm_item,parent,false);
+                    break;
+                case YFX_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_yfx_item,parent,false);
+                    break;
+            }
+        }
+            if(0 == viewType){
+                //特卖视图
+                CheckBox collect_all_tm = (CheckBox) ViewHolderUtil.getItemView(convertView,R.id.collect_all);
+                TextView tm_xl = (TextView) ViewHolderUtil.getItemView(convertView,R.id.tm_xl);
+                TextView tm_kc = (TextView) ViewHolderUtil.getItemView(convertView,R.id.tm_kc);
+                ImageView tm_goods = (ImageView) ViewHolderUtil.getItemView(convertView,R.id.tm_goods);
+                tm_xl.setText("已售:"+collectbean.getSoldnum());
+                tm_kc.setText("库存:"+collectbean.getKcnum());
+                MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(),tm_goods,MyApplication.options);
+                setIsEdit(collect_all_tm);
+
+            }else if(1== viewType){
+                //合伙买视图
+                CheckBox collect_all_hhm = (CheckBox) ViewHolderUtil.getItemView(convertView,R.id.collect_all);
+                TextView hhm_ys = (TextView) ViewHolderUtil.getItemView(convertView,R.id.hhm_ys);
+                TextView hhm_kc = (TextView) ViewHolderUtil.getItemView(convertView,R.id.hhm_kc);
+                ImageView iv_hhm = (ImageView) ViewHolderUtil.getItemView(convertView,R.id.iv_hhm);
+                ProgressBar hhm_pb = (ProgressBar) ViewHolderUtil.getItemView(convertView,R.id.hhm_pb);
+                hhm_ys.setText(collectbean.getSoldnum()+"/");
+                hhm_kc.setText(collectbean.getKcnum()+collectbean.getUnit());
+                MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(),iv_hhm,MyApplication.options_banner);
+                //进度条
+                if (!StringUtil.isEmpty(collectbean.getSoldnum())
+                        && !StringUtil.isEmpty(collectbean.getKcnum())) {
+                    float proportion = (Float.parseFloat(collectbean
+                            .getSoldnum()))
+                            / (float) (Integer.parseInt(collectbean
+                            .getKcnum()));
+                    int progress = (int) (proportion * 100);
+                    Resources res = mcontext.getResources();
+                    hhm_pb.setProgressDrawable(res
+//								.getDrawable(R.drawable.good_pb));
+                            .getDrawable(R.drawable.progressbar_color_gray));
+                    hhm_pb.setProgress(progress);
+                }
+                setIsEdit(collect_all_hhm);
+            }else if(2 == viewType){
+                //E发行视图
+                CheckBox collect_all_fx = (CheckBox) ViewHolderUtil.getItemView(convertView,R.id.collect_all);
+                TextView yfx_price = (TextView) ViewHolderUtil.getItemView(convertView,R.id.yfx_price);
+                TextView fxj_area = (TextView) ViewHolderUtil.getItemView(convertView,R.id.fxj_area);
+                TextView yfx_time = (TextView) ViewHolderUtil.getItemView(convertView,R.id.yfx_time);
+                ImageView iv_yfx = (ImageView) ViewHolderUtil.getItemView(convertView,R.id.iv_yfx);
+                yfx_price.setText(collectbean.getPrice()+"/"+collectbean.getUnit());
+                fxj_area.setText(collectbean.getReleaseArea());
+                yfx_time.setText(collectbean.getEndTime());
+                MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(),iv_yfx,MyApplication.options);
+                setIsEdit(collect_all_fx);
+        }
+        return convertView;
+    }
+
+
+    void setIsEdit(CheckBox cb){
+        if(isEdit)
+            cb.setVisibility(View.VISIBLE);
+        else
+            cb.setVisibility(View.GONE);
+    }
+}

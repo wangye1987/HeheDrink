@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+     android:layout_height="150dp"
+    android:alpha="0.92"
+    android:background="@color/color_545151"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog"
+        android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linear_close"
+        android:layout_width="60dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right"
+        android:gravity="right" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/weirenzheng" />
+    </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/title_linear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="43dp"
+            android:layout_marginRight="43dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_ts_cancle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:autoLink="phone"
+                android:gravity="center"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/text_size_14" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_tel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:background="@color/white"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_32"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tv_sure"
+                android:layout_width="@dimen/button_width_90"
+                android:layout_height="@dimen/button_height_28"
+                android:gravity="center"
+                style="@style/gray_textstyle_14"
+                android:background="@drawable/shape_black_gray"
+                android:visibility="gone"
+                android:text="确定" />
+
+            <TextView
+                android:id="@+id/hehe_im"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height_28"
+                android:background="@drawable/shape_black_gray"
+                android:drawableLeft="@drawable/erji"
+                android:padding="@dimen/margin_5"
+                android:gravity="center"
+                android:visibility="gone"
+                style="@style/gray_textstyle_14"
+                android:text="在线客服" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="44dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                style="@style/gray_textstyle_14"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/hehe_bt_countine"
+                android:padding="@dimen/margin_5"
+                android:layout_width="@dimen/button_width_100"
+                android:layout_height="@dimen/button_height_32"
+                android:background="@drawable/bt_bg_yellow"
+                android:gravity="center"
+                style="@style/white_textstyle"
+                android:text="继续" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 充值金额 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/linearLayout_height_44"
+    android:gravity="center"
+    android:background="@drawable/rechange_bg"
+    android:layout_marginRight="@dimen/margin_6"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_2b2b2b"
+        android:textSize="@dimen/text_size_15"
+        android:text="50" />
+
+    <TextView
+        android:id="@+id/hb"
+        android:layout_toRightOf="@id/tv_money"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_2b2b2b"
+        android:textSize="@dimen/text_size_15"
+        android:text="喝币" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_below="@id/tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/text_size_11"
+        android:layout_marginTop="@dimen/margin_5"
+        android:text="售价:" />
+    <TextView
+        android:layout_toRightOf="@id/tv_price"
+        android:layout_below="@id/tv_money"
+        android:id="@+id/tv_needmoney"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_666666"
+        android:textSize="@dimen/text_size_11"
+        android:text="489" />
+
+</RelativeLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFEAEAEA"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_ffd946"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_10">
+
+        <EditText
+            android:id="@+id/search_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/location_search"
+            android:drawablePadding="@dimen/margin_8"
+            android:background="@color/white"
+            android:hint="请输入地址"
+            android:imeOptions="actionSearch"
+            android:padding="@dimen/margin_10"
+            android:singleLine="true"
+            android:textColorHint="@color/color_999999"
+            android:textSize="@dimen/text_size_13">
+
+
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/top_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_15"
+            android:text="当前位置:" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="@dimen/margin_15">
+
+            <TextView
+                android:id="@+id/tv_nowlcation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="北京市西城区101号" />
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/location"
+                android:drawablePadding="@dimen/margin_5"
+                android:gravity="center"
+                android:text="重新定位"
+                android:textColor="#fbbe1b"
+                android:textSize="@dimen/text_size_12" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/location_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    </ListView>
+</LinearLayout>

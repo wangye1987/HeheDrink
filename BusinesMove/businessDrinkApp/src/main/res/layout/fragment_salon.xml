@@ -1,0 +1,15 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.heheys.ec.controller.fragment.SalonFragment" >
+
+    <com.heheys.ec.lib.view.RefreshListView
+        android:id="@+id/fragment_salon_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:dividerHeight="0dp"
+        android:listSelector="@drawable/list_selector" >
+    </com.heheys.ec.lib.view.RefreshListView>
+
+</RelativeLayout>

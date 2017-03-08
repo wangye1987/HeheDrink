@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\group_buy_item_selector.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\color\\group_buy_item_selector.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\tab_selector_tv_bg.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\color\\tab_selector_tv_bg.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\aliwx_at_msg_mark_all_read_text_color.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\baseWebViewActivity\\build\\intermediates\\bundles\\default\\res\\color\\aliwx_at_msg_mark_all_read_text_color.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\text_brand_color.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\color\\text_brand_color.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\selector_add.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\color\\selector_add.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\res\\merged\\debug\\color\\aliwx_tab_text_color.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\baseWebViewActivity\\build\\intermediates\\bundles\\default\\res\\color\\aliwx_tab_text_color.xml"
+    }
+]

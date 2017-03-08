@@ -1,0 +1,465 @@
+package com.heheys.ec.controller.fragment;
+
+import java.util.HashMap;
+
+import org.apache.http.Header;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseFragment;
+import com.heheys.ec.controller.activity.DestanceChioceActivity;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.AddressListBean;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.CityChioceBean;
+import com.heheys.ec.model.dataBean.UserDefaultAdd;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastNoNetWork;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.utils.ValidatorUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+/**
+ * @author 作者 E-mail:wk
+ * @version 创建时间：2015-9-23 下午5:47:37 类说明
+ * @param 添加地址
+ */
+@SuppressLint("ValidFragment")
+public class NewAddFragemnt extends BaseFragment {
+
+	private AddressListBean bean;
+	private View view;
+	private EditText receiverName;// 收货人
+	private EditText tel;// 电话
+	private TextView destance;
+	private TextView street;
+	private TextView county;
+	private EditText detail_add;
+	private EditText postcode;
+	private Button commit_ok;
+	private static Context context;
+	private Intent intent;
+	private int flag;
+	private int id_1;
+	private int id_2;
+	private int id_3;
+
+	private MyHandler handler = new MyHandler(this);
+	private String province;
+	private String provinceTemp ="";
+	private String city;
+	private String cityTemp ="";
+	private String id = "";
+	private UserDefaultAdd userDefaultAdd;//默认可以送货地址
+	@Override
+	protected boolean isShowLeftIcon() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public NewAddFragemnt(AddressListBean bean) {
+		this.bean = bean;
+	}
+
+	@Override
+	protected View setContentView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.new_address, container, true);
+		context = getActivity();
+		initView();
+		initDate();
+		return view;
+	}
+
+	private void initView() {
+		receiverName = (EditText) view.findViewById(R.id.et_receiverName);
+		tel = (EditText) view.findViewById(R.id.et_tel_link);
+		destance = (TextView) view.findViewById(R.id.et_destance_all);
+		street = (TextView) view.findViewById(R.id.et_street);
+		county = (TextView) view.findViewById(R.id.et_county);
+		detail_add = (EditText) view.findViewById(R.id.et_detail_add);
+		
+		postcode = (EditText) view.findViewById(R.id.et_postcode);
+		commit_ok = (Button) view.findViewById(R.id.commit_ok);
+		commit_ok.setOnClickListener(this);
+
+//		destance.setOnClickListener(this);
+//		street.setOnClickListener(this);
+		county.setOnClickListener(this);
+	}
+
+	private void initDate() {
+		if (bean != null) {
+			receiverName.setText(bean.getName());
+			 tel.setText(bean.getMobile());
+			 destance.setText(bean.getProvincename());
+			 street.setText(bean.getCityname());
+			 county.setText(bean.getCountyname());
+			 detail_add.setText(bean.getAddress());
+			 id  = bean.getId()+"";
+			 id_3 = bean.getCounty();
+		}
+		//获取默认地址
+		ApiHttpCilent.getInstance(context).UserDefaultAdd(context, new MyAddressCallBack());
+	}
+	class MyAddressCallBack extends BaseJsonHttpResponseHandler<UserDefaultAdd> {
+	
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, UserDefaultAdd arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				UserDefaultAdd arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected UserDefaultAdd parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			userDefaultAdd = gson.fromJson(response, UserDefaultAdd.class);
+			Message message = Message.obtain();
+			if ("1".equals(userDefaultAdd.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+				message.obj = userDefaultAdd.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = userDefaultAdd.getError();
+			}
+			handler.sendMessage(message);
+
+			return userDefaultAdd;
+		}
+	}
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		HashMap<String,String> map = new HashMap<String,String>();
+		switch (v.getId()) {
+		case R.id.commit_ok:
+			if (bean != null) {
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_3");//修改
+			}else{
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_1");//新增
+			}
+			if(ToastNoNetWork.ToastError(context)){
+				return;
+			}
+			String tv_receiverName = receiverName.getText().toString().trim();
+			String tv_tel = tel.getText().toString().trim();
+			String tv_destance = destance.getText().toString().trim();
+			String tv_street = street.getText().toString().trim();
+			String tv_county = county.getText().toString().trim();
+			String tv_detail_add = detail_add.getText().toString().trim();
+			if(ToastNull(tv_receiverName,"收货人姓名不能为空")){
+				return;
+			}
+			if(ToastNull(tv_tel,"手机号不能为空")){
+				return;
+			}
+			if(ToastNull(tv_destance,"省份不能为空")){
+				return;
+			}
+			if(ToastNull(tv_street,"城市不能为空")){
+				return;
+			}
+			if(ToastNull(tv_county,"区县不能为空")){
+				return;
+			}
+			if(ToastNull(tv_detail_add,"详细地址不能为空")){
+				return;
+			}
+					
+//			if(!ValidatorUtil.isMobile(tv_tel)){
+//				ToastUtil.showToast(context, "请输入正确的手机号码");
+//				return;
+//			}
+			if(tv_receiverName.length()<2){
+				ToastUtil.showToast(context, "收货人姓名字数不能少于两个字");
+				return;
+			}
+			AddressListBean beans = new AddressListBean();
+			beans.setName(tv_receiverName);
+			beans.setAddress(tv_detail_add);
+			beans.setProvince(id_1);
+			beans.setCity(id_2);
+			beans.setCounty(id_3);
+			beans.setMobile(tv_tel);
+			beans.setProvincename(tv_destance);
+			beans.setCityname(tv_street);
+			beans.setCountyname(tv_county);
+			if(id.equals("")){
+				beans.setId(0);
+			}else{
+				beans.setId(Integer.parseInt(id));
+			}
+			ApiHttpCilent.getInstance(context).CommitAddress(context, beans, new MyCallBack());
+			break;
+		case R.id.et_destance_all:
+			flag = 1;
+			Intent(flag);
+			break;
+		case R.id.et_street:
+			flag = 2;
+			Intent(flag);
+			break;
+		case R.id.et_county:
+			flag = 3;
+			Intent(flag);
+			break;
+		case R.id.base_activity_title_backicon:
+			if (bean != null) {
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_4");//修改
+			}else{
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_2"); 
+			}
+			// 返回键处理
+			onBackPressed();
+			break;
+		default:
+			break;
+		}
+	}
+	private void Dimess() {
+		((Activity) context).runOnUiThread(new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	class MyCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			BaseBean loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+//				message.obj = loginBean.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+
+			return loginBean;
+		}
+	}
+
+	public  class MyHandler extends WeakHandler<NewAddFragemnt> {
+
+		public MyHandler(NewAddFragemnt reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				((Activity) context).setResult(Activity.RESULT_OK, new Intent()); 
+				((Activity) context).finish();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				//返回默认地址
+				bindDefaultAdd();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				String back = (String) msg.obj;
+				ToastUtil.showToast(context, back);
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+	
+	/*
+	 * 返回默认的地址
+	 * */
+	private void bindDefaultAdd() {
+		if(userDefaultAdd !=null && userDefaultAdd.getResult()!=null ){
+			destance.setText(userDefaultAdd.getResult().getProvincename());
+			street.setText(userDefaultAdd.getResult().getCityname());
+			id_1 = userDefaultAdd.getResult().getProvinceid();
+			id_2 = userDefaultAdd.getResult().getCityid();
+		}
+	}
+	private boolean ToastNull(String tv_receiverName,String notice) {
+		if (tv_receiverName == null || tv_receiverName.equals("")) {
+			ToastUtil.showToast(context,notice);
+			return true;
+		}
+		return false;
+	}
+
+	private void Intent(int flag) {
+		intent = new Intent(context, DestanceChioceActivity.class);
+		intent.putExtra("flag", flag);
+		intent.putExtra("index", 0);//区分是订单地址 0    还是买货的地址1
+		if(flag == 2){
+			intent.putExtra("id", id_1);
+		}else if(flag == 3){
+			intent.putExtra("id", id_2);
+		}
+		startActivityForResult(intent,
+				ConstantsUtil.REQUEST_CODE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == ConstantsUtil.REQUEST_CODE && data  != null) {
+			CityChioceBean bean = (CityChioceBean) data.getSerializableExtra("bean");
+			
+			switch (flag) {
+			case 1:
+				province = bean.getName();
+				if(!province.equals(provinceTemp)){
+					street.setText("");
+					county.setText("");
+				}
+				provinceTemp = province;
+				destance.setText(province);
+				id_1 = bean.getId();
+				break;
+			case 2:
+				city = bean.getName();
+				if(!city.equals(cityTemp)){
+					county.setText("");
+				}
+				cityTemp = city;
+				street.setText(bean.getName());
+				id_2 = bean.getId();
+				break;
+			case 3:
+				county.setText(bean.getName());
+				id_3 = bean.getId();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean hasTitleIcon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean hasDownIcon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void onResume() {
+	    super.onResume();
+	    if (bean != null) //编辑
+	    	MobclickAgent.onPageStart("PG_ADDR_MOD"); //统计页面
+	    else
+	    	MobclickAgent.onPageStart("PG_ADDR_ADD"); //统计页面
+	}
+	public void onPause() {
+	    super.onPause();
+	    if (bean != null) //编辑
+	    	MobclickAgent.onPageEnd("PG_ADDR_MOD"); //统计页面
+	    else
+	    	MobclickAgent.onPageEnd("PG_ADDR_ADD"); 
+	}
+}

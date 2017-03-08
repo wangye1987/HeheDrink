@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/linearLayout_height_44"
+    android:background="@color/white" >
+
+
+    <LinearLayout
+        android:id="@+id/linear_checkbox"
+        android:layout_width="@dimen/linearLayout_width_48"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    <CheckBox
+        android:id="@+id/fragment_shopping_cart_bottom_cb"
+        style="@style/SingleCheckBoxStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:layout_marginLeft="15dp"
+         />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_allcheck"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/linear_checkbox"
+        android:text="全选"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/fragment_shopping_cart_bottom_totalprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/tv_allcheck"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计:"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/fragment_shopping_cart_bottom_totalprice_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/fragment_shopping_cart_bottom_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:text=""
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:maxLength="10"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <com.heheys.ec.lib.view.RevealLayout
+        android:id="@+id/fragment_shopping_cart_bottom_settlement_layout"
+        android:layout_toRightOf="@id/fragment_shopping_cart_bottom_totalprice"
+        android:layout_width="@dimen/button_width_90"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="right" >
+
+        <Button
+            android:id="@+id/fragment_shopping_cart_bottom_settlement"
+            android:layout_width="@dimen/button_width_90"
+            android:layout_height="match_parent"
+            android:background="@drawable/pay_bt"
+            android:gravity="center"
+            android:layout_gravity="right"
+            android:text="去结算"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+    </com.heheys.ec.lib.view.RevealLayout>
+
+</RelativeLayout>

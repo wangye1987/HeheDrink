@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/gray"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/group_title_search_parent"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="12dp"
+                android:layout_weight="1"
+                android:background="@drawable/home_search_bg" >
+
+                <ImageView
+                    android:id="@+id/fragment_home_title_search_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="12dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/home_search" />
+
+                <EditText
+                    android:id="@+id/group_title_search_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@id/fragment_home_title_search_icon"
+                    android:background="@null"
+                    android:ellipsize="end"
+                    android:focusableInTouchMode="true"
+                    android:hint="请输入酒的名称或拼音"
+                    android:imeOptions="actionSearch"
+                    android:paddingRight="5dp"
+                    android:singleLine="true"
+                    android:textColorHint="@color/color_c8c8c8"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/group_type_change"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/margin_15" >
+
+                <ImageView
+                    android:id="@+id/group_title_search_iv"
+                    android:layout_width="@dimen/image_width_25"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/show_type_grid" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height" >
+
+            <RelativeLayout
+                android:id="@+id/group_buy_list_default"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_vertical" >
+
+                    <TextView
+                        android:id="@+id/group_buy_list_sort_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="默认"
+                        android:textColor="@color/color_f9883d"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/group_buy_list_arrow_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:src="@drawable/arrow_up" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_buy_list_brand"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_vertical" >
+
+                    <TextView
+                        android:id="@+id/group_buy_list_sale_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="销量"
+                        android:textColor="@color/color_454545"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/group_buy_list_brand_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:src="@drawable/groupbuy_arrow_down_gray" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_buy_list_price"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_vertical" >
+
+                    <TextView
+                        android:id="@+id/group_buy_list_price_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="价格"
+                        android:textColor="@color/color_454545"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/group_buy_list_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:src="@drawable/arrow_down_gray" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/group_buy_sort_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center|center_vertical" >
+
+                    <TextView
+                        android:id="@+id/group_buy_list_sort"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="筛选"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/group_buy_list_arrow_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:src="@drawable/arrow_down_gray" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/group_buy_list_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:background="@color/color_c9c9c9" />
+
+        <com.heheys.ec.view.RefreshOrLoadMoreListViewParent
+            android:id="@+id/group_buy_list_lv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layoutAnimation="@anim/anima_layout"
+            android:scrollbars="none"
+            android:visibility="gone" />
+
+        <com.heheys.ec.view.RefreshOrLoadMoreGridViewParent
+            android:id="@+id/group_buy_list_gv"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layoutAnimation="@anim/anima_layout"
+            android:scrollbars="none"
+            android:visibility="visible" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/group_buy_list_back_totop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="64dp"
+        android:layout_marginRight="17dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:src="@drawable/backtotop"
+        android:visibility="gone" />
+    <!-- 进入购物车 -->
+
+    <ImageView
+        android:id="@+id/group_buy_list_shopping_cart"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="35dp"
+        android:layout_marginRight="25dp"
+        android:clickable="true"
+        android:contentDescription="@string/app_name"
+        android:focusable="true"
+        android:src="@drawable/group_buy_shopping_cart" />
+
+</RelativeLayout>

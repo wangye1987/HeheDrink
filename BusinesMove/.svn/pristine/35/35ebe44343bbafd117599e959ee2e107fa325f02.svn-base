@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<ScrollView 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_32"
+    android:paddingBottom="@dimen/margin_30"
+    >
+    <LinearLayout 
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_48"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_40"
+            android:background="@drawable/sharp_login"
+        android:layout_marginTop="@dimen/margin_5"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/add_tel"
+            style="@style/textview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="姓名"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/add_name_input"
+            style="@style/textview_style_hint"
+            android:layout_width="0dp"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:maxLength="10"
+            android:textColorHint="@color/color_bababa"
+            android:hint="请输入姓名"
+            android:background="@null" >
+
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_tel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+         android:layout_marginTop="@dimen/margin_15"
+         android:layout_marginLeft="@dimen/margin_28"
+        android:orientation="vertical" >
+    <include
+        android:id="@+id/id_linear_tel"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        layout="@layout/add_buscard_item" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:textColor="@color/title_bg"
+        android:layout_marginRight="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_gravity="right"
+        android:text="新增手机号" />
+
+    <LinearLayout
+        android:id="@+id/linear_landline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:orientation="vertical" >
+    <include
+        android:id="@+id/id_linear_plean"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/add_buscard_item" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_plane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginTop="@dimen/margin_8"
+        android:textColor="@color/title_bg"
+        android:layout_marginRight="@dimen/margin_40"
+        android:layout_gravity="right"
+        android:text="新增座机号"  />
+
+    <LinearLayout
+        android:id="@+id/linear_wx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_8"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:orientation="vertical" >
+    <include
+        android:id="@+id/id_linear_weixin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/add_buscard_item" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_weixin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/title_bg"
+        android:layout_gravity="right"
+        android:layout_marginRight="@dimen/margin_40"
+        android:text="新增微信号"  />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_48"
+            android:background="@drawable/sharp_login"
+        android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_40"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/add_position"
+            style="@style/textview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="担当职位" />
+
+        <EditText
+            android:id="@+id/add_posotion_input"
+            style="@style/textview_style_hint"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:maxLength="20"
+            android:textColorHint="@color/color_bababa"
+            android:hint="请输入您的职位"
+            android:background="@null">
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_48"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_40"
+         android:layout_marginTop="@dimen/margin_15"
+        android:layout_marginBottom="@dimen/margin_5"
+        android:gravity="center"
+            android:background="@drawable/sharp_login"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/add_company"
+            style="@style/textview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司名称" />
+
+        <EditText
+            android:id="@+id/add_company_input"
+            style="@style/textview_style_hint"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_weight="1"
+            android:hint="请输入公司名称"
+            android:maxLength="20"
+            android:textColorHint="@color/color_bababa"
+            android:singleLine="true"
+           android:background="@null" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_48"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_40"
+        android:layout_marginTop="@dimen/margin_15"
+        android:background="@drawable/sharp_login"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/add_address"
+            style="@style/textview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司地址" />
+
+        <EditText
+            android:id="@+id/add_address_input"
+            style="@style/textview_style_hint"
+            android:layout_width="0dp"
+            android:textColorHint="@color/color_bababa"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_marginRight="@dimen/margin_10"
+            android:hint="请输入公司地址"
+            android:maxLength="75"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:background="@null"
+             >
+        </EditText>
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>
+</LinearLayout>

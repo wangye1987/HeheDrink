@@ -1,0 +1,718 @@
+package com.heheys.ec.model.dataBean;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * @author wangkui E-mail:wang6851317@sina.com
+ * @version 1.0
+ * @param创建时间：2016-3-29 上午11:08:00
+ *  类说明
+ */
+public class MyOrderBaseBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String status;//状态码
+	private MyOrderResult result;//返回结果
+	private ErrorBean error;//返回失败结果
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public ErrorBean getError() {
+		return error;
+	}
+	public void setError(ErrorBean error) {
+		this.error = error;
+	}
+	public MyOrderResult getResult() {
+		return result;
+	}
+	public void setResult(MyOrderResult result) {
+		this.result = result;
+	}
+//	address:
+//	{
+//	"id":""地址信息的id
+//	"name":"收货人"
+//	"mobile":"收货人手机"
+//	"address":"收货人地址"
+//	},
+//	"list":[
+//	"name":"", 商品名称
+//	"num":"",商品sku数量
+//	"currentprice":""  批发价（批发）；成单价（拼单）
+//	"amount":""总金额
+//	“prepayprice”: “单位订金价格 （拼单 - 支付订金时用）
+//	“prepayment”: 已支付订金金额 （拼单 - 支付尾款时用）
+//	“subordstaus”: 子订单（商品项）状态 （待定）
+//	“unit”: 子订单单位名称 （箱/瓶/桶）
+//	“pic”: 商品图片URL
+//	"aid":"活动id",
+//	"type": 活动类型（0-拼单， 1-批发）
+//	]
+//	“paytype”:1 (默认支付方式) //1支付宝2、微信支付3 、京东
+//	"amount":""//支付金额(定金),
+//	"transamount":  待付运费
+//	“transamounted” “已付运费”
+//	“transdesc” 运费描述 
+//	"totalamount":"订单总金额"
+//	"num":"订单总件数"
+//	}
+	public class MyOrderResult implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private String amount;
+		private String transamount;
+		private String transamounted;
+		private String transdesc;
+		private String totalamount;
+		private String paytype;
+		private String totalnum;
+		private String balance;
+		private String coinbalance;
+		private String couponamount;//优惠价格
+		private String couponinfo;//优惠信息
+		private String orderid;//父订单id
+		private String paystatus;//父订单是否需要支付 paystatus: 支付状态  1 待付款(定金),2 待付款(尾款) 3 待付款(全额) 5 已支付 22 已退款
+		private List<String> sid;
+		private AddressBean address;
+		private Invoiceinfo invoice;
+		private String invoiceinfo;
+		private String paytypeinfo;
+		private String scoreinfo;
+		private String status;
+		private String coininfo;
+		private int needbill;
+		private double coinamount;
+		private int settlement_type;//0:在线支付订单 1:货到付款订单
+		private List<PaytypelistDetaile> paytypelist;
+		
+		public List<PaytypelistDetaile> getPaytypelist() {
+			return paytypelist;
+		}
+		public void setPaytypelist(List<PaytypelistDetaile> paytypelist) {
+			this.paytypelist = paytypelist;
+		}
+		public int getSettlement_type() {
+			return settlement_type;
+		}
+		public void setSettlement_type(int settlement_type) {
+			this.settlement_type = settlement_type;
+		}
+		public int getNeedbill() {
+			return needbill;
+		}
+		public void setNeedbill(int needbill) {
+			this.needbill = needbill;
+		}
+		public String getCoinbalance() {
+			return coinbalance;
+		}
+		public void setCoinbalance(String coinbalance) {
+			this.coinbalance = coinbalance;
+		}
+		public double getCoinamount() {
+			return coinamount;
+		}
+		public void setCoinamount(double coinamount) {
+			this.coinamount = coinamount;
+		}
+		public String getStatus() {
+			return status;
+		}
+		public void setStatus(String status) {
+			this.status = status;
+		}
+		public String getCoininfo() {
+			return coininfo;
+		}
+		public void setCoininfo(String coininfo) {
+			this.coininfo = coininfo;
+		}
+		private int madescore;//订单获取的积分
+		
+		public int getMadescore() {
+			return madescore;
+		}
+		public void setMadescore(int madescore) {
+			this.madescore = madescore;
+		}
+		public String getPaytypeinfo() {
+			return paytypeinfo;
+		}
+		public void setPaytypeinfo(String paytypeinfo) {
+			this.paytypeinfo = paytypeinfo;
+		}
+		public String getScoreinfo() {
+			return scoreinfo;
+		}
+		public void setScoreinfo(String scoreinfo) {
+			this.scoreinfo = scoreinfo;
+		}
+		public Invoiceinfo getInvoice() {
+			return invoice;
+		}
+		public void setInvoice(Invoiceinfo invoice) {
+			this.invoice = invoice;
+		}
+		public String getInvoiceinfo() {
+			return invoiceinfo;
+		}
+		public void setInvoiceinfo(String invoiceinfo) {
+			this.invoiceinfo = invoiceinfo;
+		}
+		public String getCouponamount() {
+			return couponamount;
+		}
+		public void setCouponamount(String couponamount) {
+			this.couponamount = couponamount;
+		}
+		public String getCouponinfo() {
+			return couponinfo;
+		}
+		public void setCouponinfo(String couponinfo) {
+			this.couponinfo = couponinfo;
+		}
+		private ArrayList<orderItem> list;
+		
+		public String getBalance() {
+			return balance;
+		}
+		public void setBalance(String balance) {
+			this.balance = balance;
+		}
+		public String getPaystatus() {
+			return paystatus;
+		}
+		public void setPaystatus(String paystatus) {
+			this.paystatus = paystatus;
+		}
+		public String getOrderid() {
+			return orderid;
+		}
+		public void setOrderid(String orderid) {
+			this.orderid = orderid;
+		}
+		public List<String> getSid() {
+			return sid;
+		}
+		public void setSid(List<String> sid) {
+			this.sid = sid;
+		}
+	
+		public String getTotalnum() {
+			return totalnum;
+		}
+		public void setTotalnum(String totalnum) {
+			this.totalnum = totalnum;
+		}
+		public String getAmount() {
+			return amount;
+		}
+		public void setAmount(String amount) {
+			this.amount = amount;
+		}
+		public String getTransamount() {
+			return transamount;
+		}
+		public void setTransamount(String transamount) {
+			this.transamount = transamount;
+		}
+		public String getTransamounted() {
+			return transamounted;
+		}
+		public void setTransamounted(String transamounted) {
+			this.transamounted = transamounted;
+		}
+		public String getTransdesc() {
+			return transdesc;
+		}
+		public void setTransdesc(String transdesc) {
+			this.transdesc = transdesc;
+		}
+		public String getTotalamount() {
+			return totalamount;
+		}
+		public void setTotalamount(String totalamount) {
+			this.totalamount = totalamount;
+		}
+		public String getPaytype() {
+			return paytype;
+		}
+		public void setPaytype(String paytype) {
+			this.paytype = paytype;
+		}
+		public AddressBean getAddress() {
+			return address;
+		}
+		public void setAddress(AddressBean address) {
+			this.address = address;
+		}
+		public ArrayList<orderItem> getList() {
+			return list;
+		}
+		public void setList(ArrayList<orderItem> list) {
+			this.list = list;
+		}
+	}
+	
+	
+	public static class PaytypelistDetaile implements Serializable{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		private int id;
+		private String name;
+		private boolean isdefault;
+		private boolean enable;
+		private String remark;
+		public int getId() {
+			return id;
+		}
+		public void setId(int id) {
+			this.id = id;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public boolean isIsdefault() {
+			return isdefault;
+		}
+		public void setIsdefault(boolean isdefault) {
+			this.isdefault = isdefault;
+		}
+		public boolean isEnable() {
+			return enable;
+		}
+		public void setEnable(boolean enable) {
+			this.enable = enable;
+		}
+		public String getRemark() {
+			return remark;
+		}
+		public void setRemark(String remark) {
+			this.remark = remark;
+		}
+		
+	}
+	public class Invoiceinfo implements Serializable{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private int invoicecontent;
+		private String invoicetitle;
+		private int invoicetype;
+		public int getInvoicecontent() {
+			return invoicecontent;
+		}
+		public void setInvoicecontent(int invoicecontent) {
+			this.invoicecontent = invoicecontent;
+		}
+		public String getInvoicetitle() {
+			return invoicetitle;
+		}
+		public void setInvoicetitle(String invoicetitle) {
+			this.invoicetitle = invoicetitle;
+		}
+		public int getInvoicetype() {
+			return invoicetype;
+		}
+		public void setInvoicetype(int invoicetype) {
+			this.invoicetype = invoicetype;
+		}
+		
+	}
+	public class orderItem implements Serializable{
+/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		//		"name":"", 商品名称
+//		"num":"",商品sku数量
+//		"currentprice":""  批发价（批发）；成单价（拼单）
+//		"amount":""总金额
+//		“prepayprice”: “单位订金价格 （拼单 - 支付订金时用）
+//		“prepayment”: 已支付订金金额 （拼单 - 支付尾款时用）
+//		“subordstaus”: 子订单（商品项）状态 （待定）
+//		“unit”: 子订单单位名称 （箱/瓶/桶）
+//		“pic”: 商品图片URL
+//		"aid":"活动id",
+//		"type": 活动类型（0-拼单， 1-批发）
+		private String name;
+		private String num;
+		private String currentprice;
+		private String amount;
+		private String deamount;
+//		private String prepayprice;
+//		private String prepayment;
+		private String balacePayAmount;
+		private String status;
+		private String subordstaus;
+		private String unit;
+		private String pic;
+		private String aid;
+		private String type;
+		private String paystatus;
+		private int iscod;
+	    private int issuit;//0不是套餐
+		private ArrayList<SuitItem> suitlist;
+		private int  supportCoupon;//0不支持是否支持优惠券
+		private int  supportScore;//0不支持是否支持使用积分
+		private int  supportRewardScore;//0不支持是否产生积分
+
+		public String getStatus() {
+			return status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
+		}
+
+		public String getBalacePayAmount() {
+			return balacePayAmount;
+		}
+
+		public void setBalacePayAmount(String balacePayAmount) {
+			this.balacePayAmount = balacePayAmount;
+		}
+
+		public String getDeamount() {
+			return deamount;
+		}
+
+		public void setDeamount(String deamount) {
+			this.deamount = deamount;
+		}
+
+		public int getSupportCoupon() {
+			return supportCoupon;
+		}
+		public void setSupportCoupon(int supportCoupon) {
+			this.supportCoupon = supportCoupon;
+		}
+		public int getSupportScore() {
+			return supportScore;
+		}
+		public void setSupportScore(int supportScore) {
+			this.supportScore = supportScore;
+		}
+		public int getSupportRewardScore() {
+			return supportRewardScore;
+		}
+		public void setSupportRewardScore(int supportRewardScore) {
+			this.supportRewardScore = supportRewardScore;
+		}
+		public ArrayList<SuitItem> getSuitlist() {
+			return suitlist;
+		}
+		public void setSuitlist(ArrayList<SuitItem> suitlist) {
+			this.suitlist = suitlist;
+		}
+		public int getIssuit() {
+			return issuit;
+		}
+		public void setIssuit(int issuit) {
+			this.issuit = issuit;
+		}
+		public int getIscod() {
+			return iscod;
+		}
+		public void setIscod(int iscod) {
+			this.iscod = iscod;
+		}
+		public String getPaystatus() {
+			return paystatus;
+		}
+		public void setPaystatus(String paystatus) {
+			this.paystatus = paystatus;
+		}
+		public String getName() {
+			return name;
+		}
+		public void setName(String name) {
+			this.name = name;
+		}
+		public String getNum() {
+			return num;
+		}
+		public void setNum(String num) {
+			this.num = num;
+		}
+		public String getCurrentprice() {
+			return currentprice;
+		}
+		public void setCurrentprice(String currentprice) {
+			this.currentprice = currentprice;
+		}
+		public String getAmount() {
+			return amount;
+		}
+		public void setAmount(String amount) {
+			this.amount = amount;
+		}
+//		public String getPrepayprice() {
+//			return prepayprice;
+////		}
+//		public void setPrepayprice(String prepayprice) {
+//			this.prepayprice = prepayprice;
+//		}
+//		public String getPrepayment() {
+//			return prepayment;
+//		}
+//		public void setPrepayment(String prepayment) {
+//			this.prepayment = prepayment;
+//		}
+		public String getSubordstaus() {
+			return subordstaus;
+		}
+		public void setSubordstaus(String subordstaus) {
+			this.subordstaus = subordstaus;
+		}
+		public String getUnit() {
+			return unit;
+		}
+		public void setUnit(String unit) {
+			this.unit = unit;
+		}
+		public String getPic() {
+			return pic;
+		}
+		public void setPic(String pic) {
+			this.pic = pic;
+		}
+		public String getAid() {
+			return aid;
+		}
+		public void setAid(String aid) {
+			this.aid = aid;
+		}
+		public String getType() {
+			return type;
+		}
+		public void setType(String type) {
+			this.type = type;
+		}
+	}
+	
+	public static class SuitItem implements Serializable{
+
+			 /**
+			  * result.list[i].suitlist[i].aid	活动ID
+				result.list[i].suitlist[i].pid	商品ID
+				result.list[i].suitlist[i].bottlevol	规格
+				result.list[i].suitlist[i].currentprice	当前价格
+				result.list[i].suitlist[i].num	单品总数量
+				result.list[i].suitlist[i].pic	商品图片
+				result.list[i].suitlist[i].type	活动类型
+				result.list[i].suitlist[i].unit	商品单位
+				result.list[i].suitlist[i].numPerSuit	每套含量
+				result.list[i].suitlist[i].numPerSuitInfo	每套含量信息
+				 */
+				private static final long serialVersionUID = 1L;
+				private String name;
+				private String aid;
+				private String pid;
+				private String bottlevol;
+				private String currentprice;
+				private String num;
+				private String pic;
+				private String type;
+				private String unit;
+				private String numPerSuit;
+				private String numPerSuitInfo;
+				
+				public String getName() {
+					return name;
+				}
+				public void setName(String name) {
+					this.name = name;
+				}
+				public String getAid() {
+					return aid;
+				}
+				public void setAid(String aid) {
+					this.aid = aid;
+				}
+				public String getPid() {
+					return pid;
+				}
+				public void setPid(String pid) {
+					this.pid = pid;
+				}
+				public String getBottlevol() {
+					return bottlevol;
+				}
+				public void setBottlevol(String bottlevol) {
+					this.bottlevol = bottlevol;
+				}
+				public String getCurrentprice() {
+					return currentprice;
+				}
+				public void setCurrentprice(String currentprice) {
+					this.currentprice = currentprice;
+				}
+				public String getNum() {
+					return num;
+				}
+				public void setNum(String num) {
+					this.num = num;
+				}
+				public String getPic() {
+					return pic;
+				}
+				public void setPic(String pic) {
+					this.pic = pic;
+				}
+				public String getType() {
+					return type;
+				}
+				public void setType(String type) {
+					this.type = type;
+				}
+				public String getUnit() {
+					return unit;
+				}
+				public void setUnit(String unit) {
+					this.unit = unit;
+				}
+				public String getNumPerSuit() {
+					return numPerSuit;
+				}
+				public void setNumPerSuit(String numPerSuit) {
+					this.numPerSuit = numPerSuit;
+				}
+				public String getNumPerSuitInfo() {
+					return numPerSuitInfo;
+				}
+				public void setNumPerSuitInfo(String numPerSuitInfo) {
+					this.numPerSuitInfo = numPerSuitInfo;
+				}
+	}
+	public class AddressBean implements Serializable {
+		private static final long serialVersionUID = 1L;
+		private int uid;
+		private int id;
+		private int county;
+		private int province;
+		private String areacode;
+		private int city;
+		private String name;
+		private String mobile;
+		private String address;
+		private String provincename;
+		private String cityname;
+		private String countyname;
+
+		public String getProvincename() {
+			return provincename;
+		}
+
+		public void setProvincename(String provincename) {
+			this.provincename = provincename;
+		}
+
+		public String getCityname() {
+			return cityname;
+		}
+
+		public void setCityname(String cityname) {
+			this.cityname = cityname;
+		}
+
+		public String getCountyname() {
+			return countyname;
+		}
+
+		public void setCountyname(String countyname) {
+			this.countyname = countyname;
+		}
+
+		public int getUid() {
+			return uid;
+		}
+
+		public void setUid(int uid) {
+			this.uid = uid;
+		}
+
+		public int getId() {
+			return id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
+
+		public int getCounty() {
+			return county;
+		}
+
+		public void setCounty(int county) {
+			this.county = county;
+		}
+
+		public int getProvince() {
+			return province;
+		}
+
+		public void setProvince(int province) {
+			this.province = province;
+		}
+
+		public int getCity() {
+			return city;
+		}
+
+		public void setCity(int city) {
+			this.city = city;
+		}
+
+		public String getAreacode() {
+			return areacode;
+		}
+
+		public void setAreacode(String areacode) {
+			this.areacode = areacode;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public String getMobile() {
+			return mobile;
+		}
+
+		public void setMobile(String mobile) {
+			this.mobile = mobile;
+		}
+
+		public String getAddress() {
+			return address;
+		}
+
+		public void setAddress(String address) {
+			this.address = address;
+		}
+	}
+}

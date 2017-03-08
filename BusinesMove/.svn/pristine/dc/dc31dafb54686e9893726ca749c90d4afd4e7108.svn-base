@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--建表语句  -->
+    <string-array name="create_table">
+        <!-- 首页选择城市列表 -->
+        <item>
+           	CREATE TABLE IF NOT EXISTS home_city (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            CITY_ID VARCHR(20) NOT NULL , NAME VARCHAR(20) NOT NULL , HOT INTEGER);
+        </item>
+       <!-- 登陆信息表 -->
+        <item>
+            CREATE TABLE IF NOT EXISTS login_infor (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            USERID VARCHAR(20) NOT NULL, MOBILE VARCHAR(30) NOT NULL, VERIFY_STATUS INTEGER, SHOPNAME VARCHAR(20));
+        </item>
+       <!-- 名片管理信息表 -->
+       <!--NAME 名字  -->
+       <!--POSITION 职位  -->
+       <!--COMPANY 公司名字  -->
+       <!--MOBILE 手机号  -->
+       <!--LANDLINE 座机名字  -->
+       <!--WEIXING 微信号  -->
+       <!--	ADDRESS 地址  -->
+       <!--	REMARK 备注  -->
+        <item>
+            CREATE TABLE IF NOT EXISTS buscard_manager (_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, 
+            NAME VARCHAR(20) NOT NULL, POSITION VARCHAR(20) NOT NULL, COMPANY VARCHAR(50) NOT NULL,
+            MOBILE VARCHAR(50) NOT NULL,LANDLINE VARCHAR(50) NOT NULL,WEIXING VARCHAR(50) NOT NULL, 
+            ADDRESS VARCHAR(100) NOT NULL,REMARK VARCHAR(100),  TIME VARCHAR(30) NOT NULL
+            ,ID VARCHAR(30) NOT NULL,VERIFY_STATUS VARCHAR(2) NOT NULL);
+        </item>
+        
+       
+    </string-array>
+    <!-- 删除表语句 -->
+    <string-array name="drop_table">
+        <item>
+            DROP TABLE IF EXISTS home_city ;</item>
+    
+        <item>
+            DROP TABLE IF EXISTS  login_infor ;
+		</item>
+        <item>
+            DROP TABLE IF EXISTS  buscard_manager ;
+		</item>
+        
+            
+        
+    </string-array>
+    
+</resources>

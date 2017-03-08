@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="grid_textsize_10">10dp</dimen>
+    <dimen name="grid_textsize_13">15dp</dimen>
+    <dimen name="order_margin_10">10dp</dimen>
+</resources>

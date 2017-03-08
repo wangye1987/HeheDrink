@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 引导页 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/guide_layout_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/animation_one" >
+
+
+    <!-- 动画布局================== -->
+
+    <RelativeLayout
+        android:id="@+id/guide_layout_anim_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/guide_animation_four"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/animation_four" />
+
+        <ImageView
+            android:id="@+id/guide_animation_three"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/animation_three" />
+
+        <ImageView
+            android:id="@+id/guide_animation_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/animation_two" />
+
+        <ImageView
+            android:id="@+id/guide_animation_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitXY"
+            android:src="@drawable/animation_one" />
+
+        <Button
+            android:textSize="17sp"
+            android:textColor="@color/red_text_color"
+            android:text="开启喝喝之旅"
+            android:id="@+id/guide_animation_bt"
+            android:layout_width="168dp"
+            android:layout_height="33dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/app_name"
+            android:background="@drawable/guide_start_icon"/>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/guide_layout_launcher_iv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
+        android:background="@drawable/animation_one"
+        android:visibility="visible" />
+
+</RelativeLayout>

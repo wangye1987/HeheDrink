@@ -1,0 +1,396 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="WindowAnimation">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_in</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_out</item>
+    </style>
+
+    <!-- <item name="android:windowBackground">@android:color/transparent</item> -->
+    <style name="dialog" parent="@android:Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/color_545151</item>
+        <item name="android:alpha">0.92</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+    <!-- 上下margin -->
+    <style name="marginTopButtom">
+        <item name="android:paddingBottom">@dimen/order_margin_buttom</item>
+        <item name="android:paddingTop">@dimen/order_margin_top</item>
+    </style>
+    <!-- 左右margin -->
+    <style name="marginRightLeft">
+        <item name="android:paddingRight">@dimen/order_margin_10</item>
+        <item name="android:paddingLeft">@dimen/order_margin_10</item>
+    </style>
+
+    <style name="marginall">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginBottom">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+    </style>
+
+    <style name="marginall_5">
+        <item name="android:layout_marginTop">@dimen/order_margin_5</item>
+        <item name="android:layout_marginBottom">@dimen/order_margin_5</item>
+        <item name="android:layout_marginLeft">@dimen/order_margin_5</item>
+        <item name="android:layout_marginRight">@dimen/order_margin_5</item>
+    </style>
+    <style name="marginall_8_17">
+        <item name="android:layout_marginTop">@dimen/margin_8</item>
+        <item name="android:layout_marginLeft">@dimen/margin_16</item>
+        <item name="android:layout_marginRight">@dimen/margin_16</item>
+    </style>
+
+    <style name="marginagent">
+        <item name="android:layout_marginTop">@dimen/margin_10</item>
+        <item name="android:layout_marginBottom">@dimen/margin_10</item>
+        <item name="android:layout_marginLeft">@dimen/margin_20</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+    </style>
+
+    <style name="marginagent_topbuttom">
+        <item name="android:layout_marginTop">@dimen/margin_5</item>
+        <item name="android:layout_marginBottom">@dimen/margin_5</item>
+    </style>
+
+    <style name="marginagent_left">
+        <item name="android:layout_marginLeft">@dimen/margin_29</item>
+        <item name="android:layout_marginRight">@dimen/margin_29</item>
+    </style>
+
+    <style name="textstyle">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/yellow</item>
+    </style>
+    <!-- 灰色文字样式 -->
+    <style name="gray_textstyle">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="gray_textstyle_999999">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="gray_textstyle_15">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_142b">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_14">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_666666</item>
+    </style>
+    <style name="gray_textstyle_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_2b2b2b</item>
+    </style>
+    <style name="gray_textstyle_13_af2942">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_af2942</item>
+    </style>
+    <style name="gray_textstyle_12">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <!-- 白色文字样式 -->
+    <style name="white_textstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="textsize_9">
+        <item name="android:textSize">@dimen/text_size_9</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <!-- 文字样式 居中 -->
+    <style name="nomarl_textstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <!-- 黄色文字样式 圆角 -->
+    <style name="yellow_buttonstyle">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_button</item>
+        <item name="android:padding">@dimen/order_margin_10</item>
+    </style>
+
+    <!-- 条状背景 -->
+    <style name="linearLayout_background">
+        <item name="android:layout_marginBottom">@dimen/order_margin_10</item>
+        <item name="android:layout_marginTop">@dimen/order_margin_10</item>
+    </style>
+    <!-- 条状背景 margin -->
+    <style name="linearLayout_background_5">
+        <item name="android:layout_marginBottom">@dimen/order_margin_5</item>
+        <item name="android:layout_marginTop">@dimen/order_margin_5</item>
+    </style>
+
+    <!-- 字体灰色 margin 大小 -->
+    <style name="text_nomarl_style">
+        <item name="android:layout_margin">@dimen/order_margin_10</item>
+        <item name="android:textColor">@color/gray_line</item>
+        <item name="android:textSize">@dimen/text_size_13</item>
+    </style>
+
+    <!-- 字体灰色 margin 大小 -->
+    <style name="usercenter_text_style">
+        <item name="android:padding">@dimen/margin_15</item>
+        <item name="android:textColor">@color/color_FF333333</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
+    </style>
+    <!-- 多选按钮样式 -->
+    <style name="MultipleCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@null</item>
+    </style>
+
+    <!-- 单选按钮样式 -->
+    <style name="SingleCheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_single_selector</item>
+    </style>
+    <!-- 单选按钮样式 -->
+    <style name="CheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_check</item>
+    </style>
+    <!-- 方形单选按钮样式 -->
+   <style name="SquareSingleCheckboxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/square_checkbox_single_selector</item>
+    </style> 
+
+    <style name="login_text_style">
+        <item name="android:textColor">@color/gray_text</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_10</item>
+        <item name="android:layout_marginRight">@dimen/margin_10</item>
+    </style>
+    <!-- 发送验证码按钮样式 -->
+    <style name="white_text_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="login_text_hint_style">
+        <item name="android:textColorHint">@color/color_bababa</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+    
+    <style name="login_reigster_style">
+        <item name="android:textColorHint">@color/color_bdbdc4</item>
+        <item name="android:textColor">@color/color_bdbdc4</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+    <style name="login_reigster_style_666">
+        <item name="android:textColorHint">@color/color_666666</item>
+        <item name="android:textColor">@color/color_666666</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
+    <style name="login_button_style">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_28</item>
+        <item name="android:layout_marginRight">@dimen/margin_28</item>
+        <item name="android:layout_marginTop">@dimen/margin_53</item>
+        <item name="android:paddingTop">@dimen/margin_16</item>
+        <item name="android:paddingBottom">@dimen/margin_16</item>
+    </style>
+
+    <style name="login_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_25</item>
+    </style>
+    <style name="my_card_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_28</item>
+        <item name="android:layout_marginRight">@dimen/margin_28</item>
+    </style>
+    <style name="money_linear_style">
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:layout_marginLeft">@dimen/margin_29</item>
+        <item name="android:layout_marginRight">@dimen/margin_29</item>
+    </style>
+    <!-- 首页倒计时背景 -->
+    <style name="home_time_bg">
+        <item name="android:alpha">0.8</item>
+        <item name="android:textColor">@color/color_f8f1f1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:background">@drawable/home_time_bg</item>
+    </style>
+    <!-- 首页显示背景 -->
+    <style name="home_time_limit_bg">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:paddingLeft">7dp</item>
+        <item name="android:paddingRight">7dp</item>
+        <item name="android:background">@drawable/time_limit_bg</item>
+    </style>
+    <!-- 电话号码输入限制 -->
+    <style name="mobile_style">
+        <item name="android:maxLength">11</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:inputType">number</item>
+    </style>
+
+    <!-- 左右 间距style -->
+    <style name="marquee_style">
+        <item name="android:paddingTop">@dimen/margin_5</item>
+        <item name="android:paddingBottom">@dimen/margin_5</item>
+        <item name="android:paddingLeft">@dimen/margin_10</item>
+        <item name="android:paddingRight">@dimen/margin_10</item>
+    </style>
+
+    <style name="red_horizontal_progressbar_style" parent="@android:style/Widget.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/red_progress_drawable</item>
+    </style>
+    <!-- custom umeng update bg begin -->
+    <style name="umeng_update_dialog_background_custom" parent="@android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+    <!-- custom umeng update bg end -->
+    <style name="DialogTheme" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimation</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="button_yellow">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:src">@drawable/selector_click_button</item>
+        <item name="android:height">@dimen/button_height_32</item>
+        <item name="android:width">@dimen/button_width_94</item>
+    </style>
+
+    <style name="load_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+    </style>
+
+    <style name="popwin_anim_style">
+        <item name="android:windowEnterAnimation">@anim/pop_enter</item>
+        <item name="android:windowExitAnimation">@anim/pop_out</item>
+    </style>
+    <style name="pop_buttom_anim_style">
+        <item name="android:windowEnterAnimation">@anim/suit_enter</item>
+        <item name="android:windowExitAnimation">@anim/suit_exit</item>
+    </style>
+    
+    <!-- 文本显示style -->
+    <style name="textview_style">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_a1a1a1</item>
+        <item name="android:padding">@dimen/margin_15</item>
+    </style>
+    <style name="textview_style_hint">
+        <item name="android:textSize">@dimen/text_size_15</item>
+        <item name="android:textColor">@color/color_454545</item>
+    </style>
+    <style name="textview_style_333">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_333333</item>
+    </style>
+    <style name="textview_style_666">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_454545</item>
+    </style>
+    <style name="textview_style_999_13">
+        <item name="android:textSize">@dimen/text_size_13</item>
+        <item name="android:textColor">@color/color_999999</item>
+    </style>
+    <style name="textview_style_fff_12">
+        <item name="android:textSize">@dimen/text_size_12</item>
+        <item name="android:textColor">@color/color_ffffff</item>
+    </style>
+    
+    <!-- 文本显示style 待marqueen-->
+    <style name="textview_style_marqueen">
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:textColor">@color/color_454545</item>
+        <item name="android:padding">@dimen/margin_10</item>
+    </style>
+    
+	<style name="mystyle" parent="android:Animation">  
+        <item name="@android:windowEnterAnimation">@anim/pop_buttom</item>  //进入时的动画  
+        <item name="@android:windowExitAnimation">@anim/pop_top</item>    //退出时的动画  
+    </style> 
+    
+	<style name="Theme_dialog"  parent="@android:style/Theme.Dialog">
+	     <item name="android:windowFrame">@null</item>
+
+        <item name="android:windowIsFloating">true</item>
+
+        <item name="android:windowNoTitle">true</item>
+
+        <item name="android:background">@android:color/white</item>
+
+        <item name="android:windowBackground">@android:color/white</item>
+
+        <item name="android:backgroundDimEnabled">true</item>
+
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:windowCloseOnTouchOutside">true</item> 
+       <item name="android:windowAnimationStyle">@anim/dialog_exit</item>
+	 </style>
+	 
+	<style name="transtart_Theme_dialog"  parent="@android:style/Theme.Dialog">
+	    <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.5</item>
+        <item name="android:windowCloseOnTouchOutside">true</item> 
+       <item name="android:windowAnimationStyle">@anim/dialog_buttom_exit</item>
+	 </style>
+	 
+	<!-- spinner分隔符颜色 -->
+	 <style name="applicationTheme" parent="@android:style/Theme.Light">
+                <item name="android:dropDownListViewStyle">@style/mySpinnerStyle</item>
+    </style>
+
+    <style name="mySpinnerStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#cccccc</item>
+        <item name="android:dividerHeight">1px</item>
+
+    </style>
+</resources>

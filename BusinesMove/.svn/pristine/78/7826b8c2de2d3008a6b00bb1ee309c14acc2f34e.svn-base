@@ -1,0 +1,267 @@
+package com.heheys.ec.controller.activity;
+
+import org.apache.http.Header;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.ErrorBean;
+import com.heheys.ec.model.dataBean.MyHeheAccount;
+import com.heheys.ec.model.dataBean.RechargeResultBean;
+import com.heheys.ec.model.dataBean.RechargeResultBean.PayResultBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.thirdPartyModule.IM.LoginSampleHelper;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+/**
+ * @author wangkui
+ *  充值喝喝币结果页
+ */
+public class RechargeResult extends BaseActivity {
+
+	private ImageView iv_result;
+	private TextView tv_result;
+	private TextView tv_recharge;
+	private TextView tv_shopping;
+	private String ordernum;
+	private ResultHandler mHandler;
+	private RechargeResultBean rechargeResultBean;
+	private PayResultBean payResultBean;
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setBaseContentView(R.layout.recharge_result);
+		initView();
+		initData();
+	}
+	
+	private void initData() {
+		mHandler = new ResultHandler(this);
+		Intent intent = getIntent();
+		if(intent != null){
+			ordernum = intent.getStringExtra("ordernum");
+		}
+		if(!StringUtil.isEmpty(ordernum))
+		ApiHttpCilent.getInstance(baseActivity).ResultRecharge(baseActivity, ordernum, new ResultCallBack());
+	}
+	class ResultCallBack extends BaseJsonHttpResponseHandler<RechargeResultBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, RechargeResultBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				RechargeResultBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected RechargeResultBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			rechargeResultBean = gson.fromJson(response, RechargeResultBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(rechargeResultBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = rechargeResultBean.getResult();
+			} else if ("0".equals(rechargeResultBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = rechargeResultBean.getError();
+			}
+			mHandler.sendMessage(message);
+			return rechargeResultBean;
+		}
+	}
+
+	private void Dimess() {
+		RechargeResult.this.runOnUiThread(new Runnable() {
+			public void run() {
+				if (ApiHttpCilent.loading != null
+						&& ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+	// 列表获取成功
+	public class ResultHandler extends WeakHandler<RechargeResult> {
+		public ResultHandler(RechargeResult reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:// 我的喝喝币
+				getReference().bindData();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				ErrorBean errorBean = (ErrorBean) msg.obj;
+				if(errorBean !=null){
+				if ("100".equals(errorBean.getCode())) {
+					// 登录失效
+					ToastUtil.showToast(getReference(), errorBean.getInfo());
+					//注销阿里IM
+//					LoginSampleHelper.getInstance().loginOut_Sample(baseActivity);
+				} else {
+					if (!StringUtil.isEmpty(errorBean.getInfo()))
+						ToastUtil.showToast(baseActivity, errorBean.getInfo());
+				}}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	private void initView() {
+		iv_result = (ImageView) findViewById(R.id.iv_result);
+		tv_result = (TextView) findViewById(R.id.tv_result);
+		tv_recharge = (TextView) findViewById(R.id.tv_recharge);
+		tv_shopping = (TextView) findViewById(R.id.tv_shopping);
+		tv_shopping.setOnClickListener(this);
+		tv_recharge.setOnClickListener(this);
+	}
+
+	@SuppressLint("NewApi") public void bindData() {
+		// TODO Auto-generated method stub
+		if(rechargeResultBean != null && rechargeResultBean.getResult() != null){
+			payResultBean = rechargeResultBean.getResult();
+			if(payResultBean.getSuccess()){
+				iv_result.setBackground(baseActivity.getResources().getDrawable(R.drawable.success));
+				tv_result.setText("充值成功");
+				tv_recharge.setText("查看充值记录");
+			}else{
+				iv_result.setBackground(baseActivity.getResources().getDrawable(R.drawable.fail));
+				tv_result.setText("充值失败");
+				tv_recharge.setText("重新充值");
+			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		Intent intent = new Intent();
+		switch (v.getId()) {
+		case R.id.tv_shopping:
+			intent.setClass(baseActivity, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			StartActivityUtil.startActivity(baseActivity, intent);
+			baseActivity.finish();
+			break;
+		case R.id.tv_recharge:
+			if(payResultBean != null){
+				if(payResultBean.getSuccess()){
+					//成功查看充值记录
+					intent.setClass(baseActivity, MainActivity.class);
+					
+					StartActivityUtil.startActivity(baseActivity, intent);
+				}
+			}
+			break;
+
+		default:
+			break;
+		}
+	}
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

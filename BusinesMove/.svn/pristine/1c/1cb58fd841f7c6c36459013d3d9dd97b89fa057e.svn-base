@@ -1,0 +1,64 @@
+[
+    {
+        "outputFile": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xxhdpi-v4\\values-xxhdpi-v4.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 47,
+                    "endOffset": 98
+                },
+                "from": {
+                    "file": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\values-xxhdpi\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 179,
+                        "endColumn": 47,
+                        "endOffset": 222
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 103,
+                    "endColumn": 47,
+                    "endOffset": 146
+                },
+                "from": {
+                    "file": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\values-xxhdpi\\dimens.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 130,
+                        "endColumn": 47,
+                        "endOffset": 173
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 151,
+                    "endColumn": 46,
+                    "endOffset": 193
+                },
+                "from": {
+                    "file": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkApp\\src\\main\\res\\values-xxhdpi\\dimens.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 228,
+                        "endColumn": 46,
+                        "endOffset": 270
+                    }
+                }
+            }
+        ]
+    }
+]

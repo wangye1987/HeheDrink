@@ -1,0 +1,189 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.heheys.ec.controller.fragment.HomeFragment" >
+
+    <com.heheys.ec.view.RefreshScrollView
+        android:id="@+id/fragment_home_middle_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical" >
+
+            <!-- 头部刷新区域 -->
+
+            <LinearLayout
+                android:id="@+id/head_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+            </LinearLayout>
+
+            <!-- 上部分布局 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp" >
+
+                <!-- 广告页面 -->
+
+                <com.heheys.ec.view.ViewPagerLayout
+                    android:id="@+id/fragment_home_adver"
+                    android:layout_width="match_parent"
+                    android:layout_height="194dp" >
+                </com.heheys.ec.view.ViewPagerLayout>
+            </RelativeLayout>
+            <!-- 标签区域 -->
+
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    >
+	    <WebView
+        android:id="@+id/webView_main"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+	    
+	</LinearLayout>
+           <!-- <LinearLayout
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/linearLayout_height_58"
+                android:gravity="center" >
+
+               <TextView
+                    android:id="@+id/fragment_home_drinks_wholesale"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+              		 android:drawableTop="@drawable/home_client_manage_yunpi" 
+                    android:text="云批专区 "
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/border_gray" />
+
+                <TextView
+                    android:id="@+id/fragment_home_mycustomer"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_client_manage"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="终端"
+                    android:visibility="gone"
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:background="@color/border_gray" />
+
+                 <TextView
+                    android:id="@+id/tv_moreOrder"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/home_client_manage_pingdan"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="拼单专区"
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/border_gray" />
+                 <TextView
+                    android:id="@+id/tv_excellent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/home_client_manage_excellent"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="精选专区"
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+
+                <View
+                    android:layout_width="1px"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/border_gray" />
+
+                <TextView
+                    android:id="@+id/fragment_home_salon"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/home_salon"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="沙龙"
+                    android:visibility="gone"
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+                <TextView
+                    android:id="@+id/fragment_home_salonshop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/home_client_manage_shop"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="品牌云店"
+                    android:textColor="@color/color_7f8080"
+                    android:textSize="12sp" />
+            </LinearLayout>-->
+ 		<View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/color_ebebeb" />
+<!--
+            <include layout="@layout/fragment_home_goods" 
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                android:layout_width="match_parent"/>
+
+            <com.heheys.ec.lib.view.CustomCoverFlow
+                android:id="@+id/order_wash_card"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" >
+            </com.heheys.ec.lib.view.CustomCoverFlow>-->
+            
+        </LinearLayout>
+    </com.heheys.ec.view.RefreshScrollView>
+    <!-- 标题栏 -->
+
+    <include
+        android:id="@+id/fragment_home_title_parent"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        layout="@layout/fragment_home_title" />
+
+</RelativeLayout>

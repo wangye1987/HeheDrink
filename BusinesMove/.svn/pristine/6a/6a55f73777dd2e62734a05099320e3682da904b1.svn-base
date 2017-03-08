@@ -1,0 +1,873 @@
+package com.heheys.ec.controller.activity;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
+import org.apache.http.Header;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.os.Message;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.TextPaint;
+import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ClickableSpan;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.alibaba.wireless.security.jaq.JAQException;
+import com.alibaba.wireless.security.jaq.SecurityCipher;
+import com.alibaba.wireless.security.jaq.SecurityInit;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.lib.view.GridViewScrollview;
+import com.heheys.ec.lib.view.ViewUtil;
+import com.heheys.ec.model.adapter.RechangeAdapter;
+import com.heheys.ec.model.dataBean.AlipayBaseBean;
+import com.heheys.ec.model.dataBean.MyHeheAccount;
+import com.heheys.ec.model.dataBean.Rechargebasebean;
+import com.heheys.ec.model.dataBean.MyHeheAccount.MyHeheBean;
+import com.heheys.ec.model.dataBean.MyhhMoneyBaseBean;
+import com.heheys.ec.model.dataBean.MyhhMoneyBaseBean.HeheCardAccount;
+import com.heheys.ec.model.dataBean.MyhhMoneyBaseBean.RechargeCard;
+import com.heheys.ec.model.dataBean.WXPayBaseBean;
+import com.heheys.ec.model.dataBean.BasebeanSign.ResultSignBean;
+import com.heheys.ec.model.dataBean.WXPayBaseBean.weChat;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.thirdPartyModule.payModule.Alipay;
+import com.heheys.ec.thirdPartyModule.payModule.JDPayActivity;
+import com.heheys.ec.thirdPartyModule.payModule.PayResult;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.view.AlertDialogCustom;
+import com.heheys.ec.view.AlertDialogCustom.BalanceCallBack;
+import com.heheys.ec.wxapi.WXPayEntryActivity;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+/**
+ * @author wangkui
+ * 
+ *         喝喝币充值界面
+ */
+public class HeHeMoneyActivity extends BaseActivity implements
+		OnCheckedChangeListener{
+	// 充值视图
+	private LinearLayout linear_recharge;
+	private TextView tv_title;
+	private GridViewScrollview gd_rechaege;
+	private RadioButton rb_jd;
+	private RadioButton rb_wx;
+	private RadioButton rb_zfb;
+	private RadioButton rb_hehe;
+	private TextView tv_pay;
+	private TextView tv_xy;
+	private TextView help;
+	private TextView tv_hehebalance;//我的余额
+	private IWXAPI api;
+	private ReHandler mHandler;
+	private Alipay alipay;
+	private AlipayBaseBean alibasebean;
+	private Context mContext;
+	private String payType = "2";// 0 余额 1 支付宝 2 微信 3 京东
+	private WXPayBaseBean wxpaybasebean;
+	private String helpurl ;
+	
+	private TextView tv_hehedetail;
+	private TextView tv_hehemoney;
+	private EditText re_et;
+	//需要支付的喝喝币钱
+	private float needPay = 0.00f;
+	private CheckBox cb_xy;
+	private MyHeheAccount myhehemoneybean; //我的喝喝币账户余额 数据bean
+	private String agreementurl;//网络协议
+	private String myAccount;//我的喝币余额
+	private MyhhMoneyBaseBean myhhMoneyBaseBean;//充值卡 数据bean
+	private ArrayList<RechargeCard> listcard;//我的充值卡list
+	private RechangeAdapter mrechangeAdapter;
+	private HeheCardAccount heheCardAccount;
+	private Rechargebasebean rechargeoid;//充值返回订单
+	private String coinid = "";//充值卡传充值卡ID 否则 传0
+	private String num = "";//选充值卡时可以不传,随意金额时为该金额
+	private String oid;//充值订单号 
+	private String balance="";
+	private LinearLayout linear_wx;
+	private LinearLayout linear_zfb;
+	private LinearLayout linear_jd;
+	private LinearLayout linear_hehe;
+	private LinearLayout linear_cb;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setBaseContentView(R.layout.hehe_money);
+		initView();
+		initData();
+	}
+
+	private void initData() {
+		mContext = HeHeMoneyActivity.this;
+		mHandler = new ReHandler(this);
+		try {
+			if (SecurityInit.Initialize(this) == 0) {
+				SecurityCipher securityCipher = new SecurityCipher(this);
+				String wx_later_wx = securityCipher.decryptString(
+						ConstantsUtil.APP_ID, ConstantsUtil.JAQ_KEY);
+				api = WXAPIFactory.createWXAPI(this, wx_later_wx);
+			} else {
+				api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			}
+		} catch (JAQException e) {
+			// TODO Auto-generated catch block
+			api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			e.printStackTrace();
+		}
+	}
+
+	class ReHandler extends WeakHandler<HeHeMoneyActivity> {
+
+		public ReHandler(HeHeMoneyActivity reference) {
+			super(reference);
+		}
+
+		@Override
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				 getReference().bindData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				//绑定充值卡
+				 getReference().bindrechargeCardData();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LATER:
+				//去支付
+			     ToPay();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_WXPAY:
+				// 微信支付获取鉴权信息成功
+				WXPay();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				// code=100 登录失效
+				String error = (String) msg.obj;
+				if (!StringUtil.isEmpty(error))
+					ToastUtil.showToast(baseActivity, error);
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST:
+				// 支付宝鉴权成功
+				ResultSignBean resultbean = (ResultSignBean) msg.obj;
+				if (resultbean != null)
+					alipay.Topay(resultbean.getAlipay());
+				break;
+//			case ConstantsUtil.ALI_BACK_CODE:
+//				// 阿里支付回调
+//				// "status":"" 0、没有订单支付记录1、支付成功，可退款，2、支付失败，3、等待支付
+//				// 4、支付超时关闭，5、交易结束，不可退款
+//				String ststus = alibasebean.getResult().getStatus();
+//				if ("1".equals(ststus)) {
+//					ToastUtil.showToast(mContext, "支付成功");
+//				} else if ("2".equals(ststus)) {
+//					ToastUtil.showToast(mContext, "支付失败");
+//				}
+//				break;
+			case NewOrderDetailActivity.SDK_PAY_FLAG:
+				PayResult payResult = new PayResult((String) msg.obj);
+				/**
+				 * 同步返回的结果必须放置到服务端进行验证（验证的规则请看https://doc.open.alipay.com/doc2/
+				 * detail.htm?spm=0.0.0.0.xdvAU6&treeId=59&articleId=103665&
+				 * docType=1) 建议商户依赖异步通知
+				 */
+				String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+//				SignAlipay();
+//				Intent intent = new Intent(baseActivity, WXPayEntryActivity.class);
+//				intent.putExtra("oid", oid);
+//				StartActivityUtil.startActivity(baseActivity, intent);
+				//支付宝跳转
+				PaySuccessJump(oid);
+				String resultStatus = payResult.getResultStatus();
+				// 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
+				/*
+				 * if (TextUtils.equals(resultStatus, "9000")) {
+				 * 
+				 * Toast.makeText(getReference(), "支付成功", Toast.LENGTH_SHORT)
+				 * .show(); getNetData(); } else { // 判断resultStatus
+				 * 为非"9000"则代表可能支付失败 //
+				 * "8000"代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准
+				 * （小概率状态） if (TextUtils.equals(resultStatus, "8000")) {
+				 * Toast.makeText(getReference(), "支付结果确认中",
+				 * Toast.LENGTH_SHORT).show(); } else { //
+				 * 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
+				 * Toast.makeText(getReference(), "支付失败",
+				 * Toast.LENGTH_SHORT).show();
+				 * 
+				 * } }
+				 */
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+
+	//去支付
+	private void ToPay() {
+		// TODO Auto-generated method stub
+	if(rechargeoid != null && 	rechargeoid.getResult() != null && 	!StringUtil.isEmpty(rechargeoid.getResult().getOid())){
+		oid = rechargeoid.getResult().getOid();
+		//获取充值的订单号
+		if ( ConstantsUtil.JD_PAY.equals(payType)) {
+			//京东支付
+			Intent intents = new Intent(mContext,
+					JDPayActivity.class);
+			intents.putExtra("flag",2);// 传递1是购物车跳转过去
+			intents.putExtra("orderId", oid);
+			intents.putExtra("code", "");
+			StartActivityUtil.startActivity((Activity) mContext,
+					intents);
+		} else if (ConstantsUtil.ZFB_PAY.equals(payType)) {
+			//支付宝支付
+			 alipay = new Alipay(mContext, mHandler);
+			 alipay.pay(oid,"","");
+		} else if (ConstantsUtil.WX_PAY.equals(payType)) {
+			//微信支付
+			if(api.isWXAppInstalled() && api.isWXAppSupportAPI()){
+				ApiHttpCilent.getInstance(baseActivity).WXPaySign(mContext, oid,"","wechat", new WXPayCallBack());
+			}else{
+				ToastUtil.showToast(baseActivity, "请您安装微信客户端在完成支付");
+			}
+		}else if( ConstantsUtil.HEHE_PAY.equals(payType)){
+			//喝喝余额支付
+			 new AlertDialogCustom().CreatePayMsg(2,false,HeHeMoneyActivity.this,oid,new BalanceCallBack() {
+				@Override
+				public void backBalance(String balance) {
+					tv_hehebalance.setText(balance);
+					ToastUtil.showToast(mContext, "余额支付成功");
+					//余额充值跳转
+					PaySuccessJump(oid);//第二个参数 0代表支付成 1代表失败
+				}
+				@Override
+				public void close() {
+//					finish();
+					ToastUtil.showToast(mContext, "余额支付失败,请重新支付");
+				}
+			});
+		}}
+	}
+	/**
+	 * 支付成功跳转
+	 * */
+	private void PaySuccessJump(final String oid) {
+		Intent intent = new Intent(baseActivity, PaySuccessActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putBoolean("isOrder", false);//订单 区分订单支付结果和喝喝币支付结果
+		bundle.putString("oid", oid);
+	    intent.putExtra("bundle", bundle);
+		StartActivityUtil.startActivity(baseActivity,intent);
+	}
+	// 请求支付宝异步回调结果
+//	private void SignAlipay() {
+//		ApiHttpCilent.getInstance(baseContext).SignPayResult(mContext, "",
+//				new AlipayCallBack());
+//	}
+
+	private void Dimess() {
+		HeHeMoneyActivity.this.runOnUiThread(new Runnable() {
+			public void run() {
+				if (ApiHttpCilent.loading != null
+						&& ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+
+	/**
+	 * 微信支付
+	 */
+	private void WXPay() {
+		// TODO Auto-generated method stub
+		 if(wxpaybasebean.getResult() != null){
+		 weChat wechat = wxpaybasebean.getResult().getWechat();
+		if (wechat != null) {
+			PayReq request = new PayReq();
+
+			request.appId = wechat.getAppid();
+
+			request.partnerId = wechat.getPartnerid();
+
+			request.prepayId = wechat.getPrepayid();
+
+			request.packageValue = wechat.getPackages();
+
+			request.nonceStr = wechat.getNoncestr();
+
+			request.timeStamp = wechat.getTimestamp();
+
+			request.sign = wechat.getSign();
+
+			request.extData = "app data";
+
+			if (api != null) {
+				api.sendReq(request);
+			}
+			// 存储微信支付相关的oid值
+			MyApplication.getInstance().setOid(oid);
+		}
+		 }
+	}
+
+	// 初始化组件
+	private void initView() {
+		tv_title = (TextView) findViewById(R.id.tv_title);
+		gd_rechaege = (GridViewScrollview) findViewById(R.id.gd_rechaege);
+		linear_recharge = (LinearLayout) findViewById(R.id.linear_recharge);
+		tv_pay = (TextView) findViewById(R.id.tv_pay);
+		rb_jd = (RadioButton) findViewById(R.id.rb_jd);
+		rb_wx = (RadioButton) findViewById(R.id.rb_wx);
+		rb_zfb = (RadioButton) findViewById(R.id.rb_zfb);
+		rb_hehe = (RadioButton) findViewById(R.id.rb_hehe);
+		tv_xy = (TextView) findViewById(R.id.tv_xy);
+		help = (TextView) findViewById(R.id.help);
+		tv_hehebalance = (TextView) findViewById(R.id.tv_hehebalance);
+		re_et = (EditText) findViewById(R.id.re_et);
+		tv_hehemoney = (TextView) findViewById(R.id.tv_hehemoney);
+		tv_hehedetail = (TextView) findViewById(R.id.tv_hehedetail);
+		linear_wx = (LinearLayout) findViewById(R.id.linear_wx);
+		linear_zfb = (LinearLayout) findViewById(R.id.linear_zfb);
+		linear_jd = (LinearLayout) findViewById(R.id.linear_jd);
+		linear_hehe = (LinearLayout) findViewById(R.id.linear_hehe);
+		linear_cb = (LinearLayout) findViewById(R.id.linear_cb);
+		cb_xy = (CheckBox) findViewById(R.id.cb_xy);
+		rb_hehe.setOnCheckedChangeListener(this);
+		rb_zfb.setOnCheckedChangeListener(this);
+		rb_wx.setOnCheckedChangeListener(this);
+		rb_jd.setOnCheckedChangeListener(this);
+		help.setOnClickListener(this);
+		tv_pay.setOnClickListener(this);
+		tv_hehedetail.setOnClickListener(this);
+		
+		linear_cb.setOnClickListener(this);
+		linear_jd.setOnClickListener(this);
+		linear_wx.setOnClickListener(this);
+		linear_zfb.setOnClickListener(this);
+		linear_hehe.setOnClickListener(this);
+		listcard = new ArrayList<RechargeCard>();
+		mrechangeAdapter = new RechangeAdapter(listcard,
+		baseActivity);
+		gd_rechaege.setAdapter(mrechangeAdapter);
+		// 黄色背景
+		gd_rechaege.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		gd_rechaege.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				mrechangeAdapter.setbg(position);
+				re_et.setText("");
+				if(!StringUtil.isEmpty(listcard.get(position).getPrice()))
+				needPay = Float.parseFloat(listcard.get(position).getPrice());
+				tv_pay.setText("立即支付"+DoPrice(needPay)+"元");
+				coinid = listcard.get(position).getId();
+				num = "";
+			}
+		});
+		SpannableStringBuilder spannable = new SpannableStringBuilder(tv_xy.getText().toString().trim());
+//		ForegroundColorSpan colorSpan = new ForegroundColorSpan(getResources().getColor(R.color.color_af2942));
+		spannable.setSpan(new MyClickText(this), 2,tv_xy.getText().toString().trim().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv_xy.setText(spannable);
+		//设置部分文字可以点击
+		tv_xy.setMovementMethod(LinkMovementMethod.getInstance());
+		tv_xy.setHighlightColor(Color.TRANSPARENT);
+		re_et.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			 
+			}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				String money_input = s.toString().trim();
+				if(!StringUtil.isEmpty(money_input)){
+					//监听是否填写金额
+					if(money_input.contains(".")){
+						   if(money_input.startsWith(".") || isTwo(money_input) || money_input.substring(money_input.indexOf(".")+1).length()>2){
+								   ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+						   }else{
+							   getText(money_input);
+						   }
+					}else{
+							getText(money_input);
+					}
+				}
+			}
+		});
+	}
+	// 处理成2位小数点
+	private String DoPrice(float ft) {
+		 DecimalFormat fnum = new DecimalFormat("##0.00"); 
+		 String fts=fnum.format(ft);
+		 return fts;
+	}
+	
+	private void getText(String money_input) {
+		if(Float.parseFloat(money_input)>=0){
+			mrechangeAdapter.setbg(-1);
+			if(heheCardAccount != null)
+			needPay = Float.parseFloat(money_input) * heheCardAccount.getPrice();
+			tv_pay.setText("立即支付"+DoPrice(needPay)+"元");
+			coinid = "0";
+			num = money_input;
+		}
+	}
+	//判断当前输入是否有2个小数点
+		boolean isTwo(String str){
+		        String des = ".";
+		        int cnt = 0;
+		        int offset = 0;
+		        while((offset = str.indexOf(des, offset)) != -1){
+		            offset = offset + des.length();
+		            cnt++;
+		        }
+		        if(cnt != 1)
+		        		return true;
+		        	else
+		        		return false;
+		}
+	//监听点击电子合同
+	class MyClickText extends ClickableSpan{
+        private Context context;
+
+        public MyClickText(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            //设置文本的颜色
+            ds.setColor(getResources().getColor(R.color.color_af2942));
+            //超链接形式的下划线，false 表示不显示下划线，true表示显示下划线
+            ds.setUnderlineText(false);
+        }
+        @Override
+        public void onClick(View widget) {
+        	if(!StringUtil.isEmpty(agreementurl)){
+            Intent intent = new Intent(baseActivity, JDPayActivity.class);//获取电子合同
+			intent.putExtra("url",agreementurl);
+			intent.putExtra("title", "喝币服务条款");
+			intent.putExtra("flag", 3);//电子合同
+			StartActivityUtil.startActivity(baseActivity, intent);
+        	}
+        }
+    }
+	@Override
+	protected void onCreate() {
+
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+		//我的喝喝币 
+		ApiHttpCilent.getInstance(baseActivity).UserHeheMoney(baseActivity, new MyHeheMoneyCallBack());
+		//可以充值的喝喝币 
+		ApiHttpCilent.getInstance(baseActivity).erchangeHeheMoney(baseActivity, new HeherechargeCallBack());
+	}
+	class HeherechargeCallBack extends BaseJsonHttpResponseHandler<MyhhMoneyBaseBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, MyhhMoneyBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+		
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				MyhhMoneyBaseBean arg3) {
+			Dimess();
+		}
+		
+		@Override
+		protected MyhhMoneyBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			myhhMoneyBaseBean = gson.fromJson(response, MyhhMoneyBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(myhhMoneyBaseBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+				message.obj = myhhMoneyBaseBean.getResult();
+			} else if ("0".equals(myhhMoneyBaseBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = myhhMoneyBaseBean.getError();
+			}
+			mHandler.sendMessage(message);
+			return myhhMoneyBaseBean;
+		}
+	}
+	class MyHeheMoneyCallBack extends BaseJsonHttpResponseHandler<MyHeheAccount> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, MyHeheAccount arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				MyHeheAccount arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected MyHeheAccount parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			myhehemoneybean = gson.fromJson(response, MyHeheAccount.class);
+			Message message = Message.obtain();
+			if ("1".equals(myhehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = myhehemoneybean.getResult();
+			} else if ("0".equals(myhehemoneybean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = myhehemoneybean.getError();
+			}
+			mHandler.sendMessage(message);
+			return myhehemoneybean;
+		}
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+	}
+
+	//绑定
+	public void bindData() {
+		MyHeheBean myHeheBean = myhehemoneybean.getResult();
+		if(myhehemoneybean != null && myHeheBean != null ){
+			myAccount = StringUtil.isEmpty(myHeheBean.getCoin())?"":myHeheBean.getCoin();
+			balance = StringUtil.isEmpty(myHeheBean.getBalance())?"":myHeheBean.getBalance();
+			tv_hehemoney.setText(myAccount);
+			tv_hehebalance.setText(balance);
+			helpurl = myHeheBean.getHelpurl();
+			agreementurl = myHeheBean.getAgreementurl();
+			Spannable WordtoSpan = new SpannableString(myAccount);  
+			WordtoSpan.setSpan(new AbsoluteSizeSpan(50), 0, myAccount.length()-2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
+			WordtoSpan.setSpan(new AbsoluteSizeSpan(34), myAccount.length()-2, myAccount.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv_hehemoney.setText(WordtoSpan);
+		}
+	}
+	
+	//绑定充值卡
+	public void bindrechargeCardData() {
+		heheCardAccount = myhhMoneyBaseBean.getResult();
+		if(myhhMoneyBaseBean != null && heheCardAccount != null ){
+			listcard = heheCardAccount.getList();
+			mrechangeAdapter.setNewData(listcard);
+			mrechangeAdapter.notifyDataSetChanged();
+			if(listcard !=null && listcard.size()>0){
+			needPay = Float.parseFloat(listcard.get(0).getPrice());
+			coinid = listcard.get(0).getId();
+			}
+			tv_pay.setText("立即支付"+needPay+"元");
+		}
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "我的喝币";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		// TODO Auto-generated method stub
+		setNotCheck();
+		switch (buttonView.getId()) {
+		case R.id.rb_hehe:
+			if (isChecked) {
+				rb_hehe.setChecked(true);
+				payType = "0";
+			}
+			break;
+		case R.id.rb_zfb:
+			if (isChecked) {
+				rb_zfb.setChecked(true);
+				payType = "1";
+			}
+			break;
+		case R.id.rb_wx:
+			if (isChecked) {
+				rb_wx.setChecked(true);
+				payType = "2";
+			}
+			break;
+		case R.id.rb_jd:
+			if (isChecked) {
+				rb_jd.setChecked(true);
+				payType = "3";
+			}
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void setNotCheck() {
+		rb_hehe.setChecked(false);
+		rb_zfb.setChecked(false);
+		rb_wx.setChecked(false);
+		rb_jd.setChecked(false);
+	}
+
+	/*
+	 * 
+	 * 微信支付回调
+	 */
+	class WXPayCallBack extends BaseJsonHttpResponseHandler<WXPayBaseBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, WXPayBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			mHandler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				WXPayBaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected WXPayBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			wxpaybasebean = gson.fromJson(response, WXPayBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(wxpaybasebean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_WXPAY;
+				message.obj = wxpaybasebean.getResult();
+			} else {
+				if (ConstantsUtil.ERROE_LOGIN_CODE.equals(wxpaybasebean
+						.getError().getCode())) {
+					message.what = ConstantsUtil.HTTP_NEED_LOGIN;
+				} else {
+					message.what = ConstantsUtil.HTTP_FAILE;// 错误
+					message.obj = wxpaybasebean.getError().getInfo();
+				}
+			}
+			mHandler.sendMessage(message);
+			return wxpaybasebean;
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.tv_pay:
+		if(String.valueOf(needPay).contains(".")){
+			 if(String.valueOf(needPay).startsWith(".") || isTwo(String.valueOf(needPay))){
+				   if(String.valueOf(needPay).substring(String.valueOf(needPay).indexOf(".")+1).length()>2){
+					   ToastUtil.showToast(baseActivity, "最多2位小数,请您重新输入");
+					   return;
+				   }else{
+					   ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+					   return;
+				   }
+			   }
+			}
+		if(needPay == 0){
+			ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+			return;
+		}
+			if(!cb_xy.isChecked()){
+				ToastUtil.showToast(baseActivity, "请选择喝币条款");
+				return;
+			}
+			ApiHttpCilent.getInstance(baseActivity).crchangeCard(mContext,coinid,num, payType, new RechargeCallBack());
+			break;
+		case R.id.help:
+			if(!StringUtil.isEmpty(helpurl)){
+				Intent intent = new Intent(baseActivity, JDPayActivity.class);//获取电子合同
+				intent.putExtra("url",helpurl);
+				intent.putExtra("title", "喝币使用帮助");
+				intent.putExtra("flag", 3);//积分合同
+				StartActivityUtil.startActivity(baseActivity, intent);
+			}
+			break;
+		case R.id.tv_hehedetail:
+			Intent intent = new Intent(this,HeheMoneyListActivity.class);
+			StartActivityUtil.startActivity(this, intent);
+			break;
+		case R.id.linear_wx:
+			rb_wx.setChecked(true);
+			break;
+		case R.id.linear_jd:
+			rb_jd.setChecked(true);
+			break;
+		case R.id.linear_zfb:
+			rb_zfb.setChecked(true);
+			break;
+		case R.id.linear_hehe:
+			rb_hehe.setChecked(true);
+			break;
+		case R.id.linear_cb:
+			if(cb_xy.isChecked())
+				cb_xy.setChecked(false);
+			else
+				cb_xy.setChecked(true);
+			break;
+		default:
+			break;
+		}
+	}
+
+	
+	boolean isPayType(int type) {
+		switch (type) {
+		case 0:
+			return true;
+		case 1:
+			return true;
+		case 2:
+			return true;
+		case 3:
+			return true;
+		default:
+			return false;
+		}
+	}
+	class RechargeCallBack extends BaseJsonHttpResponseHandler<Rechargebasebean> {
+		
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, Rechargebasebean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				Rechargebasebean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected Rechargebasebean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			java.lang.reflect.Type type = new TypeToken<Rechargebasebean>() {
+			}.getType();
+			rechargeoid = gson.fromJson(response, type);
+			Message message = Message.obtain();
+			if ("1".equals(rechargeoid.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LATER;
+				message.obj = rechargeoid.getResult();
+			} else {
+				if (ConstantsUtil.ERROE_LOGIN_CODE.equals(rechargeoid.getError()
+						.getCode())) {
+					message.what = ConstantsUtil.HTTP_NEED_LOGIN;
+				} else {
+					message.what = ConstantsUtil.HTTP_FAILE;// 错误
+					message.obj = rechargeoid.getError().getInfo();
+				}
+			}
+			mHandler.sendMessage(message);
+			return rechargeoid;
+		}
+	}
+	
+}

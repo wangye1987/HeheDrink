@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+    android:layout_marginTop="@dimen/margin_8"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_48"
+        android:layout_weight="1"
+        android:background="@drawable/sharp_login"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/add_tel"
+            style="@style/textview_style"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="手机" />
+
+        <TextView
+            android:id="@+id/add_more"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="手机"
+            android:visibility="invisible" />
+
+        <EditText
+            android:id="@+id/add_tel_input"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:paddingRight="@dimen/margin_5"
+            android:layout_weight="1"
+            android:background="@null"
+            android:inputType="phone"
+            android:digits="0123456789"
+            style="@style/textview_style_hint"
+            android:textColorHint="@color/color_bababa"
+            android:hint="请输入手机号码"
+            android:maxLength="11" >
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_delete"
+        android:layout_width="@dimen/margin_40"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
+        <ImageView
+            android:id="@+id/add_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/delete_view"
+            android:visibility="invisible" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginBottom="@dimen/margin_10"
+    android:layout_marginTop="@dimen/margin_10">
+
+    <ImageView
+        android:id="@+id/produce_iv_look"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/good_eyes" />
+
+    <TextView
+        android:id="@+id/produce_look_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_toRightOf="@id/produce_iv_look"
+        android:text="11"
+        android:textColor="@color/color_999999" />
+
+    <ImageView
+        android:id="@+id/produce_iv_heart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_30"
+        android:layout_toRightOf="@id/produce_look_tv"
+        android:src="@drawable/good_callocation" />
+
+    <TextView
+        android:id="@+id/produce_heart_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_toRightOf="@id/produce_iv_heart"
+        android:text="112"
+        android:textColor="@color/color_999999" />
+
+    <LinearLayout
+        android:id="@+id/linear_look"
+        android:layout_toRightOf="@id/produce_heart_tv"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+    <ImageView
+        android:id="@+id/produce_iv_people"
+        android:layout_marginLeft="@dimen/margin_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/good_whobuy" />
+
+    <TextView
+        android:id="@+id/produce_tv_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:layout_toRightOf="@id/produce_iv_people"
+        android:text="1 (看谁买了?)"
+        android:textColor="@color/color_999999" />
+    </LinearLayout>
+</RelativeLayout>

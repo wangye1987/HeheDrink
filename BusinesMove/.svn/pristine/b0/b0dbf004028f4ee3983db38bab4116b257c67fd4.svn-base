@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:layout_marginRight="@dimen/margin_20"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginTop="@dimen/margin_20"
+            android:background="@drawable/sharp_login"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:src="@drawable/list_user_default"
+                android:text="开户支行:"
+                android:textColor="@color/color_bababa" />
+
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/yinhang_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入开户行"
+                android:maxLength="50"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="@dimen/text_size_14" >
+
+            </com.heheys.ec.view.DeleteEditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/sharp_login"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:src="@drawable/list_user_default"
+                android:text="银行卡号:"
+                android:textColor="@color/color_bababa" />
+
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/card_num"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:hint="请输入银行卡号"
+                android:maxLength="50"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@drawable/sharp_login"
+            android:gravity="center" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="13dp"
+                android:src="@drawable/list_user_default"
+                android:text="账户名:"
+                android:textColor="@color/color_bababa" />
+
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/name"
+                style="@style/login_text_hint_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入账户名"
+                android:maxLength="50"
+                android:paddingRight="5dp"
+                android:singleLine="true"
+                android:textColor="@color/color_454545" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_yzm"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginTop="@dimen/margin_10" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_weight="1"
+                android:background="@drawable/sharp_login" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="11dp"
+                    android:text="@string/postcode_text"
+                    android:textColor="@color/color_bababa" />
+
+
+                <com.heheys.ec.view.DeleteEditText
+                    android:id="@+id/code_et"
+                    style="@style/login_text_hint_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/tel_authcode"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:textColor="@color/color_454545" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_code"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|right" >
+
+                <com.heheys.ec.lib.view.RevealLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center" >
+
+                    <Button
+                        android:id="@+id/outh_code"
+                        style="@style/white_text_style"
+                        android:layout_width="@dimen/button_width_90"
+                        android:layout_height="@dimen/button_height_48"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:gravity="center"
+                        android:text="@string/send_postcode" />
+                </com.heheys.ec.lib.view.RevealLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10" >
+
+            <TextView
+                android:id="@+id/tv"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证码已经发送到:"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_tel"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_tvnotice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="收款账号用于余额提现，请慎重审核" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_getmoney"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginLeft="@dimen/margin_28"
+            android:layout_marginRight="@dimen/margin_28"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="@color/color_ababab"
+            android:text="保存"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_17" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginTop="13dp" >
+
+        <TextView
+            android:id="@+id/tv_telText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/color_454545" />
+
+        <TextView
+            android:id="@+id/tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/color_454545"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bt_call"
+            android:layout_width="@dimen/button_width_94"
+            android:layout_height="@dimen/button_height_32"
+            android:background="@drawable/selector_click_button"
+            android:text="呼叫"
+            android:textColor="@drawable/selector_white" />
+    </LinearLayout>
+
+</LinearLayout>

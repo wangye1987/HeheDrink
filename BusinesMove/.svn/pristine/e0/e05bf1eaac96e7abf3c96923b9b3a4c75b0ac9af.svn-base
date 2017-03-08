@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visibility="visible"
+    android:id="@+id/produce_hhm"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:textSize="@dimen/text_size_16"
+        android:id="@+id/produce_goods_name"
+        android:maxLength="40"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text=""
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/produce_title_tip"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_below="@id/produce_goods_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_detaile"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"
+        android:padding="2dp"
+        android:text="合伙价" />
+
+    <TextView
+        android:id="@+id/produce_price_and_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_toRightOf="@id/produce_title_tip"
+        android:layout_alignTop="@+id/produce_title_tip"
+        android:textColor="@color/color_af2942"
+        android:text="¥500/箱" />
+    <TextView
+        android:id="@+id/produce_price_dj"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_af2942"
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_toRightOf="@id/produce_price_and_unit"
+        android:layout_alignTop="@+id/produce_price_and_unit"
+        android:text="(定金:¥500/瓶)" />
+    <ProgressBar
+        android:layout_below="@id/produce_title_tip"
+        android:layout_marginTop="@dimen/margin_10"
+        android:layout_alignLeft="@+id/produce_title_tip"
+        android:id="@+id/group_buy_grid_item_pb"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="173dp"
+        android:layout_height="18dp"
+        android:layout_marginRight="20dp"
+        android:max="100" />
+
+    <TextView
+        android:text="进行中:"
+        android:id="@+id/produce_jxz"
+        android:layout_toRightOf="@id/group_buy_grid_item_pb"
+        android:layout_alignTop="@id/group_buy_grid_item_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/poduce_jxz_num"
+        android:layout_toRightOf="@id/produce_jxz"
+        android:layout_alignTop="@id/produce_jxz"
+        android:text="1200"
+        android:textColor="@color/color_af2942"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/poduce_jxz_num_total_unit"
+        android:layout_toRightOf="@id/poduce_jxz_num"
+        android:layout_alignTop="@id/poduce_jxz_num"
+        android:text="/2000/箱"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+
+    <!--统计-->
+    <include
+        android:layout_below="@id/group_buy_grid_item_pb"
+        layout="@layout/look_heart"
+        android:id="@+id/produce_tj"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        ></include>
+
+    <!-- <RelativeLayout
+         android:layout_below="@id/group_buy_grid_item_pb"
+         android:id="@+id/produce_tj"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+
+     </RelativeLayout>-->
+    <!---->
+</RelativeLayout>

@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_data.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_data.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\toast.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\toast.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_address.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_address.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_client.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_client.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_salon_my.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_salon_my.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\listview_foot.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\listview_foot.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_title.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_title.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_businesscard.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_businesscard.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_shopcart.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_shopcart.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_order.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_order.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_network.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_network.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_salon.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_salon.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\listview_head.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\listview_head.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_no_drink_demand.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_no_drink_demand.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_group_buy_empty.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_group_buy_empty.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\submit_order_fail.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\submit_order_fail.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\search_no_data.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\search_no_data.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_activity_load_fail.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_activity_load_fail.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\release\\layout\\base_fragment.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\layout\\base_fragment.xml"
+    }
+]

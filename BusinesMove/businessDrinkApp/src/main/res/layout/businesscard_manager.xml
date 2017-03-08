@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+	<LinearLayout
+	    android:id="@+id/fragment_home_title_search_parent"
+	    android:layout_width="match_parent"
+	    android:layout_height="40dp"
+	    android:layout_marginLeft="@dimen/margin_10"
+	    android:background="@null"
+	    android:gravity="center" >
+
+		<TextView
+		    android:id="@+id/tv_title"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_weight="1" />
+
+		<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="match_parent"
+		    android:layout_weight="1"
+		    android:gravity="center" >
+
+			<ImageView
+			    android:id="@+id/fragment_home_title_search_icon"
+			    android:layout_width="15dp"
+			    android:layout_height="16dp"
+			    android:layout_marginLeft="12dp"
+			    android:layout_marginRight="12dp"
+			    android:clickable="true"
+			    android:contentDescription="@string/app_name"
+			    android:src="@drawable/home_search" />
+
+			<EditText
+			    android:id="@+id/fragment_home_title_search_et"
+			    android:layout_width="wrap_content"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1"
+			    android:background="@null"
+			    android:ellipsize="end"
+			    android:gravity="left|center"
+			    android:hint="请输入联系人"
+			    android:imeOptions="actionSearch"
+			    android:singleLine="true"
+			    android:textColorHint="@color/color_c8c8c8"
+			    android:textSize="12sp" >
+
+			    <requestFocus />
+			</EditText>
+
+		</LinearLayout>
+	</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_mycard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_margin="@dimen/order_margin_10"    
+		android:visibility="gone" 
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_name_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="姓名" />
+
+            <TextView
+                android:id="@+id/tv_tel_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="电话" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tv_landline_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="座机" />
+
+            <TextView
+                android:id="@+id/tv_wx_me"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_position_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="开发" />
+
+        <TextView
+            android:id="@+id/tv_company_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="喝喝云商" />
+
+        <TextView
+            android:id="@+id/tv_address_me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京朝阳" />
+
+    </LinearLayout>
+<!-- <RelativeLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical" >
+
+    城市列表
+
+    <ListView
+        android:id="@+id/businessCard_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="35dp"
+        android:divider="@null"
+        android:listSelector="@drawable/list_selector"
+        android:scrollbars="none" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/show_city_fragment_taost"
+        android:layout_width="80.0dip"
+        android:layout_height="80.0dip"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:background="@color/title_bg"
+        android:gravity="center"
+        android:textColor="#ffffffff"
+        android:textSize="30.0dip"
+        android:visibility="invisible" />
+    侧边显示字母控件
+
+    <com.heheys.ec.view.SideView
+        android:id="@+id/show_city_fragment_sideview"
+        android:layout_width="30dp"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:focusable="false" />
+
+</RelativeLayout> -->
+    <!-- <com.heheys.ec.lib.view.RefreshListView
+        android:id="@+id/businessCard_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:background="@color/white"
+        android:footerDividersEnabled="false"
+        android:listSelector="@drawable/list_selector" >
+    </com.heheys.ec.lib.view.RefreshListView>  -->
+    <ListView
+        android:id="@+id/businessCard_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:listSelector="@drawable/list_selector"
+        android:scrollbars="none" >
+    </ListView>
+
+</LinearLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iv_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_13"
+            android:visibility="invisible"
+            android:src="@drawable/duigou" />
+
+        <TextView
+            android:id="@+id/tv_city"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_40"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_13"
+            android:text="北京"
+            android:textColor="@color/color_565656"
+            android:textSize="@dimen/text_size_14" />
+
+    </LinearLayout>
+
+    <com.heheys.ec.lib.view.DrawLineTextView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="@dimen/margin_32"
+        android:layout_marginRight="@dimen/margin_20" >
+    </com.heheys.ec.lib.view.DrawLineTextView>
+
+</LinearLayout>

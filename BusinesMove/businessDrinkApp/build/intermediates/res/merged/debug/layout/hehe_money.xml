@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+<TextView
+    android:background="@color/color_dfdfdf"
+    android:layout_width="match_parent"
+    android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/coin_bg"
+        android:gravity="center" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_15"
+                android:paddingTop="@dimen/margin_12"
+                android:text="可用喝币"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tv_hehemoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:paddingLeft="@dimen/margin_15"
+                android:paddingTop="@dimen/margin_10"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="@dimen/margin_10"
+            android:gravity="right"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/wh"
+                android:drawablePadding="3dp"
+                android:paddingTop="@dimen/margin_12"
+                android:text="使用帮助"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_12" />
+
+            <TextView
+                android:id="@+id/tv_hehedetail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_24"
+                android:text="收支明细"
+                android:textColor="@color/white"
+                android:drawableRight="@drawable/order_arrow"
+                android:drawablePadding="@dimen/margin_7"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/color_eeeeeee" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_5"
+        android:padding="@dimen/margin_10"
+        android:text="充值喝币"
+        android:textSize="@dimen/text_size_13"
+        android:textColor="@color/color_999999" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_e5e5e5" />
+
+    <FrameLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_eeeeeee" >
+
+            <LinearLayout
+                android:id="@+id/linear_recharge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical" >
+
+                <com.heheys.ec.lib.view.GridViewScrollview
+                    android:id="@+id/gd_rechaege"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_7"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:layout_marginRight="@dimen/margin_15"
+                    android:layout_marginTop="@dimen/margin_6"
+                    android:horizontalSpacing="@dimen/margin_6"
+                    android:numColumns="3"
+                    android:verticalSpacing="@dimen/margin_6" >
+                </com.heheys.ec.lib.view.GridViewScrollview>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_15"
+                    android:paddingBottom="@dimen/margin_8" >
+
+                    <EditText
+                        android:id="@+id/re_et"
+                        android:layout_width="250dp"
+                        android:layout_height="@dimen/button_height_33"
+                        android:background="@drawable/rechange_bg"
+                        android:digits=".0123456789"
+                        android:hint="其他金额:"
+                        android:maxLength="20"
+                        android:paddingLeft="@dimen/margin_5"
+                        android:textColor="@color/color_999999"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_8"
+                        android:text="喝币"
+                        android:textColor="@color/color_666666"
+                        android:textSize="@dimen/text_size_14" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="@color/color_eeeeeee" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/linearLayout_height_35"
+                        android:layout_marginLeft="@dimen/margin_15"
+                        android:gravity="center_vertical"
+                        android:text="请选择支付方式"
+                        android:textColor="@color/color_999999"
+                        android:textSize="@dimen/text_size_13" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1px"
+                        android:background="@color/color_e5e5e5"
+                        android:visibility="visible" />
+
+                    <LinearLayout
+                        android:id="@+id/linear_pay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible" >
+
+                        <LinearLayout
+                            android:id="@+id/linear_wx"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/linearLayout_height_48"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15"
+                            android:visibility="visible" >
+
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/weixin" />
+
+                            <TextView
+                                android:id="@+id/total_price"
+                                style="@style/text_nomarl_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/weixin_pay" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="vertical" >
+
+                                <RadioButton
+                                    android:id="@+id/rb_wx"
+                                    style="@style/SingleCheckBoxStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="true" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/color_e5e5e5"
+                            android:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/linear_zfb"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/linearLayout_height_48"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15" >
+
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/zhifubao" />
+
+                            <TextView
+                                android:id="@+id/TextView01"
+                                style="@style/text_nomarl_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/zfb_pay" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="vertical" >
+
+                                <RadioButton
+                                    android:id="@+id/rb_zfb"
+                                    style="@style/SingleCheckBoxStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/color_e5e5e5"
+                            android:visibility="visible" />
+
+                        <LinearLayout
+                            android:id="@+id/linear_jd"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/linearLayout_height_48"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15" >
+
+                            <ImageView
+                                android:id="@+id/imageView4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/jingdong" />
+
+                            <TextView
+                                android:id="@+id/jd_pay"
+                                style="@style/text_nomarl_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/jd_pay" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="vertical" >
+
+                                <RadioButton
+                                    android:id="@+id/rb_jd"
+                                    style="@style/SingleCheckBoxStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1px"
+                            android:background="@color/color_e5e5e5" />
+
+                        <LinearLayout
+                            android:id="@+id/linear_hehe"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/linearLayout_height_48"
+                            android:background="@color/white"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/margin_15"
+                            android:paddingRight="@dimen/margin_15" >
+
+                            <ImageView
+                                android:id="@+id/imageView1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/hehe" />
+
+                            <TextView
+                                android:id="@+id/TextView02"
+                                style="@style/text_nomarl_style"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="余额支付" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center|right"
+                                android:orientation="horizontal" >
+
+                                <TextView
+                                    android:id="@+id/tv_hehebalance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="@dimen/margin_10"
+                                    android:text=""
+                                    android:textColor="@color/color_999999"
+                                    android:textSize="@dimen/text_size_12"
+                                    android:visibility="visible" />
+
+                                <RadioButton
+                                    android:id="@+id/rb_hehe"
+                                    style="@style/SingleCheckBoxStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top|center"
+                        android:background="@color/color_eeeeeee"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/margin_37"
+                        android:paddingRight="@dimen/margin_37"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/margin_12" >
+
+                        <TextView
+                            android:id="@+id/tv_pay"
+                            android:layout_width="300dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bt_bg_yellow"
+                            android:gravity="center"
+                            android:text="立即支付"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/text_size_17" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            android:background="@color/color_eeeeeee"
+                            android:gravity="center|right" >
+
+                            <LinearLayout
+                                android:id="@+id/linear_cb"
+                                android:layout_width="60dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginRight="@dimen/margin_3"
+                                android:gravity="right|center" >
+
+                                <CheckBox
+                                    android:id="@+id/cb_xy"
+                                    style="@style/SquareSingleCheckboxStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:checked="true"
+                                    android:gravity="center" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tv_xy"
+                                android:layout_width="wrap_content" 
+                                android:layout_height="wrap_content"
+                                android:text="@string/hehe_xy"
+                                android:textSize="@dimen/text_size_12" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+
+</LinearLayout>

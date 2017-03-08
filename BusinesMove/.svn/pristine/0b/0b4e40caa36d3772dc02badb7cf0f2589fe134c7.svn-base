@@ -1,0 +1,487 @@
+package com.heheys.ec.wxapi;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.alibaba.wireless.security.jaq.JAQException;
+import com.alibaba.wireless.security.jaq.SecurityCipher;
+import com.alibaba.wireless.security.jaq.SecurityInit;
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.controller.activity.HeHeMoneyActivity;
+import com.heheys.ec.controller.activity.HeheMoneyListActivity;
+import com.heheys.ec.controller.activity.MainActivity;
+import com.heheys.ec.controller.activity.MyAllOrderActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.AlipayBaseBean;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.OrderItemList;
+import com.heheys.ec.model.dataBean.RechargeResultBean;
+import com.heheys.ec.model.dataBean.RechargeResultBean.PayResultBean;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ActivityManagerUtil;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+
+import org.apache.http.Header;
+
+import java.util.List;
+
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler,OnClickListener{
+	
+	private static final String TAG = "MicroMsg.SDKSample.WXPayEntryActivity";
+	
+    private IWXAPI api;
+
+	private TextView tv_status;//支付结果
+
+	private TextView tv_shopping;//商品
+	
+	private TextView tv_orderid;//订单号
+	
+//	private TextView tv_total;//合计
+	
+	private LinearLayout order_linear;
+
+	private TextView titleName;
+
+	private LinearLayout ivback;
+
+	private int resultcode;
+	
+	private String oidid;//订单号
+	private TextView freight_tv;
+	private MyHandler handler = new MyHandler(this);
+	
+	private AlipayBaseBean alibasebean;
+	
+	private RechargeResultBean rechargeResultBean;
+
+	private ImageView iv_result;
+	private TextView tv_result;
+	private TextView tv_recharge;
+	private TextView tv_shopping_coin;
+	private TextView tv_right;
+
+	private RelativeLayout ra_coin;
+
+	private ScrollView sc_order;
+
+	private PayResultBean payResultBean;
+
+	private String oid;
+
+	private List<OrderItemList> listbean_new;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pay_result);
+        initView();
+        try {
+			if(SecurityInit.Initialize(this) == 0){
+				 SecurityCipher securityCipher = new SecurityCipher(this);
+				 String wx_later_wx = securityCipher.decryptString(ConstantsUtil.APP_ID,ConstantsUtil.JAQ_KEY);
+//				 	api =  WXAPIFactory.createWXAPI(this, wx_later_wx);
+				 	 // 通过WXAPIFactory工厂，获取IWXAPI的实例
+			    	 api = WXAPIFactory.createWXAPI(this, wx_later_wx, false);
+				 }else{
+					 api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+				 }
+		} catch (JAQException e) {
+			// TODO Auto-generated catch block
+			api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			e.printStackTrace();
+		}
+        api.handleIntent(getIntent(), this);
+//        Intent intent = getIntent();
+//        listbean_new = MyApplication.getInstance().getList();
+//        if(intent != null){
+//        	oid = intent.getStringExtra("oid");
+//        	//查询充值订单结果
+//        	ApiHttpCilent.getInstance(this).ResultRecharge(this, oid, new ResultCallBack());
+//        }
+    }
+
+   public void onBackPressed() {
+		// TODO Auto-generated method stub
+		InputMethodManager imm0 = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm0.hideSoftInputFromWindow(ivback.getWindowToken(), 0);
+		super.onBackPressed();
+
+		ActivityManagerUtil.getActivityManager().finishActivity(this);
+		this.overridePendingTransition(R.anim.back_left_into,
+				R.anim.back_right_out);
+	}
+   public class MyHandler extends WeakHandler<WXPayEntryActivity> {
+
+		@SuppressLint("HandlerLeak")
+		public MyHandler(WXPayEntryActivity reference) {
+			super(reference);
+		}
+
+		@SuppressLint("NewApi")
+		@SuppressWarnings("unchecked")
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_FAILE:
+				String result = (String) msg.obj;
+				ToastUtil.showToast(WXPayEntryActivity.this, result);
+				tv_status.setText("支付失败");
+				tv_shopping.setText("重新支付");
+				break;
+			case ConstantsUtil.ALI_BACK_CODE:
+				//阿里支付回调
+//				"status":"" 0、没有订单支付记录1、支付成功，可退款，2、支付失败，3、等待支付 4、支付超时关闭，5、交易结束，不可退款 
+				ra_coin.setVisibility(View.GONE);
+				sc_order.setVisibility(View.VISIBLE);
+				String status = alibasebean.getResult().getStatus();
+				if("1".equals(status)){
+					ToastUtil.showToast(WXPayEntryActivity.this, "支付成功");
+					tv_status.setText("支付成功");
+					tv_shopping.setText("继续逛逛");
+				}else if("2".equals(status)){
+					ToastUtil.showToast(WXPayEntryActivity.this, "支付失败");
+					tv_status.setText("支付失败");
+					tv_shopping.setText("重新支付");
+				}
+				List<com.heheys.ec.model.dataBean.AlipayBaseBean.OrderItemList> listbean_new_list = alibasebean.getResult().getOrder().getList();
+				if(listbean_new_list!=null && listbean_new_list.size()>0){
+					int orderSize = listbean_new_list.size();
+					for(int i=0;i<orderSize;i++){
+						View  view = LinearLayout.inflate(WXPayEntryActivity.this, R.layout.order_goods_item,null);
+						//需要添加view的视图
+						LinearLayout linear_add_good = (LinearLayout) view.findViewById(R.id.linear_add_good);
+						TextView tv_payed = (TextView) view.findViewById(R.id.tv_payed);
+						TextView tv_order_num = (TextView) view.findViewById(R.id.tv_order_num);
+						tv_payed.setText(listbean_new_list.get(i).getPayMoney());
+						tv_order_num.setText("订单号: "+listbean_new_list.get(i).getOrderNum());
+						int itemsize = listbean_new_list.get(i).getProducts().size();
+						List<AlipayBaseBean.Products> list_produce = listbean_new_list.get(i).getProducts();
+						for(int j=0;j<itemsize;j++) {
+							View  view_item = LinearLayout.inflate(WXPayEntryActivity.this, R.layout.goods_item,null);
+							TextView tv_goods_name = (TextView) view_item.findViewById(R.id.tv_goods_name);
+							TextView tv_goods_num  = (TextView) view_item.findViewById(R.id.tv_goods_num);
+							tv_goods_name.setText("商品名称:"+list_produce.get(j).getTitle());
+							tv_goods_num.setText("购买数量:"+list_produce.get(j).getNum()+list_produce.get(j).getUnit());
+							linear_add_good.addView(view_item);
+						}
+						order_linear.addView(view);
+					}
+					freight_tv.setText(alibasebean.getResult().getOrder().getFreight());
+				}
+				break;
+			case ConstantsUtil.HTTP_SUCCESS:
+				bindData();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+   @SuppressLint("NewApi") public void bindData() {
+		// TODO Auto-generated method stub
+		if(rechargeResultBean != null && rechargeResultBean.getResult() != null){
+			ra_coin.setVisibility(View.VISIBLE);
+			sc_order.setVisibility(View.GONE);
+			payResultBean = rechargeResultBean.getResult();
+			tv_recharge.setVisibility(View.VISIBLE);
+			tv_shopping_coin.setVisibility(View.VISIBLE);
+			if(payResultBean.getSuccess()){
+				iv_result.setImageResource(R.drawable.success);
+				tv_result.setText("充值成功!");
+				tv_recharge.setText("查看充值记录");
+			}else{
+				iv_result.setImageResource(R.drawable.fail);
+				tv_result.setText("充值失败!");
+				tv_recharge.setText("重新充值");
+			}
+		}
+	}
+	/**
+	 * 
+	 */
+	private void initView() {
+		ra_coin = (RelativeLayout) findViewById(R.id.ra_coin);
+		sc_order = (ScrollView) findViewById(R.id.sc_order);
+		ivback = (LinearLayout) findViewById(R.id.linear_back);
+		titleName = (TextView) findViewById(R.id.base_activity_title_titlename);
+		tv_status = (TextView) findViewById(R.id.tv_status);
+		tv_shopping = (TextView) findViewById(R.id.tv_shopping);
+		tv_orderid = (TextView) findViewById(R.id.tv_orderid);
+//		tv_total = (TextView) findViewById(R.id.tv_total);
+		order_linear = (LinearLayout) findViewById(R.id.order_linear);
+		iv_result = (ImageView) findViewById(R.id.iv_result);
+		freight_tv = (TextView) findViewById(R.id.freight_tv);
+		tv_result = (TextView) findViewById(R.id.tv_result);
+		tv_recharge = (TextView) findViewById(R.id.tv_recharge);
+		tv_shopping_coin = (TextView) findViewById(R.id.tv_shopping_coin);
+		tv_right = (TextView) findViewById(R.id.base_activity_title_right_righttv);
+		tv_right.setVisibility(View.VISIBLE);
+		tv_right.setText("去首页");
+		tv_shopping_coin.setOnClickListener(this);
+		tv_recharge.setOnClickListener(this);
+		tv_right.setOnClickListener(this);
+		
+		titleName.setText("支付结果");
+		ivback.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				onBackPressed();
+			}
+		});
+		tv_shopping.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(0 == resultcode){
+					Intent i = new Intent(WXPayEntryActivity.this, MainActivity.class);
+					i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+					StartActivityUtil.startActivity(WXPayEntryActivity.this, i);
+					finish();
+				}else{
+					//失败
+//					  继续支付 跳转到订单列表
+					Intent intent = new Intent(WXPayEntryActivity.this, MyAllOrderActivity.class);
+					intent.putExtra("status", "1");
+					StartActivityUtil.startActivity(WXPayEntryActivity.this, intent);
+				}
+			}
+		});
+	}
+
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		setIntent(intent);
+        api.handleIntent(intent, this);
+	}
+
+	@Override
+	public void onReq(BaseReq req) {
+	}
+	@Override
+	public void onResp(BaseResp resp) {
+//		Log.d("TAG", "onPayFinish, errCode = " + resp.errCode);
+//		Log.d("TAG", "onResp------"+resp.toString()+"----"+resp.getType()+"---"+resp.transaction+"--"+resp.openId);
+		resultcode = resp.errCode;
+		//订单列表界面数据
+
+//		OrderResult bean  = (OrderResult) SharedPreferencesUtil.getObject(this,ConstantsUtil.ORDERBEAN);
+		//订单列表详情界面数据
+//		List<orderItem> listbean  = (ArrayList<orderItem>) SharedPreferencesUtil.getObject(this,ConstantsUtil.ORDERBEAN_DETAILR);
+		//订单下单界面  有值是订单支付 没有值是充值支付
+		listbean_new = MyApplication.getInstance().getList();
+
+		//如果
+		oid = MyApplication.getInstance().getOid();
+		
+//		if(bean != null){
+//			View  view = LinearLayout.inflate(this, R.layout.goods_item,null);
+//			TextView tv_goods_name = (TextView) view.findViewById(R.id.tv_goods_name);
+//			TextView tv_goods_num  = (TextView) view.findViewById(R.id.tv_goods_num);
+//			tv_goods_name.setText("商品名称:"+bean.getGoodsname());
+//			tv_goods_num.setText("数量:"+bean.getNum());
+//			tv_orderid.setText("订单号:"+bean.getOid());
+//			ViewUtil.setActivityPrice(tv_total, bean.getAmount());
+//			order_linear.addView(view);
+//			SharedPreferencesUtil.ClearSharedPreferences(this, ConstantsUtil.ORDERBEAN);
+//			oidid = bean.getOid();
+//		}
+//		 if(listbean!=null && listbean.size()>0){
+//			for(int i=0;i<listbean.size();i++){
+//				View  view = LinearLayout.inflate(this, R.layout.goods_item,null);
+//				TextView tv_goods_name = (TextView) view.findViewById(R.id.tv_goods_name);
+//				TextView tv_goods_num  = (TextView) view.findViewById(R.id.tv_goods_num);
+//				tv_goods_name.setText("商品名称:"+listbean.get(i).getName());
+//				tv_goods_num.setText("数量:"+listbean.get(i).getNum()+listbean.get(i).getUnit());
+//				tv_orderid.setText("订单号:"+listbean.get(i).getAid());
+//				ViewUtil.setActivityPrice(tv_total, listbean.get(i).getAmount());
+//				order_linear.addView(view);
+//			}
+//			SharedPreferencesUtil.ClearSharedPreferences(this, ConstantsUtil.ORDERBEAN_DETAILR);
+//			oidid = (String) SharedPreferencesUtil.getObject(this,"oid");;
+//		}else
+//			if(listbean_new!=null && listbean_new.size()>0){
+//			for(int i=0;i<listbean_new.size();i++){
+//				View  view = LinearLayout.inflate(this, R.layout.goods_item,null);
+//				TextView tv_goods_name = (TextView) view.findViewById(R.id.tv_goods_name);
+//				TextView tv_goods_num  = (TextView) view.findViewById(R.id.tv_goods_num);
+//				tv_goods_name.setText("商品名称:"+listbean_new.get(i).getName());
+//				tv_goods_num.setText("数量:"+listbean_new.get(i).getNum()+listbean_new.get(i).getUnit());
+//				tv_orderid.setText("订单号:"+listbean_new.get(i).getAid());
+//				ViewUtil.setActivityPrice(tv_total, listbean_new.get(i).getAmount());
+//				order_linear.addView(view);
+//			}
+//		}else
+		//喝喝币充值结果
+		if(!StringUtil.isEmpty(oid) && listbean_new == null){
+			ApiHttpCilent.getInstance(this).ResultRecharge(this, oid, new ResultCallBack());
+			MyApplication.getInstance().setOid("");
+		}
+		//正常订单请求接口
+		if(listbean_new !=null && !StringUtil.isEmpty(oid)){
+			ApiHttpCilent.getInstance(this).SignPayResult(this, oid, new PayCallBack());
+			MyApplication.getInstance().setOid("");
+			MyApplication.getInstance().setList(null);
+		}
+		if(0 == resp.errCode){
+			tv_status.setText("支付成功");
+			tv_shopping.setText("继续逛逛");
+		}else if(-2 == resp.errCode){
+			tv_status.setText("支付失败");
+			tv_shopping.setText("重新支付");
+		}else if(-1 == resp.errCode){
+			tv_status.setText("支付取消");
+			tv_shopping.setText("重新支付");
+		}
+	}
+	
+	//微信充值结果回调
+	class ResultCallBack extends BaseJsonHttpResponseHandler<RechargeResultBean> {
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, RechargeResultBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			handler.sendMessage(message);
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				RechargeResultBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected RechargeResultBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			 rechargeResultBean = gson.fromJson(response, RechargeResultBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(rechargeResultBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+				message.obj = rechargeResultBean.getResult();
+			} else if ("0".equals(rechargeResultBean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = rechargeResultBean.getError();
+			}
+			handler.sendMessage(message);
+			return rechargeResultBean;
+		}
+	}
+
+	private void Dimess() {
+		WXPayEntryActivity.this.runOnUiThread(new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+
+	//订单结果回调
+	class PayCallBack extends BaseJsonHttpResponseHandler<AlipayBaseBean> {
+		
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, AlipayBaseBean arg4) {
+			Dimess();
+			Message message = Message.obtain();
+			message.what = ConstantsUtil.HTTP_FAILE;// 错误
+			handler.sendMessage(message);
+		}
+		
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				AlipayBaseBean arg3) {
+			Dimess();
+		}
+		
+		@Override
+		protected AlipayBaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			alibasebean = gson.fromJson(response, AlipayBaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(alibasebean.getStatus()) ) {// 获取支付结果
+				message.what = ConstantsUtil.ALI_BACK_CODE;
+			}else if ("0".equals(alibasebean.getStatus())) {
+				message.what = ConstantsUtil.HTTP_FAILE;//
+				message.obj = alibasebean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+			return alibasebean;
+		}
+	}
+
+	private void PayDialog(String result) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.app_tip);
+		builder.setMessage(getString(R.string.pay_result_callback_msg, result));
+		builder.show();
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent();
+		switch (v.getId()) {
+		case R.id.tv_shopping_coin:
+			intent.setClass(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			StartActivityUtil.startActivity(this, intent);
+			this.finish();
+			break;
+		case R.id.tv_recharge:
+			if(payResultBean != null){
+				if(payResultBean.getSuccess()){
+					//成功查看充值记录
+					intent.setClass(this, HeheMoneyListActivity.class);
+					StartActivityUtil.startActivity(this, intent);
+				}else{
+					intent.setClass(this, HeHeMoneyActivity.class);
+					StartActivityUtil.startActivity(this, intent);
+				}
+			}
+			break;
+		case R.id.base_activity_title_right_righttv:
+			//跳转到首页
+			intent.setClass(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			StartActivityUtil.startActivity(this, intent);
+			this.finish();
+			break;
+		default:
+			break;
+		}
+	}
+}

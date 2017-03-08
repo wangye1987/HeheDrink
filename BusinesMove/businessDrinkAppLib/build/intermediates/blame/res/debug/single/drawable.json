@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_bg_yellow.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\bt_bg_yellow.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\loading_head.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\loading_head.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\shape_count.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\shape_count.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\loading_head.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable\\loading_head.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\bt_bg_yellow.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable\\bt_bg_yellow.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\loading_refresh.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable\\loading_refresh.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\rectangle_loading_bg.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\rectangle_loading_bg.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\rectangle_loading_bg.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable\\rectangle_loading_bg.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\rounded_corners.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\rounded_corners.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\loading_refresh.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\loading_refresh.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable\\ripple_bg.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinesMove\\businessDrinkAppLib\\src\\main\\res\\drawable\\ripple_bg.xml"
+    }
+]

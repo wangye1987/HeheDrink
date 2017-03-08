@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <com.heheys.ec.lib.view.RefreshListView
+                android:id="@+id/mycustomer_lv"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:divider="@null"
+                android:footerDividersEnabled="false"
+                android:listSelector="@drawable/list_selector" >
+            </com.heheys.ec.lib.view.RefreshListView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_alignParentBottom="true"
+                android:background="#545151" >
+
+                <com.heheys.ec.lib.view.RevealLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Button
+                        android:id="@+id/bt_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/button_height_48"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_17"
+                        android:layout_marginRight="@dimen/margin_17"
+                        android:layout_marginTop="0dp"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:text="@string/custom_adduser"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_18"
+                        android:visibility="visible" />
+                </com.heheys.ec.lib.view.RevealLayout>
+
+                <LinearLayout
+                    android:id="@+id/linaer_delete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_marginRight="@dimen/margin_10"
+                    android:gravity="center_vertical"
+                    android:visibility="gone" >
+
+                    <CheckBox
+                        android:id="@+id/iv_check"
+                        style="@style/CheckBoxStyle"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_10"
+                        android:text="全选"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/bt_delete"
+                        android:layout_width="@dimen/button_width"
+                        android:layout_height="@dimen/button_height_38"
+                        android:background="@drawable/bt_bg_yellow"
+                        android:text="@string/custom_delete"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/base_activity_no_client"
+            layout="@layout/base_activity_no_client"
+            android:visibility="gone" />
+    </FrameLayout>
+
+</LinearLayout>

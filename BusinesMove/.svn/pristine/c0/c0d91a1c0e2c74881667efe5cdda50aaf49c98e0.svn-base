@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_in_from_bottom.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_in_from_bottom.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\push_right_in.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\push_right_in.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\push_left_out.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\push_left_out.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_out_to_right.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_out_to_right.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\push_right_out.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\push_right_out.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_in_from_top.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_in_from_top.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_in_from_left.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_in_from_left.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_out_to_left.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_out_to_left.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\push_left_in.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\push_left_in.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\loading_dialog_anim.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\loading_dialog_anim.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_in_from_right.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_in_from_right.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_out_to_top.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_out_to_top.xml"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\anim\\activity_out_to_bottom.xml",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\anim\\activity_out_to_bottom.xml"
+    }
+]

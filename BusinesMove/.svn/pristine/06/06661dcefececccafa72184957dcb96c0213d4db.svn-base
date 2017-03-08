@@ -1,0 +1,1002 @@
+package com.heheys.ec.controller.activity;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextWatcher;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+import com.alibaba.wireless.security.jaq.JAQException;
+import com.alibaba.wireless.security.jaq.SecurityCipher;
+import com.alibaba.wireless.security.jaq.SecurityInit;
+import com.heheys.ec.R;
+import com.heheys.ec.base.BaseActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.dataBean.AllOrderBaseBean.OrderResult;
+import com.heheys.ec.model.dataBean.MyOrderBaseBean.MyOrderResult;
+import com.heheys.ec.model.dataBean.MyOrderBaseBean.PaytypelistDetaile;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.Hehemoney;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.OrderList;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.Paytypelist;
+import com.heheys.ec.model.dataBean.NewOrderBaseBean.Score;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastUtil;
+import com.heheys.ec.utils.Utils;
+import com.heheys.ec.utils.ValidatorUtil;
+import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.sdk.modelmsg.WXImageObject;
+import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.sdk.modelmsg.WXTextObject;
+import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.umeng.analytics.MobclickAgent;
+
+import net.sourceforge.simcpux.Util;
+
+import java.io.ByteArrayOutputStream;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.List;
+
+import static com.heheys.ec.utils.Utils.getImage;
+
+/**
+ * @author 作者 E-mail:wk
+ * @version 创建时间：2015-9-23 上午11:18:31 类说明
+ * @param
+ */
+public class PayTypeActivity extends BaseActivity implements
+		OnCheckedChangeListener, TextWatcher {
+
+	private RadioButton jd_check;
+	private RadioButton weixing_check;
+	private int typepay;
+	private RadioButton rb_jd;
+	private RadioButton rb_lineoff;
+	private RadioButton rb_zfb;
+	private RadioButton rb_hehe;
+	//喝喝币支付
+	private RadioButton rb_hb;
+	private RadioButton rb_wx;
+	private String payType;
+	private static int screenHeight;
+	private boolean isFirst = true;// 初始化不调用finish方法
+	// private boolean isList;
+	private LinearLayout linear_hehe;
+	private LinearLayout linear_zfb;
+	private LinearLayout linear_jd;
+	private LinearLayout linear_wx;
+	private LinearLayout linear_hb;
+	private LinearLayout linear_lineoff;
+	private LinearLayout linear_pay;
+	private LinearLayout linear_share;
+	private LinearLayout linear_wxfriend;
+	private LinearLayout linear_wxcicle;
+	private FrameLayout lv_parent;
+	private String share;
+	private IWXAPI api;
+	// 分享出去的url地址
+	private String url;
+	private static final int THUMB_SIZE = 150;// 缩列图大小
+	private OrderResult bean;
+	private TextView hb_pay;//喝喝支付方式
+	private TextView tv_arrive;//是否支持货到付款
+	private TextView tv_cancle;
+	private TextView lineoff_pay;
+	private TextView cancle_share;
+	private TextView tv_sure;
+	private TextView tv_total;
+	private TextView tv_user;
+	private TextView tv_price;
+	private EditText tv_etpoint;
+	private LinearLayout linear_points;
+	private Score score;
+	private Hehemoney coin;
+	private String currecy;
+	private String currecys;
+	private TextView tv_type_title;
+	private Button user_bt;
+	private MyOrderResult myOrderResult;
+	private OrderList orderList;
+	private int addressId;//当前选中的地址ID
+	private String title;
+	private String pic;
+
+	@Override
+	protected void onCreate() {
+		// TODO Auto-generated method stub
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE); // 设置Activity标题不显示
+		this.getWindow().setFlags(LayoutParams.FLAG_FULLSCREEN,
+				LayoutParams.FLAG_FULLSCREEN);// 设置全屏显示
+		setBaseContentView(R.layout.pay_type);
+		initView();
+		initDate();
+		init();
+	}
+
+	private void initDate() {
+		// TODO Auto-generated method stub
+		try {
+			if (SecurityInit.Initialize(this) == 0) {
+				SecurityCipher securityCipher = new SecurityCipher(this);
+				String wx_later_wx = securityCipher.decryptString(
+						ConstantsUtil.APP_ID, ConstantsUtil.JAQ_KEY);
+				api = WXAPIFactory.createWXAPI(this, wx_later_wx);
+			} else {
+				api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			}
+		} catch (JAQException e) {
+			// TODO Auto-generated catch block
+			api = WXAPIFactory.createWXAPI(this, ConstantsUtil.APP_ID_WX);
+			e.printStackTrace();
+		}
+		Intent intent = getIntent();
+		payType = intent.getStringExtra("payType");
+		share = intent.getStringExtra("share");
+		orderList = (OrderList) intent.getSerializableExtra("OrderList");//预付订单传递
+		bean = (OrderResult) intent.getSerializableExtra("bean");//订单列表传递
+		myOrderResult = (MyOrderResult) intent.getSerializableExtra("myOrderResult");//订单详情页点击传递
+		score = (Score) intent.getSerializableExtra("score");
+		addressId = intent.getIntExtra("addressId", -1);
+		coin = (Hehemoney) intent.getSerializableExtra("coin");
+		if (payType != null) {
+			if ("0".equals(payType)) {
+				// 喝喝支付
+				rb_hehe.setChecked(true);
+			} else if ("1".equals(payType)) {
+				rb_zfb.setChecked(true);
+			} else if ("2".equals(payType)) {
+				rb_wx.setChecked(true);
+			} else if ("3".equals(payType)) {
+				rb_jd.setChecked(true);
+			}else if ("-1".equals(payType)) {
+				rb_lineoff.setChecked(true);
+			}else if ("6".equals(payType)) {
+				rb_hb.setChecked(true);
+			}
+			if(orderList  != null){
+				List<Paytypelist> paytypelist = orderList.getPaytypelist();
+				int size = paytypelist.size();
+				if(paytypelist != null && size > 0){
+					for(Paytypelist paylist:paytypelist){
+						if(paylist.getId() == -1){
+							lineoff_pay.setText(StringUtil.isEmpty(paylist.getName())?"货到付款":paylist.getName());
+							tv_arrive.setText(StringUtil.isEmpty(paylist.getRemark())?"":paylist.getRemark());
+							if(!paylist.isEnable())
+								SetNotEable();
+							break;
+						}
+					}
+				}
+			}
+			if(myOrderResult != null){
+				//使用过优惠券或者开发票 都不能使用喝喝币支付 
+				if(Double.parseDouble(StringUtil.isEmpty(myOrderResult.getCouponamount())?"0": myOrderResult.getCouponamount()) > 0 || myOrderResult.getNeedbill() == 1){
+					linear_hb.setEnabled(false);
+					rb_hb.setEnabled(false);
+					hb_pay.setText("喝币支付(不支持当前支付方式)");
+					rb_hb.setVisibility(View.INVISIBLE);
+					linear_hb.setBackgroundColor(this.getResources().getColor(R.color.color_f7f7f7));
+				}
+				List<PaytypelistDetaile> paytypelistDetaile  = myOrderResult.getPaytypelist();
+				if(paytypelistDetaile!=null && paytypelistDetaile.size()>0){
+					int size = paytypelistDetaile.size();
+					for(PaytypelistDetaile detaileType:paytypelistDetaile){
+						if(detaileType.getId() == -1){
+							lineoff_pay.setText(StringUtil.isEmpty(detaileType.getName())?"货到付款":detaileType.getName());
+							tv_arrive.setText(StringUtil.isEmpty(detaileType.getRemark())?"":detaileType.getRemark());
+							if(!detaileType.isEnable())
+								SetNotEable();
+							break;
+						}
+					}
+				}
+			}
+			
+			//如果当前订单使用过发票或者优惠券 喝喝币支付不可用
+			//需要修改
+			if(bean != null){
+				//使用过优惠券或者开发票 都不能使用喝喝币支付 
+				if(bean.getCouponamount() > 0 || bean.getNeedbill() == 1){
+					linear_hb.setEnabled(false);
+					rb_hb.setEnabled(false);
+					hb_pay.setText("喝币支付(不支持当前支付方式)");
+					rb_hb.setVisibility(View.INVISIBLE);
+					linear_hb.setBackgroundColor(this.getResources().getColor(R.color.color_f7f7f7));
+				}
+			}
+		} else if (!StringUtil.isEmpty(share)) {
+			// 分享视图
+			linear_pay.setVisibility(View.GONE);
+			linear_share.setVisibility(View.VISIBLE);
+			url = intent.getStringExtra("url");
+			title = intent.getStringExtra("title");
+			pic = intent.getStringExtra("pic");
+			ResetTitle("一键分享");
+			Hindtitle();// 隐藏标题
+		} else if (score != null) {
+			UserMoneyOrScore("积分", 0);
+		} else if (coin != null) {
+			// 喝喝币
+			UserMoneyOrScore("喝币", 1);
+		}
+	}
+
+	/**
+	 * 
+	 * 不符合条件设置不可点击 
+	 * */
+	private void SetNotEable() {
+		linear_lineoff.setEnabled(false);
+		rb_lineoff.setEnabled(false);
+		linear_lineoff.setBackgroundColor(this.getResources().getColor(R.color.color_f7f7f7));
+		rb_lineoff.setVisibility(View.INVISIBLE);
+	}
+	
+	
+	private void UserMoneyOrScore(String tv, int id) {
+		linear_pay.setVisibility(View.GONE);
+		linear_share.setVisibility(View.GONE);
+		linear_points.setVisibility(View.VISIBLE);
+		tv_type_title.setText("使用" + tv);
+		tv_sure.setText("不使用"+tv);
+		tvRight.setVisibility(View.VISIBLE);
+		if (0 == id) {
+			float scoreinfo = Float.parseFloat(StringUtil.isEmpty(score.getScoreblance())?"0":score.getScoreblance());
+			currecy = DecimalFormat.getNumberInstance().format(scoreinfo);// 羊角符号
+			currecys = DecimalFormat.getNumberInstance().format(
+			Float.parseFloat(StringUtil.isEmpty(score.getMaxscore())?"0":score.getMaxscore()));
+			if("0".equals(score.getUsescore())){
+				tv_etpoint.setHint("请输入要使用的积分数量");
+			}else{
+				tv_etpoint.setText(score.getUsescore());
+			}
+		} else {
+			float hehemoneyinfo = Float.parseFloat(StringUtil.isEmpty(coin.getCoinblance())?"0":coin.getCoinblance());
+			currecy = DecimalFormat.getNumberInstance().format(hehemoneyinfo);  
+			currecys = DecimalFormat.getNumberInstance().format(
+					Float.parseFloat(StringUtil.isEmpty(coin.getMaxcoin())?"0":coin.getMaxcoin()));
+			if("0.00".equals(coin.getUsecoin())){
+				tv_etpoint.setHint("请输入要使用的喝币数量");
+			}else{
+				tv_etpoint.setText(StringUtil.isEmpty(coin.getUsecoin())?"0":coin.getUsecoin());
+			}
+//			char[] c = {'0','1','2','3','4','5','6','7','8','9','.'};
+//			setInputType(c);
+		}
+		tv_total.setText("共有" + currecy + "个" + tv + "可用");
+		tv_user.setText("本次使用(最多可使用" + currecys + "个" + tv + ")");
+		String usertext = tv_user.getText().toString().trim();
+		SpannableStringBuilder spannable = new SpannableStringBuilder(usertext);
+		ForegroundColorSpan redSpan = new ForegroundColorSpan(baseActivity
+				.getResources().getColor(R.color.color_af2942));
+		spannable.setSpan(redSpan, 10, usertext.length() - 4,
+				Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv_user.setText(spannable);
+		ivBack.setVisibility(View.VISIBLE);
+		tvRight.setText("确定");
+		lv_parent.setBackgroundColor(getResources().getColor(
+				R.color.color_666666));
+		Hindtitle();
+	}
+
+	private void init() {
+		screenHeight = getWindow().getWindowManager().getDefaultDisplay()
+				.getHeight();// 获取屏幕高度
+
+		LayoutParams lp = getWindow().getAttributes();// //lp包含了布局的很多信息，通过lp来设置对话框的布局
+		lp.width = LayoutParams.MATCH_PARENT;
+		lp.gravity = Gravity.BOTTOM;
+//		if (!StringUtil.isEmpty(share)) {
+//			lp.height = screenHeight * 1 / 3;// lp高度设置为屏幕的1/3
+//		} else {
+//			lp.height = screenHeight * 1 / 2;// lp高度设置为屏幕的1/2
+//		}
+		getWindow().setAttributes(lp);// 将设置好属性的lp应用到对话框
+
+
+	}
+
+	private void initView() {
+		rb_lineoff = (RadioButton) findViewById(R.id.rb_lineoff);
+		rb_jd = (RadioButton) findViewById(R.id.rb_jd);
+		rb_wx = (RadioButton) findViewById(R.id.rb_wx);
+		rb_zfb = (RadioButton) findViewById(R.id.rb_zfb);
+		rb_hehe = (RadioButton) findViewById(R.id.rb_hehe);
+		rb_hb = (RadioButton) findViewById(R.id.rb_hb);
+		linear_hehe = (LinearLayout) findViewById(R.id.linear_hehe);
+		linear_zfb = (LinearLayout) findViewById(R.id.linear_zfb);
+		linear_jd = (LinearLayout) findViewById(R.id.linear_jd);
+		linear_wx = (LinearLayout) findViewById(R.id.linear_wx);
+		linear_hb = (LinearLayout) findViewById(R.id.linear_hb);
+		linear_lineoff = (LinearLayout) findViewById(R.id.linear_lineoff);
+		linear_pay = (LinearLayout) findViewById(R.id.linear_pay);// 支付视图
+		linear_share = (LinearLayout) findViewById(R.id.linear_share);// 分享视图
+		linear_wxfriend = (LinearLayout) findViewById(R.id.linear_wxfriend);// 分享到好友
+		linear_wxcicle = (LinearLayout) findViewById(R.id.linear_wxcicle);// 分享到朋友圈
+		lv_parent = (FrameLayout) findViewById(R.id.lv_parent);//
+
+		cancle_share = (TextView) findViewById(R.id.cancle_share);
+		lineoff_pay = (TextView) findViewById(R.id.lineoff_pay);
+		tv_arrive = (TextView) findViewById(R.id.tv_arrive);
+		hb_pay = (TextView) findViewById(R.id.hb_pay);
+		tv_cancle = (TextView) findViewById(R.id.tv_cancelpoint);
+		tv_sure = (TextView) findViewById(R.id.tv_sure);
+		tv_total = (TextView) findViewById(R.id.tv_total);
+		tv_user = (TextView) findViewById(R.id.tv_user);
+		tv_price = (TextView) findViewById(R.id.tv_price);
+		user_bt = (Button) findViewById(R.id.user_bt);
+		// 初始化羊角符号
+		CreatePrice();
+		tv_etpoint = (EditText) findViewById(R.id.tv_etpoint);
+		tv_type_title = (TextView) findViewById(R.id.tv_type_title);
+		linear_points = (LinearLayout) findViewById(R.id.linear_points);
+
+		rb_hehe.setOnCheckedChangeListener(this);
+		rb_zfb.setOnCheckedChangeListener(this);
+		rb_wx.setOnCheckedChangeListener(this);
+		rb_jd.setOnCheckedChangeListener(this);
+		rb_hb.setOnCheckedChangeListener(this);
+		rb_lineoff.setOnCheckedChangeListener(this);
+		linear_hehe.setOnClickListener(this);
+		linear_wx.setOnClickListener(this);
+		linear_hb.setOnClickListener(this);
+		linear_zfb.setOnClickListener(this);
+		linear_jd.setOnClickListener(this);
+		linear_lineoff.setOnClickListener(this);
+		tv_etpoint.addTextChangedListener(this);
+		linear_wxfriend.setOnClickListener(this);
+		linear_wxcicle.setOnClickListener(this);
+		tv_cancle.setOnClickListener(this);
+		tv_sure.setOnClickListener(this);
+		user_bt.setOnClickListener(this);
+		cancle_share.setOnClickListener(this);
+		hideBack();
+	}
+
+	private void CreatePrice() {
+		SpannableStringBuilder spannable = new SpannableStringBuilder("¥ 0.00");
+		spannable.setSpan(new AbsoluteSizeSpan(20), "¥ 0.00".length() - 2,
+ 				"¥ 0.00".length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv_price.setText(spannable);
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void loadChildView() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setChildViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return "选择支付方式";
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return -1;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton button, boolean arg1) {
+		// TODO Auto-generated method stub
+		setNotCheck();
+		Intent intent = new Intent();
+		switch (button.getId()) {
+		case R.id.rb_hehe:
+			if (arg1) {
+				hehepay(intent);
+			}
+			break;
+		case R.id.rb_zfb:
+			if (arg1) {
+				zfbpay(intent);
+			}
+			break;
+		case R.id.rb_wx:
+			if (arg1) {
+				wxpay(intent);
+			}
+			break;
+		case R.id.rb_jd:
+			if (arg1) {
+				jdpay(intent);
+			}
+			break;
+			//喝喝币支付
+		case R.id.rb_hb:
+			if (arg1) {
+				hbpay(intent);
+			}
+			break;
+		case R.id.rb_lineoff:
+			if (arg1) {
+				lineoffpay(intent);
+			}
+			break;
+		default:
+			break;
+		}
+		isFirst = false;
+	}
+
+	private String buildTransaction(final String type) {
+		return (type == null) ? String.valueOf(System.currentTimeMillis())
+				: type + System.currentTimeMillis();
+	}
+
+	private void jdpay(Intent intent) {
+		if (isFirst) {
+			rb_jd.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.JD_PAY);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+	//货到付款
+	private void lineoffpay(Intent intent) {
+		if (isFirst) {
+			rb_lineoff.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.LINE_OFF);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+	//喝喝币支付
+	private void hbpay(Intent intent) {
+		if (isFirst) {
+			rb_hb.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.HB_PAY);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+
+	private void wxpay(Intent intent) {
+		if (isFirst) {
+			rb_wx.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.WX_PAY);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+
+	private void zfbpay(Intent intent) {
+		if (isFirst) {
+			rb_zfb.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.ZFB_PAY);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+
+	private void hehepay(Intent intent) {
+		if (isFirst) {
+			rb_hehe.setChecked(true);
+		} else {
+			intent.putExtra("type", ConstantsUtil.HEHE_PAY);
+			if (bean != null) {
+				intent.putExtra("bean", bean);
+			}
+			setResult(RESULT_OK, intent);
+			isFinsk();
+		}
+	}
+
+	private void isFinsk() {
+		if (isFirst) {
+			isFirst = false;
+		} else {
+			finish();
+		}
+	}
+
+	public void finish() {
+		super.finish();
+		this.overridePendingTransition(0, R.anim.dialog_buttom_exit);
+	}
+
+	private void setNotCheck() {
+		rb_hehe.setChecked(false);
+		rb_zfb.setChecked(false);
+		rb_wx.setChecked(false);
+		rb_jd.setChecked(false);
+		rb_hb.setChecked(false);
+	}
+
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		// TODO Auto-generated method stub
+		switch (keyCode) {
+		case KeyEvent.KEYCODE_BACK:
+			finish();
+			break;
+
+		default:
+			break;
+		}
+		return false;
+	}
+
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		HashMap<String, String> map = new HashMap<String, String>();
+		Intent intent = new Intent();
+		isFirst = false;
+		switch (v.getId()) {
+		case R.id.cancle_share:
+			finish();
+			break;
+		case R.id.linear_hehe:
+			hehepay(intent);
+			break;
+		case R.id.linear_zfb:
+			zfbpay(intent);
+			break;
+		case R.id.linear_jd:
+			jdpay(intent);
+			break;
+		case R.id.linear_hb:
+			hbpay(intent);
+			break;
+		   //货到付款
+		case R.id.linear_lineoff:
+			lineoffpay(intent);
+			break;
+		case R.id.linear_wx:
+			wxpay(intent);
+			break;
+		case R.id.linear_wxfriend:
+			// 分享到微信好友
+			map.put("shareChannel", "微信好友");
+			MobclickAgent.onEvent(baseActivity, "WC-1", map);
+			ShareImageAndUrl(1);
+//			Share(1);
+			break;
+		case R.id.linear_wxcicle:
+			// 分享到微信朋友圈
+			map.put("shareChannel", "微信朋友圈");
+			MobclickAgent.onEvent(baseActivity, "WC-2", map);
+//			Share(2);
+			ShareImageAndUrl(2);
+			break;
+		case R.id.tv_sure:
+			//取消使用
+			if (score != null) {
+				intent.putExtra("score", "");
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				intent.putExtra("coin", "");
+				setResult(RESULT_OK, intent);
+				finish();
+			}
+			break;
+		case R.id.user_bt:
+			// 确定
+			String inputv = tv_etpoint.getText().toString().trim();
+			if (!StringUtil.isEmpty(inputv)) {
+				if(inputv.contains(".")){
+					   if(inputv.startsWith(".") || isTwo(inputv) || inputv.substring(inputv.indexOf(".")+1).length()>2){
+						   ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+					   }else{
+						   if( score != null && Integer.parseInt(StringUtil.isEmpty(inputv.substring(inputv.indexOf(".")+1))?"0":inputv.substring(inputv.indexOf(".")+1))>0){
+							   ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+						   }else{
+							   ToCommit(intent);
+						   }
+					   }
+				}else{
+						    ToCommit(intent);
+				}
+			} else {
+				//确定是取消使用积分 coin
+				if (score != null) {
+					ToastUtil.showToast(baseActivity, "请填写使用的积分数量");
+				} else {
+					ToastUtil.showToast(baseActivity, "请填写使用的喝币数量");
+				}
+				
+			}
+			break;
+		case R.id.tv_cancelpoint:
+			setResult(RESULT_OK, null);
+			finish();
+			// 取消
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void ToCommit(Intent intent) {
+		Double numpoint = Double.parseDouble(tv_etpoint.getText()
+				.toString().trim());
+		if (score != null) {
+			if (numpoint <= Double.parseDouble(score.getMaxscore())) {
+				intent.putExtra("score", tv_etpoint.getText()
+						.toString().trim());
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				ToastUtil.showToast(baseActivity,
+						"本次最多使用" + score.getMaxscore() + "积分");
+			}
+		} else if (coin != null) {
+			// 喝喝币
+			if (numpoint <= Double.parseDouble(coin
+					.getMaxcoin())) {
+				intent.putExtra("coin", tv_etpoint.getText()
+						.toString().trim());
+				setResult(RESULT_OK, intent);
+				finish();
+			} else {
+				if(Float.parseFloat(StringUtil.isEmpty(coin.getMaxcoin())?"0":coin.getMaxcoin())>0){
+					ToastUtil.showToast(baseActivity,
+							"本次最多使用" + coin.getMaxcoin() + "喝币");
+				}else{
+					ToastUtil.showToast(baseActivity,
+							"暂无喝币可用");
+				}
+			}
+		}
+	}
+
+	private void Share(int type) {
+		WXTextObject textObj = new WXTextObject();
+		textObj.text = url;
+		WXMediaMessage msg = new WXMediaMessage();
+		msg.mediaObject = textObj;
+		msg.description = "喝喝云商";
+		msg.title = title;
+		msg.mediaTagName = "喝喝云商";
+
+		SendMessageToWX.Req req = new SendMessageToWX.Req();
+		req.transaction = buildTransaction("text"); //
+		req.message = msg;
+		req.scene = ShareType(type);
+		api.sendReq(req);
+		finish();
+	}
+
+	/**
+	 * 分享图片和链接
+	 * */
+	private void ShareImageAndUrl(final int type){
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				WXWebpageObject local = new WXWebpageObject();
+				local.webpageUrl = url;
+				WXMediaMessage media = new WXMediaMessage(local);
+				media.title = title;
+				media.description = "喝喝云商分享中";
+				Bitmap bitmap = getImage(url);
+//				Bitmap bitmap = getImage("http://f1.p0y.cn/c/351/883039.jpg");
+				media.thumbData = getBitmapBytes(bitmap,false);
+				SendMessageToWX.Req localReq = new SendMessageToWX.Req();
+				localReq.transaction = System.currentTimeMillis() + "";
+				localReq.message = media;
+				localReq.scene = ShareType(type);
+				api.sendReq(localReq);
+			}}).start();
+	}
+	private static byte[] getBitmapBytes(Bitmap bitmap, boolean paramBoolean) {
+		Bitmap localBitmap = Bitmap.createBitmap(80, 80, Bitmap.Config.RGB_565);
+		Canvas localCanvas = new Canvas(localBitmap);
+		int i;
+		int j;
+		if (bitmap.getHeight() > bitmap.getWidth()) {
+			i = bitmap.getWidth();
+			j = bitmap.getWidth();
+		} else {
+			i = bitmap.getHeight();
+			j = bitmap.getHeight();
+		}
+		while (true) {
+			localCanvas.drawBitmap(bitmap, new Rect(0, 0, i, j), new Rect(0, 0,80, 80), null);
+			if (paramBoolean)
+				bitmap.recycle();
+			ByteArrayOutputStream localByteArrayOutputStream = new ByteArrayOutputStream();
+			localBitmap.compress(Bitmap.CompressFormat.JPEG, 100,
+					localByteArrayOutputStream);
+			localBitmap.recycle();
+			byte[] arrayOfByte = localByteArrayOutputStream.toByteArray();
+			try {
+				localByteArrayOutputStream.close();
+				return arrayOfByte;
+			} catch (Exception e) {
+//				F.out(e);
+			}
+			i = bitmap.getHeight();
+			j = bitmap.getHeight();
+		}
+	}
+
+	/**
+	 * 分享到图片
+	 * */
+	private void ShareImage(final int type){
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Bitmap bmp = Utils.getImage(pic);
+				WXImageObject imageObject = new WXImageObject(bmp);
+				WXMediaMessage msg  =  new WXMediaMessage();
+				msg.mediaObject = imageObject;
+				msg.title= title;
+				msg.mediaTagName = url;
+				//设置缩列图
+				Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp,120,120,true);
+				bmp.recycle();
+				msg.thumbData = Util.bmpToByteArray(thumbBmp,true);
+
+				//构造REQ
+				SendMessageToWX.Req req = new SendMessageToWX.Req();
+				req.transaction = buildTransaction("img");
+				req.message = msg;
+				req.scene = ShareType(type);
+				api.sendReq(req);
+				finish();
+			}
+		}).start();
+
+
+	}
+
+	private int ShareType(int type) {
+		switch (type) {
+		case 1:
+			return SendMessageToWX.Req.WXSceneSession;
+		case 2:
+			return SendMessageToWX.Req.WXSceneTimeline;
+		default:
+			break;
+		}
+		return SendMessageToWX.Req.WXSceneSession;
+	}
+
+//	public void ShareUrl(int type) {
+//		WXWebpageObject webpage = new WXWebpageObject();
+//		webpage.webpageUrl = "http://www.heheys.com";
+//		WXMediaMessage msg = new WXMediaMessage(webpage);
+//		msg.title = "Hehe Title ";
+//		msg.description = "Hehe Description ";
+//		Bitmap thumb = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.animation_two);
+//		msg.thumbData = Util.bmpToByteArray(thumb, true);
+//
+//		SendMessageToWX.Req req = new SendMessageToWX.Req();
+//		req.transaction = buildTransaction("webpage");
+//		req.message = msg;
+//		req.scene = ShareType(type);
+//		api.sendReq(req);
+//		// finish();
+//	}
+
+	/*
+	 * 分享到图片
+	 */
+//	private void ShareImg(final int type) {
+//		try {
+//			Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+//					R.drawable.animation_two);
+//			WXImageObject imgObj = new WXImageObject(bmp);
+//
+//			WXMediaMessage msg = new WXMediaMessage();
+//			msg.mediaObject = imgObj;
+//
+//			Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, THUMB_SIZE,
+//					THUMB_SIZE, true);
+//			bmp.recycle();
+//			msg.thumbData = Util.bmpToByteArray(thumbBmp, true); // ��������ͼ
+//
+//			SendMessageToWX.Req req = new SendMessageToWX.Req();
+//			req.transaction = buildTransaction("img");
+//			req.message = msg;
+//			req.scene = ShareType(type);
+//			api.sendReq(req);
+//
+//			finish();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
+
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count,
+			int after) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void afterTextChanged(Editable s) {
+		// TODO Auto-generated method stub
+		String inputText = s.toString().trim();
+		if (!StringUtil.isEmpty(inputText) && score != null && !StringUtil.isEmpty(score.getMaxscore())) {
+			if(inputText.contains(".")){
+				//判断输入数据是否合法
+				if(inputText.startsWith(".") || isTwo(inputText) || inputText.substring(inputText.indexOf(".")+1).length()>2 ){
+						ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+				   }else{
+					   GetInputScore(inputText);
+				   }
+			}else{
+				GetInputScore(inputText);
+			}
+		} else if (!StringUtil.isEmpty(inputText) && coin != null&& !StringUtil.isEmpty(coin.getMaxcoin())) {
+			if(inputText.contains(".")){
+				   if(inputText.startsWith(".") || isTwo(inputText) || inputText.substring(inputText.indexOf(".")+1).length()>2){
+					ToastUtil.showToast(baseActivity, "输入错误,请您重新输入");
+				   }else{
+					   GetInput(s);
+				   }
+			}else{
+				GetInput(s);
+			}
+		} else {
+			CreatePrice();
+		}
+	}
+
+	private void GetInputScore(String inputText) {
+		Double numpoint = Double.parseDouble(inputText);
+		if (numpoint <= Double.parseDouble(score.getMaxscore())) {
+			float unitpoint = Float.parseFloat(score.getScoreprice());
+			String currecy = NumberFormat.getCurrencyInstance().format(
+					ValidatorUtil.DoPrice((float) (numpoint * unitpoint)));// 带羊角符号
+			SpannableStringBuilder spannable = new SpannableStringBuilder(
+					currecy);
+			spannable.setSpan(new AbsoluteSizeSpan(20),
+					currecy.length() - 2, currecy.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv_price.setText(spannable);
+		} else {
+			if (Double.parseDouble(score.getMaxscore()) == 0)
+				ToastUtil.showToast(baseActivity, "暂无积分可用");
+			else
+				ToastUtil.showToast(baseActivity,
+						"本次最多使用" + score.getMaxscore() + "积分");
+		}
+	}
+
+	private void GetInput(Editable s) {
+		Float numpoint = Float.parseFloat(s.toString());
+		if (numpoint <= Float.parseFloat(coin.getMaxcoin())) {
+			float unitpoint = Float.parseFloat(coin.getCoinprice());
+			String currecy = NumberFormat.getCurrencyInstance().format(
+					ValidatorUtil.DoPrice((float) (numpoint * unitpoint)));// 带羊角符号
+			SpannableStringBuilder spannable = new SpannableStringBuilder(
+					currecy);
+			spannable.setSpan(new AbsoluteSizeSpan(20),
+					currecy.length() - 2, currecy.length(),
+					Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+			tv_price.setText(spannable);
+		} else {
+			if (Float.parseFloat(coin.getMaxcoin()) == 0)
+				ToastUtil.showToast(baseActivity, "暂无喝币可用");
+			else
+				ToastUtil.showToast(baseActivity,
+						"本次最多使用" +coin.getMaxcoin() + "喝币");
+			}
+	}
+	
+	//判断当前输入是否有2个小数点
+	boolean isTwo(String str){
+	        String des = ".";
+	        int cnt = 0;
+	        int offset = 0;
+	        while((offset = str.indexOf(des, offset)) != -1){
+	            offset = offset + des.length();
+	            cnt++;
+	        }
+	        if(cnt != 1)
+	        		return true;
+	        	else
+	        		return false;
+	}
+}

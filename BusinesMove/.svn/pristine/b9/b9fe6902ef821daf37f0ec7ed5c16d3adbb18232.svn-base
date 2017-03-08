@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/frame_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_yfx"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/adver_launcher" />
+
+        <TextView
+            android:id="@+id/yfx_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/result_yfx"
+            />
+
+        <LinearLayout
+            android:layout_gravity="bottom|left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_9e9e9e"
+            android:alpha="0.8"
+            android:padding="@dimen/margin_5"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/margin_20"
+                android:text="距发行时间:" />
+
+            <TextView
+                android:id="@+id/yfx_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="10天10小时" />
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/frame_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_20"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/fxj_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:textColor="@color/color_999999"
+            android:textSize="@dimen/text_size_12"
+            android:drawablePadding="@dimen/margin_3"
+            android:drawableLeft="@drawable/result_location"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/fxj"
+            android:layout_below="@id/fxj_area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_12_style"
+            android:text="发行价" />
+
+        <TextView
+            android:id="@+id/yfx_price"
+            android:layout_toRightOf="@id/fxj"
+            android:layout_alignBottom="@id/fxj"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/color_FF3939"
+            android:text="100" />
+
+
+    </RelativeLayout>
+</RelativeLayout>

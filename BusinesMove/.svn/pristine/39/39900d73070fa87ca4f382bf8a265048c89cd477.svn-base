@@ -1,0 +1,188 @@
+package com.heheys.ec.service;
+
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Binder;
+import android.os.Handler;
+import android.os.IBinder;
+import android.os.Message;
+import android.os.SystemClock;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.google.gson.Gson;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.callback.HeartSendCallBack;
+import com.heheys.ec.controller.receiver.AlarmReceiver;
+import com.heheys.ec.model.dataBean.HeartBaseBean;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+
+import org.apache.http.Header;
+
+import java.util.Timer;
+
+/**
+ * Created by wangkui on 2016/12/8.
+ * 心跳
+ */
+
+public class HeartService extends Service {
+    Context mContext;
+    int i =0;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+        }
+    };
+    private HeartBinder mBindler = new HeartBinder();
+    private Timer timer;
+    private TimerTask task;
+    private AlarmManager manager;
+    private String Process_Name = "heart_service";
+    private Handler mhand = new Handler(){
+    @Override
+    public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        switch (msg.what){
+            case 100:
+                BDLocation bdLocation = (BDLocation)msg.obj;
+                if(bdLocation != null)
+                ToastUtil.showToast(getApplication(),"维度"+bdLocation.getLatitude()+"精度："+bdLocation.getLongitude());
+                Log.i("Tag", "handleMessage");
+                break;
+        }
+    }
+};
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return mBindler;
+    }
+
+    private void Dimess() {
+//        (Activity)mContext.runOnUiThread(new Runnable() {
+//            public void run() {
+//                if(ApiHttpCilent.loading != null && ApiHttpCilent.loading.isShowing())
+//                    ApiHttpCilent.loading.dismiss();
+//            }
+//        });
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
+
+    public class TimerTask extends java.util.TimerTask {
+        String point;
+        Context mContext;
+        TimerTask(){
+        }
+        @Override
+        public void run() {
+            LocationClient client = MyApplication.getInstance().mLocationClient;
+            if(client != null)
+            client.requestLocation();
+            BDLocation bdLocation = MyApplication.getInstance().getLocation();
+            if(bdLocation != null)
+            Log.i("Tag", "维度"+bdLocation.getLatitude()+"精度："+bdLocation.getLongitude());
+            Message message = Message.obtain();
+            message.obj = bdLocation;
+            message.what = 100;
+            handler.sendMessage(message);
+        }
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        //启动定时任务
+        timer = new Timer();
+        task = new TimerTask();
+        timer.schedule(task,1000,3000);
+        Log.i("Tag", "服务onStartCommand");
+        return START_STICKY;
+    }
+private static final String SERVICE_FIRST_START_KEY = "start";
+    @Override
+    public void onDestroy() {
+//        super.onDestroy();
+        RestartService();
+        Log.i("Tag", "服务destory");
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        RestartService();
+    }
+
+    private void RestartService() {
+        manager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        int anHour =  1000; // 这是一小时的毫秒数
+        long triggerAtTime = SystemClock.elapsedRealtime();
+        Intent i = new Intent(this, AlarmReceiver.class);
+        PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, 0);
+        manager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, pi);
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        RestartService();
+//        Intent intent = new Intent(this,HeartService.class);
+//        startService(intent);
+        Log.i("Tag", "服务onTaskRemoved");
+    }
+
+    /**
+     * 发送结果回调
+     */
+    public class MyJsonHttpResponseHandler extends BaseJsonHttpResponseHandler<HeartBaseBean> {
+
+        @Override
+        public void onSuccess(int i, Header[] headers, String s, HeartBaseBean heartBaseBean) {
+            Gson gson = new Gson();
+            HeartBaseBean result = gson.fromJson(s, HeartBaseBean.class);
+        }
+
+        @Override
+        public void onFailure(int i, Header[] headers, Throwable throwable, String s, HeartBaseBean o) {
+
+        }
+
+        @Override
+        protected HeartBaseBean parseResponse(String s, boolean b) throws Throwable {
+            return null;
+        }
+    }
+
+    public class HeartBinder extends Binder {
+
+        //发送心跳
+        public void SendLocation(String point) {
+//            ApiHttpCilent.getInstance(mContext).SendHeartLocation(mContext, point, );
+        }
+
+    }
+
+    private HeartSendCallBack callBack = new HeartSendCallBack() {
+
+        @Override
+        public void SendSuccess() {
+
+        }
+
+        @Override
+        public void SendFail() {
+
+        }
+    };
+}

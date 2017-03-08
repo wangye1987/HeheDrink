@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical" >
+
+    <!-- 当前选择城市 -->
+
+    <RelativeLayout
+        android:id="@+id/show_city_list_head_current_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp" >
+
+        <LinearLayout
+            android:id="@+id/show_city_fragment_current_city_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="当前选择城市"
+                android:textColor="@color/color_565656"
+                android:textSize="16sp" />
+
+            <com.heheys.ec.lib.view.DrawLineTextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="35dp"
+                android:text="北京市"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/show_city_fragment_position"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_city_fragment_current_city_top"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/yellow_stroke_white_solid"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="11dp"
+            android:text=""
+            android:textColor="@color/red_text_color"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <!-- 已定位城市 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/sf_margin_10"
+        android:layout_marginTop="17dp" >
+
+        <LinearLayout
+            android:id="@+id/show_city_fragment_position_city_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已定位城市"
+                android:textColor="@color/color_565656"
+                android:textSize="16sp" />
+
+            <com.heheys.ec.lib.view.DrawLineTextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="35dp"
+                android:text="北京市"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/show_city_fragment_location_city"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_city_fragment_position_city_top"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/check_city_search_bg"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="11dp"
+            android:text="定位失败"
+            android:textColor="@color/color_565656"
+            android:textSize="14sp" />
+    </RelativeLayout>
+    <!-- 热门城市 -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp" >
+
+        <LinearLayout
+            android:id="@+id/show_city_fragment_hot_city_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="热门城市"
+                android:textColor="@color/color_565656"
+                android:textSize="16sp" />
+
+            <com.heheys.ec.lib.view.DrawLineTextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="35dp"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/show_city_fragment_hotcity"
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/show_city_fragment_hot_city_top"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/check_city_search_bg"
+            android:gravity="center"
+            android:paddingBottom="11dp"
+            android:paddingLeft="26dp"
+            android:paddingRight="26dp"
+            android:paddingTop="11dp"
+            android:text="北京市"
+            android:textColor="@color/color_565656"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/show_city_fragment_all_city_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:gravity="center_vertical"
+        android:paddingBottom="12dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部城市"
+            android:textColor="@color/color_565656"
+            android:textSize="16sp" />
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="35dp"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+</LinearLayout>

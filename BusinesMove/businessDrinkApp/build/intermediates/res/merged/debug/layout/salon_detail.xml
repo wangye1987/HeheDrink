@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f5f4f4"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f5f4f4"
+        android:orientation="vertical" >
+    
+
+    <ImageView
+        android:id="@+id/salon_detail_iv"
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:scaleType="fitXY"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:orientation="vertical" >
+
+        <!-- 上部分布局 -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/solid_white_stroke_cc"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingTop="22dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="主题 :  "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/salon_detail_subject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="研讨会"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <com.heheys.ec.lib.view.DrawLineTextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:layout_marginTop="20dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="18dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="时间 : "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="14sp" />
+
+                <TextView
+                      android:id="@+id/salon_detail_time_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015-15"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+                  <TextView
+                      android:layout_marginLeft="15dp"
+                      android:id="@+id/salon_detail_time_end"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地点: "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="14sp" />
+
+                <TextView
+                     android:id="@+id/salon_detail_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="研讨会"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="人数: "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="14sp" />
+
+                <TextView
+                     android:id="@+id/salon_detail_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="研讨会"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/salon_detail_phone_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="咨询电话: "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="14sp" />
+
+                <TextView
+                     android:id="@+id/salon_detail_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="155"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="沙龙简介: "
+                    android:textColor="@color/color_f9883d"
+                    android:textSize="14sp" />
+
+                <TextView
+                     android:id="@+id/salon_detail_introduce"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="155"
+                    android:textColor="@color/color_302f3f"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linear_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" 
+                android:orientation="vertical" >
+<com.heheys.ec.lib.view.DrawLineTextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                />
+            <Button
+                android:id="@+id/salon_detail_state"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_32"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bt_bg_yellow"
+                android:layout_marginBottom="10dp"
+                android:text="立即报名"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/salon_dedtail_customer_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="46dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="46dp"
+        android:background="@drawable/solid_white_stroke_cc"
+        android:divider="@null"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="22dp"
+            android:layout_marginTop="22dp"
+            android:text="报名嘉宾"
+            android:textColor="@color/color_676672"
+            android:textSize="15sp" />
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:visibility="visible"
+            android:layout_marginLeft="11dp"
+            android:layout_marginRight="11dp" />
+
+        <com.heheys.ec.lib.view.ScrollViewListView
+            android:paddingBottom="3dp"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:divider="@null"
+            android:id="@+id/salon_detail_lv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@drawable/list_selector" >
+        </com.heheys.ec.lib.view.ScrollViewListView>
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_10"
+        android:visibility="gone"
+         android:paddingLeft="@dimen/order_margin_17"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/duigou"
+            />
+
+        <TextView
+            android:id="@+id/factory_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="厂家A" />
+
+        <TextView
+            android:id="@+id/child_orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/order_margin_10"
+            android:visibility="gone"
+            android:text="子订单号:1234567896" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_10"
+        android:layout_width="match_parent"
+         android:paddingLeft="@dimen/order_margin_17"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/iv_goods"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+             />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/nomarl_textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/color_ff0000"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+				<TextView
+                    android:id="@+id/normal_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:textColor="#bbbbbb" />
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_gravity="right|center"
+                    style="@style/nomarl_textstyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+
+            </LinearLayout>
+<LinearLayout
+                android:id="@+id/fragment_shopping_cart_item_price_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/button_height_24"
+                android:background="@drawable/shopping_cart_add_reduce_bg"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/fragment_shopping_cart_item_num_reduce"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="2dp"
+                    android:text="--"
+                    android:textColor="#bbbbbb" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:text="|" />
+
+                <com.heheys.ec.view.SoftEditText
+                    android:inputType="phone"
+                    android:id="@+id/fragment_shopping_cart_item_num_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="1" />
+
+                <TextView
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginTop="2dp"
+                    android:gravity="center_vertical"
+                    android:text="|" />
+
+                <TextView
+                    android:gravity="center"
+                    android:id="@+id/fragment_shopping_cart_item_num_add"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="5dp"
+                    android:text="+"
+                    android:textColor="#bbbbbb" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <com.heheys.ec.lib.view.DrawLineTextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="17dp"
+        android:layout_height="1dip" >
+    </com.heheys.ec.lib.view.DrawLineTextView>
+    <LinearLayout 
+         android:paddingLeft="@dimen/order_margin_17"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_32"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="订金比例为商品总额的"
+        ></TextView>
+    <TextView
+        android:id="@+id/tv_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_ff0000"
+        ></TextView>
+    </LinearLayout>
+    <com.heheys.ec.lib.view.DrawLineTextView
+        android:layout_width="match_parent"
+         android:paddingLeft="@dimen/order_margin_17"
+         android:layout_marginLeft="17dp"
+        android:layout_height="1dip" >
+    </com.heheys.ec.lib.view.DrawLineTextView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+         android:paddingLeft="@dimen/order_margin_17"
+        android:layout_height="@dimen/linearLayout_height_32"
+        android:layout_gravity="left|center"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:gravity="center" >
+
+        <TextView
+            style="@style/nomarl_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delivery" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <TextView
+            android:id="@+id/delivery_price"
+            style="@style/nomarl_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingRight="@dimen/margin_10"
+             />
+
+    </LinearLayout>
+
+<TextView
+    android:id="@+id/line_textview"
+    	android:background="@color/line_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dip" >
+    </TextView>
+</LinearLayout>

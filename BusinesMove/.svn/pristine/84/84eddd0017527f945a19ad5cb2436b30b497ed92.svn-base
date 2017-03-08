@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\arrow_down.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable-hdpi\\arrow_down.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\order_down.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable-hdpi\\order_down.png"
+    },
+    {
+        "merged": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\load_fail.png",
+        "source": "F:\\AndroidHeheSpace\\BusinessDrinkApp\\businessDrinkAppLib\\src\\main\\res\\drawable-hdpi\\load_fail.png"
+    }
+]

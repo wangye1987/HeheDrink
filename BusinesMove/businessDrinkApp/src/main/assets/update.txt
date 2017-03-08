@@ -1,0 +1,14 @@
+﻿{
+    "result": {
+        "version": {
+            "updatetime": 1467561600,
+            "updateinfo": "更新应用参加618活动，更多优惠等着您！",
+            "apksize":"7.58MB",
+            "ismust": false,
+            "url": "http://test.heheys.com/static/apk/factory.apk",
+            "version": "6"
+        }
+    },
+    "error": {},
+    "status": 1
+}

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sf_margin_10"
+        android:background="@color/sf_vi_gray_bg_f0"
+        android:paddingLeft="@dimen/sf_margin_10"
+        android:text="热门城市"
+        android:textColor="@color/black"
+        android:textSize="@dimen/sf_size_16" />
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_one"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="北京"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_two"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="上海"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="广州"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_four"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="深圳"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_five"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="天津"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_six"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="杭州"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/position_show_hotcity_seven"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:paddingTop="15dp"
+            android:text="重庆"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/sf_vi_gray_line_dc" />
+    </LinearLayout>
+
+</LinearLayout>

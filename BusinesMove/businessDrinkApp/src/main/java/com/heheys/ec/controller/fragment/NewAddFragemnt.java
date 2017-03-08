@@ -1,0 +1,677 @@
+package com.heheys.ec.controller.fragment;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.search.core.SearchResult;
+import com.baidu.mapapi.search.geocode.GeoCodeOption;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.google.gson.Gson;
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.base.BaseFragment;
+import com.heheys.ec.controller.activity.AddressChioceActivity;
+import com.heheys.ec.controller.activity.DestanceChioceActivity;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.lib.utils.WeakHandler;
+import com.heheys.ec.model.dataBean.AddressListBean;
+import com.heheys.ec.model.dataBean.BaseBean;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean.CityBean;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean.County;
+import com.heheys.ec.model.dataBean.ProvinceListBaseBean.ProvinceList;
+import com.heheys.ec.model.dataBean.UserDefaultAdd;
+import com.heheys.ec.netWorkHelper.ApiHttpCilent;
+import com.heheys.ec.utils.ConstantsUtil;
+import com.heheys.ec.utils.ToastNoNetWork;
+import com.heheys.ec.utils.ToastUtil;
+import com.loopj.android.http.BaseJsonHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
+
+import org.apache.http.Header;
+
+import java.util.HashMap;
+import java.util.List;
+
+import static com.heheys.ec.utils.ConstantsUtil.REQUEST_CODE_TWO;
+
+/**
+ * @author 作者 E-mail:wk
+ * @version 创建时间：2015-9-23 下午5:47:37 类说明
+ * @param添加地址
+ */
+@SuppressLint("ValidFragment")
+public class NewAddFragemnt extends BaseFragment {
+
+	private AddressListBean bean;
+	private View view;
+	private EditText receiverName;// 收货人
+	private EditText tel;// 电话
+	private TextView destance;
+//	private TextView street;
+//	private TextView county;
+	private EditText detail_add;
+//	private EditText postcode;
+	private Button commit_ok;
+	private static Context context;
+	private Intent intent;
+	private int flag;
+	private int id_1;
+	private int id_2;
+	private int id_3;
+
+	private MyHandler handler = new MyHandler(this);
+	private String province;
+	private String provinceTemp ="";
+	private String city;
+	private String cityTemp ="";
+	private int id  = -1;
+	private UserDefaultAdd userDefaultAdd;//默认可以送货地址
+	private TextView address_destance;
+	private LocationClient locationClient;
+    private MyLocationListener myListener = new MyLocationListener();
+	//选中的地区ID
+//	private String chioceId = "";
+	//选中的地区名称
+	private String chioceDistance;
+	//main获取的city数据 存储在MyApplication
+	private ProvinceListBaseBean.Bean beanCity;
+	private String proviceName;
+	private String cityName;
+	private String countryName;
+	private GeoCoder mSearch;
+	private AddressListBean beans;
+
+	@Override
+	protected boolean isShowLeftIcon() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	public NewAddFragemnt(AddressListBean bean) {
+		this.bean = bean;
+	}
+
+	@Override
+	protected View setContentView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.new_address, container, true);
+		context = getActivity();
+		initView();
+		InitLocation();
+		initDate();
+		return view;
+	}
+
+	//获取定位数据
+	public class MyLocationListener implements BDLocationListener {
+
+		@Override
+		public void onReceiveLocation(BDLocation location) {
+
+			if (location == null)
+
+				return;
+
+			locationClient.stop();
+
+			getLocationInfo(location);
+		}
+
+		public void onReceivePoi(BDLocation poiLocation) {
+
+		}
+	}
+	private void InitLocation(){
+		// 声明LocationClient类
+		locationClient = new LocationClient(baseActivity);
+		locationClient.registerLocationListener(myListener); // 注册监听函数
+		LocationClientOption option = new LocationClientOption();
+		option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);// 设置定位模式
+		option.setPriority(LocationClientOption.NetWorkFirst); // 设置定位优先级
+		option.setScanSpan(1000);
+		option.setCoorType("bd09ll");// 返回的定位结果是百度经纬度，默认值gcj02
+		option.setIsNeedAddress(true);// 返回的定位结果包含地址信息
+		option.setNeedDeviceDirect(true);// 返回的定位结果包含手机机头的方向
+		option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+		option.setOpenGps(true);//可选，默认false,设置是否使用gps
+		option.setLocationNotify(true);//可选，默认false，设置是否当GPS有效时按照1S/1次频率输出GPS结果
+		option.setIsNeedLocationDescribe(true);//可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
+		option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+		option.setIgnoreKillProcess(false);//可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
+		option.SetIgnoreCacheException(false);//可选，默认false，设置是否收集CRASH信息，默认收集
+		option.setEnableSimulateGps(false);//可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
+		locationClient.setLocOption(option);
+	}
+	/*
+   * 获取定位经纬度 信息
+   */
+	@SuppressLint("SimpleDateFormat")
+	private void getLocationInfo(BDLocation location) {
+
+		//String latLongInfo;
+		if (location != null) {
+//			double lat = location.getLatitude();
+//			double lng = location.getLongitude();
+            if(location.getProvince() == null || location.getCity() == null || location.getDistrict() == null) {
+                ToastUtil.showToast(baseActivity,"定位失败" +"");
+            }else{
+                destance.setText(location.getProvince() + location.getCity() + location.getDistrict());
+                detail_add.setText(location.getStreet() + location.getStreetNumber());
+                MacthLocationToBaiDu(location);
+            }
+		} else {
+			//latLongInfo = "No location found";
+			//Log.d("", latLongInfo);
+			ToastUtil.showToast(baseActivity,"定位失败,请重试");
+		}
+	}
+	/**
+	 * 百度地图数据反编译出本地ID
+	 * */
+	private void MacthLocationToBaiDu(BDLocation location){
+          if(location != null && beanCity != null){
+			  List<ProvinceList> listProvice =  beanCity.getList();
+               for(ProvinceList provice:listProvice){
+				   List<CityBean> listCity = provice.getProvince().getCity();
+				   if(location.getCity().contains(provice.getProvince().getName())){
+					   id_1 = provice.getProvince().getId();
+					   proviceName = provice.getProvince().getName();
+				   }
+				   for(CityBean city:listCity){
+					   List<County> listCounty = city.getCounty();
+					   if(location.getCity().contains(city.getName().toString())){
+						   id_2 = city.getId();
+						   cityName = city.getName();
+					   }
+					   for(County county:listCounty){
+						    if(location.getDistrict().contains(county.getName().toString().trim())){
+								id_3 = county.getId();
+								countryName = county.getName();
+								break;
+							}
+					   }
+				   }
+			   }
+		  }
+	}
+	private void initView() {
+		receiverName = (EditText) view.findViewById(R.id.et_receiverName);
+		address_destance = (TextView) view.findViewById(R.id.address_destance);
+		tel = (EditText) view.findViewById(R.id.et_tel_link);
+		destance = (TextView) view.findViewById(R.id.et_destance_all);
+//		street = (TextView) view.findViewById(R.id.et_street);
+//		county = (TextView) view.findViewById(R.id.et_county);
+		detail_add = (EditText) view.findViewById(R.id.et_detail_add);
+		
+//		postcode = (EditText) view.findViewById(R.id.et_postcode);
+		commit_ok = (Button) view.findViewById(R.id.commit_ok);
+		TextView tv_detail_add = (TextView) view.findViewById(R.id.tv_detail_add);
+//		tv_detail_add.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent(baseActivity, AddressChioceActivity.class);
+//				startActivityForResult(intent, ConstantsUtil.REQUEST_CODE_TWO);
+//				baseActivity.overridePendingTransition(R.anim.dialog_buttom_enter, 0);
+//			}
+//		});
+
+		commit_ok.setOnClickListener(this);
+		address_destance.setOnClickListener(this);
+		destance.setOnClickListener(this);
+//		street.setOnClickListener(this);
+//		county.setOnClickListener(this);
+	}
+
+	private void initDate() {
+		mSearch = GeoCoder.newInstance();
+		OnGetGeoCoderResultListener listener = new OnGetGeoCoderResultListener() {
+			public void onGetGeoCodeResult(GeoCodeResult result) {
+				if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+					//没有检索到结果
+					if(beans != null){
+						beans.setLat(0);
+						beans.setLng(0);
+					}
+				}else {
+					if (beans != null) {
+						beans.setLat(result.getLocation().latitude);
+						beans.setLng(result.getLocation().longitude);
+					}
+				}
+				//获取地理编码结果 提交
+				ApiHttpCilent.getInstance(getContext().getApplicationContext()).CommitAddress(baseActivity, beans, new MyCallBack());
+			}
+
+			@Override
+			public void onGetReverseGeoCodeResult(ReverseGeoCodeResult result) {
+				if (result == null || result.error != SearchResult.ERRORNO.NO_ERROR) {
+					//没有找到检索结果
+				}
+				//获取反向地理编码结果
+			}
+		};
+		mSearch.setOnGetGeoCodeResultListener(listener);
+		beanCity = MyApplication.getInstance().GetCity();
+		if (bean != null) {
+			 receiverName.setText(bean.getName());
+			 tel.setText(bean.getMobile());
+			 destance.setText(bean.getProvincename()+bean.getCityname()+bean.getCountyname());
+			 detail_add.setText(bean.getAddress());
+			 proviceName =  bean.getProvincename();
+			 cityName =  bean.getCityname();
+			 countryName =  bean.getCountyname();
+			 id  = bean.getId();
+			 id_3 = bean.getCounty();
+			 id_2 = bean.getCity();
+			 id_1 = bean.getProvince();
+		}else{
+			InitLocationData();
+		}
+		//获取默认地址
+//		ApiHttpCilent.getInstance(context).UserDefaultAdd(context, new MyAddressCallBack());
+	}
+	class MyAddressCallBack extends BaseJsonHttpResponseHandler<UserDefaultAdd> {
+	
+
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, UserDefaultAdd arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				UserDefaultAdd arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected UserDefaultAdd parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			userDefaultAdd = gson.fromJson(response, UserDefaultAdd.class);
+			Message message = Message.obtain();
+			if ("1".equals(userDefaultAdd.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS_LOGIN;
+				message.obj = userDefaultAdd.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = userDefaultAdd.getError();
+			}
+			handler.sendMessage(message);
+
+			return userDefaultAdd;
+		}
+	}
+	@Override
+	public void onClick(View v) {
+		// TODO Auto-generated method stub
+		super.onClick(v);
+		HashMap<String,String> map = new HashMap<String,String>();
+		switch (v.getId()) {
+			case R.id.address_destance:
+				InitLocationData();
+				break;
+		case R.id.commit_ok:
+			if (bean != null) {
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_3");//修改
+			}else{
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_1");//新增
+			}
+			if(ToastNoNetWork.ToastError(context)){
+				return;
+			}
+			//收货人姓名
+			String tv_receiverName = receiverName.getText().toString().trim();
+			//收货人电话
+			String tv_tel = tel.getText().toString().trim();
+			String tv_destance = destance.getText().toString().trim();
+			//收货人详细地址
+			String tv_detail_add = detail_add.getText().toString().trim();
+			if(ToastNull(tv_receiverName,"收货人姓名不能为空")){
+				return;
+			}
+			if(ToastNull(tv_tel,"手机号不能为空")){
+				return;
+			}
+			if(ToastNull(tv_destance,"所在地区不能为空")){
+				return;
+			}
+			if(ToastNull(tv_detail_add,"详细地址不能为空")){
+				return;
+			}
+					
+			if(tv_receiverName.length()<2){
+				ToastUtil.showToast(context, "收货人姓名字数不能少于两个字");
+				return;
+			}
+			beans = new AddressListBean();
+			beans.setName(tv_receiverName);
+			beans.setAddress(tv_detail_add);
+			beans.setMobile(tv_tel);
+			beans.setProvince(id_1);
+			beans.setCity(id_2);
+			beans.setCounty(id_3);
+			beans.setProvincename(proviceName);
+			beans.setCityname(cityName);
+			beans.setCountyname(countryName);
+			beans.setId(id);
+			if(id_3 <= 0) {
+				ToastUtil.showToast(baseActivity,"请选择地区");
+			}
+//			}else{
+//				beans.setId(Integer.parseInt(chioceId));
+//			}
+			if(!StringUtil.isEmpty(cityName) &&  !StringUtil.isEmpty(tv_detail_add) ) {
+				mSearch.geocode(new GeoCodeOption()
+						.city(cityName)
+						.address(tv_detail_add));
+			}else{
+				//获取地理编码结果 提交
+				ApiHttpCilent.getInstance(getContext().getApplicationContext()).CommitAddress(baseActivity, beans, new MyCallBack());
+			}
+
+			break;
+		case R.id.et_destance_all:
+//			flag = 1;
+//			Intent(flag);
+			Intent intent = new Intent(baseActivity, AddressChioceActivity.class);
+			startActivityForResult(intent, REQUEST_CODE_TWO);
+			baseActivity.overridePendingTransition(R.anim.dialog_buttom_enter, 0);
+			break;
+//		case R.id.et_street:
+//			flag = 2;
+//			Intent(flag);
+//			break;
+//		case R.id.et_county:
+//			flag = 3;
+//			Intent(flag);
+//			break;
+		case R.id.base_activity_title_backicon:
+			if (bean != null) {
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_4");//修改
+			}else{
+				MobclickAgent.onEvent(baseActivity, "C_ADR_ADD_2"); 
+			}
+			// 返回键处理
+			onBackPressed();
+			break;
+		default:
+			break;
+		}
+	}
+
+	private void InitLocationData() {
+//		Toast.makeText(baseActivity,"定位中...",Toast.LENGTH_SHORT).show();
+		if(locationClient != null) {
+            locationClient.start();
+//            if (locationClient != null
+//                    && locationClient.isStarted())
+//                locationClient.requestLocation();
+        }
+	}
+
+	private void Dimess() {
+		((Activity) context).runOnUiThread(new Runnable() {
+			public void run() {
+				if(ApiHttpCilent.loading!=null && ApiHttpCilent.loading.isShowing())
+					ApiHttpCilent.loading.dismiss();
+			}
+		});
+	}
+	class MyCallBack extends BaseJsonHttpResponseHandler<BaseBean> {
+		@Override
+		public void onFailure(int arg0, Header[] arg1, Throwable arg2,
+				String arg3, BaseBean arg4) {
+			Dimess();
+		}
+
+		@Override
+		public void onSuccess(int arg0, Header[] arg1, String arg2,
+				BaseBean arg3) {
+			Dimess();
+		}
+
+		@Override
+		protected BaseBean parseResponse(String response, boolean arg1)
+				throws Throwable {
+			// TODO Auto-generated method stub
+			Dimess();
+			Gson gson = new Gson();
+			BaseBean loginBean = gson.fromJson(response, BaseBean.class);
+			Message message = Message.obtain();
+			if ("1".equals(loginBean.getStatus())) {// 正常
+				message.what = ConstantsUtil.HTTP_SUCCESS;
+//				message.obj = loginBean.getResult();
+			} else {
+				message.what = ConstantsUtil.HTTP_FAILE;// 错误
+				message.obj = loginBean.getError().getInfo();
+			}
+			handler.sendMessage(message);
+
+			return loginBean;
+		}
+	}
+
+	public  class MyHandler extends WeakHandler<NewAddFragemnt> {
+
+		public MyHandler(NewAddFragemnt reference) {
+			super(reference);
+			// TODO Auto-generated constructor stub
+		}
+
+		public void handleMessage(Message msg) {
+			// TODO Auto-generated method stub
+			super.handleMessage(msg);
+			switch (msg.what) {
+			case ConstantsUtil.HTTP_SUCCESS:
+				((Activity) context).setResult(Activity.RESULT_OK, new Intent()); 
+				((Activity) context).finish();
+				break;
+			case ConstantsUtil.HTTP_SUCCESS_LOGIN:
+				//返回默认地址
+				bindDefaultAdd();
+				break;
+			case ConstantsUtil.HTTP_FAILE:
+				String back = (String) msg.obj;
+				ToastUtil.showToast(context, back);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	
+	/*
+	 * 返回默认的地址
+	 * */
+	private void bindDefaultAdd() {
+		if(userDefaultAdd !=null && userDefaultAdd.getResult()!=null ){
+			destance.setText(userDefaultAdd.getResult().getProvincename());
+//			street.setText(userDefaultAdd.getResult().getCityname());
+			id_1 = userDefaultAdd.getResult().getProvinceid();
+			id_2 = userDefaultAdd.getResult().getCityid();
+		}
+	}
+	private boolean ToastNull(String tv_receiverName,String notice) {
+		if (tv_receiverName == null || tv_receiverName.equals("")) {
+			ToastUtil.showToast(context,notice);
+			return true;
+		}
+		return false;
+	}
+
+	private void Intent(int flag) {
+		intent = new Intent(context, DestanceChioceActivity.class);
+		intent.putExtra("flag", flag);
+		intent.putExtra("index", 0);//区分是订单地址 0    还是买货的地址1
+		if(flag == 2){
+			intent.putExtra("id", id_1);
+		}else if(flag == 3){
+			intent.putExtra("id", id_2);
+		}
+		startActivityForResult(intent,
+				ConstantsUtil.REQUEST_CODE);
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
+		if(REQUEST_CODE_TWO == requestCode  && data  != null){
+			//选择地址全称
+			chioceDistance = data.getStringExtra("name");
+			proviceName = data.getStringExtra("proviceName");
+			cityName = data.getStringExtra("cityName");
+			countryName = data.getStringExtra("countryName");
+			id_1 = data.getIntExtra("proviceId",0);
+			id_3 = data.getIntExtra("countryid",0);
+			id_2 = data.getIntExtra("cityId",0);
+			destance.setText(chioceDistance);
+		}
+//		if (requestCode == ConstantsUtil.REQUEST_CODE && data  != null) {
+//			CityChioceBean bean = (CityChioceBean) data.getSerializableExtra("bean");
+//
+//			switch (flag) {
+//			case 1:
+//				province = bean.getName();
+//				if(!province.equals(provinceTemp)){
+////					street.setText("");
+////					county.setText("");
+//				}
+//				provinceTemp = province;
+//				destance.setText(province);
+//				id_1 = bean.getId();
+//				break;
+//			case 2:
+//				city = bean.getName();
+////				if(!city.equals(cityTemp)){
+////					county.setText("");
+////				}
+////				cityTemp = city;
+////				street.setText(bean.getName());
+//				id_2 = bean.getId();
+//				break;
+//			case 3:
+////				county.setText(bean.getName());
+////				id_3 = bean.getId();
+//				break;
+//			default:
+//				break;
+//			}
+//		}else
+
+	}
+
+	@Override
+	protected void getNetData() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected void setViewListener() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected boolean hasTitle() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean hasTitleIcon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected boolean hasDownIcon() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	protected void reloadCallback() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	protected String setTitleName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected String setRightText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected int setLeftImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setMiddleImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	protected int setRightImageResource() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	public void onResume() {
+	    super.onResume();
+	    if (bean != null) //编辑
+	    	MobclickAgent.onPageStart("PG_ADDR_MOD"); //统计页面
+	    else
+	    	MobclickAgent.onPageStart("PG_ADDR_ADD"); //统计页面
+	}
+	public void onPause() {
+	    super.onPause();
+	    if (bean != null) //编辑
+	    	MobclickAgent.onPageEnd("PG_ADDR_MOD"); //统计页面
+	    else
+	    	MobclickAgent.onPageEnd("PG_ADDR_ADD"); 
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		if(mSearch!= null )
+		mSearch.destroy();
+
+		if(locationClient!= null ) {
+			locationClient.stop();
+			locationClient = null;
+		}
+	}
+}

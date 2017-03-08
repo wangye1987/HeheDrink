@@ -1,0 +1,217 @@
+package com.heheys.ec.model.adapter;
+
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.os.Message;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.controller.activity.MyCollectActivity;
+import com.heheys.ec.lib.base.BaseListAdapter;
+import com.heheys.ec.lib.base.ViewHolderUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.dataBean.CollectGoodsResultBean.CollectGoodResultListBean.CollectGoods;
+import com.heheys.ec.utils.ConstantsUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/26 11:13
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:
+ */
+
+public class GoodCollectAdapter extends BaseListAdapter<CollectGoods> {
+    //特卖视图
+    private static final int SM_LAYOUT = 0;
+    //合伙买视图
+    private static final int HHM_LAYOUT = 1;
+    //E发行视图
+    private static final int YFX_LAYOUT = 2;
+
+
+    //是否编辑
+    private boolean isEdit = false;
+    private int returnLayout;
+    private int TOTAL = 3;
+    private MyCollectActivity.MyHandler mHandler;
+    //待删除收藏id集合
+    private List<String> deletefids;
+    //全部选择或者不选只传递一次消息 正常状态是0 选中一次传递一次
+    private String isAllCheck = "0";
+    public GoodCollectAdapter(List<CollectGoods> data, Context context, MyCollectActivity.MyHandler mHandler) {
+        super(data, context);
+        this.mHandler = mHandler;
+        deletefids = new ArrayList<>();
+    }
+
+    public GoodCollectAdapter(List<CollectGoods> data, Object obj, Context context) {
+        super(data, obj, context);
+    }
+    //是否全部选择
+    public void setAllCheck(Boolean isCheckAll){
+        for(CollectGoods bean:dataList){
+            bean.setCheck(isCheckAll);
+        }
+        isAllCheck = "1";
+        notifyDataSetChanged();
+        if(!isCheckAll){
+            deletefids.clear();
+        }else{
+            for(CollectGoods check : dataList){
+                if(!deletefids.contains(check.getFid()))
+                deletefids.add(check.getFid());
+            }
+        }
+        Message msg = new Message();
+        msg.obj = deletefids;
+        msg.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+        mHandler.sendMessage(msg);
+    }
+    @Override
+    public int getItemViewType(int position) {
+//        0:合伙 1:甩卖 3:发行价
+        String type = dataList.get(position).getType();
+        if ("0".equals(type)) {
+            returnLayout = SM_LAYOUT;
+        } else if ("1".equals(type)) {
+            returnLayout = HHM_LAYOUT;
+        } else if ("3".equals(type)) {
+            returnLayout = YFX_LAYOUT;
+        }
+        return returnLayout;
+    }
+
+    public void setEdit(boolean isEdit) {
+        this.isEdit = isEdit;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public View bindView(int position, View convertView, ViewGroup parent) {
+
+        CollectGoods collectbean = dataList.get(position);
+        int viewType = getItemViewType(position);
+        if (convertView == null) {
+            switch (viewType) {
+                case SM_LAYOUT:
+                    convertView = baseInflater.inflate(R.layout.search_tm_item, parent, false);
+                    break;
+                case HHM_LAYOUT:
+                    convertView = baseInflater.inflate(R.layout.search_hhm_item, parent, false);
+                    break;
+                case YFX_LAYOUT:
+                    convertView = baseInflater.inflate(R.layout.search_yfx_item, parent, false);
+                    break;
+            }
+        }
+        if (0 == viewType) {
+            //特卖视图
+            CheckBox collect_all_tm = (CheckBox) ViewHolderUtil.getItemView(convertView, R.id.collect_all_tm);
+            TextView tm_xl = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tm_xl);
+            TextView tm_kc = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tm_kc);
+            ImageView tm_goods = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.tm_goods);
+            tm_xl.setText("已售:" + collectbean.getSoldnum());
+            tm_kc.setText("库存:" + collectbean.getKcnum());
+            MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(), tm_goods, MyApplication.options);
+            setIsEdit(collect_all_tm);
+            collect_all_tm.setChecked(collectbean.isCheck());
+            if(isAllCheck.equals("0"))
+                collect_all_tm.setOnCheckedChangeListener(new ChioceCb(collectbean));
+        } else if (1 == viewType) {
+            //合伙买视图
+            CheckBox collect_all_hhm = (CheckBox) ViewHolderUtil.getItemView(convertView, R.id.collect_all_hhm);
+            TextView hhm_ys = (TextView) ViewHolderUtil.getItemView(convertView, R.id.hhm_ys);
+            TextView hhm_kc = (TextView) ViewHolderUtil.getItemView(convertView, R.id.hhm_kc);
+            ImageView iv_hhm = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.iv_hhm);
+            ProgressBar hhm_pb = (ProgressBar) ViewHolderUtil.getItemView(convertView, R.id.hhm_pb);
+            hhm_ys.setText(collectbean.getSoldnum() + "/");
+            hhm_kc.setText(collectbean.getKcnum() + collectbean.getUnit());
+            collect_all_hhm.setChecked(collectbean.isCheck());
+            MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(), iv_hhm, MyApplication.options_banner);
+            //进度条
+            if (!StringUtil.isEmpty(collectbean.getSoldnum())
+                    && !StringUtil.isEmpty(collectbean.getKcnum())) {
+                float proportion = (Float.parseFloat(collectbean
+                        .getSoldnum()))
+                        / (float) (Integer.parseInt(collectbean
+                        .getKcnum()));
+                int progress = (int) (proportion * 100);
+                Resources res = mcontext.getResources();
+                hhm_pb.setProgressDrawable(res
+//								.getDrawable(R.drawable.good_pb));
+                        .getDrawable(R.drawable.progress_color_yellow));
+                hhm_pb.setProgress(progress);
+            }
+            setIsEdit(collect_all_hhm);
+            if(isAllCheck.equals("0"))
+                collect_all_hhm.setOnCheckedChangeListener(new ChioceCb(collectbean));
+        } else if (2 == viewType) {
+            //E发行视图
+            CheckBox collect_all_fx = (CheckBox) ViewHolderUtil.getItemView(convertView, R.id.collect_all_yfx);
+            TextView yfx_price = (TextView) ViewHolderUtil.getItemView(convertView, R.id.yfx_price);
+            TextView fxj_area = (TextView) ViewHolderUtil.getItemView(convertView, R.id.fxj_area);
+            TextView yfx_time = (TextView) ViewHolderUtil.getItemView(convertView, R.id.yfx_time);
+            ImageView iv_yfx = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.iv_yfx);
+            yfx_price.setText(collectbean.getPrice() + "/" + collectbean.getUnit());
+            fxj_area.setText(collectbean.getReleaseArea());
+            yfx_time.setText(collectbean.getEndTime());
+            collect_all_fx.setChecked(collectbean.isCheck());
+            MyApplication.getInstance().imageLoader.displayImage(collectbean.getPic(), iv_yfx, MyApplication.options);
+            setIsEdit(collect_all_fx);
+            if(isAllCheck.equals("0"))
+            collect_all_fx.setOnCheckedChangeListener(new ChioceCb(collectbean));
+
+        }
+        return convertView;
+    }
+
+    private class ChioceCb implements CompoundButton.OnCheckedChangeListener {
+        CollectGoods collectbeanChoice;
+
+        private  ChioceCb(CollectGoods collectbeanChoice) {
+            this.collectbeanChoice = collectbeanChoice;
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        AddOrRemove(collectbeanChoice,isChecked);
+                        Message msg = new Message();
+                        msg.obj = deletefids;
+                        msg.what = ConstantsUtil.HTTP_SUCCESS_LOGIN_LAST;
+                        mHandler.sendMessage(msg);
+        }
+    }
+
+    void AddOrRemove(CollectGoods collectbeanChoice, boolean isChecked) {
+        if (collectbeanChoice != null) {
+            collectbeanChoice.setCheck(isChecked);
+            if (isChecked) {
+                if (!deletefids.contains(collectbeanChoice.getFid())) {
+                    deletefids.add(collectbeanChoice.getFid());
+                }
+            } else {
+                if (deletefids.contains(collectbeanChoice.getFid())) {
+                    deletefids.remove(collectbeanChoice.getFid());
+                }
+            }
+        }
+    }
+
+    void setIsEdit(CheckBox cb) {
+        if (isEdit)
+            cb.setVisibility(View.VISIBLE);
+        else
+            cb.setVisibility(View.GONE);
+    }
+
+}

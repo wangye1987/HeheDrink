@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     android:alpha="0.92"
+     android:gravity="center"
+    android:background="@color/color_545151"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_dialog"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/title_linear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:paddingTop="@dimen/margin_30"
+               android:layout_centerInParent="true"
+                android:textColor="@color/color_2b2b2b"
+                android:textSize="@dimen/text_size_15" />
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:gravity="bottom|center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/color_999999"
+                android:text="" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tv_cancle"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height_32"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:text="取消"
+                    android:textColor="@color/color_2b2b2b"
+                    android:textSize="@dimen/text_size_14" />
+
+                <TextView
+                    android:id="@+id/hehe_im"
+                    style="@style/gray_textstyle_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/button_height_28"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_black_gray"
+                    android:drawableLeft="@drawable/erji"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_5"
+                    android:text="在线客服"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    style="@style/gray_textstyle_14"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_999999"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/hehe_tel"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/button_height_32"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/margin_10"
+                    android:paddingRight="@dimen/margin_10"
+                    android:text="拨打客服电话"
+                    android:textColor="@color/color_2b2b2b"
+                    android:textSize="@dimen/text_size_14" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

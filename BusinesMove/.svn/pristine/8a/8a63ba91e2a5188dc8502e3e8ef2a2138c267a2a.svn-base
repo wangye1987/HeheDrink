@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ebebeb"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:background="@color/white"
+        android:textColor="@color/red_text_color"
+        android:textSize="@dimen/text_size_10"
+        android:visibility="gone"
+        android:text="批发：下单后7天内未支付，过期将自动取消。" />
+
+    <com.heheys.ec.lib.view.RefreshListView
+        android:id="@+id/myorder_lv"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:divider="@null"
+        android:footerDividersEnabled="false"
+        android:clickable="true"
+        android:background="@color/white"
+        android:listSelector="@drawable/list_selector" >
+    </com.heheys.ec.lib.view.RefreshListView>
+
+    <LinearLayout
+        android:id="@+id/linear_nodata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="-2dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/linearLayout_height_123"
+            android:src="@drawable/order_null" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_84"
+            android:layout_marginTop="@dimen/margin_36"
+            android:text="亲您的订单现在空空如也!"
+            android:textColor="@color/color_7d7c7c"
+            android:textSize="@dimen/text_size_17" />
+    </LinearLayout>
+
+</LinearLayout>

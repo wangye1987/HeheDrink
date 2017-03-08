@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:layout_marginLeft="@dimen/margin_10"
+        android:layout_marginRight="@dimen/margin_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height"
+        android:layout_marginTop="@dimen/margin_20" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/button_height_44"
+            android:layout_marginRight="@dimen/margin_10"
+            android:layout_weight="1"
+            android:background="@drawable/sharp_login" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="11dp"
+                android:text="请输入优惠券编码"
+                android:textColor="@color/color_bababa" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="码"
+                android:textColor="@color/color_bababa"
+                android:visibility="invisible" />
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/coupon_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:inputType="number"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_code"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center" >
+
+            <com.heheys.ec.lib.view.RevealLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/coupon_code"
+                    style="@style/white_text_style"
+                    android:layout_width="@dimen/button_width"
+                    android:layout_height="@dimen/button_height_44"
+                    android:background="@drawable/bt_bg_yellow"
+                    android:gravity="center"
+                    android:text="@string/exchange_tv" />
+            </com.heheys.ec.lib.view.RevealLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

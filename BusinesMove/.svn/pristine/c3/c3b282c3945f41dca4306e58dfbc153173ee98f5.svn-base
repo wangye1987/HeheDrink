@@ -1,0 +1,149 @@
+package com.heheys.ec.model.adapter;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.application.MyApplication;
+import com.heheys.ec.lib.base.BaseListAdapter;
+import com.heheys.ec.lib.base.ViewHolderUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.dataBean.SearchResultBean;
+
+import java.util.List;
+
+/**
+ * 作者：wangkui on 2016/12/22 15:18
+ * 邮箱：wangkui20090909@sina.com
+ * 说明:检索结果适配器
+ */
+
+public class SearchResultAdapter extends BaseListAdapter<SearchResultBean.SearchBean> {
+
+
+    //特卖视图
+    private static final int SM_LAYOUT = 0;
+    //合伙买视图
+    private static final int HHM_LAYOUT = 1;
+    //E发行视图
+    private static final int YFX_LAYOUT = 2;
+
+    private int returnLayout;
+    private int TOTAL = 3;
+    private TextView tm_xl;
+    private TextView tm_kc;
+    private TextView tm_unit;
+    private ImageView tm_goods;
+    private TextView hhm_ys;
+    private TextView hhm_kc;
+    private ImageView iv_hhm;
+    private ProgressBar hhm_pb;
+    private TextView yfx_price;
+    private TextView fxj_area;
+    private TextView yfx_time;
+    private ImageView iv_yfx;
+
+    public SearchResultAdapter(List<SearchResultBean.SearchBean> data, Context context) {
+        super(data, context);
+    }
+
+    public SearchResultAdapter(List<SearchResultBean.SearchBean> data, Object obj, Context context) {
+        super(data, obj, context);
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+//        0:合伙 1:甩卖 3:发行价
+        String type = dataList.get(position).getType();
+        if("0".equals(type)){
+            returnLayout = SM_LAYOUT;
+        }else if("1".equals(type)){
+            returnLayout = HHM_LAYOUT;
+        }else if("3".equals(type)){
+            returnLayout = YFX_LAYOUT;
+        }
+        return returnLayout;
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return TOTAL;
+    }
+
+    @Override
+    public View bindView(int position, View convertView, ViewGroup parent) {
+        SearchResultBean.SearchBean searchBean = dataList.get(position);
+        int viewType = getItemViewType(position);
+        if (convertView == null) {
+            switch (viewType){
+                case SM_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_tm_item,parent,false);
+                    break;
+                case HHM_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_hhm_item,parent,false);
+                    break;
+                case YFX_LAYOUT:
+                    convertView =  baseInflater.inflate(R.layout.search_yfx_item,parent,false);
+                    break;
+            }
+        }
+            /**
+             * 查找组件
+             * */
+            if(0 == viewType){
+                //特卖视图
+                tm_xl = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tm_xl);
+                tm_kc = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tm_kc);
+                tm_unit = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tm_unit);
+                tm_goods = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.tm_goods);
+                if(searchBean != null) {
+                    tm_xl.setText("已售:" + searchBean.getSoldnum());
+                    tm_kc.setText("库存:" + searchBean.getKcnum());
+                    tm_unit.setText("/" + searchBean.getUnit());
+                    MyApplication.getInstance().imageLoader.displayImage(searchBean.getPic(), tm_goods,MyApplication.options);
+                }
+            }else if(1== viewType){
+                //合伙买视图
+                hhm_ys = (TextView) ViewHolderUtil.getItemView(convertView, R.id.hhm_ys);
+                hhm_kc = (TextView) ViewHolderUtil.getItemView(convertView, R.id.hhm_kc);
+                iv_hhm = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.iv_hhm);
+                hhm_pb = (ProgressBar) ViewHolderUtil.getItemView(convertView, R.id.hhm_pb);
+                if(searchBean != null) {
+                hhm_ys.setText(searchBean.getSoldnum()+"/");
+                hhm_kc.setText(searchBean.getKcnum()+searchBean.getUnit());
+                MyApplication.getInstance().imageLoader.displayImage(searchBean.getPic(), iv_hhm,MyApplication.options_banner);
+                //进度条
+                if (!StringUtil.isEmpty(searchBean.getSoldnum())
+                        && !StringUtil.isEmpty(searchBean.getKcnum())) {
+                    float proportion = (Float.parseFloat(searchBean
+                            .getSoldnum()))
+                            / (float) (Integer.parseInt(searchBean
+                            .getKcnum()));
+                    int progress = (int) (proportion * 100);
+                    Resources res = mcontext.getResources();
+//                    hhm_pb.setProgressDrawable(res
+//								.getDrawable(R.drawable.progress_color_yellow));
+                    hhm_pb.setProgress(progress);
+                }}
+            }else if(2 == viewType){
+                //E发行视图
+                yfx_price = (TextView) ViewHolderUtil.getItemView(convertView, R.id.yfx_price);
+                fxj_area = (TextView) ViewHolderUtil.getItemView(convertView, R.id.fxj_area);
+                yfx_time = (TextView) ViewHolderUtil.getItemView(convertView, R.id.yfx_time);
+                iv_yfx = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.iv_yfx);
+                if(searchBean != null) {
+                    yfx_price.setText(searchBean.getPrice() + "/" + searchBean.getUnit());
+                    fxj_area.setText(searchBean.getReleaseArea());
+                    yfx_time.setText(searchBean.getDiffTime());
+                    MyApplication.getInstance().imageLoader.displayImage(searchBean.getPic(), iv_yfx, MyApplication.options);
+                }
+           }
+
+        return convertView;
+    }
+}

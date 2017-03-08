@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.92"
+     android:gravity="center"
+    android:background="@color/color_545151"
+    android:orientation="vertical" >
+    
+<LinearLayout
+        android:id="@+id/linear_top"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@drawable/dialog"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/title_linear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
+
+            <TextView
+                android:id="@+id/tv_order"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定取消"
+                android:paddingTop="@dimen/margin_13"
+               android:layout_centerInParent="true"
+                android:textColor="@color/color_2b2b2b"
+                android:textSize="@dimen/text_size_15" />
+
+            <LinearLayout
+                android:id="@+id/linear_close"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:gravity="top|right" >
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/weirenzheng" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_reason"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="top|left"
+                android:textSize="@dimen/text_size_12"
+                android:textColor="@color/color_999999"
+                android:text="取消原因 :" />
+
+            <EditText
+                android:id="@+id/et_reason"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top|left"
+                android:background="@null"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/text_size_12"
+                >
+
+                <requestFocus />
+            </EditText>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_dj"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="订单取消后将扣除订金." />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/bt_countine"
+            android:layout_gravity="center|bottom"
+            android:layout_width="100dp"
+            android:background="@drawable/bt_bg_yellow"
+            android:layout_height="@dimen/button_height_32"
+            android:textSize="@dimen/text_size_16"
+            android:textColor="@color/white"
+            android:text="完成" />
+
+    </LinearLayout>
+</LinearLayout>

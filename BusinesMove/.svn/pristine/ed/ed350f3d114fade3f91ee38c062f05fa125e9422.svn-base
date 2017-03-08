@@ -1,0 +1,62 @@
+﻿{
+  "result": {
+    "list": [
+      {
+        "suitId": "123",
+        "suitTitle": "优惠套装一",
+        "suitPrice": "150",
+        "suitSave": "立即省50",
+        "listItem": [
+          {
+            "pic": "http://sc.jb51.net/uploads/allimg/150603/14-150603145201143.jpg",
+            "name": "二锅头1",
+            "unit": "12",
+            "priceInfo": "25元",
+             "id":"21",
+             "bottlevol":"345ml",
+              "numPerSuit":"6个"
+          },
+          {
+             "pic": "http://sc.jb51.net/uploads/allimg/150603/14-150603145201143.jpg",
+            "name": "二锅头1",
+            "unit": "12",
+            "priceInfo": "25元",
+             "id":"21",
+             "bottlevol":"345ml",
+              "numPerSuit":"6个"
+          }
+        ]
+      },
+      {
+        "suitId": "12dsa",
+        "suitTitle": "优惠套装二",
+        "suitPrice": "100",
+        "suitSave": "立即省14",
+        "listItem": [
+          {
+             "pic": "http://sc.jb51.net/uploads/allimg/150603/14-150603145201143.jpg",
+            "name": "二锅头3",
+            "unit": "12",
+            "priceInfo": "25元",
+             "id":"21",
+             "bottlevol":"345ml",
+              "numPerSuit":"6个"
+          },
+          {
+            "pic": "http://sc.jb51.net/uploads/allimg/150603/14-150603145201143.jpg",
+            "name": "二锅头4",
+            "unit": "12",
+            "priceInfo": "25元",
+             "id":"21",
+             "bottlevol":"345ml",
+              "numPerSuit":"6个"
+          }
+        ]
+      }
+    ]
+  },
+  "error": {
+    
+  },
+  "status": 1
+}

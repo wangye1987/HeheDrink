@@ -1,0 +1,97 @@
+package com.heheys.ec.model.adapter;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.heheys.ec.R;
+import com.heheys.ec.controller.activity.MyOrderDetailActivity;
+import com.heheys.ec.lib.activityManager.StartActivityUtil;
+import com.heheys.ec.lib.base.BaseListAdapter;
+import com.heheys.ec.lib.base.ViewHolderUtil;
+import com.heheys.ec.lib.utils.StringUtil;
+import com.heheys.ec.model.dataBean.HeheMoneyBaseBean.HeheMoneyitem;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+public class HeheMoneyListAdapter extends BaseListAdapter<HeheMoneyitem> {
+
+	Context mContext;
+	private TextView tv_point;
+	private TextView tv_point_detail;
+	private TextView tv_point_time;
+	private String tv_coin;
+	private ImageView iv_arrow;
+
+	public HeheMoneyListAdapter(List<HeheMoneyitem> data, Context context) {
+		super(data, context);
+		// TODO Auto-generated constructor stub
+		this.mContext = context;
+	}
+	
+	@SuppressLint("SimpleDateFormat") String Data(long milliseconds){
+		Date date =new Date(milliseconds);
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-DD HH-MM");
+		return sd.format(date);
+	}
+	@Override
+	public View bindView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		if(convertView == null){
+			convertView = baseInflater.inflate(R.layout.point_item, parent, false);
+		}
+		HeheMoneyitem bean = dataList.get(position);
+		tv_point = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tv_point);
+		tv_point_detail = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tv_point_detail);
+		tv_point_time = (TextView) ViewHolderUtil.getItemView(convertView, R.id.tv_point_time);
+		iv_arrow = (ImageView) ViewHolderUtil.getItemView(convertView, R.id.iv_arrow);
+		if(!StringUtil.isEmpty(bean.getAction()))
+			tv_point_detail.setText(bean.getAction()+bean.getShowInfo());
+		tv_point_time.setText("时间:"+bean.getCreateTime());
+		if(Float.parseFloat(bean.getCoin())>0){
+			tv_point.setTextColor(mContext.getResources().getColor(R.color.color_c29418));
+			tv_point.setText("+"+bean.getCoin());
+		}else{
+			tv_point.setTextColor(mContext.getResources().getColor(R.color.color_cc394b));
+			tv_point.setText(""+bean.getCoin());
+		}
+		final int index = position;
+		if(dataList.get(index).getCoinAction() == 1 || dataList.get(index).getCoinAction() == 2)
+			iv_arrow.setVisibility(View.VISIBLE);
+		else
+			iv_arrow.setVisibility(View.INVISIBLE);
+		tv_coin = tv_point.getText().toString().trim();
+		Spannable WordtoSpan = new SpannableString(tv_coin);  
+		WordtoSpan.setSpan(new AbsoluteSizeSpan(34), 0, tv_coin.length()-2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);  
+		WordtoSpan.setSpan(new AbsoluteSizeSpan(24), tv_coin.length()-2, tv_coin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		tv_point.setText(WordtoSpan);
+		convertView.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(dataList.get(index).getCoinAction() == 1 || dataList.get(index).getCoinAction() == 2){
+					//订单就跳转到订单界面
+					Intent intent  = new Intent(mcontext, MyOrderDetailActivity.class);
+					intent.putExtra("oid", dataList.get(index).getShowInfo());
+					//支付需要参数 当前不需要传
+					intent.putExtra("Goodsname", "");
+					intent.putExtra("Goodsdesc", "");
+					intent.putExtra("status", "");
+					StartActivityUtil.startActivity((Activity) mcontext, intent);
+				}
+			}
+		});
+		return convertView;
+	}
+}

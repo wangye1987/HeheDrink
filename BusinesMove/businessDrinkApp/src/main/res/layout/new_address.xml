@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/addressinfo"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/consignee"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <EditText
+                android:id="@+id/et_receiverName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入姓名"
+                android:maxLength="10"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />
+
+        <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/destance"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/tel"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="号码"
+                android:textSize="@dimen/text_size_15" 
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/et_tel_link"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />
+
+        <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/destance_all"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="选择地区"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="省"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/et_destance_all"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请选择所在地区"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:clickable="true"
+                android:textSize="14sp" />
+            <TextView
+                android:id="@+id/address_destance"
+                android:drawableLeft="@drawable/result_location"
+                android:text="定位"
+                android:gravity="center_vertical"
+                android:textColor="#FFFABD1B"
+                android:drawablePadding="@dimen/margin_3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />
+
+      <!--  <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/tv_stree"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/city"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="省市省"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/et_street"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请选择城市"
+                android:padding="@dimen/order_margin_5"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                 android:clickable="false"
+                 android:enabled="false"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+      &lt;!&ndash;  <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />&ndash;&gt;
+
+        <LinearLayout
+            style="@style/marginagent_address"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/tv_street"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="县 / 区"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="省市"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/et_county"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableRight="@drawable/arrow"
+                android:hint="请选择县 /区"
+                android:padding="@dimen/order_margin_5"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />-->
+
+        <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/tv_detail_add"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/detail_add"
+                android:textColor="@color/color_bababa"
+                android:textSize="@dimen/text_size_15" />
+
+            <EditText
+                android:id="@+id/et_detail_add"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="请输入详细地址"
+                android:maxLength="100"
+                android:textColor="@color/color_454545"
+                android:textColorHint="@color/color_bababa"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="1dip" />
+
+      <!--  <LinearLayout
+            style="@style/marginagent_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/text"
+                android:textSize="@dimen/text_size_15"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/tv_postcode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="@dimen/order_margin_5"
+                android:text="@string/postcode" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/text"
+                android:visibility="invisible" />
+
+            <EditText
+                android:id="@+id/et_postcode"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/sharp_linear"
+                android:padding="@dimen/order_margin_5" />
+        </LinearLayout>-->
+    </LinearLayout>
+
+        <com.heheys.ec.lib.view.RevealLayout
+        android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/commit_ok"
+        style="@style/white_text_style"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height_38"
+        android:layout_margin="@dimen/order_margin_10"
+        android:background="@drawable/bt_bg_yellow"
+        android:text="@string/complete" />
+    </com.heheys.ec.lib.view.RevealLayout>
+</RelativeLayout>

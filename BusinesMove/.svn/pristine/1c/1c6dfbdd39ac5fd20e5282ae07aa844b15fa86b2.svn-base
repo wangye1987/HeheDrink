@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linear_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        android:orientation="vertical" >
+
+        <com.heheys.ec.lib.view.RevealLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+        <Button
+            android:id="@+id/add_address"
+            style="@style/white_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height_38"
+            android:layout_marginBottom="@dimen/margin_8"
+            android:layout_marginLeft="@dimen/margin_17"
+            android:layout_marginRight="@dimen/margin_17"
+            android:background="@drawable/bt_bg_yellow"
+            android:text="@string/add_address" />
+        </com.heheys.ec.lib.view.RevealLayout>
+        <LinearLayout
+            android:id="@+id/linaer_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/order_margin_10"
+            android:gravity="center"
+            android:visibility="gone" >
+
+            <CheckBox
+                android:id="@+id/iv_check_all"
+                style="@style/SingleCheckBoxStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:checked="false"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:text="全选" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/bt_delete"
+                style="@style/white_text_style"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height_38"
+                android:background="@drawable/shape_button_gray"
+                android:text="@string/custom_delete" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/linear_buttom"
+        android:divider="@null"
+        android:headerDividersEnabled="false"
+        android:listSelector="@drawable/list_click" >
+    </ListView>
+
+</RelativeLayout>

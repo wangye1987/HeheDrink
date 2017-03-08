@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="IMKit-2.0.0.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/baseWebViewActivity/libs/IMKit-2.0.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

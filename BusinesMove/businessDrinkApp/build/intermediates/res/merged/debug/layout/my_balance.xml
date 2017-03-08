@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_eeeeeee"
+    android:orientation="vertical">
+    <TextView
+        android:background="@color/color_dfdfdf"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_45"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView1"
+                style="@style/gray_textstyle"
+                android:textSize="@dimen/text_size_18"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/my_balance" />
+
+            <TextView
+                android:id="@+id/tv_mybalance"
+                android:textSize="30sp"
+                android:textColor="@color/color_FF3838"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_15"
+                android:text="0.00" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_40"
+            android:layout_marginLeft="@dimen/margin_20"
+            android:layout_marginRight="@dimen/margin_20"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <!--<Button
+                android:id="@+id/bt_getmoney_tx"
+                android:layout_width="@dimen/button_width_83"
+                android:layout_height="@dimen/button_height_36"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/margin_15"
+                android:background="@drawable/login_button"
+                android:enabled="true"
+                android:gravity="center"
+                android:text="@string/st_tx_jl"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/text_size_12" />-->
+
+            <Button
+                android:id="@+id/bt_getmoney_one"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/button_height_44"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/login_button"
+                android:enabled="false"
+                android:gravity="center"
+                android:text="@string/st_tx"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/text_size_12" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_hehemoney"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/margin_15">
+
+        <TextView
+            style="@style/gray_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/my_hehemoney" />
+
+        <ImageView
+            android:id="@+id/iv_hehemoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_5"
+            android:background="@drawable/arrow"
+            android:enabled="false"
+            android:padding="@dimen/margin_5"
+            android:text="@string/st_tx" />
+
+        <TextView
+            android:id="@+id/tv_hehemoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_toLeftOf="@id/iv_hehemoney"
+            android:text=""
+            android:textColor="@color/color_af2942"
+            android:textSize="@dimen/text_size_15" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_coupon"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/margin_15">
+
+        <TextView
+            style="@style/gray_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/my_coupon" />
+
+        <ImageView
+            android:id="@+id/iv_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_5"
+            android:background="@drawable/arrow"
+            android:enabled="false"
+            android:padding="@dimen/margin_5"
+            android:text="@string/st_tx" />
+
+        <TextView
+            android:id="@+id/tv_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_toLeftOf="@id/iv_coupon"
+            android:text=""
+            android:textColor="@color/color_af2942"
+            android:textSize="@dimen/text_size_15" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rv_points"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:layout_marginTop="@dimen/margin_20"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:visibility="gone"
+        android:paddingLeft="@dimen/margin_15">
+
+        <TextView
+            style="@style/gray_textstyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/my_points" />
+
+        <ImageView
+            android:id="@+id/iv_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_5"
+            android:background="@drawable/arrow"
+            android:enabled="false"
+            android:padding="@dimen/margin_5"
+            android:text="@string/st_tx" />
+
+        <TextView
+            android:id="@+id/tv_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin_5"
+            android:layout_toLeftOf="@id/iv_points"
+            android:text=""
+            android:textColor="@color/color_af2942"
+            android:textSize="@dimen/text_size_15" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_withdraw"
+        style="@style/money_linear_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:background="@drawable/sharp_login"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/TextView01"
+                style="@style/login_text_style"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/get_money"
+                android:textColor="@color/color_bababa" />
+
+            <com.heheys.ec.view.DeleteEditText
+                android:id="@+id/withdraw_et"
+                style="@style/login_text_hint_style"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/order_margin_5"
+                android:layout_weight="1"
+                android:background="@null"
+                android:digits="0123456789."
+                android:hint="@string/hint_money"
+                android:maxLength="11"
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textColor="@color/color_454545">
+
+                <requestFocus />
+            </com.heheys.ec.view.DeleteEditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height"
+            android:layout_marginTop="@dimen/margin_20">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="@dimen/margin_16"
+                android:layout_weight="1"
+                android:background="@drawable/sharp_login"
+                android:gravity="center">
+
+                <TextView
+                    style="@style/login_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="0dp"
+                    android:text="@string/postcode_text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text"
+                    android:visibility="invisible" />
+
+                <com.heheys.ec.view.DeleteEditText
+                    android:id="@+id/pass_code"
+                    style="@style/login_text_hint_style"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/order_margin_5"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:digits="0123456789"
+                    android:hint="@string/hint_postcode"
+                    android:imeOptions="actionDone"
+                    android:inputType="number"
+                    android:maxLength="6"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="5dp"
+                    android:textColor="@color/color_454545" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/bt_bg_yellow"
+                android:gravity="center">
+
+                <com.heheys.ec.lib.view.RevealLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/outh_code"
+                        style="@style/white_text_style"
+                        android:layout_width="@dimen/button_width_90"
+                        android:layout_height="@dimen/button_height_48"
+                        android:background="@null"
+                        android:text="@string/send_postcode" />
+                </com.heheys.ec.lib.view.RevealLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_20"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="验证码已经发送到:" />
+
+            <TextView
+                android:id="@+id/tv_tel"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="15*****" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView3"
+                style="@style/gray_textstyle_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请审批后资金将打入绑定的收款账号" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/bt_bind"
+                style="@style/white_text_style"
+                android:layout_width="@dimen/button_width_90"
+                android:layout_height="@dimen/button_height_30"
+                android:background="@color/white"
+                android:text="设置收款账号"
+                android:textColor="@color/color_999999"
+                android:textSize="@dimen/text_size_12" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_getmoney"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/button_height_40"
+        android:layout_marginLeft="@dimen/margin_28"
+        android:layout_marginRight="@dimen/margin_28"
+        android:layout_marginTop="@dimen/margin_15"
+        android:background="@drawable/shape_forget"
+        android:enabled="false"
+        android:gravity="center"
+        android:padding="@dimen/margin_5"
+        android:text="申请"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_12"
+        android:layout_marginBottom="@dimen/margin_20"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_istx"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|left"
+        android:layout_marginLeft="@dimen/margin_18"
+        android:padding="@dimen/margin_10"
+        android:text=""
+        android:textColor="@color/red_text_color"
+        android:textSize="@dimen/text_size_12"
+        android:visibility="gone" />
+
+</LinearLayout>

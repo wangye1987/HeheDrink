@@ -1,0 +1,193 @@
+package com.heheys.ec.model.dataBean; 
+
+import java.io.Serializable;
+import java.util.List;
+
+/** 
+ * @author 作者 E-mail: wk
+ * @version 创建时间：2015-9-29 下午4:20:59 
+ * 类说明 
+ * @param
+ */
+public class ResultBean implements Serializable{
+//"id":12,"verifystatus":0,"shopname":"喝喝云商修改3","mobile":"18500001100"
+//	{"id":24,"impassword":"878d86723f149602730171fd9c17fe8b","imaccount":"9d9b79d9df1edca27e01e72d54728fe4",
+//	"role":["1","2","3"],"verifystatus":0,"shopname":"","mobile":"13601160745"}
+	private String id;
+	private String impassword;
+	private String imaccount;
+//	private List<String> role;
+	private String verifystatus;
+	private String regdays;//距离注册的时间(天)
+	private String shopname;
+	private String mobile;
+	private String url;//管理商后台h5url
+	private String cityname;
+	private String provincename;
+	private String roleid;
+	private String rolename;
+	private int viplevel;
+	private String supportUrl;
+//	private boolean supportarrive;//当前账户是否支持到付
+	
+	private Msgtips msgtips;
+	
+	public Msgtips getMsgtips() {
+		return msgtips;
+	}
+	public void setMsgtips(Msgtips msgtips) {
+		this.msgtips = msgtips;
+	}
+	public int getViplevel() {
+		return viplevel;
+	}
+	public void setViplevel(int viplevel) {
+		this.viplevel = viplevel;
+	}
+	public String getSupportUrl() {
+		return supportUrl;
+	}
+	public void setSupportUrl(String supportUrl) {
+		this.supportUrl = supportUrl;
+	}
+//	public boolean isSupportarrive() {
+//		return supportarrive;
+//	}
+//	public void setSupportarrive(boolean supportarrive) {
+//		this.supportarrive = supportarrive;
+//	}
+	public String getRoleid() {
+		return roleid;
+	}
+	public void setRoleid(String roleid) {
+		this.roleid = roleid;
+	}
+	public String getRolename() {
+		return rolename;
+	}
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
+	public String getRegdays() {
+		return regdays;
+	}
+	public void setRegdays(String regdays) {
+		this.regdays = regdays;
+	}
+	public String getCityname() {
+		return cityname;
+	}
+	public void setCityname(String cityname) {
+		this.cityname = cityname;
+	}
+	public String getProvincename() {
+		return provincename;
+	}
+	public void setProvincename(String provincename) {
+		this.provincename = provincename;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getVerifystatus() {
+		return verifystatus;
+	}
+	public void setVerifystatus(String verifystatus) {
+		this.verifystatus = verifystatus;
+	}
+	public String getShopname() {
+		return shopname;
+	}
+	public void setShopname(String shopname) {
+		this.shopname = shopname;
+	}
+	public String getMobile() {
+		return mobile;
+	}
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+	public String getImpassword() {
+		return impassword;
+	}
+	public void setImpassword(String impassword) {
+		this.impassword = impassword;
+	}
+	public String getImaccount() {
+		return imaccount;
+	}
+	public void setImaccount(String imaccount) {
+		this.imaccount = imaccount;
+	}
+
+	
+	public static class Msgtips implements Serializable{
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		private String title;
+		private String content;
+		private boolean success;
+		private List<Msglist> msglist;
+		public String getTitle() {
+			return title;
+		}
+		public void setTitle(String title) {
+			this.title = title;
+		}
+		public String getContent() {
+			return content;
+		}
+		public void setContent(String content) {
+			this.content = content;
+		}
+		public List<Msglist> getMsglist() {
+			return msglist;
+		}
+		public void setMsglist(List<Msglist> msglist) {
+			this.msglist = msglist;
+		}
+		public boolean isSuccess() {
+			return success;
+		}
+		public void setSuccess(boolean success) {
+			this.success = success;
+		}
+		
+	}
+	
+	public static class Msglist implements Serializable{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		private String msg;
+		private boolean  success;
+		public String getMsg() {
+			return msg;
+		}
+		public void setMsg(String msg) {
+			this.msg = msg;
+		}
+		public boolean isSuccess() {
+			return success;
+		}
+		public void setSuccess(boolean success) {
+			this.success = success;
+		}
+		
+	}
+}
+ 

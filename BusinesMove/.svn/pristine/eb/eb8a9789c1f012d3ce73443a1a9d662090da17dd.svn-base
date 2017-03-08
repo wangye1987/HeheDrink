@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_f7f7f7"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_f8f8f8" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_18"
+        android:layout_marginRight="@dimen/margin_18"
+        android:background="@drawable/shape_white_round"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_11"
+            android:paddingLeft="@dimen/margin_29"
+            android:paddingRight="@dimen/margin_47"
+            android:paddingTop="@dimen/margin_10" >
+
+            <TextView
+                android:id="@+id/card_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="28dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_363636"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/card_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/color_363636"
+                android:textSize="@dimen/text_size_14" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/card_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_29"
+            android:textColor="@color/color_363636"
+            android:textSize="@dimen/text_size_13" />
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginTop="@dimen/margin_14" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_47"
+            android:layout_marginTop="@dimen/margin_14" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号:"
+                android:textColor="@color/color_9a9a9a"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:id="@+id/card_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_454545"
+                android:textSize="@dimen/text_size_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_landline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_47"
+            android:layout_marginTop="@dimen/margin_13" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="座机号:"
+                android:textColor="@color/color_9a9a9a"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:id="@+id/card_landline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_454545"
+                android:textSize="@dimen/text_size_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_47"
+            android:layout_marginTop="@dimen/margin_13" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信号："
+                android:textColor="@color/color_9a9a9a"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:id="@+id/card_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_454545"
+                android:textSize="@dimen/text_size_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_16"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginRight="@dimen/margin_47"
+            android:layout_marginTop="@dimen/margin_13" >
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="地址:"
+                android:textColor="@color/color_9a9a9a"
+                android:textSize="@dimen/text_size_13" />
+
+            <TextView
+                android:id="@+id/card_address"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:textColor="@color/color_454545"
+                android:textSize="@dimen/text_size_13" />
+        </LinearLayout>
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_height="0.5dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_29"
+            android:layout_marginBottom="@dimen/margin_14"
+            android:layout_marginTop="@dimen/margin_15"
+            >
+
+            <TextView
+                android:id="@+id/tv_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="备注:"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:textColor="@color/color_9a9a9a"
+                android:textSize="@dimen/text_size_13" />
+
+            
+
+            <!--
+                 <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/margin_5"
+                android:layout_weight="1" />
+            -->
+
+            <LinearLayout
+                android:id="@+id/linear_remark"
+                android:layout_width="@dimen/linearLayout_height_58"
+                android:layout_height="@dimen/linearLayout_height_24"
+                android:orientation="vertical"
+                android:layout_centerVertical="true"
+                android:gravity="center|right"
+                android:layout_alignParentRight="true"
+                 >
+
+                <ImageView
+                    android:id="@+id/iv_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/margin_20"
+                    android:src="@drawable/selector_remark" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/card_remark"
+                android:layout_toRightOf="@id/tv_remark"
+                android:layout_toLeftOf="@id/linear_remark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_5"
+               />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dip"
+            android:background="@color/color_ececec" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/linearLayout_height_48"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/bt_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/selector_call_card"
+                    android:focusable="false"
+                    android:text="  打电话"
+                    android:textColor="@color/color_f98b43"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/color_A3A3A3" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center" >
+
+                <Button
+                    android:id="@+id/bt_msg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:drawableLeft="@drawable/selector_msg"
+                    android:focusable="false"
+                    android:text="  发短信"
+                    android:textColor="@color/color_f98b43"
+                    android:textSize="@dimen/text_size_13" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/margin_20"
+        android:paddingRight="@dimen/margin_20" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10" >
+
+            <TextView
+                android:id="@+id/card_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="王总" />
+
+            <TextView
+                android:id="@+id/card_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_10"
+                android:text="总经理" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/card_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:text="北京五粮液集团有限公司" />
+
+        <com.heheys.ec.lib.view.DrawLineTextView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="手机号:" />
+
+            <TextView
+                android:id="@+id/card_tel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="13506616164" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear_landline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="座机号:" />
+
+            <TextView
+                android:id="@+id/card_landline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01058362362" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_10"
+            android:paddingTop="@dimen/margin_10" >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信号：" />
+
+            <TextView
+                android:id="@+id/card_weixin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/card_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:text="地址:北京朝阳区五粮液大厦" />
+
+       
+    </LinearLayout>
+    -->
+
+</LinearLayout>

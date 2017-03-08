@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_FFEDEDED"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#dbdbdb" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/my_collect_goods"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/collect_goods"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="商品"
+                android:textColor="@color/color_FFd838"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/collect_one"
+                android:layout_width="@dimen/button_width_60"
+                android:layout_height="2dp"
+                android:background="@color/color_FFd838" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:background="#dbdbdb" />
+
+        <LinearLayout
+            android:id="@+id/my_collect_business"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/linearLayout_height_44"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/collect_business"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="商家"
+                android:textSize="@dimen/text_size_16" />
+
+            <TextView
+                android:id="@+id/collect_two"
+                android:layout_width="@dimen/button_width_60"
+                android:layout_height="2dp"
+                android:background="@color/color_FFd838"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/linear_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_FFEDEDED"
+            android:gravity="center|top"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/margin_40"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/margin_20"
+                android:drawableTop="@drawable/collect_empty"
+                android:text="您还没有收藏任何信息呢"
+                android:textColor="@color/color_FF5C5C5C" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:background="@color/color_FFEDEDED"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"></TextView>
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_collect"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            ></android.support.v4.view.ViewPager>
+        </LinearLayout>
+    </FrameLayout>
+
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/linear_buttom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/linearLayout_height_44"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/collect_all"
+            style="@style/SingleCheckBoxStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_10"
+            android:layout_weight="1"
+            android:gravity="left|center"
+            android:text="全选" />
+
+        <Button
+            android:id="@+id/cancle_collect"
+            android:layout_width="@dimen/button_width_90"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:background="@drawable/pay_bt"
+            android:gravity="center"
+            android:text="取消收藏"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_15" />
+    </LinearLayout>
+</LinearLayout>
